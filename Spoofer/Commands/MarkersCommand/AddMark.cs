@@ -18,9 +18,10 @@ namespace Spoofer.Commands.MarkersCommand
         }
         public override bool CanExecute(object parameter)
         {
-            return base.CanExecute(parameter) && !double.IsNaN(_mapViewModel.Longitude) &&
-            !double.IsNaN(_mapViewModel.Longitude) &&
-            !string.IsNullOrEmpty(_mapViewModel.Label);
+            return base.CanExecute(parameter);
+            //return base.CanExecute(parameter) && !double.IsNaN(_mapViewModel.Longitude) &&
+            //!double.IsNaN(_mapViewModel.Longitude) &&
+            //!string.IsNullOrEmpty(_mapViewModel.Label);
         }
         public override void Execute(object parameter)
         {

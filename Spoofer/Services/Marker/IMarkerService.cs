@@ -3,14 +3,15 @@ using Spoofer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Windows.Devices.Geolocation;
 
 namespace Spoofer.Services.Marker
 {
     public interface IMarkerService
     {
         void AddMarker(MapViewModel mapViewModel);
-        void RemoveMarker(string id);
-        List<Coordinates> GetAll();
-        Coordinates GetCoordinateById(string id);
+        void RemoveMarker(Geopoint point);
+        IEnumerable<Coordinates> GetAll();
+        Coordinates GetCoordinateByLocation(Geopoint point);
     }
 }

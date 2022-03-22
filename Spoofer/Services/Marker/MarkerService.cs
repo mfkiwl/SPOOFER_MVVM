@@ -1,4 +1,5 @@
 ﻿using log4net;
+using Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT;
 using Spoofer.Data;
 using Spoofer.Models;
 using Spoofer.ViewModels;
@@ -27,17 +28,20 @@ namespace Spoofer.Services.Marker
                     Latitude = mapViewModel.Latitude,
                     Longitude = mapViewModel.Longitude,
                     Height = mapViewModel.Height ?? 0,
-                    Name = mapViewModel.Label
+                    Name = mapViewModel.Label ?? "",
+
                 };
                 foreach (var user in _context.User)
                 {
+                    user.IsAuthenticated = true;
                     if ((bool)user.IsAuthenticated)
                     {
                         marker.UserId = user.UserId;
-                        _context.Add(marker);
-                        _context.SaveChanges();
                     }
                 }
+                _context.Add(marker);
+                _context.SaveChanges();
+
             }
             catch (Exception ex)
             {
@@ -46,30 +50,16 @@ namespace Spoofer.Services.Marker
             }
         }
 
-        public List<Coordinates> GetAll()
+        public IEnumerable<Coordinates> GetAll()
         {
             return _context.Coordinates.ToList();
         }
 
-        public Coordinates GetCoordinateById(string id)
+        public void RemoveMarker(Windows.Devices.Geolocation.Geopoint point)
         {
             try
             {
-                var coordinate = _context.Coordinates.SingleOrDefault(p => p.CoorfianteId == id);
-                return coordinate;
-            }
-            catch (Exception ex)
-            {
-                log.Error("Invalid Operation Excaption!!!!!!!!!!", ex);
-                return null;
-            }
-        }
-
-        public void RemoveMarker(string id)
-        {
-            try
-            {
-                var coordinateToRemove = _context.Coordinates.SingleOrDefault(p => p.CoorfianteId == id);
+                var coordinateToRemove = GetCoordinateByLocation(point);
                 _context.Remove(coordinateToRemove);
                 _context.SaveChanges(true);
             }
@@ -78,7 +68,20 @@ namespace Spoofer.Services.Marker
                 log.Error("Invalid Operation Excaption!!!!!!!!!!", ex);
                 return;
             }
+        }
 
+        public Coordinates GetCoordinateByLocation(Windows.Devices.Geolocation.Geopoint point)
+        {
+            try
+            {
+                var coordinate = _context.Coordinates.SingleOrDefault(p => p.Latitude == point.Position.Latitude && p.Longitude == point.Position.Longitude && p.Height == point.Position.Altitude);
+                return coordinate;
+            }
+            catch (Exception ex)
+            {
+                log.Error("Invalid Operation Excaption!!!!!!!!!!", ex);
+                return null;
+            }
         }
     }
 }

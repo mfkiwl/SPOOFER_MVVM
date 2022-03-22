@@ -3,6 +3,7 @@ using Spoofer.Services.Marker;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Windows.Devices.Geolocation;
 
 namespace Spoofer.Commands.MarkersCommand
 {
@@ -19,7 +20,7 @@ namespace Spoofer.Commands.MarkersCommand
         }
         public override void Execute(object parameter)
         {
-            _service.GetCoordinateById(parameter.ToString());
+            _service.GetCoordinateByLocation((Geopoint)parameter);
         }
     }
 }

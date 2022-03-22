@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls"
-             xmlns:local="clr-namespace:Spoofer.Views"
+             xmlns:local="clr-namespace:Spoofer.Views" xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MapViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="grid">
@@ -12,7 +12,7 @@
             <ColumnDefinition Width="511*"/>
             <ColumnDefinition Width="289*"/>
         </Grid.ColumnDefinitions>
-        <controls:MapControl Name="mapControl" Loaded="MapControl_Loaded" MapElementClick="MapControl_MapElementClick" MapTapped="MapControl_MapTapped"/>
+        <controls:MapControl Name="mapControl" MapDoubleTapped="mapControl_MapDoubleTapped" Loaded="MapControl_Loaded" MapElementClick="MapControl_MapElementClick"/>
         
         <Grid Grid.Column="1">
             <Grid.RowDefinitions >
@@ -33,10 +33,10 @@
             <TextBlock Grid.Row="3" Grid.Column="1" TextAlignment="Center"  HorizontalAlignment="Stretch" FontSize="17"  TextWrapping="Wrap" Text="Longitude" VerticalAlignment="Stretch"   />
             <TextBlock Grid.Row="5" Grid.Column="1" TextAlignment="Center"  HorizontalAlignment="Stretch" FontSize="17"  TextWrapping="Wrap" Text="Altitude" VerticalAlignment="Stretch"  />
             <TextBlock Grid.Row="7" Grid.Column="1" TextAlignment="Center"  HorizontalAlignment="Stretch" FontSize="17"  TextWrapping="Wrap" Text="Title" VerticalAlignment="Stretch"  />
-            <TextBox Grid.Row="2" Grid.Column="1" FontSize="10" Margin="21,8" />
-            <TextBox Grid.Row="4" Grid.Column="1" FontSize="10" Margin="21,8" />
-            <TextBox Grid.Row="6" Grid.Column="1" FontSize="10" Margin="21,8" />
-            <TextBox Grid.Row="8" Grid.Column="1" FontSize="10" Margin="21,8" />
+            <TextBox x:Name="lat" Grid.Row="2" Grid.Column="1" FontSize="12" Margin="21,8" Text="{Binding Latitude, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox x:Name="lon" Grid.Row="4" Grid.Column="1" FontSize="12" Margin="21,8" Text="{Binding Longitude, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="alt" Grid.Row="6" Grid.Column="1" FontSize="12" Margin="21,8"  Text="{Binding Height, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="lab" Grid.Row="8" Grid.Column="1" FontSize="12" Margin="21,8" Text="{Binding Label, UpdateSourceTrigger=PropertyChanged}"/>
             <Grid Grid.Row="9">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -45,7 +45,7 @@
                     <ColumnDefinition Width="*"/>
 
                 </Grid.ColumnDefinitions>
-                <Button Height="40" Width="65" Content="Create File"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Height="40" Width="65" Content="Create File"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Add}"/>
                 <Button Height="40" Width="65" Content="Remove " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <Button Height="40" Width="65" Content="Transmit" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button Height="40" Width="65" Content="Stop" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" />

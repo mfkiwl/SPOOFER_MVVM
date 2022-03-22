@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-
-
+using Windows.Devices.Geolocation;
 
 namespace Spoofer.ViewModels
 {
@@ -53,9 +52,9 @@ namespace Spoofer.ViewModels
             set { _height = (double)value; OnPropertyChanged("Height"); }
         }
 
-        private string _selectedMarkerId;
+        private Windows.Devices.Geolocation.Geopoint _selectedMarkerId;
 
-        public string SelectedMarkerId
+        public Windows.Devices.Geolocation.Geopoint SelectedMarkerId
         {
             get { return _selectedMarkerId; }
             set { _selectedMarkerId = value; OnPropertyChanged("SelectedMarkerId"); }
