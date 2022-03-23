@@ -32,7 +32,6 @@
 */
 
 #include "getopt.h"
-#include"pch.h"
 #include <string.h>
 #include <stdio.h>
 

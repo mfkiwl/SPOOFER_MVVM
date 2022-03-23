@@ -21,10 +21,10 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Downloads\gps-sdr-sim-master\getopt.h">
+    <ClInclude Include="getopt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Downloads\gps-sdr-sim-master\gpssim.h">
+    <ClInclude Include="gpssim.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,10 +35,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Downloads\gps-sdr-sim-master\getopt.c">
+    <ClCompile Include="getopt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Downloads\gps-sdr-sim-master\gpssim.c">
+    <ClCompile Include="gpssim.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
