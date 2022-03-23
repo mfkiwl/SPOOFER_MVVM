@@ -9,7 +9,8 @@ namespace Spoofer.EXMethods
 {
     public static class SpoofingMethods
     {
-        private const string LIBRARY_FILENAME = "";
-       
+        private const string LIBRARY_FILENAME = "Core.dll";
+        [DllImport(LIBRARY_FILENAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern double normVect(double x);
     }
 }

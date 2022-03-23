@@ -1,4 +1,5 @@
-﻿using Spoofer.Models;
+﻿using Spoofer.EXMethods;
+using Spoofer.Models;
 using Spoofer.Services.Marker;
 using System;
 using System.Linq;
@@ -88,6 +89,7 @@ namespace Spoofer.Views
                     mapControl.MapElements.Remove(element);
                     isIconSigned = false;
                 }
+                var doubleName = SpoofingMethods.normVect(signedElement.Location.Position.Latitude);
             }
 
         }
