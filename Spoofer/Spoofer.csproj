@@ -202,6 +202,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EXMethods\SpoofingMethods.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Services\Marker\IMarkerService.cs" />
     <Compile Include="Services\Marker\MarkerService.cs" />
@@ -295,6 +296,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.vcxproj">
+      <Project>{da8b0590-16b1-45e3-9d96-41c7f77580ea}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
