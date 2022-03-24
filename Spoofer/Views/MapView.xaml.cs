@@ -37,6 +37,7 @@ namespace Spoofer.Views
                     Longitude = (double)location.Longitude,
                     Altitude = (double)location.Height
                 };
+                int number = EXMethods.SpoofingMethods.MyMethod();
                 var geoPoint = new Geopoint(PinPosition);
                 var mapIcon = new MapIcon()
                 {
@@ -97,7 +98,6 @@ namespace Spoofer.Views
                 ZIndex = 0,
                 IsEnabled = false
             };
-            var number = EXMethods.SpoofingMethods.MyMethod();
             mapControl.MapElements.Add(mapIcon);
         }
 
