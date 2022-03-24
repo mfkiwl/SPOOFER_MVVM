@@ -1,10 +1,10 @@
 ﻿<UserControl x:Class="Spoofer.Views.AccountView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Spoofer.Views"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid Grid.IsSharedSizeScope="True">
@@ -30,7 +30,7 @@
                 <TextBlock Grid.Row="0" Text="UserName" />
                 <TextBox
                 Grid.Row="1"
-                Grid.Column="0"    
+                Grid.Column="0"
                 Margin="0,5,484,-13"
                 Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox
@@ -49,8 +49,8 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
-                x:Name="loginCheck" 
-                Visibility="Collapsed"    
+                x:Name="loginCheck"
+                Visibility="Collapsed"
                 Grid.Row="1"
                 Grid.Column="1"
                 Text="Stay Logged In" Margin="38,126,-38,-126" />
@@ -62,12 +62,10 @@
                 Margin="124,129,-146,-109"
                 IsChecked="{Binding IsStayedLoggedIn, UpdateSourceTrigger=PropertyChanged}" />
 
-
                 <Button x:Name="registerButton" Command="{Binding Register}" Content="Register" RenderTransformOrigin="0.174,5.53" Grid.Column="1" Margin="160,219,-140,-205" Grid.Row="1" />
                 <Button x:Name="loginButton" Command="{Binding Login}" Content="Login" RenderTransformOrigin="0.174,5.53" Grid.Column="1" Margin="160,219,-140,-205" Grid.Row="1" Visibility="Collapsed" />
                 <Button x:Name="goLoginButton" Content="I have an account yet" Grid.Column="1" Margin="376,224,-478,-200" Grid.Row="1" Click="goLoginButton_Click" />
                 <Button x:Name="goRegisterButton" Content="I Don't have an account" Grid.Column="1" Margin="376,224,-478,-200" Visibility="Collapsed" Grid.Row="1" Click="goRegisterButton_Click" />
-                 
             </Grid>
         </Grid>
     </Grid>

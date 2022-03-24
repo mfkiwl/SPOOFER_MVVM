@@ -189,6 +189,7 @@ typedef struct
 #else
 #define GPSSIM_DLL __declspec(dllimport)
 #endif
+extern GPSSIM_DLL int MyMethod();
 extern  GPSSIM_DLL void subVect(double* y, const double* x1, const double* x2);
 extern  GPSSIM_DLL double normVect(const double* x);
 extern  GPSSIM_DLL double dotProd(const double* x1, const double* x2);

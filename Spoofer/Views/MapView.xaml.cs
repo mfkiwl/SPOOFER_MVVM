@@ -1,13 +1,8 @@
-﻿using Spoofer.EXMethods;
-using Spoofer.Models;
-using Spoofer.Services.Marker;
+﻿using Spoofer.Services.Marker;
 using System;
 using System.Linq;
-using System.Windows.Media.Imaging;
 using Windows.Devices.Geolocation;
-using Windows.Foundation;
 using Windows.Storage.Streams;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
 using MapControl = Microsoft.Toolkit.Wpf.UI.Controls.MapControl;
 using UserControl = System.Windows.Controls.UserControl;
@@ -30,9 +25,8 @@ namespace Spoofer.Views
             {
                 mapControl.MapElements.RemoveAt(mapControl.MapElements.Count() - 1);
             }
-
-
         }
+
         private async void MapControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             foreach (var location in _markerService.GetAll())
@@ -42,7 +36,6 @@ namespace Spoofer.Views
                     Latitude = (double)location.Latitude,
                     Longitude = (double)location.Longitude,
                     Altitude = (double)location.Height
-
                 };
                 var geoPoint = new Geopoint(PinPosition);
                 var mapIcon = new MapIcon()
@@ -54,7 +47,6 @@ namespace Spoofer.Views
                     Title = location.Name
                 };
                 mapControl.MapElements.Add(mapIcon);
-
             }
             if (mapControl.MapElements.Any())
             {
@@ -74,7 +66,6 @@ namespace Spoofer.Views
             CancelTemporaryIcons();
             foreach (var element in e.MapElements)
             {
-
                 var signedElement = element as MapIcon;
                 if (!String.IsNullOrEmpty(signedElement.Title))
                 {
@@ -83,16 +74,16 @@ namespace Spoofer.Views
                     lon.Text = signedElement.Location.Position.Longitude.ToString();
                     alt.Text = signedElement.Location.Position.Altitude.ToString();
                     lab.Text = signedElement.Title;
+                    double user = signedElement.Location.Position.Latitude;
                 }
                 else
                 {
                     mapControl.MapElements.Remove(element);
                     isIconSigned = false;
                 }
-                var doubleName = SpoofingMethods.normVect(signedElement.Location.Position.Latitude);
             }
-
         }
+
         private void mapControl_MapDoubleTapped(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.MapInputEventArgs e)
         {
             CancelTemporaryIcons();
@@ -106,6 +97,7 @@ namespace Spoofer.Views
                 ZIndex = 0,
                 IsEnabled = false
             };
+            var number = EXMethods.SpoofingMethods.MyMethod();
             mapControl.MapElements.Add(mapIcon);
         }
 

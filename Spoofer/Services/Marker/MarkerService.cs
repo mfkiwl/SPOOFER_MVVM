@@ -1,12 +1,10 @@
 ﻿using log4net;
-using Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT;
 using Spoofer.Data;
 using Spoofer.Models;
 using Spoofer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Spoofer.Services.Marker
 {
@@ -14,10 +12,12 @@ namespace Spoofer.Services.Marker
     {
         private readonly CoordinatesContext _context;
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public MarkerService(CoordinatesContext context)
         {
             _context = context;
         }
+
         public void AddMarker(MapViewModel mapViewModel)
         {
             try
@@ -29,7 +29,6 @@ namespace Spoofer.Services.Marker
                     Longitude = mapViewModel.Longitude,
                     Height = mapViewModel.Height ?? 0,
                     Name = mapViewModel.Label ?? "",
-
                 };
                 foreach (var user in _context.User)
                 {
@@ -41,7 +40,6 @@ namespace Spoofer.Services.Marker
                 }
                 _context.Add(marker);
                 _context.SaveChanges();
-
             }
             catch (Exception ex)
             {

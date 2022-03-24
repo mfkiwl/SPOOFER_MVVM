@@ -13,6 +13,7 @@ namespace Spoofer.Commands.UserCommands
         }
 
         public abstract void Execute(object parameter);
+
         public void OnCanExecuteChange()
         {
             CanExecuteChanged?.Invoke(this, new EventArgs());

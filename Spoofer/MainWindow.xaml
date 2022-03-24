@@ -5,20 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Spoofer"
         xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:views1="clr-namespace:Spoofer.Views" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
-        
+
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.Resources>
             <DataTemplate DataType="{x:Type viewmodels:MapViewModel}">
-                <views1:MapView/>
+                <views1:MapView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:AccountViewModel}">
-                <views1:AccountView/>
+                <views1:AccountView />
             </DataTemplate>
-
         </Grid.Resources>
 
-        <ContentControl Content="{Binding CurrentViewModel}"/>
+        <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>

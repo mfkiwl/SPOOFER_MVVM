@@ -1,11 +1,6 @@
-﻿using Spoofer.Services.Navigation;
-using Spoofer.Services.User;
+﻿using Spoofer.Services.User;
 using Spoofer.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Spoofer.Commands.UserCommands
 {
@@ -13,6 +8,7 @@ namespace Spoofer.Commands.UserCommands
     {
         private readonly IRegister _iRegister;
         private readonly AccountViewModel _accountViewModel;
+
         public RegisterCommand(IRegister iRegister, AccountViewModel accountViewModel)
         {
             _iRegister = iRegister;
@@ -22,7 +18,7 @@ namespace Spoofer.Commands.UserCommands
 
         private void _accountViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_accountViewModel.UserName)|| e.PropertyName == nameof(_accountViewModel.Password))
+            if (e.PropertyName == nameof(_accountViewModel.UserName) || e.PropertyName == nameof(_accountViewModel.Password))
             {
                 OnCanExecuteChange();
             }
@@ -33,10 +29,10 @@ namespace Spoofer.Commands.UserCommands
             return !String.IsNullOrEmpty(_accountViewModel.UserName) &&
                 !String.IsNullOrEmpty(_accountViewModel.Password) && base.CanExecute(parameter);
         }
+
         public override void Execute(object parameter)
         {
             _iRegister.OnRegister(_accountViewModel);
-            
         }
     }
 }

@@ -1,17 +1,8 @@
-﻿using Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT;
-using Spoofer.Commands.MarkersCommand;
+﻿using Spoofer.Commands.MarkersCommand;
 using Spoofer.Services.Marker;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
-using Windows.Devices.Geolocation;
 
 namespace Spoofer.ViewModels
 {
@@ -66,14 +57,12 @@ namespace Spoofer.ViewModels
         public ICommand GetMark { get; }
 
         public ICommand GetAllMarks { get; }
+
         public MapViewModel(IMarkerService service)
         {
             _service = service;
             Add = new AddMark(this, _service);
             Remove = new RemoveMark(this, _service);
         }
-
-
-
     }
 }

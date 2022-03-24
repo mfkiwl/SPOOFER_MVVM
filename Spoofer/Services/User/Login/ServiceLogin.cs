@@ -1,11 +1,6 @@
-﻿using Spoofer.Services.Navigation;
+﻿using Spoofer.Data;
+using Spoofer.Services.Navigation;
 using Spoofer.ViewModels;
-using Spoofer.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Spoofer.Services.User
 {
@@ -13,12 +8,13 @@ namespace Spoofer.Services.User
     {
         private readonly CoordinatesContext _context;
         private readonly NavigationService _navigation;
+
         public ServiceLogin(CoordinatesContext context, NavigationService navigation)
         {
             _context = context;
             _navigation = navigation;
-
         }
+
         public void OnLogin(AccountViewModel model)
         {
             foreach (var user in _context.User)
@@ -29,13 +25,9 @@ namespace Spoofer.Services.User
                     if (userLog.Password == model.Password)
                     {
                         _navigation.Navigate();
-                        
                     }
                 }
             }
-
         }
     }
-
-
 }

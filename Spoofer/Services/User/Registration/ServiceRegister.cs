@@ -1,21 +1,18 @@
-﻿using Spoofer.Models;
+﻿using Spoofer.Data;
 using Spoofer.ViewModels;
-using Spoofer.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Spoofer.Services.User
 {
     public class ServiceRegister : IRegister
     {
         private readonly CoordinatesContext _context;
+
         public ServiceRegister(CoordinatesContext context)
         {
             _context = context;
         }
+
         private bool IsRegistered(string userName)
         {
             foreach (var user in _context.User)
@@ -39,6 +36,5 @@ namespace Spoofer.Services.User
                 _context.SaveChanges();
             }
         }
-
     }
 }

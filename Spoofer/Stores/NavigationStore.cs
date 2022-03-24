@@ -1,9 +1,5 @@
 ﻿using Spoofer.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Spoofer.Stores
 {
@@ -20,10 +16,12 @@ namespace Spoofer.Stores
                 OnCurrentViewModelChanged();
             }
         }
+
         private void OnCurrentViewModelChanged()
         {
             CurrentViewModelChanged?.Invoke();
         }
+
         public event Action CurrentViewModelChanged;
     }
 }

@@ -100,6 +100,9 @@ int allocatedSat[MAX_SAT];
  */
 #define  GPSSIM_DLL __stdcall
 #define GPSSIM_DLL __declspec(dllexport)
+extern GPSSIM_DLL int MyMethod() {
+	return 7;
+}
 
 extern GPSSIM_DLL void subVect(double* y, const double* x1, const double* x2)
 {
@@ -628,7 +631,6 @@ extern GPSSIM_DLL void eph2sbf(const ephem_t eph, const ionoutc_t ionoutc, unsig
 		sbf[3][7] = ((A0 & 0xFFUL) << 22) | ((tot & 0xFFUL) << 14) | ((wnt & 0xFFUL) << 6);
 		sbf[3][8] = ((dtls & 0xFFUL) << 22) | ((wnlsf & 0xFFUL) << 14) | ((dn & 0xFFUL) << 6);
 		sbf[3][9] = (dtlsf & 0xFFUL) << 22;
-
 	}
 	else
 	{
@@ -1857,7 +1859,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 	}
 	iduration = (int)(duration * 10.0 + 0.5);
 
-	// Buffer size	
+	// Buffer size
 	samp_freq = floor(samp_freq / 10.0);
 	iq_buff_size = (int)samp_freq; // samples per 0.1sec
 	samp_freq *= 10.0;
@@ -1894,7 +1896,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 	else
 	{
 		// Static geodetic coordinates input mode: "-l"
-		// Added by scateu@gmail.com 
+		// Added by scateu@gmail.com
 		fprintf(stderr, "Using static location mode.\n");
 
 		numd = iduration;
@@ -2352,8 +2354,3 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 
 	return(0);
 }
-
-
-
-
-

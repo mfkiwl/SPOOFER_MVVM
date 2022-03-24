@@ -1,10 +1,6 @@
 ﻿using Spoofer.Services.User;
 using Spoofer.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Spoofer.Commands.UserCommands
 {
@@ -12,6 +8,7 @@ namespace Spoofer.Commands.UserCommands
     {
         private readonly AccountViewModel _accountViewModel;
         private readonly ILogin _login;
+
         public LoginCommand(ILogin login, AccountViewModel accountViewModel)
         {
             _accountViewModel = accountViewModel;
@@ -26,11 +23,13 @@ namespace Spoofer.Commands.UserCommands
                 OnCanExecuteChange();
             }
         }
+
         public override bool CanExecute(object parameter)
         {
             return !String.IsNullOrEmpty(_accountViewModel.UserName) &&
                 !String.IsNullOrEmpty(_accountViewModel.Password);
         }
+
         public override void Execute(object parameter)
         {
             _login.OnLogin(_accountViewModel);
