@@ -210,6 +210,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\Spoofing\GenerateSpoofingFile.cs" />
     <Compile Include="EXMethods\SpoofingMethods.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Services\Marker\IMarkerService.cs" />
@@ -220,6 +221,12 @@
     <Compile Include="Services\User\Registration\IRegister.cs" />
     <Compile Include="Services\User\Registration\ServiceRegister.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
+    <Compile Include="Structs\Channel_T.cs" />
+    <Compile Include="Structs\DateTime_T.cs" />
+    <Compile Include="Structs\Ephem_T.cs" />
+    <Compile Include="Structs\GPSTime_T.cs" />
+    <Compile Include="Structs\IonOutC_T.cs" />
+    <Compile Include="Structs\Range_T.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />

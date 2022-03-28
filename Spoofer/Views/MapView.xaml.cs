@@ -1,6 +1,8 @@
-﻿using Spoofer.Services.Marker;
+﻿using Spoofer.EXMethods;
+using Spoofer.Services.Marker;
 using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Windows.Devices.Geolocation;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls.Maps;
@@ -16,18 +18,14 @@ namespace Spoofer.Views
     {
         private readonly IMarkerService _markerService;
         private bool isIconSigned = false;
-
         public MapView()
         {
             InitializeComponent();
             _markerService = new MarkerService(App._context);
-            if (mapControl.MapElements.Count() > _markerService.GetAll().Count())
-            {
-                mapControl.MapElements.RemoveAt(mapControl.MapElements.Count() - 1);
-            }
+            
         }
 
-        private async void MapControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private async  void MapControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             foreach (var location in _markerService.GetAll())
             {
@@ -84,7 +82,6 @@ namespace Spoofer.Views
                 }
             }
         }
-
         private void mapControl_MapDoubleTapped(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.MapInputEventArgs e)
         {
             CancelTemporaryIcons();
