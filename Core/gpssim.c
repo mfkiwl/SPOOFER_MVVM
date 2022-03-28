@@ -1655,7 +1655,7 @@ extern GPSSIM_DLL void usage(void)
 
 	return;
 }
-extern GPSSIM_DLL int main(int argc, char* argv[])
+extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 {
 	clock_t tstart, tend;
 
@@ -1732,120 +1732,45 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 	duration = (double)iduration / 10.0; // Default duration
 	verb = FALSE;
 	ionoutc.enable = TRUE;
+	strcpy(navfile, optarg);
+	staticLocationMode = TRUE;
+	sscanf(optarg, "%lf,%lf,%lf", &llh[0], &llh[1], &llh[2]);
+	llh[0] = llh[0] / R2D; // convert to RAD
+	llh[1] = llh[1] / R2D; // convert to RAD
+	llh2xyz(llh, xyz[0]); // Convert llh to xyz
+	strcpy(outfile, optarg);
 
-	if (argc < 3)
+
+	timeoverwrite = TRUE;
+	if (strncmp(optarg, "now", 3) == 0)
 	{
-		usage();
-		exit(1);
+		time_t timer;
+		struct tm* gmt;
+
+		time(&timer);
+		gmt = gmtime(&timer);
+
+		t0.y = gmt->tm_year + 1900;
+		t0.m = gmt->tm_mon + 1;
+		t0.d = gmt->tm_mday;
+		t0.hh = gmt->tm_hour;
+		t0.mm = gmt->tm_min;
+		t0.sec = (double)gmt->tm_sec;
+
+		date2gps(&t0, &g0);
 	}
 
-	while ((result = getopt(argc, argv, "e:u:g:c:l:o:s:b:T:t:d:iv")) != -1)
-	{
-		switch (result)
-		{
-		case 'e':
-			strcpy(navfile, optarg);
-			break;
-		case 'u':
-			strcpy(umfile, optarg);
-			nmeaGGA = FALSE;
-			break;
-		case 'g':
-			strcpy(umfile, optarg);
-			nmeaGGA = TRUE;
-			break;
-		case 'c':
-			// Static ECEF coordinates input mode
-			staticLocationMode = TRUE;
-			sscanf(optarg, "%lf,%lf,%lf", &xyz[0][0], &xyz[0][1], &xyz[0][2]);
-			break;
-		case 'l':
-			// Static geodetic coordinates input mode
-			// Added by scateu@gmail.com
-			staticLocationMode = TRUE;
-			sscanf(optarg, "%lf,%lf,%lf", &llh[0], &llh[1], &llh[2]);
-			llh[0] = llh[0] / R2D; // convert to RAD
-			llh[1] = llh[1] / R2D; // convert to RAD
-			llh2xyz(llh, xyz[0]); // Convert llh to xyz
-			break;
-		case 'o':
-			strcpy(outfile, optarg);
-			break;
-		case 's':
-			samp_freq = atof(optarg);
-			if (samp_freq < 1.0e6)
-			{
-				fprintf(stderr, "ERROR: Invalid sampling frequency.\n");
-				exit(1);
-			}
-			break;
-		case 'b':
-			data_format = atoi(optarg);
-			if (data_format != SC01 && data_format != SC08 && data_format != SC16)
-			{
-				fprintf(stderr, "ERROR: Invalid I/Q data format.\n");
-				exit(1);
-			}
-			break;
-		case 'T':
-			timeoverwrite = TRUE;
-			if (strncmp(optarg, "now", 3) == 0)
-			{
-				time_t timer;
-				struct tm* gmt;
+	t0.sec = floor(t0.sec);
+	date2gps(&t0, &g0);
 
-				time(&timer);
-				gmt = gmtime(&timer);
+	duration = atof(optarg);
 
-				t0.y = gmt->tm_year + 1900;
-				t0.m = gmt->tm_mon + 1;
-				t0.d = gmt->tm_mday;
-				t0.hh = gmt->tm_hour;
-				t0.mm = gmt->tm_min;
-				t0.sec = (double)gmt->tm_sec;
 
-				date2gps(&t0, &g0);
+	ionoutc.enable = FALSE; // Disable ionospheric correction
 
-				break;
-			}
-		case 't':
-			sscanf(optarg, "%d/%d/%d,%d:%d:%lf", &t0.y, &t0.m, &t0.d, &t0.hh, &t0.mm, &t0.sec);
-			if (t0.y <= 1980 || t0.m < 1 || t0.m>12 || t0.d < 1 || t0.d>31 ||
-				t0.hh < 0 || t0.hh>23 || t0.mm < 0 || t0.mm>59 || t0.sec < 0.0 || t0.sec >= 60.0)
-			{
-				fprintf(stderr, "ERROR: Invalid date and time.\n");
-				exit(1);
-			}
-			t0.sec = floor(t0.sec);
-			date2gps(&t0, &g0);
-			break;
-		case 'd':
-			duration = atof(optarg);
-			break;
-		case 'i':
-			ionoutc.enable = FALSE; // Disable ionospheric correction
-			break;
-		case 'v':
-			verb = TRUE;
-			break;
-		case ':':
-		case '?':
-			usage();
-			exit(1);
-		default:
-			break;
-		}
-	}
-
-	if (navfile[0] == 0)
-	{
-		fprintf(stderr, "ERROR: GPS ephemeris file is not specified.\n");
-		exit(1);
-	}
-
+	verb = TRUE;
 	if (umfile[0] == 0 && !staticLocationMode)
 	{
-		// Default static location; Tokyo
 		staticLocationMode = TRUE;
 		llh[0] = 35.681298 / R2D;
 		llh[1] = 139.766247 / R2D;
@@ -1870,37 +1795,11 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 	// Receiver position
 	////////////////////////////////////////////////////////////
 
-	if (!staticLocationMode)
-	{
-		// Read user motion file
-		if (nmeaGGA == TRUE)
-			numd = readNmeaGGA(xyz, umfile);
-		else
-			numd = readUserMotion(xyz, umfile);
 
-		if (numd == -1)
-		{
-			fprintf(stderr, "ERROR: Failed to open user motion / NMEA GGA file.\n");
-			exit(1);
-		}
-		else if (numd == 0)
-		{
-			fprintf(stderr, "ERROR: Failed to read user motion / NMEA GGA data.\n");
-			exit(1);
-		}
 
-		// Set simulation duration
-		if (numd > iduration)
-			numd = iduration;
-	}
-	else
-	{
-		// Static geodetic coordinates input mode: "-l"
-		// Added by scateu@gmail.com
-		fprintf(stderr, "Using static location mode.\n");
 
-		numd = iduration;
-	}
+	numd = iduration;
+
 	/*
 		fprintf(stderr, "xyz = %11.1f, %11.1f, %11.1f\n", xyz[0][0], xyz[0][1], xyz[0][2]);
 		fprintf(stderr, "llh = %11.6f, %11.6f, %11.1f\n", llh[0]*R2D, llh[1]*R2D, llh[2]);
@@ -1911,27 +1810,27 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 
 	neph = readRinexNavAll(eph, &ionoutc, navfile);
 
-	if (neph == 0)
-	{
-		fprintf(stderr, "ERROR: No ephemeris available.\n");
-		exit(1);
-	}
-	else if (neph == -1)
-	{
-		fprintf(stderr, "ERROR: ephemeris file not found.\n");
-		exit(1);
-	}
+	//if (neph == 0)
+	//{
+	//	fprintf(stderr, "ERROR: No ephemeris available.\n");
+	//	exit(1);
+	//}
+	//else if (neph == -1)
+	//{
+	//	fprintf(stderr, "ERROR: ephemeris file not found.\n");
+	//	exit(1);
+	//}
 
-	if ((verb == TRUE) && (ionoutc.vflg == TRUE))
-	{
-		fprintf(stderr, "  %12.3e %12.3e %12.3e %12.3e\n",
-			ionoutc.alpha0, ionoutc.alpha1, ionoutc.alpha2, ionoutc.alpha3);
-		fprintf(stderr, "  %12.3e %12.3e %12.3e %12.3e\n",
-			ionoutc.beta0, ionoutc.beta1, ionoutc.beta2, ionoutc.beta3);
-		fprintf(stderr, "   %19.11e %19.11e  %9d %9d\n",
-			ionoutc.A0, ionoutc.A1, ionoutc.tot, ionoutc.wnt);
-		fprintf(stderr, "%6d\n", ionoutc.dtls);
-	}
+	//if ((verb == TRUE) && (ionoutc.vflg == TRUE))
+	//{
+	//	fprintf(stderr, "  %12.3e %12.3e %12.3e %12.3e\n",
+	//		ionoutc.alpha0, ionoutc.alpha1, ionoutc.alpha2, ionoutc.alpha3);
+	//	fprintf(stderr, "  %12.3e %12.3e %12.3e %12.3e\n",
+	//		ionoutc.beta0, ionoutc.beta1, ionoutc.beta2, ionoutc.beta3);
+	//	fprintf(stderr, "   %19.11e %19.11e  %9d %9d\n",
+	//		ionoutc.A0, ionoutc.A1, ionoutc.tot, ionoutc.wnt);
+	//	fprintf(stderr, "%6d\n", ionoutc.dtls);
+	//}
 
 	for (sv = 0; sv < MAX_SAT; sv++)
 	{
@@ -2001,7 +1900,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 		}
 		else
 		{
-			if (subGpsTime(g0, gmin) < 0.0 || subGpsTime(gmax, g0) < 0.0)
+			/*if (subGpsTime(g0, gmin) < 0.0 || subGpsTime(gmax, g0) < 0.0)
 			{
 				fprintf(stderr, "ERROR: Invalid start time.\n");
 				fprintf(stderr, "tmin = %4d/%02d/%02d,%02d:%02d:%02.0f (%d:%.0f)\n",
@@ -2011,7 +1910,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 					tmax.y, tmax.m, tmax.d, tmax.hh, tmax.mm, tmax.sec,
 					gmax.week, gmax.sec);
 				exit(1);
-			}
+			}*/
 		}
 	}
 	else
@@ -2019,11 +1918,6 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 		g0 = gmin;
 		t0 = tmin;
 	}
-
-	fprintf(stderr, "Start time = %4d/%02d/%02d,%02d:%02d:%02.0f (%d:%.0f)\n",
-		t0.y, t0.m, t0.d, t0.hh, t0.mm, t0.sec, g0.week, g0.sec);
-	fprintf(stderr, "Duration = %.1f [sec]\n", ((double)numd) / 10.0);
-
 	// Select the current set of ephemerides
 	ieph = -1;
 
@@ -2045,13 +1939,6 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 		if (ieph >= 0) // ieph has been set
 			break;
 	}
-
-	if (ieph == -1)
-	{
-		fprintf(stderr, "ERROR: No current set of ephemerides has been found.\n");
-		exit(1);
-	}
-
 	////////////////////////////////////////////////////////////
 	// Baseband signal buffer and output file
 	////////////////////////////////////////////////////////////
@@ -2061,27 +1948,16 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 
 	if (iq_buff == NULL)
 	{
-		fprintf(stderr, "ERROR: Failed to allocate 16-bit I/Q buffer.\n");
-		exit(1);
+
 	}
 
 	if (data_format == SC08)
 	{
 		iq8_buff = calloc(2 * iq_buff_size, 1);
-		if (iq8_buff == NULL)
-		{
-			fprintf(stderr, "ERROR: Failed to allocate 8-bit I/Q buffer.\n");
-			exit(1);
-		}
 	}
 	else if (data_format == SC01)
 	{
 		iq8_buff = calloc(iq_buff_size / 4, 1); // byte = {I0, Q0, I1, Q1, I2, Q2, I3, Q3}
-		if (iq8_buff == NULL)
-		{
-			fprintf(stderr, "ERROR: Failed to allocate compressed 1-bit I/Q buffer.\n");
-			exit(1);
-		}
 	}
 
 	// Open output file
@@ -2159,10 +2035,10 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 
 				// Update code phase and data bit counters
 				computeCodePhase(&chan[i], rho, 0.1);
-#ifndef FLOAT_CARR_PHASE
-				chan[i].carr_phasestep = (int)round(512.0 * 65536.0 * chan[i].f_carr * delt);
-#endif
-				// Path loss
+				//#ifndef FLOAT_CARR_PHASE
+				//				chan[i].carr_phasestep = (int)round(512.0 * 65536.0 * chan[i].f_carr * delt);
+				//#endif
+								// Path loss
 				path_loss = 20200000.0 / rho.d;
 
 				// Receiver antenna gain
@@ -2335,22 +2211,14 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 		grx = incGpsTime(grx, 0.1);
 
 		// Update time counter
-		fprintf(stderr, "\rTime into run = %4.1f", subGpsTime(grx, g0));
+		/*fprintf(stderr, "\rTime into run = %4.1f", subGpsTime(grx, g0));*/
 		fflush(stdout);
 	}
 
 	tend = clock();
-
-	fprintf(stderr, "\nDone!\n");
-
 	// Free I/Q buffer
 	free(iq_buff);
-
 	// Close file
 	fclose(fp);
-
-	// Process time
-	fprintf(stderr, "Process time = %.1f [sec]\n", (double)(tend - tstart) / CLOCKS_PER_SEC);
-
-	return(0);
+	return(fp);
 }
