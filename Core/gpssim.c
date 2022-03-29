@@ -227,7 +227,7 @@ extern GPSSIM_DLL void gps2date(const gpstime_t* g, datetime_t* t)
 	*  \param[in] xyz Input Array of X, Y and Z ECEF coordinates
 	*  \param[out] llh Output Array of Latitude, Longitude and Height
 	*/
-extern GPSSIM_DLL void xyz2llh(const double* xyz, double* llh)
+extern GPSSIM_DLL void xyz2llh(const double* xyz , double* llh)
 {
 	double a, eps, e, e2;
 	double x, y, z;
@@ -1606,12 +1606,12 @@ extern GPSSIM_DLL int allocateChannel(channel_t* chan, ephem_t* eph, ionoutc_t i
 						r_ref = rho.range;
 
 						phase_ini = (2.0 * r_ref - r_xyz) / LAMBDA_L1;
-#ifdef FLOAT_CARR_PHASE
+//#ifdef FLOAT_CARR_PHASE
 						chan[i].carr_phase = phase_ini - floor(phase_ini);
-#else
-						phase_ini -= floor(phase_ini);
-						chan[i].carr_phase = (unsigned int)(512.0 * 65536.0 * phase_ini);
-#endif
+//#else
+//						phase_ini -= floor(phase_ini);
+//						chan[i].carr_phase = (unsigned int)(512.0 * 65536.0 * phase_ini);
+//#endif
 						// Done.
 						break;
 					}
@@ -1655,42 +1655,36 @@ extern GPSSIM_DLL void usage(void)
 
 	return;
 }
-extern GPSSIM_DLL FILE* main(int argc, char* argv[])
+extern GPSSIM_DLL int main(double llh[3], ephem_t eph[13][32],
+ gpstime_t g0, channel_t chan[16], gpstime_t grx, datetime_t t0, datetime_t tmin, datetime_t tmax, gpstime_t gmin, gpstime_t gmax, ionoutc_t ionoutc,  gpstime_t gtmp,
+datetime_t ttmp, range_t rho)
 {
-	clock_t tstart, tend;
 
 	FILE* fp;
-
+	clock_t tstart, tend;
 	int sv;
 	int neph, ieph;
-	ephem_t eph[EPHEM_ARRAY_SIZE][MAX_SAT];
-	gpstime_t g0;
-
-	double llh[3];
-
 	int i;
-	channel_t chan[MAX_CHAN];
 	double elvmask = 0.0; // in degree
-
 	int ip, qp;
 	int iTable;
-	short* iq_buff = NULL;
-	signed char* iq8_buff = NULL;
+	short* iq_buff = ((void*)0);
+	signed char* iq8_buff = ((void*)0);
 
-	gpstime_t grx;
+	;
 	double delt;
 	int isamp;
 
 	int iumd;
 	int numd;
-	char umfile[MAX_CHAR];
-	double xyz[USER_MOTION_SIZE][3];
+	char umfile[100];
+	double xyz[3000][3];
 
-	int staticLocationMode = FALSE;
-	int nmeaGGA = FALSE;
+	int staticLocationMode = 0;
+	int nmeaGGA = 0;
 
-	char navfile[MAX_CHAR];
-	char outfile[MAX_CHAR];
+	char navfile[100];
+	char outfile[100];
 
 	double samp_freq;
 	int iq_buff_size;
@@ -1698,14 +1692,14 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 
 	int result;
 
-	int gain[MAX_CHAN];
+	int gain[16];
 	double path_loss;
 	double ant_gain;
 	double ant_pat[37];
 	int ibs; // boresight angle index
 
-	datetime_t t0, tmin, tmax;
-	gpstime_t gmin, gmax;
+	
+	
 	double dt;
 	int igrx;
 
@@ -1713,9 +1707,9 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 	int iduration;
 	int verb;
 
-	int timeoverwrite = FALSE; // Overwrite the TOC and TOE in the RINEX file
+	int timeoverwrite = 0; // Overwrite the TOC and TOE in the RINEX file
 
-	ionoutc_t ionoutc;
+	
 
 	////////////////////////////////////////////////////////////
 	// Read options
@@ -1726,22 +1720,22 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 	umfile[0] = 0;
 	strcpy(outfile, "gpssim.bin");
 	samp_freq = 2.6e6;
-	data_format = SC16;
+	data_format = 16;
 	g0.week = -1; // Invalid start time
-	iduration = USER_MOTION_SIZE;
+	iduration = 3000;
 	duration = (double)iduration / 10.0; // Default duration
-	verb = FALSE;
-	ionoutc.enable = TRUE;
+	verb = 0;
+	ionoutc.enable = 1;
 	strcpy(navfile, optarg);
-	staticLocationMode = TRUE;
+	staticLocationMode = 1;
 	sscanf(optarg, "%lf,%lf,%lf", &llh[0], &llh[1], &llh[2]);
-	llh[0] = llh[0] / R2D; // convert to RAD
-	llh[1] = llh[1] / R2D; // convert to RAD
+	llh[0] = llh[0] / 57.2957795131; // convert to RAD
+	llh[1] = llh[1] / 57.2957795131; // convert to RAD
 	llh2xyz(llh, xyz[0]); // Convert llh to xyz
 	strcpy(outfile, optarg);
 
 
-	timeoverwrite = TRUE;
+	timeoverwrite = 1;
 	if (strncmp(optarg, "now", 3) == 0)
 	{
 		time_t timer;
@@ -1766,21 +1760,21 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 	duration = atof(optarg);
 
 
-	ionoutc.enable = FALSE; // Disable ionospheric correction
+	ionoutc.enable = 0; // Disable ionospheric correction
 
-	verb = TRUE;
+	verb = 1;
 	if (umfile[0] == 0 && !staticLocationMode)
 	{
-		staticLocationMode = TRUE;
+		staticLocationMode = 1;
 		llh[0] = 35.681298 / R2D;
 		llh[1] = 139.766247 / R2D;
 		llh[2] = 10.0;
 	}
 
-	if (duration < 0.0 || (duration > ((double)USER_MOTION_SIZE) / 10.0 && !staticLocationMode) || (duration > STATIC_MAX_DURATION && staticLocationMode))
+	if (duration < 0.0 || (duration > ((double)3000) / 10.0 && !staticLocationMode) || (duration > 86400 && staticLocationMode))
 	{
-		fprintf(stderr, "ERROR: Invalid duration.\n");
-		exit(1);
+		/*fprintf(stderr, "ERROR: Invalid duration.\n");
+		exit(1);*/
 	}
 	iduration = (int)(duration * 10.0 + 0.5);
 
@@ -1832,7 +1826,7 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 	//	fprintf(stderr, "%6d\n", ionoutc.dtls);
 	//}
 
-	for (sv = 0; sv < MAX_SAT; sv++)
+	for (sv = 0; sv < 32; sv++)
 	{
 		if (eph[0][sv].vflg == 1)
 		{
@@ -1850,7 +1844,7 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 	tmax.d = 0;
 	tmax.m = 0;
 	tmax.y = 0;
-	for (sv = 0; sv < MAX_SAT; sv++)
+	for (sv = 0; sv < 32; sv++)
 	{
 		if (eph[neph - 1][sv].vflg == 1)
 		{
@@ -1862,10 +1856,9 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 
 	if (g0.week >= 0) // Scenario start time has been set.
 	{
-		if (timeoverwrite == TRUE)
+		if (timeoverwrite == 1)
 		{
-			gpstime_t gtmp;
-			datetime_t ttmp;
+			
 			double dsec;
 
 			gtmp.week = g0.week;
@@ -1881,7 +1874,7 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 			//ionoutc.vflg = FALSE;
 
 			// Overwrite the TOC and TOE to the scenario start time
-			for (sv = 0; sv < MAX_SAT; sv++)
+			for (sv = 0; sv < 32; sv++)
 			{
 				for (i = 0; i < neph; i++)
 				{
@@ -1923,12 +1916,12 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 
 	for (i = 0; i < neph; i++)
 	{
-		for (sv = 0; sv < MAX_SAT; sv++)
+		for (sv = 0; sv < 32; sv++)
 		{
 			if (eph[i][sv].vflg == 1)
 			{
 				dt = subGpsTime(g0, eph[i][sv].toc);
-				if (dt >= -SECONDS_IN_HOUR && dt < SECONDS_IN_HOUR)
+				if (dt >= -3600.0 && dt < 3600.0)
 				{
 					ieph = i;
 					break;
@@ -1946,16 +1939,16 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 	// Allocate I/Q buffer
 	iq_buff = calloc(2 * iq_buff_size, 2);
 
-	if (iq_buff == NULL)
+	if (iq_buff == ((void*)0))
 	{
 
 	}
 
-	if (data_format == SC08)
+	if (data_format == 8)
 	{
 		iq8_buff = calloc(2 * iq_buff_size, 1);
 	}
-	else if (data_format == SC01)
+	else if (data_format == 1)
 	{
 		iq8_buff = calloc(iq_buff_size / 4, 1); // byte = {I0, Q0, I1, Q1, I2, Q2, I3, Q3}
 	}
@@ -1963,7 +1956,7 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 	// Open output file
 	// "-" can be used as name for stdout
 	if (strcmp("-", outfile)) {
-		if (NULL == (fp = fopen(outfile, "wb")))
+		if (((void*)0) == (fp = fopen(outfile, "wb")))
 		{
 			fprintf(stderr, "ERROR: Failed to open output file.\n");
 			exit(1);
@@ -1978,11 +1971,11 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 	////////////////////////////////////////////////////////////
 
 	// Clear all channels
-	for (i = 0; i < MAX_CHAN; i++)
+	for (i = 0; i < 16; i++)
 		chan[i].prn = 0;
 
 	// Clear satellite allocation flag
-	for (sv = 0; sv < MAX_SAT; sv++)
+	for (sv = 0; sv < 32; sv++)
 		allocatedSat[sv] = -1;
 
 	// Initial reception time
@@ -1991,11 +1984,11 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 	// Allocate visible satellites
 	allocateChannel(chan, eph[ieph], ionoutc, grx, xyz[0], elvmask);
 
-	for (i = 0; i < MAX_CHAN; i++)
+	for (i = 0; i < 16; i++)
 	{
 		if (chan[i].prn > 0)
 			fprintf(stderr, "%02d %6.1f %5.1f %11.1f %5.1f\n", chan[i].prn,
-				chan[i].azel[0] * R2D, chan[i].azel[1] * R2D, chan[i].rho0.d, chan[i].rho0.iono_delay);
+				chan[i].azel[0] * 57.2957795131, chan[i].azel[1] * 57.2957795131, chan[i].rho0.d, chan[i].rho0.iono_delay);
 	}
 
 	////////////////////////////////////////////////////////////
@@ -2016,12 +2009,11 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 
 	for (iumd = 1; iumd < numd; iumd++)
 	{
-		for (i = 0; i < MAX_CHAN; i++)
+		for (i = 0; i < 16; i++)
 		{
 			if (chan[i].prn > 0)
 			{
 				// Refresh code phase and data bit counters
-				range_t rho;
 				sv = chan[i].prn - 1;
 
 				// Current pseudorange
@@ -2059,11 +2051,11 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 			{
 				if (chan[i].prn > 0)
 				{
-#ifdef FLOAT_CARR_PHASE
+//#ifdef FLOAT_CARR_PHASE
 					iTable = (int)floor(chan[i].carr_phase * 512.0);
-#else
-					iTable = (chan[i].carr_phase >> 16) & 0x1ff; // 9-bit index
-#endif
+//#else
+//					iTable = (chan[i].carr_phase >> 16) & 0x1ff; // 9-bit index
+//#endif
 					ip = chan[i].dataBit * chan[i].codeCA * cosTable512[iTable] * gain[i];
 					qp = chan[i].dataBit * chan[i].codeCA * sinTable512[iTable] * gain[i];
 
@@ -2074,9 +2066,9 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 					// Update code phase
 					chan[i].code_phase += chan[i].f_code * delt;
 
-					if (chan[i].code_phase >= CA_SEQ_LEN)
+					if (chan[i].code_phase >= 1023)
 					{
-						chan[i].code_phase -= CA_SEQ_LEN;
+						chan[i].code_phase -= 1023;
 
 						chan[i].icode++;
 
@@ -2126,7 +2118,7 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 			iq_buff[isamp * 2 + 1] = (short)q_acc;
 		}
 
-		if (data_format == SC01)
+		if (data_format == 1)
 		{
 			for (isamp = 0; isamp < 2 * iq_buff_size; isamp++)
 			{
@@ -2138,7 +2130,7 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 
 			fwrite(iq8_buff, 1, iq_buff_size / 4, fp);
 		}
-		else if (data_format == SC08)
+		else if (data_format == 8)
 		{
 			for (isamp = 0; isamp < 2 * iq_buff_size; isamp++)
 				iq8_buff[isamp] = iq_buff[isamp] >> 4; // 12-bit bladeRF -> 8-bit HackRF
@@ -2159,7 +2151,7 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 		if (igrx % 300 == 0) // Every 30 seconds
 		{
 			// Update navigation message
-			for (i = 0; i < MAX_CHAN; i++)
+			for (i = 0; i < 16; i++)
 			{
 				if (chan[i].prn > 0)
 					generateNavMsg(grx, &chan[i], 0);
@@ -2167,16 +2159,16 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 
 			// Refresh ephemeris and subframes
 			// Quick and dirty fix. Need more elegant way.
-			for (sv = 0; sv < MAX_SAT; sv++)
+			for (sv = 0; sv < 32; sv++)
 			{
 				if (eph[ieph + 1][sv].vflg == 1)
 				{
 					dt = subGpsTime(eph[ieph + 1][sv].toc, grx);
-					if (dt < SECONDS_IN_HOUR)
+					if (dt < 3600.0)
 					{
 						ieph++;
 
-						for (i = 0; i < MAX_CHAN; i++)
+						for (i = 0; i < 16; i++)
 						{
 							// Generate new subframes if allocated
 							if (chan[i].prn != 0)
@@ -2195,14 +2187,14 @@ extern GPSSIM_DLL FILE* main(int argc, char* argv[])
 				allocateChannel(chan, eph[ieph], ionoutc, grx, xyz[0], elvmask);
 
 			// Show details about simulated channels
-			if (verb == TRUE)
+			if (verb == 1)
 			{
 				fprintf(stderr, "\n");
-				for (i = 0; i < MAX_CHAN; i++)
+				for (i = 0; i < 16; i++)
 				{
 					if (chan[i].prn > 0)
 						fprintf(stderr, "%02d %6.1f %5.1f %11.1f %5.1f\n", chan[i].prn,
-							chan[i].azel[0] * R2D, chan[i].azel[1] * R2D, chan[i].rho0.d, chan[i].rho0.iono_delay);
+							chan[i].azel[0] * 57.2957795131, chan[i].azel[1] * 57.2957795131, chan[i].rho0.d, chan[i].rho0.iono_delay);
 				}
 			}
 		}
