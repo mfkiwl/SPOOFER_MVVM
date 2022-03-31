@@ -1655,36 +1655,56 @@ extern GPSSIM_DLL void usage(void)
 
 	return;
 }
-extern GPSSIM_DLL int main(double llh[3], ephem_t eph[13][32],
- gpstime_t g0, channel_t chan[16], gpstime_t grx, datetime_t t0, datetime_t tmin, datetime_t tmax, gpstime_t gmin, gpstime_t gmax, ionoutc_t ionoutc,  gpstime_t gtmp,
-datetime_t ttmp, range_t rho)
+extern GPSSIM_DLL int main(int argc, char* argv[])
 {
+	clock_t tstart, tend;
 
 	FILE* fp;
-	clock_t tstart, tend;
+
 	int sv;
 	int neph, ieph;
+	ephem_t eph[EPHEM_ARRAY_SIZE][MAX_SAT];
+	gpstime_t g0;
+
+	double llh[3];
+	///////////////==============  Yakov Erlich Debug ================
+
+	printf("=== Show input parameters of main === \n"); // '\n' - EOL
+	printf("\t Number of parameters - argc: %d\n", argc); // '\t' - tab
+	printf("\t The Parameters itself (argv): \n");
+	int k;
+	for (k = 0; k < argc; k++)
+	{
+		printf("\t\t - index %d, value [%s]\n", k, argv[k]);
+	}
+
+	printf("======================================= \n");
+
+	///////////////===================================================
 	int i;
+
+	channel_t chan[MAX_CHAN];
 	double elvmask = 0.0; // in degree
+
 	int ip, qp;
 	int iTable;
-	short* iq_buff = ((void*)0);
-	signed char* iq8_buff = ((void*)0);
+	short* iq_buff = NULL;
+	signed char* iq8_buff = NULL;
 
-	;
+	gpstime_t grx;
 	double delt;
 	int isamp;
 
 	int iumd;
 	int numd;
-	char umfile[100];
-	double xyz[3000][3];
+	char umfile[MAX_CHAR];
+	double xyz[USER_MOTION_SIZE][3];
 
-	int staticLocationMode = 0;
-	int nmeaGGA = 0;
+	int staticLocationMode = FALSE;
+	int nmeaGGA = FALSE;
 
-	char navfile[100];
-	char outfile[100];
+	char navfile[MAX_CHAR];
+	char outfile[MAX_CHAR];
 
 	double samp_freq;
 	int iq_buff_size;
@@ -1692,14 +1712,14 @@ datetime_t ttmp, range_t rho)
 
 	int result;
 
-	int gain[16];
+	int gain[MAX_CHAN];
 	double path_loss;
 	double ant_gain;
 	double ant_pat[37];
 	int ibs; // boresight angle index
 
-	
-	
+	datetime_t t0, tmin, tmax;
+	gpstime_t gmin, gmax;
 	double dt;
 	int igrx;
 
@@ -1707,9 +1727,9 @@ datetime_t ttmp, range_t rho)
 	int iduration;
 	int verb;
 
-	int timeoverwrite = 0; // Overwrite the TOC and TOE in the RINEX file
+	int timeoverwrite = FALSE; // Overwrite the TOC and TOE in the RINEX file
 
-	
+	ionoutc_t ionoutc;
 
 	////////////////////////////////////////////////////////////
 	// Read options
@@ -1720,65 +1740,140 @@ datetime_t ttmp, range_t rho)
 	umfile[0] = 0;
 	strcpy(outfile, "gpssim.bin");
 	samp_freq = 2.6e6;
-	data_format = 16;
+	data_format = SC16;
 	g0.week = -1; // Invalid start time
-	iduration = 3000;
+	iduration = USER_MOTION_SIZE;
 	duration = (double)iduration / 10.0; // Default duration
-	verb = 0;
-	ionoutc.enable = 1;
-	strcpy(navfile, optarg);
-	staticLocationMode = 1;
-	sscanf(optarg, "%lf,%lf,%lf", &llh[0], &llh[1], &llh[2]);
-	llh[0] = llh[0] / 57.2957795131; // convert to RAD
-	llh[1] = llh[1] / 57.2957795131; // convert to RAD
-	llh2xyz(llh, xyz[0]); // Convert llh to xyz
-	strcpy(outfile, optarg);
+	verb = FALSE;
+	ionoutc.enable = TRUE;
 
-
-	timeoverwrite = 1;
-	if (strncmp(optarg, "now", 3) == 0)
+	if (argc < 3)
 	{
-		time_t timer;
-		struct tm* gmt;
-
-		time(&timer);
-		gmt = gmtime(&timer);
-
-		t0.y = gmt->tm_year + 1900;
-		t0.m = gmt->tm_mon + 1;
-		t0.d = gmt->tm_mday;
-		t0.hh = gmt->tm_hour;
-		t0.mm = gmt->tm_min;
-		t0.sec = (double)gmt->tm_sec;
-
-		date2gps(&t0, &g0);
+		usage();
+		exit(1);
 	}
 
-	t0.sec = floor(t0.sec);
-	date2gps(&t0, &g0);
+	while ((result = getopt(argc, argv, "e:u:g:c:l:o:s:b:T:t:d:iv")) != -1)
+	{
+		switch (result)
+		{
+		case 'e':
+			strcpy(navfile, optarg);
+			break;
+		case 'u':
+			strcpy(umfile, optarg);
+			nmeaGGA = FALSE;
+			break;
+		case 'g':
+			strcpy(umfile, optarg);
+			nmeaGGA = TRUE;
+			break;
+		case 'c':
+			// Static ECEF coordinates input mode
+			staticLocationMode = TRUE;
+			sscanf(optarg, "%lf,%lf,%lf", &xyz[0][0], &xyz[0][1], &xyz[0][2]);
+			break;
+		case 'l':
+			// Static geodetic coordinates input mode
+			// Added by scateu@gmail.com
+			staticLocationMode = TRUE;
+			sscanf(optarg, "%lf,%lf,%lf", &llh[0], &llh[1], &llh[2]);
+			llh[0] = llh[0] / R2D; // convert to RAD
+			llh[1] = llh[1] / R2D; // convert to RAD
+			llh2xyz(llh, xyz[0]); // Convert llh to xyz
+			break;
+		case 'o':
+			strcpy(outfile, optarg);
+			break;
+		case 's':
+			samp_freq = atof(optarg);
+			if (samp_freq < 1.0e6)
+			{
+				fprintf(stderr, "ERROR: Invalid sampling frequency.\n");
+				exit(1);
+			}
+			break;
+		case 'b':
+			data_format = atoi(optarg);
+			if (data_format != SC01 && data_format != SC08 && data_format != SC16)
+			{
+				fprintf(stderr, "ERROR: Invalid I/Q data format.\n");
+				exit(1);
+			}
+			break;
+		case 'T':
+			timeoverwrite = TRUE;
+			if (strncmp(optarg, "now", 3) == 0)
+			{
+				time_t timer;
+				struct tm* gmt;
 
-	duration = atof(optarg);
+				time(&timer);
+				gmt = gmtime(&timer);
 
+				t0.y = gmt->tm_year + 1900;
+				t0.m = gmt->tm_mon + 1;
+				t0.d = gmt->tm_mday;
+				t0.hh = gmt->tm_hour;
+				t0.mm = gmt->tm_min;
+				t0.sec = (double)gmt->tm_sec;
 
-	ionoutc.enable = 0; // Disable ionospheric correction
+				date2gps(&t0, &g0);
 
-	verb = 1;
+				break;
+			}
+		case 't':
+			sscanf(optarg, "%d/%d/%d,%d:%d:%lf", &t0.y, &t0.m, &t0.d, &t0.hh, &t0.mm, &t0.sec);
+			if (t0.y <= 1980 || t0.m < 1 || t0.m>12 || t0.d < 1 || t0.d>31 ||
+				t0.hh < 0 || t0.hh>23 || t0.mm < 0 || t0.mm>59 || t0.sec < 0.0 || t0.sec >= 60.0)
+			{
+				fprintf(stderr, "ERROR: Invalid date and time.\n");
+				exit(1);
+			}
+			t0.sec = floor(t0.sec);
+			date2gps(&t0, &g0);
+			break;
+		case 'd':
+			duration = atof(optarg);
+			break;
+		case 'i':
+			ionoutc.enable = FALSE; // Disable ionospheric correction
+			break;
+		case 'v':
+			verb = TRUE;
+			break;
+		case ':':
+		case '?':
+			usage();
+			exit(1);
+		default:
+			break;
+		}
+	}
+
+	if (navfile[0] == 0)
+	{
+		fprintf(stderr, "ERROR: GPS ephemeris file is not specified.\n");
+		exit(1);
+	}
+
 	if (umfile[0] == 0 && !staticLocationMode)
 	{
-		staticLocationMode = 1;
+		// Default static location; Tokyo
+		staticLocationMode = TRUE;
 		llh[0] = 35.681298 / R2D;
 		llh[1] = 139.766247 / R2D;
 		llh[2] = 10.0;
 	}
 
-	if (duration < 0.0 || (duration > ((double)3000) / 10.0 && !staticLocationMode) || (duration > 86400 && staticLocationMode))
+	if (duration < 0.0 || (duration > ((double)USER_MOTION_SIZE) / 10.0 && !staticLocationMode) || (duration > STATIC_MAX_DURATION && staticLocationMode))
 	{
-		/*fprintf(stderr, "ERROR: Invalid duration.\n");
-		exit(1);*/
+		fprintf(stderr, "ERROR: Invalid duration.\n");
+		exit(1);
 	}
 	iduration = (int)(duration * 10.0 + 0.5);
 
-	// Buffer size
+	// Buffer size	
 	samp_freq = floor(samp_freq / 10.0);
 	iq_buff_size = (int)samp_freq; // samples per 0.1sec
 	samp_freq *= 10.0;
@@ -1789,11 +1884,37 @@ datetime_t ttmp, range_t rho)
 	// Receiver position
 	////////////////////////////////////////////////////////////
 
+	if (!staticLocationMode)
+	{
+		// Read user motion file
+		if (nmeaGGA == TRUE)
+			numd = readNmeaGGA(xyz, umfile);
+		else
+			numd = readUserMotion(xyz, umfile);
 
+		if (numd == -1)
+		{
+			fprintf(stderr, "ERROR: Failed to open user motion / NMEA GGA file.\n");
+			exit(1);
+		}
+		else if (numd == 0)
+		{
+			fprintf(stderr, "ERROR: Failed to read user motion / NMEA GGA data.\n");
+			exit(1);
+		}
 
+		// Set simulation duration
+		if (numd > iduration)
+			numd = iduration;
+	}
+	else
+	{
+		// Static geodetic coordinates input mode: "-l"
+		// Added by scateu@gmail.com 
+		fprintf(stderr, "Using static location mode.\n");
 
-	numd = iduration;
-
+		numd = iduration;
+	}
 	/*
 		fprintf(stderr, "xyz = %11.1f, %11.1f, %11.1f\n", xyz[0][0], xyz[0][1], xyz[0][2]);
 		fprintf(stderr, "llh = %11.6f, %11.6f, %11.1f\n", llh[0]*R2D, llh[1]*R2D, llh[2]);
@@ -1804,29 +1925,29 @@ datetime_t ttmp, range_t rho)
 
 	neph = readRinexNavAll(eph, &ionoutc, navfile);
 
-	//if (neph == 0)
-	//{
-	//	fprintf(stderr, "ERROR: No ephemeris available.\n");
-	//	exit(1);
-	//}
-	//else if (neph == -1)
-	//{
-	//	fprintf(stderr, "ERROR: ephemeris file not found.\n");
-	//	exit(1);
-	//}
+	if (neph == 0)
+	{
+		fprintf(stderr, "ERROR: No ephemeris available.\n");
+		exit(1);
+	}
+	else if (neph == -1)
+	{
+		fprintf(stderr, "ERROR: ephemeris file not found.\n");
+		exit(1);
+	}
 
-	//if ((verb == TRUE) && (ionoutc.vflg == TRUE))
-	//{
-	//	fprintf(stderr, "  %12.3e %12.3e %12.3e %12.3e\n",
-	//		ionoutc.alpha0, ionoutc.alpha1, ionoutc.alpha2, ionoutc.alpha3);
-	//	fprintf(stderr, "  %12.3e %12.3e %12.3e %12.3e\n",
-	//		ionoutc.beta0, ionoutc.beta1, ionoutc.beta2, ionoutc.beta3);
-	//	fprintf(stderr, "   %19.11e %19.11e  %9d %9d\n",
-	//		ionoutc.A0, ionoutc.A1, ionoutc.tot, ionoutc.wnt);
-	//	fprintf(stderr, "%6d\n", ionoutc.dtls);
-	//}
+	if ((verb == TRUE) && (ionoutc.vflg == TRUE))
+	{
+		fprintf(stderr, "  %12.3e %12.3e %12.3e %12.3e\n",
+			ionoutc.alpha0, ionoutc.alpha1, ionoutc.alpha2, ionoutc.alpha3);
+		fprintf(stderr, "  %12.3e %12.3e %12.3e %12.3e\n",
+			ionoutc.beta0, ionoutc.beta1, ionoutc.beta2, ionoutc.beta3);
+		fprintf(stderr, "   %19.11e %19.11e  %9d %9d\n",
+			ionoutc.A0, ionoutc.A1, ionoutc.tot, ionoutc.wnt);
+		fprintf(stderr, "%6d\n", ionoutc.dtls);
+	}
 
-	for (sv = 0; sv < 32; sv++)
+	for (sv = 0; sv < MAX_SAT; sv++)
 	{
 		if (eph[0][sv].vflg == 1)
 		{
@@ -1844,7 +1965,7 @@ datetime_t ttmp, range_t rho)
 	tmax.d = 0;
 	tmax.m = 0;
 	tmax.y = 0;
-	for (sv = 0; sv < 32; sv++)
+	for (sv = 0; sv < MAX_SAT; sv++)
 	{
 		if (eph[neph - 1][sv].vflg == 1)
 		{
@@ -1856,9 +1977,10 @@ datetime_t ttmp, range_t rho)
 
 	if (g0.week >= 0) // Scenario start time has been set.
 	{
-		if (timeoverwrite == 1)
+		if (timeoverwrite == TRUE)
 		{
-			
+			gpstime_t gtmp;
+			datetime_t ttmp;
 			double dsec;
 
 			gtmp.week = g0.week;
@@ -1874,7 +1996,7 @@ datetime_t ttmp, range_t rho)
 			//ionoutc.vflg = FALSE;
 
 			// Overwrite the TOC and TOE to the scenario start time
-			for (sv = 0; sv < 32; sv++)
+			for (sv = 0; sv < MAX_SAT; sv++)
 			{
 				for (i = 0; i < neph; i++)
 				{
@@ -1893,7 +2015,7 @@ datetime_t ttmp, range_t rho)
 		}
 		else
 		{
-			/*if (subGpsTime(g0, gmin) < 0.0 || subGpsTime(gmax, g0) < 0.0)
+			if (subGpsTime(g0, gmin) < 0.0 || subGpsTime(gmax, g0) < 0.0)
 			{
 				fprintf(stderr, "ERROR: Invalid start time.\n");
 				fprintf(stderr, "tmin = %4d/%02d/%02d,%02d:%02d:%02.0f (%d:%.0f)\n",
@@ -1903,7 +2025,7 @@ datetime_t ttmp, range_t rho)
 					tmax.y, tmax.m, tmax.d, tmax.hh, tmax.mm, tmax.sec,
 					gmax.week, gmax.sec);
 				exit(1);
-			}*/
+			}
 		}
 	}
 	else
@@ -1911,17 +2033,22 @@ datetime_t ttmp, range_t rho)
 		g0 = gmin;
 		t0 = tmin;
 	}
+
+	fprintf(stderr, "Start time = %4d/%02d/%02d,%02d:%02d:%02.0f (%d:%.0f)\n",
+		t0.y, t0.m, t0.d, t0.hh, t0.mm, t0.sec, g0.week, g0.sec);
+	fprintf(stderr, "Duration = %.1f [sec]\n", ((double)numd) / 10.0);
+
 	// Select the current set of ephemerides
 	ieph = -1;
 
 	for (i = 0; i < neph; i++)
 	{
-		for (sv = 0; sv < 32; sv++)
+		for (sv = 0; sv < MAX_SAT; sv++)
 		{
 			if (eph[i][sv].vflg == 1)
 			{
 				dt = subGpsTime(g0, eph[i][sv].toc);
-				if (dt >= -3600.0 && dt < 3600.0)
+				if (dt >= -SECONDS_IN_HOUR && dt < SECONDS_IN_HOUR)
 				{
 					ieph = i;
 					break;
@@ -1932,6 +2059,13 @@ datetime_t ttmp, range_t rho)
 		if (ieph >= 0) // ieph has been set
 			break;
 	}
+
+	if (ieph == -1)
+	{
+		fprintf(stderr, "ERROR: No current set of ephemerides has been found.\n");
+		exit(1);
+	}
+
 	////////////////////////////////////////////////////////////
 	// Baseband signal buffer and output file
 	////////////////////////////////////////////////////////////
@@ -1939,24 +2073,35 @@ datetime_t ttmp, range_t rho)
 	// Allocate I/Q buffer
 	iq_buff = calloc(2 * iq_buff_size, 2);
 
-	if (iq_buff == ((void*)0))
+	if (iq_buff == NULL)
 	{
-
+		fprintf(stderr, "ERROR: Failed to allocate 16-bit I/Q buffer.\n");
+		exit(1);
 	}
 
-	if (data_format == 8)
+	if (data_format == SC08)
 	{
 		iq8_buff = calloc(2 * iq_buff_size, 1);
+		if (iq8_buff == NULL)
+		{
+			fprintf(stderr, "ERROR: Failed to allocate 8-bit I/Q buffer.\n");
+			exit(1);
+		}
 	}
-	else if (data_format == 1)
+	else if (data_format == SC01)
 	{
 		iq8_buff = calloc(iq_buff_size / 4, 1); // byte = {I0, Q0, I1, Q1, I2, Q2, I3, Q3}
+		if (iq8_buff == NULL)
+		{
+			fprintf(stderr, "ERROR: Failed to allocate compressed 1-bit I/Q buffer.\n");
+			exit(1);
+		}
 	}
 
 	// Open output file
 	// "-" can be used as name for stdout
 	if (strcmp("-", outfile)) {
-		if (((void*)0) == (fp = fopen(outfile, "wb")))
+		if (NULL == (fp = fopen(outfile, "wb")))
 		{
 			fprintf(stderr, "ERROR: Failed to open output file.\n");
 			exit(1);
@@ -1971,11 +2116,11 @@ datetime_t ttmp, range_t rho)
 	////////////////////////////////////////////////////////////
 
 	// Clear all channels
-	for (i = 0; i < 16; i++)
+	for (i = 0; i < MAX_CHAN; i++)
 		chan[i].prn = 0;
 
 	// Clear satellite allocation flag
-	for (sv = 0; sv < 32; sv++)
+	for (sv = 0; sv < MAX_SAT; sv++)
 		allocatedSat[sv] = -1;
 
 	// Initial reception time
@@ -1984,11 +2129,11 @@ datetime_t ttmp, range_t rho)
 	// Allocate visible satellites
 	allocateChannel(chan, eph[ieph], ionoutc, grx, xyz[0], elvmask);
 
-	for (i = 0; i < 16; i++)
+	for (i = 0; i < MAX_CHAN; i++)
 	{
 		if (chan[i].prn > 0)
 			fprintf(stderr, "%02d %6.1f %5.1f %11.1f %5.1f\n", chan[i].prn,
-				chan[i].azel[0] * 57.2957795131, chan[i].azel[1] * 57.2957795131, chan[i].rho0.d, chan[i].rho0.iono_delay);
+				chan[i].azel[0] * R2D, chan[i].azel[1] * R2D, chan[i].rho0.d, chan[i].rho0.iono_delay);
 	}
 
 	////////////////////////////////////////////////////////////
@@ -2009,11 +2154,12 @@ datetime_t ttmp, range_t rho)
 
 	for (iumd = 1; iumd < numd; iumd++)
 	{
-		for (i = 0; i < 16; i++)
+		for (i = 0; i < MAX_CHAN; i++)
 		{
 			if (chan[i].prn > 0)
 			{
 				// Refresh code phase and data bit counters
+				range_t rho;
 				sv = chan[i].prn - 1;
 
 				// Current pseudorange
@@ -2027,10 +2173,10 @@ datetime_t ttmp, range_t rho)
 
 				// Update code phase and data bit counters
 				computeCodePhase(&chan[i], rho, 0.1);
-				//#ifndef FLOAT_CARR_PHASE
-				//				chan[i].carr_phasestep = (int)round(512.0 * 65536.0 * chan[i].f_carr * delt);
-				//#endif
-								// Path loss
+#ifndef FLOAT_CARR_PHASE
+				chan[i].carr_phasestep = (int)round(512.0 * 65536.0 * chan[i].f_carr * delt);
+#endif
+				// Path loss
 				path_loss = 20200000.0 / rho.d;
 
 				// Receiver antenna gain
@@ -2051,11 +2197,11 @@ datetime_t ttmp, range_t rho)
 			{
 				if (chan[i].prn > 0)
 				{
-//#ifdef FLOAT_CARR_PHASE
+#ifdef FLOAT_CARR_PHASE
 					iTable = (int)floor(chan[i].carr_phase * 512.0);
-//#else
-//					iTable = (chan[i].carr_phase >> 16) & 0x1ff; // 9-bit index
-//#endif
+#else
+					iTable = (chan[i].carr_phase >> 16) & 0x1ff; // 9-bit index
+#endif
 					ip = chan[i].dataBit * chan[i].codeCA * cosTable512[iTable] * gain[i];
 					qp = chan[i].dataBit * chan[i].codeCA * sinTable512[iTable] * gain[i];
 
@@ -2066,9 +2212,9 @@ datetime_t ttmp, range_t rho)
 					// Update code phase
 					chan[i].code_phase += chan[i].f_code * delt;
 
-					if (chan[i].code_phase >= 1023)
+					if (chan[i].code_phase >= CA_SEQ_LEN)
 					{
-						chan[i].code_phase -= 1023;
+						chan[i].code_phase -= CA_SEQ_LEN;
 
 						chan[i].icode++;
 
@@ -2118,7 +2264,7 @@ datetime_t ttmp, range_t rho)
 			iq_buff[isamp * 2 + 1] = (short)q_acc;
 		}
 
-		if (data_format == 1)
+		if (data_format == SC01)
 		{
 			for (isamp = 0; isamp < 2 * iq_buff_size; isamp++)
 			{
@@ -2130,7 +2276,7 @@ datetime_t ttmp, range_t rho)
 
 			fwrite(iq8_buff, 1, iq_buff_size / 4, fp);
 		}
-		else if (data_format == 8)
+		else if (data_format == SC08)
 		{
 			for (isamp = 0; isamp < 2 * iq_buff_size; isamp++)
 				iq8_buff[isamp] = iq_buff[isamp] >> 4; // 12-bit bladeRF -> 8-bit HackRF
@@ -2151,7 +2297,7 @@ datetime_t ttmp, range_t rho)
 		if (igrx % 300 == 0) // Every 30 seconds
 		{
 			// Update navigation message
-			for (i = 0; i < 16; i++)
+			for (i = 0; i < MAX_CHAN; i++)
 			{
 				if (chan[i].prn > 0)
 					generateNavMsg(grx, &chan[i], 0);
@@ -2159,16 +2305,16 @@ datetime_t ttmp, range_t rho)
 
 			// Refresh ephemeris and subframes
 			// Quick and dirty fix. Need more elegant way.
-			for (sv = 0; sv < 32; sv++)
+			for (sv = 0; sv < MAX_SAT; sv++)
 			{
 				if (eph[ieph + 1][sv].vflg == 1)
 				{
 					dt = subGpsTime(eph[ieph + 1][sv].toc, grx);
-					if (dt < 3600.0)
+					if (dt < SECONDS_IN_HOUR)
 					{
 						ieph++;
 
-						for (i = 0; i < 16; i++)
+						for (i = 0; i < MAX_CHAN; i++)
 						{
 							// Generate new subframes if allocated
 							if (chan[i].prn != 0)
@@ -2187,14 +2333,14 @@ datetime_t ttmp, range_t rho)
 				allocateChannel(chan, eph[ieph], ionoutc, grx, xyz[0], elvmask);
 
 			// Show details about simulated channels
-			if (verb == 1)
+			if (verb == TRUE)
 			{
 				fprintf(stderr, "\n");
-				for (i = 0; i < 16; i++)
+				for (i = 0; i < MAX_CHAN; i++)
 				{
 					if (chan[i].prn > 0)
 						fprintf(stderr, "%02d %6.1f %5.1f %11.1f %5.1f\n", chan[i].prn,
-							chan[i].azel[0] * 57.2957795131, chan[i].azel[1] * 57.2957795131, chan[i].rho0.d, chan[i].rho0.iono_delay);
+							chan[i].azel[0] * R2D, chan[i].azel[1] * R2D, chan[i].rho0.d, chan[i].rho0.iono_delay);
 				}
 			}
 		}
@@ -2203,14 +2349,22 @@ datetime_t ttmp, range_t rho)
 		grx = incGpsTime(grx, 0.1);
 
 		// Update time counter
-		/*fprintf(stderr, "\rTime into run = %4.1f", subGpsTime(grx, g0));*/
+		fprintf(stderr, "\rTime into run = %4.1f", subGpsTime(grx, g0));
 		fflush(stdout);
 	}
 
 	tend = clock();
+
+	fprintf(stderr, "\nDone!\n");
+
 	// Free I/Q buffer
 	free(iq_buff);
+
 	// Close file
 	fclose(fp);
-	return(fp);
+
+	// Process time
+	fprintf(stderr, "Process time = %.1f [sec]\n", (double)(tend - tstart) / CLOCKS_PER_SEC);
+
+	return(0);
 }

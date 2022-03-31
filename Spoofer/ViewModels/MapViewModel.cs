@@ -1,4 +1,5 @@
 ﻿using Spoofer.Commands.MarkersCommand;
+using Spoofer.Commands.Spoofing;
 using Spoofer.Services.Marker;
 using System;
 using System.ComponentModel;
@@ -50,7 +51,7 @@ namespace Spoofer.ViewModels
             get { return _selectedMarkerId; }
             set { _selectedMarkerId = value; OnPropertyChanged("SelectedMarkerId"); }
         }
-
+        public ICommand GenerateFile { get; }
         public ICommand Add { get; }
         public ICommand Remove { get; }
 
@@ -63,6 +64,7 @@ namespace Spoofer.ViewModels
             _service = service;
             Add = new AddMark(this, _service);
             Remove = new RemoveMark(this, _service);
+           
         }
     }
 }

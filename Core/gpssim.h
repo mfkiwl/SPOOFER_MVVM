@@ -218,6 +218,4 @@ extern  GPSSIM_DLL int generateNavMsg(gpstime_t g, channel_t* chan, int init);
 extern  GPSSIM_DLL int checkSatVisibility(ephem_t eph, gpstime_t g, double* xyz, double elvMask, double* azel);
 extern  GPSSIM_DLL int allocateChannel(channel_t* chan, ephem_t* eph, ionoutc_t ionoutc, gpstime_t grx, double* xyz, double elvMask);
 extern  GPSSIM_DLL void usage(void);
-extern  GPSSIM_DLL int main(double llh[3], ephem_t eph[13][32],
-	gpstime_t g0, channel_t chan[16], gpstime_t grx, datetime_t t0, datetime_t tmin, datetime_t tmax, gpstime_t gmin, gpstime_t gmax, ionoutc_t ionoutc, gpstime_t gtmp,
-	datetime_t ttmp, range_t rho);
+extern  GPSSIM_DLL int main(int argc, char* argv[]);

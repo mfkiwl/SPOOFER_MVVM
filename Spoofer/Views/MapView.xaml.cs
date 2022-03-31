@@ -4,6 +4,7 @@ using Spoofer.Structs;
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Threading;
 using Windows.Devices.Geolocation;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls.Maps;
@@ -19,16 +20,7 @@ namespace Spoofer.Views
     {
         private readonly IMarkerService _markerService;
         private bool isIconSigned = false;
-        double[] llh = new double[3];
-        Ephem_T[,] eph = new Ephem_T[13, 33];
-        GPSTime_T g0;
-        Channel_T[] chan = new Channel_T[16];
-        GPSTime_T grx, gmin, gmax, gtmp;
-        DateTime_T t0, tmin, tmax;
-        IonOutC_T ionoutc;
-        DateTime_T ttmp;
-        Range_T rho;
-
+        private int argc;
         private void mapControl_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             e.Handled = true;
@@ -42,10 +34,10 @@ namespace Spoofer.Views
         {
             InitializeComponent();
             _markerService = new MarkerService(App._context);
-            
+
         }
 
-        private async  void MapControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private async void MapControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             foreach (var location in _markerService.GetAll())
             {
@@ -116,7 +108,6 @@ namespace Spoofer.Views
                 IsEnabled = false
             };
             mapControl.MapElements.Add(mapIcon);
-            SpoofingMethods.main(llh, eph, g0, chan, grx, t0, tmin, tmax, gmin, gmax, ionoutc, gtmp, ttmp, rho);
         }
 
         private void CancelTemporaryIcons()
