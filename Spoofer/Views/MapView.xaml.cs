@@ -28,6 +28,16 @@ namespace Spoofer.Views
         IonOutC_T ionoutc;
         DateTime_T ttmp;
         Range_T rho;
+
+        private void mapControl_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            e.Handled = true;
+            var capturedMouse = e.GetPosition(this);
+            var position = mapControl.TranslatePoint(capturedMouse, mapControl);
+            lat.Text = position.X.ToString();
+            lon.Text = position.Y.ToString();
+        }
+
         public MapView()
         {
             InitializeComponent();

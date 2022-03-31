@@ -13,7 +13,7 @@
             <ColumnDefinition Width="511*" />
             <ColumnDefinition Width="289*" />
         </Grid.ColumnDefinitions>
-        <controls:MapControl Name="mapControl" MapDoubleTapped="mapControl_MapDoubleTapped" Loaded="MapControl_Loaded" MapElementClick="MapControl_MapElementClick" />
+        <controls:MapControl Name="mapControl" MouseMove="mapControl_MouseMove" MapDoubleTapped="mapControl_MapDoubleTapped"  Loaded="MapControl_Loaded" MapElementClick="MapControl_MapElementClick" />
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
