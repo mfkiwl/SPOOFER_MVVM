@@ -2,11 +2,16 @@
 using Spoofer.EXMethods;
 using Spoofer.Services.Marker;
 using Spoofer.ViewModels;
+using System;
+using System.Windows;
+using System.Windows.Threading;
+using Windows.UI.Core;
 
 namespace Spoofer.Commands.MarkersCommand
 {
     public class AddMark : BaseCommand
     {
+        DispatcherTimer dt = new DispatcherTimer();
         private readonly MapViewModel _mapViewModel;
         private readonly IMarkerService _service;
         private int argc;
@@ -27,13 +32,30 @@ namespace Spoofer.Commands.MarkersCommand
 
         public override void Execute(object parameter)
         {
-            _service.AddMarker(_mapViewModel);
-            argc = GenerateFlags().Length;
-            SpoofingMethods.main(argc, GenerateFlags());
+            dt.IsEnabled = true;
+            dt.Interval = TimeSpan.FromSeconds(125);
+            dt.Tick += Dt_Tick;
+            
+            //dt.Stop();
+
         }
+
+        private void Dt_Tick(object sender, EventArgs e)
+        {
+            //var splashScreen = new SplashScreen("C:/Users/max/source/repos/Spoofer/Spoofer/Assets/icon.png");
+            //splashScreen.Show(true);
+            argc = GenerateFlags().Length;
+            var argv = GenerateFlags();
+            SpoofingMethods.main(argc, argv)/*))*/;
+            _service.AddMarker(_mapViewModel);
+            /*Application.Current.Dispatcher.Invoke((Action)(() => */
+            dt.IsEnabled = false;
+
+        }
+
         private string[] GenerateFlags()
         {
-            var flags = new string[7];
+            var flags = new string[9];
             flags[0] = "Spoofer.exe";
             flags[1] = "-e";
             flags[2] = "brdc3540.14n";
@@ -41,8 +63,8 @@ namespace Spoofer.Commands.MarkersCommand
             flags[4] = "2600000";
             flags[5] = "-l";
             flags[6] = $"{_mapViewModel.Latitude},{_mapViewModel.Longitude},{_mapViewModel.Height}";
-            //flags[7] = $"{_mapViewModel.Longitude}";
-            //flags[8] = $"{_mapViewModel.Height}";
+            flags[7] = "-o";
+            flags[8] = $"{_mapViewModel.Label}.bin";
             return flags;
         }
     }

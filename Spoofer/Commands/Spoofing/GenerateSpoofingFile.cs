@@ -1,5 +1,6 @@
 ﻿using Spoofer.Commands.UserCommands;
 using Spoofer.EXMethods;
+using Spoofer.Services.Navigation;
 using Spoofer.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,11 @@ namespace Spoofer.Commands.Spoofing
 {
     public class GenerateSpoofingFile : BaseCommand
     {
-       
-        private readonly MapViewModel _mapViewModel;
-        public GenerateSpoofingFile(MapViewModel mapViewModel)
+
+        private readonly NavigationService _navigationService;
+        public GenerateSpoofingFile(NavigationService navigationService)
         {
-            _mapViewModel = mapViewModel;
+            _navigationService = navigationService;
         }
         public override bool CanExecute(object parameter)
         {
@@ -24,7 +25,7 @@ namespace Spoofer.Commands.Spoofing
         }
         public override void Execute(object parameter)
         {
-            
+            _navigationService.Navigate();
         }
         
     }

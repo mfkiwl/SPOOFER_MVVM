@@ -1,16 +1,23 @@
-﻿using Spoofer.Commands.MarkersCommand;
+﻿using Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT;
+using Spoofer.Commands.MarkersCommand;
 using Spoofer.Commands.Spoofing;
 using Spoofer.Services.Marker;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
+using Windows.Storage.Streams;
+using Windows.UI.Xaml.Controls.Maps;
+using Windows.Devices.Geolocation;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Spoofer.ViewModels
 {
     public class MapViewModel : ViewModelBase
     {
+
         private readonly IMarkerService _service;
-        public ICollectionView Markers { get; set; }
 
         private string _label;
 
@@ -52,6 +59,7 @@ namespace Spoofer.ViewModels
             set { _selectedMarkerId = value; OnPropertyChanged("SelectedMarkerId"); }
         }
         public ICommand GenerateFile { get; }
+        
         public ICommand Add { get; }
         public ICommand Remove { get; }
 
@@ -64,7 +72,7 @@ namespace Spoofer.ViewModels
             _service = service;
             Add = new AddMark(this, _service);
             Remove = new RemoveMark(this, _service);
-           
         }
+
     }
 }

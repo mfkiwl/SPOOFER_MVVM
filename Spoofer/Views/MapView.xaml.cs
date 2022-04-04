@@ -1,6 +1,8 @@
 ﻿using Spoofer.EXMethods;
 using Spoofer.Services.Marker;
-using Spoofer.Structs;
+using Spoofer.Services.Navigation;
+using Spoofer.Stores;
+using Spoofer.ViewModels;
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -18,6 +20,7 @@ namespace Spoofer.Views
     /// </summary>
     public partial class MapView : UserControl
     {
+        private readonly NavigationService _navigationService;
         private readonly IMarkerService _markerService;
         private bool isIconSigned = false;
         private int argc;
@@ -33,7 +36,8 @@ namespace Spoofer.Views
         public MapView()
         {
             InitializeComponent();
-            _markerService = new MarkerService(App._context);
+            _navigationService = new NavigationService();
+            _markerService = new MarkerService(App._context, _navigationService);
 
         }
 
@@ -47,7 +51,6 @@ namespace Spoofer.Views
                     Longitude = (double)location.Longitude,
                     Altitude = (double)location.Height
                 };
-                int number = EXMethods.SpoofingMethods.MyMethod();
                 var geoPoint = new Geopoint(PinPosition);
                 var mapIcon = new MapIcon()
                 {
@@ -68,7 +71,7 @@ namespace Spoofer.Views
                     Longitude = (double)lastLocationAdded.Longitude
                 };
                 var lastPosPoint = new Geopoint(lastPos);
-                await (sender as MapControl).TrySetViewAsync(lastPosPoint, 17);
+                await (sender as MapControl).TrySetViewAsync(lastPosPoint, 13);
             }
         }
 

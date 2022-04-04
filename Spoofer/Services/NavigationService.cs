@@ -8,7 +8,10 @@ namespace Spoofer.Services.Navigation
     {
         private readonly NavigationStore _navigationStore;
         private readonly Func<ViewModelBase> _createViewModel;
+        public NavigationService()
+        {
 
+        }
         public NavigationService(NavigationStore navigationStore, Func<ViewModelBase> createViewModel)
         {
             _navigationStore = navigationStore;

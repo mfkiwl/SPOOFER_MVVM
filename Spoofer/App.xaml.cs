@@ -28,7 +28,7 @@ namespace Spoofer
             _navigationStore = new NavigationStore();
             _iLogin = new ServiceLogin(_context, new NavigationService(_navigationStore, createMapViewModel));
             _iRegister = new ServiceRegister(_context);
-            _marker = new MarkerService(_context);
+            _marker = new MarkerService(_context, new NavigationService(_navigationStore, createSplashViewModel));
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -50,6 +50,10 @@ namespace Spoofer
         private AccountViewModel createAccountViewModel()
         {
             return new AccountViewModel(_iRegister, _iLogin);
+        }
+        public  SplashViewModel createSplashViewModel()
+        {
+            return new SplashViewModel( new NavigationService(_navigationStore, createMapViewModel));
         }
     }
 }

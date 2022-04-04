@@ -1,6 +1,7 @@
 ﻿using log4net;
 using Spoofer.Data;
 using Spoofer.Models;
+using Spoofer.Services.Navigation;
 using Spoofer.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,14 @@ namespace Spoofer.Services.Marker
 {
     public class MarkerService : IMarkerService
     {
+        private readonly NavigationService _navigation;
         private readonly CoordinatesContext _context;
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public MarkerService(CoordinatesContext context)
+        public MarkerService(CoordinatesContext context, NavigationService navigation)
         {
             _context = context;
+            _navigation = navigation;
         }
 
         public void AddMarker(MapViewModel mapViewModel)
@@ -38,6 +41,7 @@ namespace Spoofer.Services.Marker
                         marker.UserId = user.UserId;
                     }
                 }
+                _navigation.Navigate();
                 _context.Add(marker);
                 _context.SaveChanges();
             }
@@ -81,5 +85,6 @@ namespace Spoofer.Services.Marker
                 return null;
             }
         }
+
     }
 }
