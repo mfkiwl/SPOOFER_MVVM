@@ -6,11 +6,15 @@ using Spoofer.ViewModels;
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Threading;
 using Windows.Devices.Geolocation;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls.Maps;
 using MapControl = Microsoft.Toolkit.Wpf.UI.Controls.MapControl;
+using MessageBox = System.Windows.MessageBox;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace Spoofer.Views
@@ -22,8 +26,7 @@ namespace Spoofer.Views
     {
         private readonly NavigationService _navigationService;
         private readonly IMarkerService _markerService;
-        private bool isIconSigned = false;
-        private int argc;
+        private bool isIconSigned;
         private void mapControl_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             e.Handled = true;
@@ -61,10 +64,10 @@ namespace Spoofer.Views
                     Title = location.Name
                 };
                 mapControl.MapElements.Add(mapIcon);
-            }
+            };
             if (mapControl.MapElements.Any())
             {
-                var lastLocationAdded = _markerService.GetAll().FirstOrDefault(p => p.Latitude >= 20);
+                var lastLocationAdded = _markerService.GetAll().Last();
                 BasicGeoposition lastPos = new BasicGeoposition()
                 {
                     Latitude = (double)lastLocationAdded.Latitude,
@@ -73,6 +76,7 @@ namespace Spoofer.Views
                 var lastPosPoint = new Geopoint(lastPos);
                 await (sender as MapControl).TrySetViewAsync(lastPosPoint, 13);
             }
+
         }
 
         private void MapControl_MapElementClick(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.MapElementClickEventArgs e)
@@ -120,5 +124,9 @@ namespace Spoofer.Views
                 mapControl.MapElements.RemoveAt(mapControl.MapElements.Count() - 1);
             }
         }
+        
+       
+        
+
     }
 }

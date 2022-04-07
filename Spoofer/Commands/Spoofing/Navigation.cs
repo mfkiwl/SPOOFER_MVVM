@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Spoofer.Commands.Spoofing
 {
-    public class GenerateSpoofingFile : BaseCommand
+    public class Navigation : BaseCommand
     {
 
         private readonly NavigationService _navigationService;
-        public GenerateSpoofingFile(NavigationService navigationService)
+        public Navigation(NavigationService navigationService)
         {
             _navigationService = navigationService;
         }

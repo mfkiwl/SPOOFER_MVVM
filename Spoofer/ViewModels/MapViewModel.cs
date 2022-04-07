@@ -63,13 +63,12 @@ namespace Spoofer.ViewModels
         public ICommand Add { get; }
         public ICommand Remove { get; }
 
-        public ICommand GetMark { get; }
-
-        public ICommand GetAllMarks { get; }
+        
 
         public MapViewModel(IMarkerService service)
         {
             _service = service;
+            GenerateFile = new Generate(service, this);
             Add = new AddMark(this, _service);
             Remove = new RemoveMark(this, _service);
         }

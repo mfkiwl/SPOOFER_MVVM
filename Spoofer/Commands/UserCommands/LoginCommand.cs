@@ -1,4 +1,5 @@
-﻿using Spoofer.Services.User;
+﻿using log4net;
+using Spoofer.Services.User;
 using Spoofer.ViewModels;
 using System;
 
@@ -6,6 +7,7 @@ namespace Spoofer.Commands.UserCommands
 {
     public class LoginCommand : BaseCommand
     {
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly AccountViewModel _accountViewModel;
         private readonly ILogin _login;
 
@@ -32,7 +34,15 @@ namespace Spoofer.Commands.UserCommands
 
         public override void Execute(object parameter)
         {
-            _login.OnLogin(_accountViewModel);
+            try
+            {
+                _login.OnLogin(_accountViewModel);
+                log.Info($"User {_accountViewModel.UserName} Logged In Seccesfully!!!!!");
+            }
+            catch(Exception e)
+            {
+                log.Error("Can't log in Exception");
+            }
         }
     }
 }

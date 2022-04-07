@@ -9,10 +9,9 @@ namespace Spoofer.Services.Marker
     {
         void AddMarker(MapViewModel mapViewModel);
 
-        void RemoveMarker(Geopoint point);
+        void RemoveMarker(MapViewModel point);
 
         IEnumerable<Coordinates> GetAll();
 
-        Coordinates GetCoordinateByLocation(Geopoint point);
     }
 }

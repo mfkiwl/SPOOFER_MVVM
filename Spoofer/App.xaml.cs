@@ -34,7 +34,7 @@ namespace Spoofer
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            _navigationStore.BaseViewModel = createMapViewModel();
+            _navigationStore.BaseViewModel = createAccountViewModel();
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(_navigationStore)

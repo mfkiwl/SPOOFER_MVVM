@@ -213,8 +213,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\Spoofing\GenerateSpoofingFile.cs" />
+    <Compile Include="Commands\Spoofing\Navigation.cs" />
+    <Compile Include="Commands\Spoofing\Generate.cs" />
     <Compile Include="EXMethods\SpoofingMethods.cs" />
+    <Compile Include="EXMethods\SpoofingMethods2.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Services\Marker\IMarkerService.cs" />
     <Compile Include="Services\Marker\MarkerService.cs" />
@@ -249,7 +251,6 @@
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\MarkersCommand\AddMark.cs" />
     <Compile Include="Commands\MarkersCommand\GetAllMarks.cs" />
-    <Compile Include="Commands\MarkersCommand\GetMark.cs" />
     <Compile Include="Commands\MarkersCommand\RemoveMark.cs" />
     <Compile Include="Commands\UserCommands\LoginCommand.cs" />
     <Compile Include="Commands\UserCommands\RegisterCommand.cs" />

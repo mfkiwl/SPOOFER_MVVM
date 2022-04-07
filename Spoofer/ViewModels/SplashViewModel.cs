@@ -16,7 +16,7 @@ namespace Spoofer.ViewModels
         public SplashViewModel(NavigationService navigationService)
         {
             _navigationService = navigationService;
-            GoBack = new GenerateSpoofingFile(_navigationService);
+            GoBack = new Navigation(_navigationService);
         }
     }
 }

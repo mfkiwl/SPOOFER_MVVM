@@ -43,11 +43,15 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Height="40" Width="65" Content="Create File"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Add}" />
-                <Button Height="40" Width="65" Content="Remove " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <Button Height="40" Width="65" Content="Transmit" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <Button Height="40" Width="65" Content="Stop" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Button Height="40" Width="50" Content="Add Marker"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Add}" CommandParameter="{Binding ElementName=mapControl}" />
+                <Button Height="40" Width="50" Content="Remove " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove}" CommandParameter="{Binding ElementName=mapControl
+                    }"/>
+                <Button Height="40" Width="50" Content="Transmit" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Button Height="40" Width="50" Content="Stop" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button  Height="40" Width="50" Grid.Column="4" Content="Generate"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding GenerateFile}"/>
+
             </Grid>
         </Grid>
         <Border BorderBrush="Black" BorderThickness="3" Grid.RowSpan="12">

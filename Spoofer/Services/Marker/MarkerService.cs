@@ -6,11 +6,13 @@ using Spoofer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace Spoofer.Services.Marker
 {
     public class MarkerService : IMarkerService
     {
+        private int counter;
         private readonly NavigationService _navigation;
         private readonly CoordinatesContext _context;
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -25,6 +27,11 @@ namespace Spoofer.Services.Marker
         {
             try
             {
+                counter++;
+                if (counter == 1)
+                {
+                    _navigation.Navigate();
+                }
                 var marker = new Coordinates()
                 {
                     CoorfianteId = Guid.NewGuid().ToString(),
@@ -41,9 +48,9 @@ namespace Spoofer.Services.Marker
                         marker.UserId = user.UserId;
                     }
                 }
-                _navigation.Navigate();
                 _context.Add(marker);
                 _context.SaveChanges();
+                MessageBox.Show($"{marker.Name} Added Succesfuly!!!!!");
             }
             catch (Exception ex)
             {
@@ -57,13 +64,21 @@ namespace Spoofer.Services.Marker
             return _context.Coordinates.ToList();
         }
 
-        public void RemoveMarker(Windows.Devices.Geolocation.Geopoint point)
+        public void RemoveMarker(MapViewModel model)
         {
             try
             {
-                var coordinateToRemove = GetCoordinateByLocation(point);
+                string root = @"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug";
+                string fileNameToDelete = $"{model.Label}.bin";
+                string[] realFileToDelete = System.IO.Directory.GetFiles(root, fileNameToDelete);
+                foreach (var file in realFileToDelete)
+                {
+                    System.IO.File.Delete(file);
+                }
+                var coordinateToRemove = _context.Coordinates.SingleOrDefault(c => c.Name == model.Label);
                 _context.Remove(coordinateToRemove);
                 _context.SaveChanges(true);
+                MessageBox.Show($"{coordinateToRemove.Name} Deleted Succesfully");
             }
             catch (Exception ex)
             {
@@ -72,19 +87,7 @@ namespace Spoofer.Services.Marker
             }
         }
 
-        public Coordinates GetCoordinateByLocation(Windows.Devices.Geolocation.Geopoint point)
-        {
-            try
-            {
-                var coordinate = _context.Coordinates.SingleOrDefault(p => p.Latitude == point.Position.Latitude && p.Longitude == point.Position.Longitude && p.Height == point.Position.Altitude);
-                return coordinate;
-            }
-            catch (Exception ex)
-            {
-                log.Error("Invalid Operation Excaption!!!!!!!!!!", ex);
-                return null;
-            }
-        }
+      
 
     }
 }

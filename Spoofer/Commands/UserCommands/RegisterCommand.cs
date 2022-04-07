@@ -1,4 +1,5 @@
-﻿using Spoofer.Services.User;
+﻿using log4net;
+using Spoofer.Services.User;
 using Spoofer.ViewModels;
 using System;
 
@@ -6,6 +7,7 @@ namespace Spoofer.Commands.UserCommands
 {
     public class RegisterCommand : BaseCommand
     {
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IRegister _iRegister;
         private readonly AccountViewModel _accountViewModel;
 
@@ -32,7 +34,15 @@ namespace Spoofer.Commands.UserCommands
 
         public override void Execute(object parameter)
         {
-            _iRegister.OnRegister(_accountViewModel);
+            try
+            {
+                _iRegister.OnRegister(_accountViewModel);
+                log.Info("User Registered Succesfully");
+            }
+            catch (Exception e)
+            {
+                log.Error("Cant Register Exception!!!!!", e);
+            }
         }
     }
 }

@@ -1657,6 +1657,7 @@ extern GPSSIM_DLL void usage(void)
 }
 extern GPSSIM_DLL int main(int argc, char* argv[])
 {
+	printf("Application Started");
 	clock_t tstart, tend;
 
 	FILE* fp;
@@ -1669,16 +1670,16 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 	double llh[3];
 	///////////////==============  Yakov Erlich Debug ================
 
-	printf("=== Show input parameters of main === \n"); // '\n' - EOL
-	printf("\t Number of parameters - argc: %d\n", argc); // '\t' - tab
-	printf("\t The Parameters itself (argv): \n");
+	fprintf(stderr,"=== Show input parameters of main === \n"); // '\n' - EOL
+	fprintf(stderr,"\t Number of parameters - argc: %d\n", argc); // '\t' - tab
+	fprintf(stderr,"\t The Parameters itself (argv): \n");
 	int k;
 	for (k = 0; k < argc; k++)
 	{
 		printf("\t\t - index %d, value [%s]\n", k, argv[k]);
 	}
 
-	printf("======================================= \n");
+	fprintf(stderr, "======================================= \n");
 
 	///////////////===================================================
 	int i;
@@ -1750,7 +1751,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 	if (argc < 3)
 	{
 		usage();
-		exit(1);
+		/*exit(1);*/
 	}
 
 	while ((result = getopt(argc, argv, "e:u:g:c:l:o:s:b:T:t:d:iv")) != -1)
@@ -1790,7 +1791,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 			if (samp_freq < 1.0e6)
 			{
 				fprintf(stderr, "ERROR: Invalid sampling frequency.\n");
-				exit(1);
+				/*exit(1);*/
 			}
 			break;
 		case 'b':
@@ -1798,7 +1799,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 			if (data_format != SC01 && data_format != SC08 && data_format != SC16)
 			{
 				fprintf(stderr, "ERROR: Invalid I/Q data format.\n");
-				exit(1);
+				/*exit(1);*/
 			}
 			break;
 		case 'T':
@@ -1828,7 +1829,6 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 				t0.hh < 0 || t0.hh>23 || t0.mm < 0 || t0.mm>59 || t0.sec < 0.0 || t0.sec >= 60.0)
 			{
 				fprintf(stderr, "ERROR: Invalid date and time.\n");
-				exit(1);
 			}
 			t0.sec = floor(t0.sec);
 			date2gps(&t0, &g0);
@@ -1845,7 +1845,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 		case ':':
 		case '?':
 			usage();
-			exit(1);
+			/*exit(1);*/
 		default:
 			break;
 		}
@@ -1854,7 +1854,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 	if (navfile[0] == 0)
 	{
 		fprintf(stderr, "ERROR: GPS ephemeris file is not specified.\n");
-		exit(1);
+		/*exit(1);*/
 	}
 
 	if (umfile[0] == 0 && !staticLocationMode)
@@ -1869,7 +1869,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 	if (duration < 0.0 || (duration > ((double)USER_MOTION_SIZE) / 10.0 && !staticLocationMode) || (duration > STATIC_MAX_DURATION && staticLocationMode))
 	{
 		fprintf(stderr, "ERROR: Invalid duration.\n");
-		exit(1);
+		/*exit(1);*/
 	}
 	iduration = (int)(duration * 10.0 + 0.5);
 
@@ -1895,12 +1895,12 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 		if (numd == -1)
 		{
 			fprintf(stderr, "ERROR: Failed to open user motion / NMEA GGA file.\n");
-			exit(1);
+			/*exit(1);*/
 		}
 		else if (numd == 0)
 		{
 			fprintf(stderr, "ERROR: Failed to read user motion / NMEA GGA data.\n");
-			exit(1);
+			/*exit(1);*/
 		}
 
 		// Set simulation duration
@@ -1928,12 +1928,12 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 	if (neph == 0)
 	{
 		fprintf(stderr, "ERROR: No ephemeris available.\n");
-		exit(1);
+		/*exit(1);*/
 	}
 	else if (neph == -1)
 	{
 		fprintf(stderr, "ERROR: ephemeris file not found.\n");
-		exit(1);
+		/*exit(1);*/
 	}
 
 	if ((verb == TRUE) && (ionoutc.vflg == TRUE))
@@ -2063,7 +2063,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 	if (ieph == -1)
 	{
 		fprintf(stderr, "ERROR: No current set of ephemerides has been found.\n");
-		exit(1);
+		/*exit(1);*/
 	}
 
 	////////////////////////////////////////////////////////////
@@ -2076,7 +2076,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 	if (iq_buff == NULL)
 	{
 		fprintf(stderr, "ERROR: Failed to allocate 16-bit I/Q buffer.\n");
-		exit(1);
+		/*exit(1);*/
 	}
 
 	if (data_format == SC08)
@@ -2085,7 +2085,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 		if (iq8_buff == NULL)
 		{
 			fprintf(stderr, "ERROR: Failed to allocate 8-bit I/Q buffer.\n");
-			exit(1);
+			/*exit(1);*/
 		}
 	}
 	else if (data_format == SC01)
@@ -2094,7 +2094,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 		if (iq8_buff == NULL)
 		{
 			fprintf(stderr, "ERROR: Failed to allocate compressed 1-bit I/Q buffer.\n");
-			exit(1);
+			/*exit(1);*/
 		}
 	}
 
@@ -2104,7 +2104,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 		if (NULL == (fp = fopen(outfile, "wb")))
 		{
 			fprintf(stderr, "ERROR: Failed to open output file.\n");
-			exit(1);
+			/*exit(1);*/
 		}
 	}
 	else {
@@ -2148,6 +2148,7 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 	////////////////////////////////////////////////////////////
 
 	tstart = clock();
+	
 
 	// Update receiver time
 	grx = incGpsTime(grx, 0.1);
@@ -2365,6 +2366,4 @@ extern GPSSIM_DLL int main(int argc, char* argv[])
 
 	// Process time
 	fprintf(stderr, "Process time = %.1f [sec]\n", (double)(tend - tstart) / CLOCKS_PER_SEC);
-
-	return(0);
 }

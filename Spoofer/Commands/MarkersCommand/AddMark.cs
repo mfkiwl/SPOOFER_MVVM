@@ -1,71 +1,72 @@
-﻿using Spoofer.Commands.UserCommands;
+﻿using log4net;
+using Microsoft.Toolkit.Wpf.UI.Controls;
+using Spoofer.Commands.UserCommands;
 using Spoofer.EXMethods;
 using Spoofer.Services.Marker;
 using Spoofer.ViewModels;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Threading;
+using Windows.Devices.Geolocation;
+using Windows.Storage.Streams;
 using Windows.UI.Core;
+using Windows.UI.Xaml.Controls.Maps;
+using MapControl = Microsoft.Toolkit.Wpf.UI.Controls.MapControl;
 
 namespace Spoofer.Commands.MarkersCommand
 {
     public class AddMark : BaseCommand
     {
-        DispatcherTimer dt = new DispatcherTimer();
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly MapViewModel _mapViewModel;
         private readonly IMarkerService _service;
-        private int argc;
+        
 
         public AddMark(MapViewModel mapViewModel, IMarkerService service)
         {
             _mapViewModel = mapViewModel;
             _service = service;
+            _mapViewModel.PropertyChanged += ViewModelPropertyChanged;
+        }
+
+        private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_mapViewModel.Latitude) &&
+                e.PropertyName == nameof(_mapViewModel.Longitude) && e.PropertyName == nameof(_mapViewModel.Label))
+            {
+                OnCanExecuteChange();
+            }
         }
 
         public override bool CanExecute(object parameter)
         {
-            return base.CanExecute(parameter);
-            //return base.CanExecute(parameter) && !double.IsNaN(_mapViewModel.Longitude) &&
-            //!double.IsNaN(_mapViewModel.Longitude) &&
-            //!string.IsNullOrEmpty(_mapViewModel.Label);
+            return base.CanExecute(parameter) &&
+                _mapViewModel.Longitude <= 90 &&
+                _mapViewModel.Longitude >= -90 &&
+                _mapViewModel.Latitude <= 180 &&
+                _mapViewModel.Latitude >= -180;
         }
 
         public override void Execute(object parameter)
         {
-            dt.IsEnabled = true;
-            dt.Interval = TimeSpan.FromSeconds(125);
-            dt.Tick += Dt_Tick;
-            
-            //dt.Stop();
-
+            try
+            {
+                _service.AddMarker(_mapViewModel);
+                var map = parameter as MapControl;
+                onMapUpdated(map, _service);
+                log.Info($"New Marker {_mapViewModel.Label} Was Added");
+            }
+            catch (Exception ex)
+            {
+                log.Error("Invalid Operation Exception!!!!!!!!!!!!!!!!!", ex);
+                return;
+            }
         }
-
-        private void Dt_Tick(object sender, EventArgs e)
+        public override void onMapUpdated(MapControl mapControl, IMarkerService _service)
         {
-            //var splashScreen = new SplashScreen("C:/Users/max/source/repos/Spoofer/Spoofer/Assets/icon.png");
-            //splashScreen.Show(true);
-            argc = GenerateFlags().Length;
-            var argv = GenerateFlags();
-            SpoofingMethods.main(argc, argv)/*))*/;
-            _service.AddMarker(_mapViewModel);
-            /*Application.Current.Dispatcher.Invoke((Action)(() => */
-            dt.IsEnabled = false;
-
+            base.onMapUpdated(mapControl, _service);
         }
 
-        private string[] GenerateFlags()
-        {
-            var flags = new string[9];
-            flags[0] = "Spoofer.exe";
-            flags[1] = "-e";
-            flags[2] = "brdc3540.14n";
-            flags[3] = "-s";
-            flags[4] = "2600000";
-            flags[5] = "-l";
-            flags[6] = $"{_mapViewModel.Latitude},{_mapViewModel.Longitude},{_mapViewModel.Height}";
-            flags[7] = "-o";
-            flags[8] = $"{_mapViewModel.Label}.bin";
-            return flags;
-        }
     }
 }
