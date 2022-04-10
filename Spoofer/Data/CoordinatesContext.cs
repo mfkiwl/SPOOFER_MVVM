@@ -19,7 +19,6 @@ namespace Spoofer.Data
             : base(options)
         {
         }
-
         public virtual DbSet<Coordinates> Coordinates { get; set; }
         public virtual DbSet<User> User { get; set; }
 
@@ -43,6 +42,7 @@ namespace Spoofer.Data
                 entity.Property(e => e.CoorfianteId).HasMaxLength(50);
 
                 entity.Property(e => e.Name)
+                    
                     .HasMaxLength(50)
                     .IsFixedLength();
 

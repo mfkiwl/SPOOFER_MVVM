@@ -164,6 +164,11 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data.SqlXml" />
+    <Reference Include="system.data.sqlxml.resources, Version=4.0.0.0, Culture=he, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\system.data.sqlxml.resources\v4.0_4.0.0.0_he_b77a5c561934e089\system.data.sqlxml.resources.dll</HintPath>
+    </Reference>
     <Reference Include="System.Design" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
@@ -218,6 +223,11 @@
     <Compile Include="EXMethods\SpoofingMethods.cs" />
     <Compile Include="EXMethods\SpoofingMethods2.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Migrations\20220410072226_initial.cs" />
+    <Compile Include="Migrations\20220410072226_initial.designer.cs">
+      <DependentUpon>20220410072226_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\CoordinatesContextModelSnapshot.cs" />
     <Compile Include="Services\Marker\IMarkerService.cs" />
     <Compile Include="Services\Marker\MarkerService.cs" />
     <Compile Include="Services\NavigationService.cs" />
@@ -259,6 +269,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Themes\ButtonDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\MapDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AccountView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -304,6 +322,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MahApps.Metro.IconPacks.Material">
+      <Version>4.11.0</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
       <Version>3.1.23</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -321,6 +342,7 @@
   <ItemGroup>
     <Resource Include="Assets\loading.gif" />
     <Resource Include="Assets\download.jpg" />
+    <Resource Include="Assets\Phantom.png" />
     <Content Include="EXMethods\Core.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

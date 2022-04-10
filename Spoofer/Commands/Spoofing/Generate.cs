@@ -40,7 +40,6 @@ namespace Spoofer.Commands.Spoofing
         {
             try
             {
-                Counter++;
                 argc = GenerateFlags().Length;
                 var argv = GenerateFlags();
                 if (Counter % 2 == 1)

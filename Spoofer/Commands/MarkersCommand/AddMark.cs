@@ -21,7 +21,7 @@ namespace Spoofer.Commands.MarkersCommand
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly MapViewModel _mapViewModel;
         private readonly IMarkerService _service;
-        
+
 
         public AddMark(MapViewModel mapViewModel, IMarkerService service)
         {
@@ -32,11 +32,9 @@ namespace Spoofer.Commands.MarkersCommand
 
         private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_mapViewModel.Latitude) &&
-                e.PropertyName == nameof(_mapViewModel.Longitude) && e.PropertyName == nameof(_mapViewModel.Label))
-            {
-                OnCanExecuteChange();
-            }
+
+            OnCanExecuteChange();
+
         }
 
         public override bool CanExecute(object parameter)
@@ -45,7 +43,8 @@ namespace Spoofer.Commands.MarkersCommand
                 _mapViewModel.Longitude <= 90 &&
                 _mapViewModel.Longitude >= -90 &&
                 _mapViewModel.Latitude <= 180 &&
-                _mapViewModel.Latitude >= -180;
+                _mapViewModel.Latitude >= -180 &&
+                String.IsNullOrEmpty(_mapViewModel.Label) == false;
         }
 
         public override void Execute(object parameter)

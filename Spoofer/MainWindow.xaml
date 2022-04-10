@@ -7,7 +7,9 @@
         xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:views1="clr-namespace:Spoofer.Views" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
 
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        AllowsTransparency="True" Background="Transparent"
+        WindowStyle="None" ResizeMode="NoResize" >
     <Grid>
         <Grid.Resources>
             <DataTemplate DataType="{x:Type viewmodels:MapViewModel}">

@@ -18,7 +18,7 @@ namespace Spoofer.ViewModels
         }
 
         private string password;
-
+       
         public string Password
         {
             get { return password; }

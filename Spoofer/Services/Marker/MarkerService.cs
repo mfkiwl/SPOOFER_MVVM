@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Spoofer.Services.Marker
 {
@@ -27,11 +28,6 @@ namespace Spoofer.Services.Marker
         {
             try
             {
-                counter++;
-                if (counter == 1)
-                {
-                    _navigation.Navigate();
-                }
                 var marker = new Coordinates()
                 {
                     CoorfianteId = Guid.NewGuid().ToString(),
@@ -86,6 +82,7 @@ namespace Spoofer.Services.Marker
                 return;
             }
         }
+        
 
       
 

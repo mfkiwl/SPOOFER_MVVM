@@ -3,70 +3,113 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Spoofer.Views"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:local="clr-namespace:Spoofer.Views" xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AccountViewModel}"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="Transparent">
     <Grid>
-        <Grid Grid.IsSharedSizeScope="True">
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\ButtonDictionary.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
+            
 
-            <TextBlock
-            Grid.Row="0"
-            Text="Create Flight" />
+            <Border CornerRadius="10" Grid.RowSpan="2">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="Black" Offset="0.0"/>
+                        <GradientStop Color="DarkBlue" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
 
-            <Grid Grid.Row="1" Margin="0 25 0 0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="UserName" />
-                <TextBox
-                Grid.Row="1"
-                Grid.Column="0"
-                Margin="0,5,484,-13"
-                Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox
-                Grid.Row="1"
-                Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" Margin="0,109,488,-98" />
-            </Grid>
+            <StackPanel VerticalAlignment="Center">
+                <Image Source="/Assets/Phantom.png" Width="150" />
+                <TextBlock Text="Phantom Spoofer"
+                           FontWeight="Light"
+                           FontFamily="Helvetica"
+                           FontSize="40"
+                           Foreground="White"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
 
-            <Grid Grid.Row="2" Margin="0 10 0 0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" SharedSizeGroup="FirstColumn" />
-                    <ColumnDefinition Width="auto" SharedSizeGroup="SecondColumn" />
-                </Grid.ColumnDefinitions>
 
-                <TextBlock
-                x:Name="loginCheck"
-                Visibility="Collapsed"
-                Grid.Row="1"
-                Grid.Column="1"
-                Text="Stay Logged In" Margin="38,126,-38,-126" />
-                <CheckBox
-                 x:Name="LoginCheckBox"
-                Visibility="Collapsed"
-                Grid.Row="1"
-                Grid.Column="1"
-                Margin="124,129,-146,-109"
-                IsChecked="{Binding IsStayedLoggedIn, UpdateSourceTrigger=PropertyChanged}" />
 
-                <Button x:Name="registerButton" Command="{Binding Register}" Content="Register" RenderTransformOrigin="0.174,5.53" Grid.Column="1" Margin="160,219,-140,-205" Grid.Row="1" />
-                <Button x:Name="loginButton" Command="{Binding Login}" Content="Login" RenderTransformOrigin="0.174,5.53" Grid.Column="1" Margin="160,219,-140,-205" Grid.Row="1" Visibility="Collapsed" />
-                <Button x:Name="goLoginButton" Content="I have an account yet" Grid.Column="1" Margin="376,224,-478,-200" Grid.Row="1" Click="goLoginButton_Click" />
-                <Button x:Name="goRegisterButton" Content="I Don't have an account" Grid.Column="1" Margin="376,224,-478,-200" Visibility="Collapsed" Grid.Row="1" Click="goRegisterButton_Click" />
-            </Grid>
+            <StackPanel Grid.Row="1" >
+                <StackPanel Orientation="Horizontal">
+                    <TextBox FontFamily="Helvetica"
+                             FontWeight="Light"
+                            
+                             FontSize="20"
+                             HorizontalAlignment="Center"
+                             Foreground="White"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Width="235"
+                             HorizontalContentAlignment="Left"
+                             Opacity="0.5"
+                             Height="25"
+                             Margin="275,0,0,0"
+                             Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
+                    <iconPacks:PackIconMaterial Kind="Account" 
+                                                VerticalAlignment="Center" 
+                                                HorizontalAlignment="Center" 
+                                                Foreground="White"/>
+                </StackPanel>
+                <Border Width="250"
+                        Height="2"
+                        Background="White"
+                        Opacity="0.5"/>
+
+
+
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                    <PasswordBox FontFamily="Helvetica"
+                             PasswordChanged="PasswordBox_PasswordChanged"
+                             FontWeight="Light"
+                             FontSize="20"
+                             HorizontalAlignment="Center"
+                             Foreground="White"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Width="235"
+                             HorizontalContentAlignment="Left"
+                             Opacity="0.5"
+                             Height="25"
+                             Margin="275,0,0,0"/>
+                    <iconPacks:PackIconMaterial Kind="FormTextboxPassword" 
+                                                VerticalAlignment="Center" 
+                                                HorizontalAlignment="Center" 
+                                                Foreground="White"/>
+                </StackPanel>
+                <Border Width="250"
+                        Height="2"
+                        Background="White"
+                        Opacity="0.5"/>
+
+
+                <StackPanel Orientation="Horizontal" Margin="210,50,0,0">
+                    <Button Width="100" Height="40" Content="LOGIN" Margin="60,0,60,0" Command="{Binding Login}"/>
+                    <Button Width="100" Height="40" Content="REGISTER" Command="{Binding Register}"/>
+                </StackPanel>
+
+            </StackPanel>
+
+
+
+
+
+
         </Grid>
     </Grid>
 </UserControl>
