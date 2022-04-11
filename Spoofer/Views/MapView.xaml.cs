@@ -1,4 +1,5 @@
-﻿using Spoofer.EXMethods;
+﻿using Spoofer.Commands.Spoofing;
+using Spoofer.EXMethods;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Navigation;
 using Spoofer.Stores;
@@ -27,8 +28,10 @@ namespace Spoofer.Views
         private readonly NavigationService _navigationService;
         private readonly IMarkerService _markerService;
         private bool isIconSigned;
+
         private void mapControl_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
+
             e.Handled = true;
             var capturedMouse = e.GetPosition(this);
             var position = mapControl.TranslatePoint(capturedMouse, mapControl);
@@ -41,7 +44,6 @@ namespace Spoofer.Views
             InitializeComponent();
             _navigationService = new NavigationService();
             _markerService = new MarkerService(App._context, _navigationService);
-
         }
 
         private async void MapControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
@@ -82,6 +84,9 @@ namespace Spoofer.Views
         private void MapControl_MapElementClick(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.MapElementClickEventArgs e)
         {
             CancelTemporaryIcons();
+            DeleteTextboxes();
+            var vm = (MapViewModel)this.DataContext;
+            _border.Visibility = Visibility.Collapsed;
             foreach (var element in e.MapElements)
             {
                 var signedElement = element as MapIcon;
@@ -93,6 +98,11 @@ namespace Spoofer.Views
                     alt.Text = signedElement.Location.Position.Altitude.ToString();
                     lab.Text = signedElement.Title;
                     double user = signedElement.Location.Position.Latitude;
+                    var realMarker = _markerService.GetAll().SingleOrDefault(p => p.Name == signedElement.Title && (double)p.Height == signedElement.Location.Position.Altitude && p.Longitude == signedElement.Location.Position.Longitude && p.Latitude == signedElement.Location.Position.Latitude);
+                    if (realMarker != null)
+                    {
+                        _border.Visibility = Visibility.Visible;
+                    }
                 }
                 else
                 {
@@ -100,17 +110,20 @@ namespace Spoofer.Views
                     isIconSigned = false;
                 }
             }
+            vm.IsFileCreated = Generate.isFileExist(vm);
         }
         private void mapControl_MapDoubleTapped(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.MapInputEventArgs e)
         {
             CancelTemporaryIcons();
+            DeleteTextboxes();
+            _border.Visibility = Visibility.Collapsed;
             var mousePoint = e.Location;
             lat.Text = mousePoint.Position.Latitude.ToString();
             lon.Text = mousePoint.Position.Longitude.ToString();
             var mapIcon = new MapIcon()
             {
                 Location = mousePoint,
-                Image = RandomAccessStreamReference.CreateFromUri(new Uri("C:/Users/max/source/repos/Spoofer/Spoofer/Assets/icon.png")),
+                Image = RandomAccessStreamReference.CreateFromUri(new Uri(@"C:/Users/max/source/repos/Spoofer/Spoofer/Assets/icon.png")),
                 ZIndex = 0,
                 IsEnabled = false
             };
@@ -125,8 +138,14 @@ namespace Spoofer.Views
             }
         }
         
-       
+        private void DeleteTextboxes()
+        {
+            lab.Text = string.Empty;
+        }
         
+
+
+
 
     }
 }

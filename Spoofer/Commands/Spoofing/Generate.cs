@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Spoofer.Commands.Spoofing
 {
@@ -34,7 +35,16 @@ namespace Spoofer.Commands.Spoofing
         }
         public override bool CanExecute(object parameter)
         {
-            return base.CanExecute(parameter) && !isFileExist(_mapViewModel);
+            foreach (var marker in _marker.GetAll())
+            {
+                return base.CanExecute(parameter) &&
+                    !isFileExist(_mapViewModel) &&
+                    _mapViewModel.Label == marker.Name &&
+                    _mapViewModel.Latitude == marker.Latitude &&
+                    _mapViewModel.Height == marker.Height &&
+                    _mapViewModel.Longitude == marker.Longitude;
+            }
+            return false;
         }
         public override void Execute(object parameter)
         {
@@ -52,7 +62,7 @@ namespace Spoofer.Commands.Spoofing
                 }
                 log.Info("Spoofing File Generated");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 log.Error("Spoofing File not Generated For a reason", e);
             }
@@ -74,6 +84,12 @@ namespace Spoofer.Commands.Spoofing
                 return flags;
             }
         }
-       
+        public static bool isFileExist(MapViewModel mapViewModel)
+        {
+            var path = $@"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug\{mapViewModel.Label}.bin";
+            return File.Exists(path);
+        }
+        
+
     }
 }

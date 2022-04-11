@@ -5,36 +5,40 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             xmlns:viewmodels="clr-namespace:Spoofer.ViewModels"
+             xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:converters="clr-namespace:Spoofer.Converters"
              d:DataContext="{d:DesignInstance Type=viewmodels:MapViewModel}"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
+    <UserControl.Resources>
+        <converters:BoolToFileStatusConverter x:Key="BoolToFileStatusConverter"/>
+        <converters:BoolToStatusStringConverter x:Key="BoolToStatusStringConverter"/>
+    </UserControl.Resources>
     <Grid x:Name="grid">
-            <Grid.Resources>
-                <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\MapDictionary.xaml"/>
-                    </ResourceDictionary.MergedDictionaries>
-                </ResourceDictionary>
-            </Grid.Resources>
-            <Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\MapDictionary.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
             <ColumnDefinition Width="47*" />
             <ColumnDefinition Width="53*" />
         </Grid.ColumnDefinitions>
-        <controls:MapControl Name="mapControl" MouseMove="mapControl_MouseMove" MapDoubleTapped="mapControl_MapDoubleTapped"  Loaded="MapControl_Loaded" MapElementClick="MapControl_MapElementClick" />
+        <controls:MapControl Name="mapControl"  MapServiceToken="uBngaWz7CURplqIi8S6H~cO1jRZvaLYP-9yJuSZPZrQ~AmWWGqcQslWedBAQwV01u5ljcTQbQPRcjqA5nhE0pPdwe6IYKc2RTHhEJaclOduX" ZoomInteractionMode="GestureAndControl" TiltInteractionMode="GestureAndControl" Style="Road" DockPanel.Dock="Top" MouseMove="mapControl_MouseMove" MapDoubleTapped="mapControl_MapDoubleTapped"  Loaded="MapControl_Loaded" MapElementClick="MapControl_MapElementClick" />
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="3.3*" />
-                
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="2*" />
+                <RowDefinition Height="5*" />
+
+                <RowDefinition Height="1.2*" />
+                <RowDefinition Height="1.2*" />
+                <RowDefinition Height="1.2*" />
+                <RowDefinition Height="1.2*" />
+                <RowDefinition Height="1.2*" />
+                <RowDefinition Height="1.2*" />
+                <RowDefinition Height="1.2*" />
+                <RowDefinition Height="1.2*" />
+                <RowDefinition Height="3*" />
             </Grid.RowDefinitions>
             <Border CornerRadius="10" Grid.RowSpan="13">
                 <Border.Background>
@@ -44,28 +48,28 @@
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
-            <Image Source="/Assets/Phantom.png" Height="78" VerticalAlignment="Bottom" />
+            <Image Source="/Assets/Phantom.png" Height="130" VerticalAlignment="Bottom" Margin="5,0,-5,108" />
 
             <StackPanel>
 
             </StackPanel>
-            <TextBlock Grid.Row="0" Foreground="Black" Padding="3" FontFamily="Helvetica" FontWeight="Light" Grid.Column="1" TextAlignment="Center"  HorizontalAlignment="Stretch" FontSize="25" TextWrapping="Wrap" Text="Spoofer Control" VerticalAlignment="Stretch" />
-            <TextBlock Grid.Row="1" Foreground="Black" Padding="7" FontFamily="Helvetica" FontWeight="Light" Grid.Column="1" TextAlignment="Center"  HorizontalAlignment="Stretch" FontSize="17" TextWrapping="Wrap" Text="Altitude" VerticalAlignment="Stretch" />
-            <TextBlock Grid.Row="3" Foreground="Black" Padding="7" FontFamily="Helvetica" FontWeight="Light" Grid.Column="1" TextAlignment="Center"  HorizontalAlignment="Stretch" FontSize="17"  TextWrapping="Wrap" Text="Longitude" VerticalAlignment="Stretch" />
-            <TextBlock Grid.Row="5" Foreground="Black" Padding="7" FontFamily="Helvetica" FontWeight="Light" Grid.Column="1" TextAlignment="Center"  HorizontalAlignment="Stretch" FontSize="17"  TextWrapping="Wrap" Text="Altitude" VerticalAlignment="Stretch" />
-            <TextBlock Grid.Row="7" Foreground="Black" Padding="7" FontFamily="Helvetica" FontWeight="Light" Grid.Column="1" TextAlignment="Center"  HorizontalAlignment="Stretch" FontSize="17"  TextWrapping="Wrap" Text="Title" VerticalAlignment="Stretch" />
-            <TextBox x:Name="lat" Background="Transparent" Foreground="Black" BorderThickness="0" TextAlignment="Center" Opacity="0.5" Grid.Row="2" Grid.Column="1" FontSize="14" Margin="21,8" Text="{Binding Latitude, UpdateSourceTrigger=PropertyChanged}" />
-            <Border Width="250" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="2"/>
-            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="321,10,0,0" Grid.Row="4"/>
-            <TextBox x:Name="lon" Background="Transparent" Foreground="Black" BorderThickness="0" Opacity="0.5" TextAlignment="Center" Grid.Row="4" Grid.Column="1" FontSize="14" Margin="21,8" Text="{Binding Longitude, UpdateSourceTrigger=PropertyChanged}" />
-            <Border Width="250" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="4"/>
-            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="321,10,0,0" Grid.Row="2"/>
-            <TextBox x:Name="alt" Background="Transparent" Foreground="Black" Opacity="0.5" BorderThickness="0" TextAlignment="Center" Grid.Row="6" Grid.Column="1" FontSize="14" Margin="21,8" Text="{Binding Height, UpdateSourceTrigger=PropertyChanged}" />
-            <Border Width="250" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="6"/>
-            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="321,10,0,0" Grid.Row="6"/>
-            <TextBox x:Name="lab" Background="Transparent" Foreground="Black" Opacity="0.5" BorderThickness="0" TextAlignment="Center" Grid.Row="8" Grid.Column="1" FontSize="14" Margin="21,8" Text="{Binding Label, UpdateSourceTrigger=PropertyChanged}" />
-            <Border Width="250" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="8"/>
-            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="321,10,0,0" Grid.Row="8"/>
+            <TextBlock Grid.Row="0" Foreground="Black" Padding="21" FontFamily="Helvetica"   TextAlignment="Center"  HorizontalAlignment="Stretch" FontSize="40" FontWeight="DemiBold"  TextWrapping="Wrap" Text="Spoofer Control" VerticalAlignment="Stretch" />
+            <TextBlock Grid.Row="1" Foreground="Black" Padding="32" FontFamily="Helvetica" FontWeight="Medium" TextAlignment="Center"  HorizontalAlignment="Stretch" FontSize="21" TextWrapping="Wrap" Text="Altitude" VerticalAlignment="Stretch" />
+            <TextBlock Grid.Row="3" Foreground="Black" Padding="29" FontFamily="Helvetica" FontWeight="Medium" Grid.Column="1" TextAlignment="Center"  HorizontalAlignment="Stretch" FontSize="21"  TextWrapping="Wrap" Text="Longitude" VerticalAlignment="Stretch" />
+            <TextBlock Grid.Row="5" Foreground="Black" Padding="32" FontFamily="Helvetica" FontWeight="Medium" Grid.Column="1" TextAlignment="Center"  HorizontalAlignment="Stretch" FontSize="21"  TextWrapping="Wrap" Text="Altitude" VerticalAlignment="Stretch" />
+            <TextBlock Grid.Row="7" Foreground="Black" Padding="32" FontFamily="Helvetica" FontWeight="Medium" Grid.Column="1" TextAlignment="Center"  HorizontalAlignment="Stretch" FontSize="21"  TextWrapping="Wrap" Text="Title" VerticalAlignment="Stretch" />
+            <TextBox x:Name="lat" Background="Transparent" Foreground="Black" BorderThickness="0" TextAlignment="Center" Opacity="0.5" Grid.Row="2" FontSize="18" FontWeight="Normal" Padding="22" Margin="21,8,21,0" Text="{Binding Latitude, UpdateSourceTrigger=PropertyChanged}" />
+            <Border Width="400" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="2"/>
+            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="690,38,0,0" Grid.Row="4"/>
+            <TextBox x:Name="lon" Background="Transparent" Foreground="Black" BorderThickness="0" Opacity="0.5" TextAlignment="Center" Grid.Row="4" FontSize="18" FontWeight="Normal" Padding="22" Margin="21,8,21,0" Text="{Binding Longitude, UpdateSourceTrigger=PropertyChanged}" />
+            <Border Width="400" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="4"/>
+            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="690,38,0,0" Grid.Row="2"/>
+            <TextBox x:Name="alt" Background="Transparent" Foreground="Black" Opacity="0.5" BorderThickness="0" TextAlignment="Center" Grid.Row="6" FontSize="18" Padding="22" FontWeight="Normal" Margin="21,8,21,0" Text="{Binding Height, UpdateSourceTrigger=PropertyChanged}" />
+            <Border Width="400" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="6"/>
+            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="690,38,0,0" Grid.Row="6"/>
+            <TextBox x:Name="lab" Background="Transparent" Foreground="Black" Opacity="0.5" BorderThickness="0" TextAlignment="Center" Grid.Row="8" FontSize="18" Padding="22" FontWeight="Normal" Margin="21,8,21,0" Text="{Binding Label, UpdateSourceTrigger=PropertyChanged}" />
+            <Border Width="400" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="8"/>
+            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="690,38,0,0" Grid.Row="8"/>
 
             <Grid Grid.Row="9">
                 <Grid.ColumnDefinitions>
@@ -75,14 +79,21 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Height="40" BorderBrush="Black" Width="70" Content="Add Marker"  HorizontalAlignment="Center" VerticalAlignment="Center"  Command="{Binding Add}" CommandParameter="{Binding ElementName=mapControl}" />
-                <Button Height="40" BorderBrush="Black" Width="70" Content="Remove " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove}" CommandParameter="{Binding ElementName=mapControl}"/>
-                <Button Height="40" BorderBrush="Black" Width="70" Content="Transmit" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <Button Height="40" BorderBrush="Black" Width="70" Content="Stop" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button  Height="40" Width="70" Grid.Column="4" Content="Generate"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding GenerateFile}"/>
+                <Button Height="55"  Width="70" Content="Add Marker"  HorizontalAlignment="Center" VerticalAlignment="Center"  Command="{Binding Add}" CommandParameter="{Binding ElementName=mapControl}" />
+                <Button Height="55"  Width="70" Content="Remove " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove}" CommandParameter="{Binding ElementName=mapControl}"/>
+                <Button Height="55"  Width="70" Content="Transmit" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Button Height="55"  Width="70" Content="Stop" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button  Height="55" Width="70" Grid.Column="4" Content="Generate"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding GenerateFile}"/>
 
             </Grid>
         </Grid>
         <Border BorderBrush="Black" BorderThickness="3"/>
+        <Border x:Name="_border" Visibility="Collapsed" BorderBrush="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" BorderThickness="3" Grid.Column="1" Grid.Row="0"  Margin="414,215,414,807" Width="190" Height="58">
+
+            <TextBlock x:Name="_textBlock"  HorizontalAlignment="Center" Foreground="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Grid.Column="1" TextAlignment="Center" Padding="15"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="{Binding Path=IsFileCreated, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource BoolToStatusStringConverter}}" VerticalAlignment="Top"/>
+
+
+        </Border>
+
     </Grid>
 </UserControl>

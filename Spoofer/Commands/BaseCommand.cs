@@ -15,6 +15,7 @@ namespace Spoofer.Commands.UserCommands
     {
         public event EventHandler CanExecuteChanged;
 
+        
         public virtual bool CanExecute(object parameter)
         {
             return true;
@@ -49,10 +50,6 @@ namespace Spoofer.Commands.UserCommands
                 mapControl.MapElements.Add(mapIcon);
             }
         }
-        public virtual bool isFileExist(MapViewModel _mapViewModel)
-        {
-            var path = $@"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug\{_mapViewModel.Label}.bin";
-            return File.Exists(path);
-        }
+        
     }
 }

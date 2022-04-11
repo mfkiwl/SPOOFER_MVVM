@@ -220,6 +220,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\Spoofing\Navigation.cs" />
     <Compile Include="Commands\Spoofing\Generate.cs" />
+    <Compile Include="Converters\BoolToFileStatusConverter.cs" />
     <Compile Include="EXMethods\SpoofingMethods.cs" />
     <Compile Include="EXMethods\SpoofingMethods2.cs" />
     <Compile Include="GlobalSuppressions.cs" />

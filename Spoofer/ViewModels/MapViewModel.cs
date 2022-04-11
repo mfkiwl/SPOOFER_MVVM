@@ -11,6 +11,7 @@ using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.Devices.Geolocation;
 using static System.Net.Mime.MediaTypeNames;
+using System.IO;
 
 namespace Spoofer.ViewModels
 {
@@ -50,7 +51,9 @@ namespace Spoofer.ViewModels
             get { return _height; }
             set { _height = (double)value; OnPropertyChanged("Height"); }
         }
+        private bool _isFileCreated;
 
+        public bool IsFileCreated { get { return _isFileCreated; } set { _isFileCreated = value; OnPropertyChanged(nameof(IsFileCreated)); } }
         private Windows.Devices.Geolocation.Geopoint _selectedMarkerId;
 
         public Windows.Devices.Geolocation.Geopoint SelectedMarkerId
@@ -71,7 +74,9 @@ namespace Spoofer.ViewModels
             GenerateFile = new Generate(service, this);
             Add = new AddMark(this, _service);
             Remove = new RemoveMark(this, _service);
+             
         }
+       
 
     }
 }
