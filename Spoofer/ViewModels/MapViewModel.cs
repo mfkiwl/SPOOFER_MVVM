@@ -17,6 +17,15 @@ namespace Spoofer.ViewModels
 {
     public class MapViewModel : ViewModelBase
     {
+        public MapViewModel(IMarkerService service)
+        {
+            _service = service;
+            Add = new AddMark(this, _service);
+            Remove = new RemoveMark(this, _service);
+            GenerateFile = new Generate(service, this);
+            ErrorMessageViewModel = new MessageViewModel();
+
+        }
 
         private readonly IMarkerService _service;
 
@@ -25,7 +34,7 @@ namespace Spoofer.ViewModels
         public string Label
         {
             get { return _label; }
-            set { _label = value; OnPropertyChanged("Label"); }
+            set { _label = value; OnPropertyChanged(nameof(Label)); }
         }
 
         private double _latitude;
@@ -33,7 +42,7 @@ namespace Spoofer.ViewModels
         public double Latitude
         {
             get { return _latitude; }
-            set { _latitude = value; OnPropertyChanged("Latitude"); }
+            set { _latitude = value; OnPropertyChanged(nameof(Latitude)); }
         }
 
         private double _longitude;
@@ -41,7 +50,7 @@ namespace Spoofer.ViewModels
         public double Longitude
         {
             get { return _longitude; }
-            set { _longitude = value; OnPropertyChanged("Longitude"); }
+            set { _longitude = value; OnPropertyChanged(nameof(Longitude)); }
         }
 
         private double _height;
@@ -49,11 +58,26 @@ namespace Spoofer.ViewModels
         public Nullable<double> Height
         {
             get { return _height; }
-            set { _height = (double)value; OnPropertyChanged("Height"); }
+            set { _height = (double)value; OnPropertyChanged(nameof(Height)); }
         }
         private bool _isFileCreated;
 
         public bool IsFileCreated { get { return _isFileCreated; } set { _isFileCreated = value; OnPropertyChanged(nameof(IsFileCreated)); } }
+        private bool _isLoading;
+
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { _isLoading = value;OnPropertyChanged(nameof(IsLoading)); }
+        }
+        private bool _isFinishLoading = true;
+
+        public bool IsFinishLoading
+        {
+            get { return _isFinishLoading; }
+            set { _isFinishLoading = value; OnPropertyChanged(nameof(IsFinishLoading)); }
+        }
+
         private Windows.Devices.Geolocation.Geopoint _selectedMarkerId;
 
         public Windows.Devices.Geolocation.Geopoint SelectedMarkerId
@@ -61,22 +85,15 @@ namespace Spoofer.ViewModels
             get { return _selectedMarkerId; }
             set { _selectedMarkerId = value; OnPropertyChanged("SelectedMarkerId"); }
         }
+        public MessageViewModel ErrorMessageViewModel { get;}
         public ICommand GenerateFile { get; }
-        
+
         public ICommand Add { get; }
         public ICommand Remove { get; }
 
-        
 
-        public MapViewModel(IMarkerService service)
-        {
-            _service = service;
-            GenerateFile = new Generate(service, this);
-            Add = new AddMark(this, _service);
-            Remove = new RemoveMark(this, _service);
-             
-        }
-       
+
+
 
     }
 }

@@ -4,11 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             xmlns:local="clr-namespace:Spoofer.Views" xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AccountViewModel}"
+              xmlns:wpfanimated="http://wpfanimatedgif.codeplex.com"
+             xmlns:local="clr-namespace:Spoofer.Views" xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:converters="clr-namespace:Spoofer.Converters" d:DataContext="{d:DesignInstance Type=viewmodels:AccountViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}"
              Background="Transparent">
+    <UserControl.Resources>
+        <converters:InverseBooleanToVisibillityConverter x:Key="InverseBooleanToVisibillityConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.Resources>
             <ResourceDictionary>
@@ -23,13 +27,17 @@
             <ColumnDefinition Width="238*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="469*"/>
                 <RowDefinition Height="611*"/>
             </Grid.RowDefinitions>
 
 
-            <Border CornerRadius="10" Grid.RowSpan="2" >
+            <Border CornerRadius="10" Grid.RowSpan="2" Grid.ColumnSpan="2" >
                 <Border.Background>
                     <LinearGradientBrush>
                         <GradientStop Color="Black" Offset="0.0"/>
@@ -39,7 +47,7 @@
             </Border>
 
 
-            <StackPanel VerticalAlignment="Center" Height="276" Margin="0,40,0,153">
+            <StackPanel VerticalAlignment="Center" Height="276" Margin="0,40,0,153" Grid.ColumnSpan="2">
                 <Image Source="/Assets/Phantom.png" Width="150" Margin="885,0" />
                 <TextBlock Text="Phantom Spoofer"
                            FontWeight="SemiBold"
@@ -51,7 +59,7 @@
 
 
 
-            <StackPanel Grid.Row="1" >
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" >
                 <StackPanel Orientation="Horizontal">
                     <TextBox FontFamily="Helvetica"
                              FontWeight="Light"
@@ -67,7 +75,7 @@
                              Padding="32"
                              Height="88"
                              Margin="773,0,25,0"
-                             Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding UserName,ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"/>
                     <iconPacks:PackIconMaterial Kind="Account" 
                                                 VerticalAlignment="Center" 
                                                 HorizontalAlignment="Center" 
@@ -107,17 +115,27 @@
 
 
                 <StackPanel Orientation="Horizontal" Margin="750,50,0,0" Grid.Column="1">
-                    <Button Width="125" Height="50" Content="LOGIN" Margin="60,0,60,0" Command="{Binding Login}"/>
-                    <Button Width="125" Height="50" Content="REGISTER" Command="{Binding Register}"/>
+                    <Button Width="125" Height="50" Content="LOGIN" Margin="60,0,60,0" Command="{Binding Login, ValidatesOnExceptions=True}" />
+                    <Button Width="125" Height="50" Content="REGISTER" Command="{Binding Register, ValidatesOnExceptions=True}"/>
                 </StackPanel>
-
+            
             </StackPanel>
-
-
-
-
-
-
+            <Image x:Name="Spinner" wpfanimated:ImageBehavior.AnimatedSource="/Assets/loader.gif" 
+               wpfanimated:ImageBehavior.RepeatBehavior="1"
+               Height="110" Grid.ColumnSpan="2" Margin="480,284,480,27" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Grid.Row="1" />
+            <TextBlock TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       Text="{Binding ErrorMessageViewModel.ErrorMessage}"
+                       Visibility="{Binding ErrorMessageViewModel.HasError, Converter={StaticResource InverseBooleanToVisibillityConverter}}"
+                       Grid.ColumnSpan="2"
+                       Margin="825,320,825,0"
+                       Grid.Row="1"
+                       Height="70" 
+                       Width="286"
+                       Foreground="Red" 
+                       Opacity="0.6"
+                       FontSize="19"
+                       FontWeight="SemiBold"/>
         </Grid>
     </Grid>
 </UserControl>

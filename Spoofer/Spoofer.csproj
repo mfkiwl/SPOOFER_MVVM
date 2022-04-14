@@ -165,10 +165,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.SqlXml" />
-    <Reference Include="system.data.sqlxml.resources, Version=4.0.0.0, Culture=he, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\system.data.sqlxml.resources\v4.0_4.0.0.0_he_b77a5c561934e089\system.data.sqlxml.resources.dll</HintPath>
-    </Reference>
     <Reference Include="System.Design" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
@@ -221,6 +217,7 @@
     <Compile Include="Commands\Spoofing\Navigation.cs" />
     <Compile Include="Commands\Spoofing\Generate.cs" />
     <Compile Include="Converters\BoolToFileStatusConverter.cs" />
+    <Compile Include="Converters\InverseBooleanToVisibillityConverter.cs" />
     <Compile Include="EXMethods\SpoofingMethods.cs" />
     <Compile Include="EXMethods\SpoofingMethods2.cs" />
     <Compile Include="GlobalSuppressions.cs" />
@@ -240,6 +237,7 @@
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
+    <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\SplashViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\AccountView.xaml.cs">
@@ -336,11 +334,18 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="WpfAnimatedGif">
+      <Version>2.0.2</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\loader.gif" />
+    <Resource Include="Assets\windows-circle-shining.gif" />
+    <Resource Include="Assets\Text.png" />
+    <Content Include="WpfAnimatedGif.dll" />
     <Resource Include="Assets\loading.gif" />
     <Resource Include="Assets\download.jpg" />
     <Resource Include="Assets\Phantom.png" />

@@ -17,8 +17,8 @@ namespace Spoofer.Commands.MarkersCommand
 
         public RemoveMark(MapViewModel mapViewModel, IMarkerService service)
         {
-            _service = service;
             _mapViewModel = mapViewModel;
+            _service = service;
             _mapViewModel.PropertyChanged += ViewModelPropertyChanged;
         }
 
@@ -29,9 +29,8 @@ namespace Spoofer.Commands.MarkersCommand
 
         public override bool CanExecute(object parameter)
         {
-            var locationSelected = _service.GetAll().SingleOrDefault(l => l.Name == _mapViewModel.Label
-            && l.Latitude == _mapViewModel.Latitude && l.Longitude == l.Longitude && l.Height == l.Height);
-            return locationSelected != null && base.CanExecute(parameter);
+            return base.CanExecute(parameter);
+
         }
 
         public override void Execute(object parameter)
@@ -43,7 +42,7 @@ namespace Spoofer.Commands.MarkersCommand
                 onMapUpdated(map, _service);
                 log.Info("Makrer Removed Succesfully");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 log.Error("Cant Remove Marker Exception", e);
             }

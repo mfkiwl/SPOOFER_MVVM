@@ -6,6 +6,7 @@ using Spoofer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -20,6 +21,7 @@ namespace Spoofer.Services.Marker
 
         public MarkerService(CoordinatesContext context, NavigationService navigation)
         {
+
             _context = context;
             _navigation = navigation;
         }
@@ -28,25 +30,47 @@ namespace Spoofer.Services.Marker
         {
             try
             {
-                var marker = new Coordinates()
+                if (String.IsNullOrEmpty(mapViewModel.Label))
                 {
-                    CoorfianteId = Guid.NewGuid().ToString(),
-                    Latitude = mapViewModel.Latitude,
-                    Longitude = mapViewModel.Longitude,
-                    Height = mapViewModel.Height ?? 0,
-                    Name = mapViewModel.Label ?? "",
-                };
-                foreach (var user in _context.User)
-                {
-                    user.IsAuthenticated = true;
-                    if ((bool)user.IsAuthenticated)
-                    {
-                        marker.UserId = user.UserId;
-                    }
+                    mapViewModel.ErrorMessageViewModel.ErrorMessage = "No Label Defined For this marker";
+
+
                 }
-                _context.Add(marker);
-                _context.SaveChanges();
-                MessageBox.Show($"{marker.Name} Added Succesfuly!!!!!");
+                else if (mapViewModel.Longitude > 180 || mapViewModel.Longitude < -180 ||
+                         mapViewModel.Latitude > 90 || mapViewModel.Latitude < -90)
+                {
+                    mapViewModel.ErrorMessageViewModel.ErrorMessage = "Coordiantes values are invalid \n" +
+                        "Latitude: Between -90 to 90, Longitude: Between -180 to 180.";
+
+
+                }
+                //else if (isExist(mapViewModel))
+                //{
+                //    mapViewModel.ErrorMessageViewModel.ErrorMessage = "There is marker on this location already...";
+                //    mapViewModel.ErrorMessageViewModel.Refresh();
+                //}
+                else
+                {
+                    var marker = new Coordinates()
+                    {
+                        CoorfianteId = Guid.NewGuid().ToString(),
+                        Latitude = mapViewModel.Latitude,
+                        Longitude = mapViewModel.Longitude,
+                        Height = mapViewModel.Height ?? 0,
+                        Name = mapViewModel.Label ?? "",
+                    };
+                    foreach (var user in _context.User)
+                    {
+                        user.IsAuthenticated = true;
+                        if ((bool)user.IsAuthenticated)
+                        {
+                            marker.UserId = user.UserId;
+                        }
+                    }
+                    _context.Add(marker);
+                    _context.SaveChanges();
+                    MessageBox.Show($"{marker.Name} Added Succesfuly!!!!!");
+                }
             }
             catch (Exception ex)
             {
@@ -64,27 +88,58 @@ namespace Spoofer.Services.Marker
         {
             try
             {
-                string root = @"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug";
-                string fileNameToDelete = $"{model.Label}.bin";
-                string[] realFileToDelete = System.IO.Directory.GetFiles(root, fileNameToDelete);
-                foreach (var file in realFileToDelete)
+                model.ErrorMessageViewModel.Refresh();
+                if (isExist(model))
                 {
-                    System.IO.File.Delete(file);
+                    model.ErrorMessageViewModel.ErrorMessage = "No Marker To Delete";
                 }
-                var coordinateToRemove = _context.Coordinates.SingleOrDefault(c => c.Name == model.Label);
-                _context.Remove(coordinateToRemove);
-                _context.SaveChanges(true);
-                MessageBox.Show($"{coordinateToRemove.Name} Deleted Succesfully");
+                else if (String.IsNullOrEmpty(model.Label))
+                {
+                    model.ErrorMessageViewModel.ErrorMessage = "Label not specefied for the marker you want to delete";
+                }
+                else
+                {
+                    string root = @"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug";
+                    string fileNameToDelete = $"{model.Label}.bin";
+                    string[] realFileToDelete = System.IO.Directory.GetFiles(root, fileNameToDelete);
+
+                    foreach (var file in realFileToDelete)
+                    {
+                        System.IO.File.Delete(file);
+                    }
+                    var coordinateToRemove = _context.Coordinates.SingleOrDefault(c => c.Name == model.Label);
+                    _context.Remove(coordinateToRemove);
+                    _context.SaveChanges(true);
+                    MessageBox.Show($"{coordinateToRemove.Name} Deleted Succesfully");
+                }
             }
             catch (Exception ex)
             {
                 log.Error("Invalid Operation Excaption!!!!!!!!!!", ex);
+                MessageBox.Show(ex.Message);
+
                 return;
             }
         }
-        
 
-      
+        public bool isExist(MapViewModel mapViewModel)
+        {
+            foreach (var point in _context.Coordinates)
+            {
+                if (point.Name.Trim() == mapViewModel.Label &&
+                    point.Latitude == mapViewModel.Latitude &&
+                    point.Longitude == mapViewModel.Longitude &&
+                    point.Height == mapViewModel.Height)
+                {
+                    return true;
+                }
+                else
+                {
 
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

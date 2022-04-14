@@ -33,33 +33,17 @@ namespace Spoofer.Commands.Spoofing
         {
             OnCanExecuteChange();
         }
-        public override bool CanExecute(object parameter)
+       
+        public async override void Execute(object parameter)
         {
-            foreach (var marker in _marker.GetAll())
-            {
-                return base.CanExecute(parameter) &&
-                    !isFileExist(_mapViewModel) &&
-                    _mapViewModel.Label == marker.Name &&
-                    _mapViewModel.Latitude == marker.Latitude &&
-                    _mapViewModel.Height == marker.Height &&
-                    _mapViewModel.Longitude == marker.Longitude;
-            }
-            return false;
-        }
-        public override void Execute(object parameter)
-        {
+            _mapViewModel.ErrorMessageViewModel.Refresh();
+            _mapViewModel.IsLoading = true;
+            _mapViewModel.IsFinishLoading = false;
             try
             {
-                argc = GenerateFlags().Length;
-                var argv = GenerateFlags();
-                if (Counter % 2 == 1)
-                {
-                    SpoofingMethods.main(argc, argv);
-                }
-                else
-                {
-                    SpoofingMethods2.main(argc, argv);
-                }
+                await Task.Run(() => generateFile());
+                _mapViewModel.IsLoading = false;
+                _mapViewModel.IsFinishLoading = true;
                 log.Info("Spoofing File Generated");
             }
             catch (Exception e)
@@ -89,7 +73,31 @@ namespace Spoofer.Commands.Spoofing
             var path = $@"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug\{mapViewModel.Label}.bin";
             return File.Exists(path);
         }
-        
+        private void generateFile()
+        {
+            if (!_marker.isExist(_mapViewModel))
+            {
+                _mapViewModel.ErrorMessageViewModel.ErrorMessage = "There is not valid coordinate specefied for this action";
+            }
+            else if (isFileExist(_mapViewModel))
+            {
+                _mapViewModel.ErrorMessageViewModel.ErrorMessage = "File have been created for this marker already";
+            }
+            else
+            {
+                argc = GenerateFlags().Length;
+                var argv = GenerateFlags();
+                if (Counter % 2 == 1)
+                {
+                    SpoofingMethods.main(argc, argv);
+                }
+                else
+                {
+                    SpoofingMethods2.main(argc, argv);
+                }
+            }
+        }
+
 
     }
 }

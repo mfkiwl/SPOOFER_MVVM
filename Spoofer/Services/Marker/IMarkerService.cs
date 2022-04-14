@@ -12,6 +12,7 @@ namespace Spoofer.Services.Marker
         void RemoveMarker(MapViewModel point);
 
         IEnumerable<Coordinates> GetAll();
+        bool isExist(MapViewModel mapViewModel);
 
     }
 }

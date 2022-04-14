@@ -85,7 +85,6 @@ namespace Spoofer.Views
         {
             CancelTemporaryIcons();
             DeleteTextboxes();
-            var vm = (MapViewModel)this.DataContext;
             _border.Visibility = Visibility.Collapsed;
             foreach (var element in e.MapElements)
             {
@@ -96,8 +95,10 @@ namespace Spoofer.Views
                     lat.Text = signedElement.Location.Position.Latitude.ToString();
                     lon.Text = signedElement.Location.Position.Longitude.ToString();
                     alt.Text = signedElement.Location.Position.Altitude.ToString();
-                    lab.Text = signedElement.Title;
+                    lab.Text = signedElement.Title.Trim();
                     double user = signedElement.Location.Position.Latitude;
+                    var vm = (MapViewModel)this.DataContext;
+                    vm.IsFileCreated = Generate.isFileExist(vm);
                     var realMarker = _markerService.GetAll().SingleOrDefault(p => p.Name == signedElement.Title && (double)p.Height == signedElement.Location.Position.Altitude && p.Longitude == signedElement.Location.Position.Longitude && p.Latitude == signedElement.Location.Position.Latitude);
                     if (realMarker != null)
                     {
@@ -110,7 +111,6 @@ namespace Spoofer.Views
                     isIconSigned = false;
                 }
             }
-            vm.IsFileCreated = Generate.isFileExist(vm);
         }
         private void mapControl_MapDoubleTapped(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.MapInputEventArgs e)
         {
@@ -137,15 +137,15 @@ namespace Spoofer.Views
                 mapControl.MapElements.RemoveAt(mapControl.MapElements.Count() - 1);
             }
         }
-        
+
         private void DeleteTextboxes()
         {
             lab.Text = string.Empty;
         }
-        
 
-
-
-
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _border.Visibility = Visibility.Collapsed;
+        }
     }
 }

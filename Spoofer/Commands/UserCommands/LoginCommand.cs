@@ -2,6 +2,7 @@
 using Spoofer.Services.User;
 using Spoofer.ViewModels;
 using System;
+using System.Threading.Tasks;
 
 namespace Spoofer.Commands.UserCommands
 {
@@ -26,23 +27,30 @@ namespace Spoofer.Commands.UserCommands
             }
         }
 
-        public override bool CanExecute(object parameter)
-        {
-            return !String.IsNullOrEmpty(_accountViewModel.UserName) &&
-                !String.IsNullOrEmpty(_accountViewModel.Password);
-        }
+        //public override bool CanExecute(object parameter)
+        //{
+        //    return !String.IsNullOrEmpty(_accountViewModel.UserName) &&
+        //        !String.IsNullOrEmpty(_accountViewModel.Password);
+        //}
 
         public override void Execute(object parameter)
         {
             try
             {
-                _login.OnLogin(_accountViewModel);
+                _accountViewModel.IsLoading = true;
+                Task.Run(() => login());
+                
                 log.Info($"User {_accountViewModel.UserName} Logged In Seccesfully!!!!!");
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 log.Error("Can't log in Exception");
             }
+        }
+        private void login()
+        {
+            _login.OnLogin(_accountViewModel);
         }
     }
 }

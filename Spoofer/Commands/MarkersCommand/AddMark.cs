@@ -37,16 +37,6 @@ namespace Spoofer.Commands.MarkersCommand
 
         }
 
-        public override bool CanExecute(object parameter)
-        {
-            return base.CanExecute(parameter) &&
-                _mapViewModel.Longitude <= 90 &&
-                _mapViewModel.Longitude >= -90 &&
-                _mapViewModel.Latitude <= 180 &&
-                _mapViewModel.Latitude >= -180 &&
-                String.IsNullOrEmpty(_mapViewModel.Label) == false;
-        }
-
         public override void Execute(object parameter)
         {
             try

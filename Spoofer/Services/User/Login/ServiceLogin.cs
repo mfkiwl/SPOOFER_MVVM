@@ -1,6 +1,9 @@
 ﻿using Spoofer.Data;
 using Spoofer.Services.Navigation;
 using Spoofer.ViewModels;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Spoofer.Services.User
 {
@@ -17,6 +20,8 @@ namespace Spoofer.Services.User
 
         public void OnLogin(AccountViewModel model)
         {
+            model.IsLoading = true;
+            model.ErrorMessageViewModel.ErrorMessage = "";
             foreach (var user in _context.User)
             {
                 if (model.UserName == user.UserName)
@@ -27,6 +32,8 @@ namespace Spoofer.Services.User
                         _navigation.Navigate();
                     }
                 }
+                model.IsLoading = false;
+                model.ErrorMessageViewModel.ErrorMessage = "Username Or Password are Incorrect";
             }
         }
     }

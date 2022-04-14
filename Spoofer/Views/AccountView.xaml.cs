@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Spoofer.Views
@@ -17,5 +18,7 @@ namespace Spoofer.Views
             if (this.DataContext != null)
             { ((dynamic)this.DataContext).Password = ((PasswordBox)sender).Password; }
         }
+
+       
     }
 }
