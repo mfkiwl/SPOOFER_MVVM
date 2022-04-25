@@ -195,7 +195,7 @@
                         CommandParameter="{Binding ElementName=mapControl}"
                         Margin="9,108,14,68" />
                 <Button Height="56"  Width="183" Content="Remove " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove, ValidatesOnExceptions=True}" CommandParameter="{Binding ElementName=mapControl}" Margin="14,108,7,68"/>
-                <Button Height="56"  Width="181" Content="Transmit" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,108,12,68" />
+                <Button Height="56"  Width="181" Content="Transmit" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding TransmitNow, ValidatesOnExceptions=True}" Margin="10,108,12,68" />
                 <Button Height="56"  Width="188" Content="Stop" Grid.Column="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,108,5,68"/>
                 <Button  Height="56"
                          Width="188"
@@ -222,7 +222,7 @@
             <TextBlock x:Name="_textBlock"  HorizontalAlignment="Center" Foreground="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="{Binding Path=IsFileCreated, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource BoolToStatusStringConverter}}" VerticalAlignment="Top"/>
 
         </Border>
-        <iconPacks:PackIconMaterial Opacity="0.6" Kind="File" Foreground="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Height="200" Grid.Column="1" Margin="575,142,0,0" Width="24" />
+        <!--<iconPacks:PackIconMaterial Opacity="0.6" Kind="File" Foreground="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Height="200" Grid.Column="1" Margin="575,142,0,0" Width="24" />-->
         <Image x:Name="Spinner" wpfanimated:ImageBehavior.AnimatedSource="/Assets/loader.gif" 
                wpfanimated:ImageBehavior.RepeatBehavior="1" Margin="28,392,30,248" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Grid.Column="1" />
         <Image x:Name="Text" wpfanimated:ImageBehavior.AnimatedSource="/Assets/Text.png" 

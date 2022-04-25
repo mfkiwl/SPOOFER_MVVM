@@ -23,6 +23,7 @@ namespace Spoofer.ViewModels
             Add = new AddMark(this, _service);
             Remove = new RemoveMark(this, _service);
             GenerateFile = new Generate(service, this);
+            TransmitNow = new Transmit(_service, this);
             ErrorMessageViewModel = new MessageViewModel();
 
         }
@@ -91,8 +92,7 @@ namespace Spoofer.ViewModels
         public ICommand Add { get; }
         public ICommand Remove { get; }
 
-
-
+        public ICommand TransmitNow { get;}
 
 
     }

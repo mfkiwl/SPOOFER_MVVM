@@ -2,7 +2,7 @@
 
 namespace Spoofer.Migrations
 {
-    public partial class initial : Migration
+    public partial class db : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

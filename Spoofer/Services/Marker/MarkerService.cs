@@ -44,11 +44,11 @@ namespace Spoofer.Services.Marker
 
 
                 }
-                //else if (isExist(mapViewModel))
-                //{
-                //    mapViewModel.ErrorMessageViewModel.ErrorMessage = "There is marker on this location already...";
-                //    mapViewModel.ErrorMessageViewModel.Refresh();
-                //}
+                else if (isExist(mapViewModel))
+                {
+                    mapViewModel.ErrorMessageViewModel.ErrorMessage = "There is marker on this location already...";
+                    
+                }
                 else
                 {
                     var marker = new Coordinates()
@@ -89,7 +89,7 @@ namespace Spoofer.Services.Marker
             try
             {
                 model.ErrorMessageViewModel.Refresh();
-                if (isExist(model))
+                if (!isExist(model))
                 {
                     model.ErrorMessageViewModel.ErrorMessage = "No Marker To Delete";
                 }
@@ -124,22 +124,11 @@ namespace Spoofer.Services.Marker
 
         public bool isExist(MapViewModel mapViewModel)
         {
-            foreach (var point in _context.Coordinates)
+            if (_context.Coordinates.Any(p=>p.Name == mapViewModel.Label || p.Longitude == mapViewModel.Longitude && p.Longitude == mapViewModel.Longitude))
             {
-                if (point.Name.Trim() == mapViewModel.Label &&
-                    point.Latitude == mapViewModel.Latitude &&
-                    point.Longitude == mapViewModel.Longitude &&
-                    point.Height == mapViewModel.Height)
-                {
-                    return true;
-                }
-                else
-                {
-
-                    return false;
-                }
+                return true;
             }
-            return true;
+            return false;
         }
     }
 }

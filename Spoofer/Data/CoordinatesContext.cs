@@ -41,10 +41,8 @@ namespace Spoofer.Data
 
                 entity.Property(e => e.CoorfianteId).HasMaxLength(50);
 
-                entity.Property(e => e.Name)
-                    
-                    .HasMaxLength(50)
-                    .IsFixedLength();
+                entity.HasIndex(e => e.Name)
+                    .IsUnique();
 
                 entity.Property(e => e.UserId).HasMaxLength(50);
 

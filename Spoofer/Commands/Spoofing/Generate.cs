@@ -64,7 +64,7 @@ namespace Spoofer.Commands.Spoofing
                 flags[5] = "-l";
                 flags[6] = $"{_mapViewModel.Latitude},{_mapViewModel.Longitude},{_mapViewModel.Height}";
                 flags[7] = "-o";
-                flags[8] = $"{_mapViewModel.Label}.bin";
+                flags[8] = $"{_mapViewModel.Label.Trim()}.bin";
                 return flags;
             }
         }

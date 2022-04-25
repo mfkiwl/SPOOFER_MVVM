@@ -10,8 +10,8 @@ using Spoofer.Data;
 namespace Spoofer.Migrations
 {
     [DbContext(typeof(CoordinatesContext))]
-    [Migration("20220410072226_initial")]
-    partial class initial
+    [Migration("20220424075737_db")]
+    partial class db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
