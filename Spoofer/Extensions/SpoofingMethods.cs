@@ -16,7 +16,7 @@ namespace Spoofer.EXMethods
         public static extern int MyMethod();
 
         [DllImport(LIBRARY_FILENAME, EntryPoint = "main", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int main(int argc, [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPStr)]string[]argv);
+        public static extern int main(int argc, [In][Out][MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPStr)]string[]argv);
 
        
     }

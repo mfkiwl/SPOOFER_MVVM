@@ -214,14 +214,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\Spoofing\Navigation.cs" />
-    <Compile Include="Commands\Spoofing\Generate.cs" />
-    <Compile Include="Commands\Spoofing\Transmit.cs" />
+    <Compile Include="Commands\SpoofingCommands\Generate.cs" />
+    <Compile Include="Commands\SpoofingCommands\Stop.cs" />
+    <Compile Include="Commands\SpoofingCommands\Transmit.cs" />
     <Compile Include="Converters\BoolToFileStatusConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibillityConverter.cs" />
-    <Compile Include="EXMethods\SpoofingMethods.cs" />
-    <Compile Include="EXMethods\SpoofingMethods2.cs" />
-    <Compile Include="EXMethods\TXMethods.cs" />
+    <Compile Include="Exceptions\MapExceptions.cs" />
+    <Compile Include="Extensions\SpoofingMethods.cs" />
+    <Compile Include="Extensions\SpoofingMethods2.cs" />
+    <Compile Include="Extensions\TXMethods.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Migrations\20220424075737_db.cs" />
     <Compile Include="Migrations\20220424075737_db.designer.cs">
@@ -231,16 +232,15 @@
     <Compile Include="Services\Marker\IMarkerService.cs" />
     <Compile Include="Services\Marker\MarkerService.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\Spoofer\ISpoofer.cs" />
+    <Compile Include="Services\Spoofer\SpooferService.cs" />
     <Compile Include="Services\User\Login\ILogin.cs" />
     <Compile Include="Services\User\Login\ServiceLogin.cs" />
-    <Compile Include="Services\User\Registration\IRegister.cs" />
-    <Compile Include="Services\User\Registration\ServiceRegister.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
-    <Compile Include="ViewModels\SplashViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
@@ -260,11 +260,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\BaseCommand.cs" />
-    <Compile Include="Commands\MarkersCommand\AddMark.cs" />
-    <Compile Include="Commands\MarkersCommand\GetAllMarks.cs" />
-    <Compile Include="Commands\MarkersCommand\RemoveMark.cs" />
+    <Compile Include="Commands\MarkersCommands\AddMark.cs" />
+    <Compile Include="Commands\MarkersCommands\RemoveMark.cs" />
     <Compile Include="Commands\UserCommands\LoginCommand.cs" />
-    <Compile Include="Commands\UserCommands\RegisterCommand.cs" />
     <Compile Include="Data\CoordinatesContext.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -354,7 +352,7 @@
     <Resource Include="Assets\loading.gif" />
     <Resource Include="Assets\download.jpg" />
     <Resource Include="Assets\Phantom.png" />
-    <Content Include="EXMethods\Core.dll" />
+    <Content Include="Extensions\Core.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -196,7 +196,7 @@
                         Margin="9,108,14,68" />
                 <Button Height="56"  Width="183" Content="Remove " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove, ValidatesOnExceptions=True}" CommandParameter="{Binding ElementName=mapControl}" Margin="14,108,7,68"/>
                 <Button Height="56"  Width="181" Content="Transmit" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding TransmitNow, ValidatesOnExceptions=True}" Margin="10,108,12,68" />
-                <Button Height="56"  Width="188" Content="Stop" Grid.Column="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,108,5,68"/>
+                <Button Height="56"  Width="188" Content="Stop" Grid.Column="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding StopTransmit, ValidatesOnExceptions=True}" Margin="10,108,5,68"/>
                 <Button  Height="56"
                          Width="188"
                          Grid.Column="4"

@@ -7,16 +7,13 @@ namespace Spoofer.ViewModels
 {
     public class AccountViewModel : ViewModelBase
     {
-        private readonly IRegister _iRegister;
         private readonly ILogin _iLogin;
 
-        public AccountViewModel(IRegister iRegister, ILogin iLogin)
+        public AccountViewModel( ILogin iLogin)
         {
-            _iRegister = iRegister;
             _iLogin = iLogin;
             ErrorMessageViewModel = new MessageViewModel();
             Login = new LoginCommand(_iLogin, this);
-            Register = new RegisterCommand(_iRegister, this);
         }
 
         private string password;

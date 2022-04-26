@@ -33,7 +33,7 @@ namespace Spoofer.Services.User
                     }
                 }
                 model.IsLoading = false;
-                model.ErrorMessageViewModel.ErrorMessage = "Username Or Password are Incorrect";
+                throw new ArgumentException("Username Or Password are Incorrect");
             }
         }
     }

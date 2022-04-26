@@ -1,8 +1,10 @@
 ﻿using log4net;
 using Spoofer.Commands.UserCommands;
 using Spoofer.Data;
+using Spoofer.Exceptions;
 using Spoofer.EXMethods;
 using Spoofer.Services.Marker;
+using Spoofer.Services.Spoofer;
 using Spoofer.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -21,11 +23,12 @@ namespace Spoofer.Commands.Spoofing
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private int Counter = 0;
         private readonly IMarkerService _marker;
+        private readonly ISpoofer _spoofer;
         private readonly MapViewModel _mapViewModel;
-        private int argc;
-        public Generate(IMarkerService marker, MapViewModel mapViewModel)
+        public Generate(IMarkerService marker, ISpoofer spoofer, MapViewModel mapViewModel)
         {
             _marker = marker;
+            _spoofer = spoofer;
             _mapViewModel = mapViewModel;
             _mapViewModel.PropertyChanged += ViewModelPropertyChanged;
         }
@@ -33,7 +36,7 @@ namespace Spoofer.Commands.Spoofing
         {
             OnCanExecuteChange();
         }
-       
+
         public async override void Execute(object parameter)
         {
             _mapViewModel.ErrorMessageViewModel.Refresh();
@@ -46,9 +49,22 @@ namespace Spoofer.Commands.Spoofing
                 _mapViewModel.IsFinishLoading = true;
                 log.Info("Spoofing File Generated");
             }
+            catch(CoordinateNotExistException ex)
+            {
+                _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+                _mapViewModel.IsLoading = false;
+                _mapViewModel.IsFinishLoading = true;
+            }
+            catch (FileAlreadyExistException ex)
+            {
+                _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+                _mapViewModel.IsLoading = false;
+                _mapViewModel.IsFinishLoading = true;
+            }
             catch (Exception e)
             {
                 log.Error("Spoofing File not Generated For a reason", e);
+                MessageBox.Show(e.Message);
             }
         }
         private string[] GenerateFlags()
@@ -60,7 +76,7 @@ namespace Spoofer.Commands.Spoofing
                 flags[1] = "-e";
                 flags[2] = "brdc3540.14n";
                 flags[3] = "-s";
-                flags[4] = "2600000";
+                flags[4] = "2500000";
                 flags[5] = "-l";
                 flags[6] = $"{_mapViewModel.Latitude},{_mapViewModel.Longitude},{_mapViewModel.Height}";
                 flags[7] = "-o";
@@ -68,36 +84,15 @@ namespace Spoofer.Commands.Spoofing
                 return flags;
             }
         }
-        public static bool isFileExist(MapViewModel mapViewModel)
-        {
-            var path = $@"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug\{mapViewModel.Label}.bin";
-            return File.Exists(path);
-        }
+
         private void generateFile()
         {
-            if (!_marker.isExist(_mapViewModel))
-            {
-                _mapViewModel.ErrorMessageViewModel.ErrorMessage = "There is not valid coordinate specefied for this action";
-            }
-            else if (isFileExist(_mapViewModel))
-            {
-                _mapViewModel.ErrorMessageViewModel.ErrorMessage = "File have been created for this marker already";
-            }
-            else
-            {
-                argc = GenerateFlags().Length;
-                var argv = GenerateFlags();
-                if (Counter % 2 == 1)
-                {
-                    SpoofingMethods.main(argc, argv);
-                }
-                else
-                {
-                    SpoofingMethods2.main(argc, argv);
-                }
-            }
+            var argv = GenerateFlags();
+            _spoofer.GenerateIQFile(argv, _mapViewModel);
+            
         }
-
-
     }
+
+
 }
+

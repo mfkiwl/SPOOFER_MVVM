@@ -4,6 +4,7 @@ using Spoofer.Services.Marker;
 using Spoofer.ViewModels;
 using System;
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Windows.Input;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls.Maps;
@@ -15,7 +16,7 @@ namespace Spoofer.Commands.UserCommands
     {
         public event EventHandler CanExecuteChanged;
 
-        
+
         public virtual bool CanExecute(object parameter)
         {
             return true;
@@ -50,6 +51,21 @@ namespace Spoofer.Commands.UserCommands
                 mapControl.MapElements.Add(mapIcon);
             }
         }
-        
+        public static bool isFileExist(MapViewModel mapViewModel)
+        {
+            var path = $@"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug\{mapViewModel.Label}.bin";
+            return File.Exists(path);
+        }
+        public static bool PingHost(string ipAddress)
+        {
+            var pinger = new Ping();
+            var replay = pinger.Send(ipAddress);
+            bool pingable = replay.Status == IPStatus.Success;
+            return pingable;
+        }
+        public void OnException(Exception ex, ViewModelBase viewModel)
+        {
+            
+        }
     }
 }

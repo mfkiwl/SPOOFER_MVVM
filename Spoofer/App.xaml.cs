@@ -2,6 +2,7 @@
 using Spoofer.Data;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Navigation;
+using Spoofer.Services.Spoofer;
 using Spoofer.Services.User;
 using Spoofer.Stores;
 using Spoofer.ViewModels;
@@ -16,9 +17,9 @@ namespace Spoofer
     {
         private const string CONNECTION_STRING = "Server=(localdb)\\mssqllocaldb;Database=Coordinates;Trusted_Connection=True;";
         private readonly NavigationStore _navigationStore;
-        private readonly IRegister _iRegister;
         private readonly IMarkerService _marker;
         private readonly ILogin _iLogin;
+        private readonly ISpoofer _spoofer;
         public static CoordinatesContext _context;
 
         public App()
@@ -27,8 +28,8 @@ namespace Spoofer
             _context = new CoordinatesContext(options);
             _navigationStore = new NavigationStore();
             _iLogin = new ServiceLogin(_context, new NavigationService(_navigationStore, createMapViewModel));
-            _iRegister = new ServiceRegister(_context);
-            _marker = new MarkerService(_context, new NavigationService(_navigationStore, createSplashViewModel));
+            _marker = new MarkerService(_context);
+            _spoofer = new SpooferService(_context, _marker);
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -44,16 +45,13 @@ namespace Spoofer
 
         private MapViewModel createMapViewModel()
         {
-            return new MapViewModel(_marker);
+            return new MapViewModel(_marker, _spoofer);
         }
 
         private AccountViewModel createAccountViewModel()
         {
-            return new AccountViewModel(_iRegister, _iLogin);
+            return new AccountViewModel(_iLogin);
         }
-        public  SplashViewModel createSplashViewModel()
-        {
-            return new SplashViewModel( new NavigationService(_navigationStore, createMapViewModel));
-        }
+
     }
 }

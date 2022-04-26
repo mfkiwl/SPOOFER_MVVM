@@ -43,6 +43,10 @@ namespace Spoofer.Commands.UserCommands
                 log.Info($"User {_accountViewModel.UserName} Logged In Seccesfully!!!!!");
 
             }
+            catch(ArgumentException ex)
+            {
+                _accountViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+            }
             catch (Exception e)
             {
                 log.Error("Can't log in Exception");

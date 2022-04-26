@@ -43,7 +43,7 @@ namespace Spoofer.Views
         {
             InitializeComponent();
             _navigationService = new NavigationService();
-            _markerService = new MarkerService(App._context, _navigationService);
+            _markerService = new MarkerService(App._context);
         }
 
         private async void MapControl_Loaded(object sender, System.Windows.RoutedEventArgs e)

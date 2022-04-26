@@ -18,9 +18,6 @@
             <DataTemplate DataType="{x:Type viewmodels:AccountViewModel}">
                 <views1:AccountView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:SplashViewModel}">
-                <views1:SplashView/>
-            </DataTemplate>
         </Grid.Resources>
 
         <ContentControl Content="{Binding CurrentViewModel}" />

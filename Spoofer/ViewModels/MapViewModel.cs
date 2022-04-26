@@ -12,23 +12,28 @@ using Windows.UI.Xaml.Controls.Maps;
 using Windows.Devices.Geolocation;
 using static System.Net.Mime.MediaTypeNames;
 using System.IO;
+using Spoofer.Services.Spoofer;
+using Spoofer.Commands.SpoofingCommands;
 
 namespace Spoofer.ViewModels
 {
     public class MapViewModel : ViewModelBase
     {
-        public MapViewModel(IMarkerService service)
+        public MapViewModel(IMarkerService service, ISpoofer spoofer)
         {
             _service = service;
+            _spoofer = spoofer;
             Add = new AddMark(this, _service);
             Remove = new RemoveMark(this, _service);
-            GenerateFile = new Generate(service, this);
-            TransmitNow = new Transmit(_service, this);
+            GenerateFile = new Generate(_service,_spoofer, this);
+            TransmitNow = new Transmit(_service,_spoofer, this);
+            StopTransmit = new Stop(_spoofer);
             ErrorMessageViewModel = new MessageViewModel();
 
         }
 
         private readonly IMarkerService _service;
+        private readonly ISpoofer _spoofer;
 
         private string _label;
 
@@ -69,7 +74,7 @@ namespace Spoofer.ViewModels
         public bool IsLoading
         {
             get { return _isLoading; }
-            set { _isLoading = value;OnPropertyChanged(nameof(IsLoading)); }
+            set { _isLoading = value; OnPropertyChanged(nameof(IsLoading)); }
         }
         private bool _isFinishLoading = true;
 
@@ -93,7 +98,7 @@ namespace Spoofer.ViewModels
         public ICommand Remove { get; }
 
         public ICommand TransmitNow { get;}
-
+        public ICommand StopTransmit { get; }
 
     }
 }

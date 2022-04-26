@@ -1,6 +1,7 @@
 ﻿using log4net;
 using Microsoft.Toolkit.Wpf.UI.Controls;
 using Spoofer.Commands.UserCommands;
+using Spoofer.Exceptions;
 using Spoofer.EXMethods;
 using Spoofer.Services.Marker;
 using Spoofer.ViewModels;
@@ -46,16 +47,18 @@ namespace Spoofer.Commands.MarkersCommand
                 onMapUpdated(map, _service);
                 log.Info($"New Marker {_mapViewModel.Label} Was Added");
             }
+            catch (InvalidCoordinateException ex)
+            {
+                _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+            }
+            catch (CoordinateExistException ex)
+            {
+                _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+            }
             catch (Exception ex)
             {
-                log.Error("Invalid Operation Exception!!!!!!!!!!!!!!!!!", ex);
-                return;
+                MessageBox.Show(ex.Message);
             }
         }
-        public override void onMapUpdated(MapControl mapControl, IMarkerService _service)
-        {
-            base.onMapUpdated(mapControl, _service);
-        }
-
     }
 }

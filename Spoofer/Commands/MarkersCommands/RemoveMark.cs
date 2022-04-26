@@ -1,11 +1,13 @@
 ﻿using log4net;
 using Microsoft.Toolkit.Wpf.UI.Controls;
 using Spoofer.Commands.UserCommands;
+using Spoofer.Exceptions;
 using Spoofer.Services.Marker;
 using Spoofer.ViewModels;
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 
 namespace Spoofer.Commands.MarkersCommand
 {
@@ -42,9 +44,17 @@ namespace Spoofer.Commands.MarkersCommand
                 onMapUpdated(map, _service);
                 log.Info("Makrer Removed Succesfully");
             }
+            catch(CoordinateNotExistException ex)
+            {
+                _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+            }
+            catch(InvalidCoordinateException ex)
+            {
+                _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+            }
             catch (Exception e)
             {
-                log.Error("Cant Remove Marker Exception", e);
+                MessageBox.Show(e.Message);
             }
         }
     }
