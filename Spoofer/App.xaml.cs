@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Spoofer.Commands.UserCommands;
 using Spoofer.Data;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Navigation;
@@ -35,6 +36,7 @@ namespace Spoofer
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            
             _navigationStore.BaseViewModel = createAccountViewModel();
             MainWindow = new MainWindow()
             {

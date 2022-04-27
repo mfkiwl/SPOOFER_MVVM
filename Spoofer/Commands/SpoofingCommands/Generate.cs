@@ -1,4 +1,5 @@
 ﻿using log4net;
+using Microsoft.Toolkit.Wpf.UI.Controls;
 using Spoofer.Commands.UserCommands;
 using Spoofer.Data;
 using Spoofer.Exceptions;
@@ -49,7 +50,7 @@ namespace Spoofer.Commands.Spoofing
                 _mapViewModel.IsFinishLoading = true;
                 log.Info("Spoofing File Generated");
             }
-            catch(CoordinateNotExistException ex)
+            catch (CoordinateNotExistException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
                 _mapViewModel.IsLoading = false;
@@ -74,7 +75,7 @@ namespace Spoofer.Commands.Spoofing
                 var flags = new string[9];
                 flags[0] = "Core.dll";
                 flags[1] = "-e";
-                flags[2] = "brdc3540.14n";
+                flags[2] = "brdc0620.22n";
                 flags[3] = "-s";
                 flags[4] = "2500000";
                 flags[5] = "-l";
@@ -89,7 +90,7 @@ namespace Spoofer.Commands.Spoofing
         {
             var argv = GenerateFlags();
             _spoofer.GenerateIQFile(argv, _mapViewModel);
-            
+
         }
     }
 

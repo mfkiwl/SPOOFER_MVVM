@@ -14,6 +14,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.IO;
 using Spoofer.Services.Spoofer;
 using Spoofer.Commands.SpoofingCommands;
+using Spoofer.Commands.UserCommands;
 
 namespace Spoofer.ViewModels
 {
@@ -23,6 +24,7 @@ namespace Spoofer.ViewModels
         {
             _service = service;
             _spoofer = spoofer;
+            BaseCommand.PingHost("10.0.0.41", this);
             Add = new AddMark(this, _service);
             Remove = new RemoveMark(this, _service);
             GenerateFile = new Generate(_service,_spoofer, this);
@@ -30,6 +32,13 @@ namespace Spoofer.ViewModels
             StopTransmit = new Stop(_spoofer);
             ErrorMessageViewModel = new MessageViewModel();
 
+        }
+        private bool _isPinging;
+
+        public bool IsPinging
+        {
+            get { return _isPinging; }
+            set { _isPinging = value; OnPropertyChanged(nameof(IsPinging)); }
         }
 
         private readonly IMarkerService _service;

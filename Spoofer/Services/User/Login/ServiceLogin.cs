@@ -32,8 +32,11 @@ namespace Spoofer.Services.User
                         _navigation.Navigate();
                     }
                 }
-                model.IsLoading = false;
-                throw new ArgumentException("Username Or Password are Incorrect");
+                else
+                {
+                    model.IsLoading = false;
+                    throw new ArgumentException("Username Or Password are Incorrect");
+                }
             }
         }
     }

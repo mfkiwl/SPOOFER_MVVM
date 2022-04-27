@@ -56,16 +56,14 @@ namespace Spoofer.Commands.UserCommands
             var path = $@"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug\{mapViewModel.Label}.bin";
             return File.Exists(path);
         }
-        public static bool PingHost(string ipAddress)
+        public static bool PingHost(string ipAddress, MapViewModel viewModel)
         {
             var pinger = new Ping();
             var replay = pinger.Send(ipAddress);
             bool pingable = replay.Status == IPStatus.Success;
+            viewModel.IsPinging = pingable;
             return pingable;
         }
-        public void OnException(Exception ex, ViewModelBase viewModel)
-        {
-            
-        }
+       
     }
 }
