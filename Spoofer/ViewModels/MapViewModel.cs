@@ -29,7 +29,7 @@ namespace Spoofer.ViewModels
             Remove = new RemoveMark(this, _service);
             GenerateFile = new Generate(_service,_spoofer, this);
             TransmitNow = new Transmit(_service,_spoofer, this);
-            StopTransmit = new Stop(_spoofer);
+            StopTransmit = new Stop(_spoofer, this);
             ErrorMessageViewModel = new MessageViewModel();
 
         }
@@ -92,14 +92,15 @@ namespace Spoofer.ViewModels
             get { return _isFinishLoading; }
             set { _isFinishLoading = value; OnPropertyChanged(nameof(IsFinishLoading)); }
         }
+        private bool _isTransmitting;
 
-        private Windows.Devices.Geolocation.Geopoint _selectedMarkerId;
-
-        public Windows.Devices.Geolocation.Geopoint SelectedMarkerId
+        public bool IsTransmitting
         {
-            get { return _selectedMarkerId; }
-            set { _selectedMarkerId = value; OnPropertyChanged("SelectedMarkerId"); }
+            get { return _isTransmitting; }
+            set { _isTransmitting = value; OnPropertyChanged(nameof(IsTransmitting)); }
         }
+
+
         public MessageViewModel ErrorMessageViewModel { get;}
         public ICommand GenerateFile { get; }
 

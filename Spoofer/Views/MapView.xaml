@@ -14,6 +14,9 @@
         <converters:BoolToFileStatusConverter x:Key="BoolToFileStatusConverter"/>
         <converters:BoolToStatusStringConverter x:Key="BoolToStatusStringConverter"/>
         <converters:InverseBooleanToVisibillityConverter x:Key="InverseBooleanToVisibillityConverter"/>
+        <converters:BoolToConnectionStatusConverter x:Key="BoolToConnectionStatusConverter"/>
+        <converters:BoolToTxStatusConverter x:Key="BoolToTxStatusConverter"/>
+
     </UserControl.Resources>
     <Grid x:Name="grid">
         <Grid.Resources>
@@ -28,7 +31,7 @@
             <ColumnDefinition Width="47*" />
             <ColumnDefinition Width="53*" />
         </Grid.ColumnDefinitions>
-        <controls:MapControl Name="mapControl" MapServiceToken="uBngaWz7CURplqIi8S6H~cO1jRZvaLYP-9yJuSZPZrQ~AmWWGqcQslWedBAQwV01u5ljcTQbQPRcjqA5nhE0pPdwe6IYKc2RTHhEJaclOduX" ZoomInteractionMode="GestureAndControl" TiltInteractionMode="GestureAndControl" Style="Road" DockPanel.Dock="Top" MouseMove="mapControl_MouseMove" MapDoubleTapped="mapControl_MapDoubleTapped"  Loaded="MapControl_Loaded" MapElementClick="MapControl_MapElementClick" />
+        <controls:MapControl Name="mapControl"  MapServiceToken="uBngaWz7CURplqIi8S6H~cO1jRZvaLYP-9yJuSZPZrQ~AmWWGqcQslWedBAQwV01u5ljcTQbQPRcjqA5nhE0pPdwe6IYKc2RTHhEJaclOduX" ZoomInteractionMode="GestureAndControl" TiltInteractionMode="GestureAndControl" Style="Road" DockPanel.Dock="Top" MouseMove="mapControl_MouseMove" MapDoubleTapped="mapControl_MapDoubleTapped"  Loaded="MapControl_Loaded" MapElementClick="MapControl_MapElementClick" />
         <Border CornerRadius="10" Grid.Column="1" Grid.RowSpan="13" Visibility="Visible">
             <Border.Background>
                 <LinearGradientBrush>
@@ -51,7 +54,8 @@
                 <RowDefinition Height="1.2*" />
                 <RowDefinition Height="4*" />
             </Grid.RowDefinitions>
-            <Image Source="/Assets/Phantom.png" Height="130" VerticalAlignment="Bottom" Margin="5,0,-5,108" />
+
+            <!--<Image Source="/Assets/Phantom.png" Height="130" VerticalAlignment="Bottom" Margin="5,0,-5,108" />-->
 
             <StackPanel>
 
@@ -61,7 +65,7 @@
                        Padding="21" FontFamily="Helvetica" 
                        TextAlignment="Center" 
                        HorizontalAlignment="Stretch"
-                       FontSize="40" FontWeight="DemiBold" 
+                       FontSize="60" FontWeight="DemiBold" 
                        TextWrapping="Wrap" Text="Spoofer Control"
                        VerticalAlignment="Stretch" />
             <TextBlock Grid.Row="1"
@@ -194,20 +198,22 @@
                         VerticalAlignment="Center" 
                         Command="{Binding Add, ValidatesOnExceptions=True}" 
                         CommandParameter="{Binding ElementName=mapControl}"
+                        ToolTip="Add Marker to the database"
                         Margin="9,108,14,68" />
-                <Button Height="56"  Width="183" Content="Remove " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove, ValidatesOnExceptions=True}" CommandParameter="{Binding ElementName=mapControl}" Margin="14,108,7,68"/>
-                <Button Height="56"  Width="181" Content="Transmit" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding TransmitNow, ValidatesOnExceptions=True}" Margin="10,108,12,68" />
-                <Button Height="56"  Width="188" Content="Stop" Grid.Column="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding StopTransmit, ValidatesOnExceptions=True}" Margin="10,108,5,68"/>
+                <Button Height="56" ToolTip="Remove Marker From Database"  Width="183" Content="Remove " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove, ValidatesOnExceptions=True}" CommandParameter="{Binding ElementName=mapControl}" Margin="14,108,7,68"/>
+                <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding TransmitNow, ValidatesOnExceptions=True}" Margin="10,108,12,68" />
+                <Button Height="56" ToolTip="Stop SDR Transmition"  Width="188" Content="Stop" Grid.Column="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding StopTransmit, ValidatesOnExceptions=True}" Margin="10,108,5,68"/>
                 <Button  Height="56"
                          Width="188"
+                         ToolTip="Generate I/Q Sampeling file"
                          Grid.Column="4"
                          FontSize="19"
                          Content="Generate" 
                          HorizontalAlignment="Center"
                          VerticalAlignment="Center"
                          Command="{Binding GenerateFile, ValidatesOnExceptions=True}"
-                         Click="Button_Click" 
                          Margin="8,108,8,68"
+                         Click="Button_Click"
                          />
                 <iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black" Kind="FileMarkerOutline" Height="40" Width="Auto" HorizontalAlignment="Stretch" Grid.Column="4" Margin="120,115,-2,0" RenderTransformOrigin="1.67,1.889"/>
                 <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkRed" Kind="CloseOctagon" Grid.Column="3" Width="Auto" Height="40" Margin="131,116,0,0" RenderTransformOrigin="1.67,1.889" />
@@ -218,12 +224,17 @@
             </Grid>
         </Grid>
         <Border BorderBrush="Black" BorderThickness="3"/>
-        <Border x:Name="_border" Opacity="0.6" BorderBrush="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" BorderThickness="3" Grid.Column="1" Grid.Row="0"  Margin="482,214,346,808" Width="190" Height="58">
+        <Border x:Name="_border" Opacity="0.6"  BorderBrush="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="540,214,288,808" Width="190" Height="58">
 
             <TextBlock x:Name="_textBlock"  HorizontalAlignment="Center" Foreground="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="{Binding Path=IsFileCreated, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource BoolToStatusStringConverter}}" VerticalAlignment="Top"/>
 
         </Border>
-        <Border x:Name="ping" Opacity="0.6" BorderBrush="{Binding Path=IsPinging,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" BorderThickness="3" Grid.Column="1" Grid.Row="0"  Margin="402,214,539,808">
+        <Border  Opacity="0.8"  BorderBrush="OrangeRed" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="276,214,562,808" Height="58">
+
+            <TextBlock HorizontalAlignment="Center" Foreground="OrangeRed" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="{Binding Path=IsTransmitting, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource  BoolToTxStatusConverter}}" VerticalAlignment="Top"/>
+
+        </Border>
+        <Border x:Name="ping" Opacity="0.6" ToolTip="{Binding IsPinging, Converter={StaticResource BoolToConnectionStatusConverter}}" BorderBrush="{Binding Path=IsPinging,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="3" Grid.Column="1" Grid.Row="0"  Margin="459,214,481,808">
             <iconPacks:PackIconMaterial Kind="Radio" Foreground="{Binding Path=IsPinging,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Height="33" Margin="15,9,0,0" Width="35" RenderTransformOrigin="1.088,0.971" />
         </Border>
         <!--<iconPacks:PackIconMaterial Opacity="0.6" Kind="File" Foreground="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Height="200" Grid.Column="1" Margin="575,142,0,0" Width="24" />-->

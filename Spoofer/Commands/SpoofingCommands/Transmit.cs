@@ -29,7 +29,10 @@ namespace Spoofer.Commands.Spoofing
             _mapViewModel = mapViewModel;
             _mapViewModel.PropertyChanged += ViewModelPropertyChanged;
         }
-
+        public override bool CanExecute(object parameter)
+        {
+            return base.CanExecute(parameter) && !_mapViewModel.IsTransmitting;
+        }
         private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnCanExecuteChange();
@@ -40,6 +43,7 @@ namespace Spoofer.Commands.Spoofing
             try
             {
                 _spoofer.TransmitFromFile(_mapViewModel);
+                MessageBox.Show("Tx Is On");
             }
             catch(CoordinateNotExistException ex)
             {

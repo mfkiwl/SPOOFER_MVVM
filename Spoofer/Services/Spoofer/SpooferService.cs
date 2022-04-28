@@ -17,6 +17,7 @@ namespace Spoofer.Services.Spoofer
     {
         private const string IP_ADDRESS = "10.0.0.41";
         private readonly Process proccess;
+        private int counter = 0;
         private readonly CoordinatesContext _context;
         private readonly IMarkerService _marker;
 
@@ -38,8 +39,20 @@ namespace Spoofer.Services.Spoofer
             }
             else
             {
-                var argc = argv.Length;
-                EXMethods.SpoofingMethods.main(argc, argv);
+                if (counter == 0)
+                {
+                    var argc = argv.Length;
+                    EXMethods.SpoofingMethods.main(argc, argv);
+                    counter++;
+                }
+                else
+                {
+                    var process = new Process();
+                    proccess.StartInfo.FileName = "Core.dll";
+                    proccess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    proccess.StartInfo.Arguments = $"-e brdc0620.22n -s 2500000 -l {argv[6]} -o {argv[8]}";
+                    process.Start();
+                }
             }
         }
         public void TransmitFromFile(MapViewModel viewModel)
@@ -63,11 +76,17 @@ namespace Spoofer.Services.Spoofer
                 proccess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 proccess.StartInfo.Arguments = $@"--file {viewModel.Label.Trim()}.bin --type short --rate 2500000 --freq 1575420000 --gain 20 --repeat --ref external";
                 proccess.Start();
+                viewModel.IsTransmitting = true;
+                if (proccess.HasExited)
+                {
+                    viewModel.IsTransmitting = false;
+                }
             }
         }
-        public void StopTransmitting()
+        public void StopTransmitting(MapViewModel viewModel)
         {
             proccess.Kill();
+            viewModel.IsTransmitting = false;
         }
     }
 }

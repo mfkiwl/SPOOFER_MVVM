@@ -309,7 +309,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Fakes Include="Fakes\Uno.UI.fakes" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -348,6 +347,7 @@
     <Resource Include="Assets\loader.gif" />
     <Resource Include="Assets\windows-circle-shining.gif" />
     <Resource Include="Assets\Text.png" />
+    <Resource Include="Assets\TNDy.gif" />
     <Content Include="WpfAnimatedGif.dll" />
     <Resource Include="Assets\loading.gif" />
     <Resource Include="Assets\download.jpg" />

@@ -28,13 +28,10 @@ namespace Spoofer.Commands.MarkersCommand
         {
             OnCanExecuteChange();
         }
-
         public override bool CanExecute(object parameter)
         {
-            return base.CanExecute(parameter);
-
+            return base.CanExecute(parameter) && !_mapViewModel.IsTransmitting;
         }
-
         public override void Execute(object parameter)
         {
             try

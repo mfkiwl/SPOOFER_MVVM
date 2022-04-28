@@ -37,7 +37,11 @@ namespace Spoofer.Commands.Spoofing
         {
             OnCanExecuteChange();
         }
-
+        public override bool CanExecute(object parameter)
+        {
+            return base.CanExecute(parameter) && !_mapViewModel.IsTransmitting;
+        }
+        
         public async override void Execute(object parameter)
         {
             _mapViewModel.ErrorMessageViewModel.Refresh();
@@ -66,6 +70,8 @@ namespace Spoofer.Commands.Spoofing
             {
                 log.Error("Spoofing File not Generated For a reason", e);
                 MessageBox.Show(e.Message);
+                _mapViewModel.IsLoading = false;
+                _mapViewModel.IsFinishLoading = true;
             }
         }
         private string[] GenerateFlags()
