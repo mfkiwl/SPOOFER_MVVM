@@ -42,6 +42,7 @@ namespace Spoofer.Commands.Spoofing
         {
             try
             {
+                _mapViewModel.ErrorMessageViewModel.Refresh();
                 _spoofer.TransmitFromFile(_mapViewModel);
                 MessageBox.Show("Tx Is On");
             }

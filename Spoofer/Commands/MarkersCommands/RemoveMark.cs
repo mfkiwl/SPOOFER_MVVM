@@ -36,16 +36,17 @@ namespace Spoofer.Commands.MarkersCommand
         {
             try
             {
+                _mapViewModel.ErrorMessageViewModel.Refresh();
                 _service.RemoveMarker(_mapViewModel);
                 var map = parameter as MapControl;
                 onMapUpdated(map, _service);
                 log.Info("Makrer Removed Succesfully");
             }
-            catch(CoordinateNotExistException ex)
+            catch (CoordinateNotExistException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
             }
-            catch(InvalidCoordinateException ex)
+            catch (InvalidCoordinateException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
             }

@@ -229,9 +229,9 @@
             <TextBlock x:Name="_textBlock"  HorizontalAlignment="Center" Foreground="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="{Binding Path=IsFileCreated, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource BoolToStatusStringConverter}}" VerticalAlignment="Top"/>
 
         </Border>
-        <Border  Opacity="0.8"  BorderBrush="OrangeRed" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="276,214,562,808" Height="58">
+        <Border  Opacity="0.8"  BorderBrush="OrangeRed" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="276,214,562,808" Height="58">
 
-            <TextBlock HorizontalAlignment="Center" Foreground="OrangeRed" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="{Binding Path=IsTransmitting, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource  BoolToTxStatusConverter}}" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Center" Foreground="OrangeRed" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="TX On..." VerticalAlignment="Top"/>
 
         </Border>
         <Border x:Name="ping" Opacity="0.6" ToolTip="{Binding IsPinging, Converter={StaticResource BoolToConnectionStatusConverter}}" BorderBrush="{Binding Path=IsPinging,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="3" Grid.Column="1" Grid.Row="0"  Margin="459,214,481,808">

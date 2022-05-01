@@ -72,9 +72,11 @@ namespace Spoofer.Services.Spoofer
             else
             {
                 proccess.StartInfo.FileName = "tx_samples_from_file";
-                proccess.StartInfo.UseShellExecute = false;
                 proccess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                proccess.StartInfo.RedirectStandardInput = true;
+                proccess.StartInfo.RedirectStandardOutput = false;
                 proccess.StartInfo.Arguments = $@"--file {viewModel.Label.Trim()}.bin --type short --rate 2500000 --freq 1575420000 --gain 20 --repeat --ref external";
+                proccess.StartInfo.UseShellExecute = false;
                 proccess.Start();
                 viewModel.IsTransmitting = true;
                 if (proccess.HasExited)

@@ -45,6 +45,7 @@ namespace Spoofer.Commands.MarkersCommand
         {
             try
             {
+                _mapViewModel.ErrorMessageViewModel.Refresh();
                 _service.AddMarker(_mapViewModel);
                 var map = parameter as MapControl;
                 onMapUpdated(map, _service);
