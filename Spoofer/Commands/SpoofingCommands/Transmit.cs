@@ -20,9 +20,9 @@ namespace Spoofer.Commands.Spoofing
     {
        
         private readonly IMarkerService _marker;
-        private readonly ISpoofer _spoofer;
+        private readonly ISpooferService _spoofer;
         private readonly MapViewModel _mapViewModel;
-        public Transmit(IMarkerService marker, ISpoofer spoofer, MapViewModel mapViewModel)
+        public Transmit(IMarkerService marker, ISpooferService spoofer, MapViewModel mapViewModel)
         {
             _marker = marker;
             _spoofer = spoofer;

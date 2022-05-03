@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spoofer", "Spoofer\Spoofer.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Core\Core.vcxproj", "{DA8B0590-16B1-45E3-9D96-41C7F77580EA}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{886CF843-E3E9-4573-A8D9-3A673D24181C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,12 @@ Global
 		{DA8B0590-16B1-45E3-9D96-41C7F77580EA}.Release|x64.Build.0 = Release|x64
 		{DA8B0590-16B1-45E3-9D96-41C7F77580EA}.Release|x86.ActiveCfg = Release|Win32
 		{DA8B0590-16B1-45E3-9D96-41C7F77580EA}.Release|x86.Build.0 = Release|Win32
+		{886CF843-E3E9-4573-A8D9-3A673D24181C}.Debug|Any CPU.ActiveCfg = Debug
+		{886CF843-E3E9-4573-A8D9-3A673D24181C}.Debug|x64.ActiveCfg = Debug
+		{886CF843-E3E9-4573-A8D9-3A673D24181C}.Debug|x86.ActiveCfg = Debug
+		{886CF843-E3E9-4573-A8D9-3A673D24181C}.Release|Any CPU.ActiveCfg = Release
+		{886CF843-E3E9-4573-A8D9-3A673D24181C}.Release|x64.ActiveCfg = Release
+		{886CF843-E3E9-4573-A8D9-3A673D24181C}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

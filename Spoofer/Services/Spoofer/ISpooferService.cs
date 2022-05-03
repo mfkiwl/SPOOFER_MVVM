@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Spoofer.Services.Spoofer
 {
-    public interface ISpoofer
+    public interface ISpooferService
     {
         void GenerateIQFile(string [] argv, MapViewModel viewModel);
         void TransmitFromFile(MapViewModel viewModel);

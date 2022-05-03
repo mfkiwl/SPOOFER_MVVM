@@ -12,9 +12,9 @@ namespace Spoofer.Commands.SpoofingCommands
 {
     public class Stop : BaseCommand
     {
-        private readonly ISpoofer _spoofer;
+        private readonly ISpooferService _spoofer;
         private readonly MapViewModel _mapViewModel;
-        public Stop(ISpoofer spoofer, MapViewModel mapViewModel)
+        public Stop(ISpooferService spoofer, MapViewModel mapViewModel)
         {
             _spoofer = spoofer;
             _mapViewModel = mapViewModel;

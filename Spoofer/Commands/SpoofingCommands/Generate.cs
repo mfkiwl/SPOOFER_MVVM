@@ -25,9 +25,9 @@ namespace Spoofer.Commands.Spoofing
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private int Counter = 0;
         private readonly IMarkerService _marker;
-        private readonly ISpoofer _spoofer;
+        private readonly ISpooferService _spoofer;
         private readonly MapViewModel _mapViewModel;
-        public Generate(IMarkerService marker, ISpoofer spoofer, MapViewModel mapViewModel)
+        public Generate(IMarkerService marker, ISpooferService spoofer, MapViewModel mapViewModel)
         {
             _marker = marker;
             _spoofer = spoofer;
@@ -83,7 +83,7 @@ namespace Spoofer.Commands.Spoofing
                 var flags = new string[9];
                 flags[0] = "Core.dll";
                 flags[1] = "-e";
-                flags[2] = "hour1210.22n";
+                flags[2] = "hour1230.22n";
                 flags[3] = "-s";
                 flags[4] = "2500000";
                 flags[5] = "-l";

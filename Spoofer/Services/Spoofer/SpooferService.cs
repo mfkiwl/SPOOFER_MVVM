@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Spoofer.Services.Spoofer
 {
-    public class SpooferService : ISpoofer
+    public class SpooferService : ISpooferService
     {
         private const string IP_ADDRESS = "10.0.0.41";
         private readonly Process proccess;
@@ -67,6 +67,7 @@ namespace Spoofer.Services.Spoofer
             }
             if (!BaseCommand.PingHost(IP_ADDRESS, viewModel))
             {
+                viewModel.IsPinging = false;
                 throw new PingException($"{IP_ADDRESS} is not connected");
             }
             else
@@ -75,7 +76,7 @@ namespace Spoofer.Services.Spoofer
                 proccess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 proccess.StartInfo.RedirectStandardInput = true;
                 proccess.StartInfo.RedirectStandardOutput = false;
-                proccess.StartInfo.Arguments = $@"--file {viewModel.Label.Trim()}.bin --type short --rate 2500000 --freq 1575420000 --gain 20 --repeat --ref external";
+                proccess.StartInfo.Arguments = $@"--file {viewModel.Label.Trim()}.bin --type short --rate 2500000 --freq 1575420000 --gain 31.5 --repeat --ref external";
                 proccess.StartInfo.UseShellExecute = false;
                 proccess.Start();
                 viewModel.IsTransmitting = true;

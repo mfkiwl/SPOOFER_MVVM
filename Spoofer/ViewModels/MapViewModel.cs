@@ -20,7 +20,7 @@ namespace Spoofer.ViewModels
 {
     public class MapViewModel : ViewModelBase
     {
-        public MapViewModel(IMarkerService service, ISpoofer spoofer)
+        public MapViewModel(IMarkerService service, ISpooferService spoofer)
         {
             _service = service;
             _spoofer = spoofer;
@@ -42,7 +42,7 @@ namespace Spoofer.ViewModels
         }
 
         private readonly IMarkerService _service;
-        private readonly ISpoofer _spoofer;
+        private readonly ISpooferService _spoofer;
 
         private string _label;
 

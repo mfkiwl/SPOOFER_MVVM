@@ -8,6 +8,8 @@ using Spoofer.Services.User;
 using Spoofer.Stores;
 using Spoofer.ViewModels;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Windows;
@@ -23,7 +25,7 @@ namespace Spoofer
         private readonly NavigationStore _navigationStore;
         private readonly IMarkerService _marker;
         private readonly ILogin _iLogin;
-        private readonly ISpoofer _spoofer;
+        private readonly ISpooferService _spoofer;
         public static CoordinatesContext _context;
 
         public App()
@@ -39,11 +41,7 @@ namespace Spoofer
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            using (var client = new WebClient())
-            {
-                client.DownloadFile("https://cddis.nasa.gov/archive/gnss/data/daily/2022/121/22n/", "brdc1210.22n.gz");
-                client.Credentials = new NetworkCredential("oriri123", "Te7326658");
-            }
+            
             _navigationStore.BaseViewModel = createAccountViewModel();
             MainWindow = new MainWindow()
             {
