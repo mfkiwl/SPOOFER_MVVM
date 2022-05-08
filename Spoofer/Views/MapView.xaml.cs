@@ -63,7 +63,7 @@ namespace Spoofer.Views
                     Image = RandomAccessStreamReference.CreateFromUri(new Uri("C:/Users/max/source/repos/Spoofer/Spoofer/Assets/icon.png")),
                     ZIndex = 0,
                     IsEnabled = true,
-                    Title = location.Name
+                    Title = location.Name,
                 };
                 mapControl.MapElements.Add(mapIcon);
             };

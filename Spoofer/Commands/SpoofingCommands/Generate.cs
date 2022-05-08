@@ -68,6 +68,12 @@ namespace Spoofer.Commands.Spoofing
                 _mapViewModel.IsLoading = false;
                 _mapViewModel.IsFinishLoading = true;
             }
+            catch(ArgumentException ex)
+            {
+                _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+                _mapViewModel.IsLoading = false;
+                _mapViewModel.IsFinishLoading = true;
+            }
             catch (Exception e)
             {
                 log.Error("Spoofing File not Generated For a reason", e);
@@ -78,12 +84,26 @@ namespace Spoofer.Commands.Spoofing
         }
         private string[] GenerateFlags()
         {
+            var ephFiles = new DirectoryInfo(Environment.CurrentDirectory)
+                .GetFiles().
+                Where(p => p.Name.Contains("brdc")).
+                OrderByDescending(o => o.LastWriteTime);
+            var file = ephFiles.
+                FirstOrDefault();
+            foreach (var filein in ephFiles.Skip(1))
+            {
+                filein.Delete();
+            }
+            if (!file.Exists || file.LastWriteTimeUtc != DateTime.Today)
+            {
+                throw new ArgumentException("No Ephemeris Navigation File Specefied");
+            }
             while (true)
             {
                 var flags = new string[9];
                 flags[0] = "Core.dll";
                 flags[1] = "-e";
-                flags[2] = "hour1230.22n";
+                flags[2] = $"{file}";
                 flags[3] = "-s";
                 flags[4] = "2500000";
                 flags[5] = "-l";

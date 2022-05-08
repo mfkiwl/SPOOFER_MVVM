@@ -50,7 +50,7 @@ namespace Spoofer.Services.Spoofer
                     var process = new Process();
                     proccess.StartInfo.FileName = "Core.dll";
                     proccess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    proccess.StartInfo.Arguments = $"-e brdc0620.22n -s 2500000 -l {argv[6]} -o {argv[8]}";
+                    proccess.StartInfo.Arguments = $"-e brdc1280.22n -s 2500000 -l {argv[6]} -o {argv[8]}";
                     process.Start();
                 }
             }

@@ -30,6 +30,7 @@ namespace Spoofer
 
         public App()
         {
+
             DbContextOptions options = new DbContextOptionsBuilder().UseSqlServer(CONNECTION_STRING).Options;
             _context = new CoordinatesContext(options);
             _navigationStore = new NavigationStore();
