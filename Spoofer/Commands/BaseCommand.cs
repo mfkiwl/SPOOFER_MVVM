@@ -4,6 +4,7 @@ using Spoofer.Services.Marker;
 using Spoofer.ViewModels;
 using System;
 using System.IO;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Windows.Input;
 using Windows.Storage.Streams;
@@ -28,10 +29,10 @@ namespace Spoofer.Commands.UserCommands
         {
             CanExecuteChanged?.Invoke(this, new EventArgs());
         }
-        public virtual void onMapUpdated(MapControl mapControl, IMarkerService _service)
+        public virtual void onMapUpdated(MapControl mapControl, IMarkerService service)
         {
             mapControl.MapElements.Clear();
-            foreach (var location in _service.GetAll())
+            foreach (var location in service.GetAll())
             {
                 Windows.Devices.Geolocation.BasicGeoposition PinPosition = new Windows.Devices.Geolocation.BasicGeoposition
                 {
@@ -53,7 +54,7 @@ namespace Spoofer.Commands.UserCommands
         }
         public static bool isFileExist(MapViewModel mapViewModel)
         {
-            var path = $@"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug\{mapViewModel.Label}.bin";
+            var path = $@"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug\{String.Concat(mapViewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
             return File.Exists(path);
         }
         public static bool PingHost(string ipAddress, MapViewModel viewModel)
@@ -64,6 +65,7 @@ namespace Spoofer.Commands.UserCommands
             viewModel.IsPinging = pingable;
             return pingable;
         }
+       
        
     }
 }

@@ -15,6 +15,7 @@ using System.IO;
 using Spoofer.Services.Spoofer;
 using Spoofer.Commands.SpoofingCommands;
 using Spoofer.Commands.UserCommands;
+using System.Linq;
 
 namespace Spoofer.ViewModels
 {
@@ -25,10 +26,11 @@ namespace Spoofer.ViewModels
             _service = service;
             _spoofer = spoofer;
             BaseCommand.PingHost("10.0.0.41", this);
+            numberInOrder = new ObservableCollection<int>();
             Add = new AddMark(this, _service);
             Remove = new RemoveMark(this, _service);
-            GenerateFile = new Generate(_service,_spoofer, this);
-            TransmitNow = new Transmit(_service,_spoofer, this);
+            GenerateFile = new Generate(_service, _spoofer, this);
+            TransmitNow = new Transmit(_service, _spoofer, this);
             StopTransmit = new Stop(_spoofer, this);
             ErrorMessageViewModel = new MessageViewModel();
 
@@ -99,16 +101,34 @@ namespace Spoofer.ViewModels
             get { return _isTransmitting; }
             set { _isTransmitting = value; OnPropertyChanged(nameof(IsTransmitting)); }
         }
+        private bool _isUpToDate;
+        private ObservableCollection<int> numberInOrder;
+
+        public ObservableCollection<int> NumberInOrder => numberInOrder;
+        public int SelectedItem { get; set; }
 
 
-        public MessageViewModel ErrorMessageViewModel { get;}
+        public MessageViewModel ErrorMessageViewModel { get; }
         public ICommand GenerateFile { get; }
 
         public ICommand Add { get; }
         public ICommand Remove { get; }
 
-        public ICommand TransmitNow { get;}
+        public ICommand TransmitNow { get; }
         public ICommand StopTransmit { get; }
+        public ObservableCollection<int> updateCollection()
+        {
+            numberInOrder.Clear();
+            for (int i = 0; i < _service.GetAll().Count(); i++)
+            {
+
+                if (_service.GetAll().ToList()[i].HasFile)
+                {
+                    numberInOrder.Add(i);
+                }
+            }
+            return numberInOrder;
+        }
 
     }
 }

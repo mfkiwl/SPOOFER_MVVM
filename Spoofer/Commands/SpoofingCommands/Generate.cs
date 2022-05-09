@@ -94,7 +94,7 @@ namespace Spoofer.Commands.Spoofing
             {
                 filein.Delete();
             }
-            if (!file.Exists || file.LastWriteTimeUtc != DateTime.Today)
+            if (file.LastWriteTimeUtc.Date != DateTime.Today)
             {
                 throw new ArgumentException("No Ephemeris Navigation File Specefied");
             }
@@ -103,13 +103,13 @@ namespace Spoofer.Commands.Spoofing
                 var flags = new string[9];
                 flags[0] = "Core.dll";
                 flags[1] = "-e";
-                flags[2] = $"{file}";
+                flags[2] = $"{file.ToString().Trim()}";
                 flags[3] = "-s";
                 flags[4] = "2500000";
                 flags[5] = "-l";
                 flags[6] = $"{_mapViewModel.Latitude},{_mapViewModel.Longitude},{_mapViewModel.Height}";
                 flags[7] = "-o";
-                flags[8] = $"{_mapViewModel.Label.Trim()}.bin";
+                flags[8] = $"{String.Concat(_mapViewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
                 return flags;
             }
         }

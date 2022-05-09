@@ -1,4 +1,5 @@
 ﻿using Spoofer.Commands.Spoofing;
+using Spoofer.Commands.UserCommands;
 using Spoofer.EXMethods;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Navigation;
@@ -98,7 +99,7 @@ namespace Spoofer.Views
                     lab.Text = signedElement.Title.Trim();
                     double user = signedElement.Location.Position.Latitude;
                     var vm = (MapViewModel)this.DataContext;
-                    vm.IsFileCreated = Generate.isFileExist(vm);
+                    vm.IsFileCreated = BaseCommand.isFileExist(vm);
                     var realMarker = _markerService.GetAll().SingleOrDefault(p => p.Name == signedElement.Title && (double)p.Height == signedElement.Location.Position.Altitude && p.Longitude == signedElement.Location.Position.Longitude && p.Latitude == signedElement.Location.Position.Latitude);
                     if (realMarker != null)
                     {

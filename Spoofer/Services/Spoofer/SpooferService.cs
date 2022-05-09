@@ -39,20 +39,11 @@ namespace Spoofer.Services.Spoofer
             }
             else
             {
-                if (counter == 0)
-                {
-                    var argc = argv.Length;
-                    EXMethods.SpoofingMethods.main(argc, argv);
-                    counter++;
-                }
-                else
-                {
-                    var process = new Process();
-                    proccess.StartInfo.FileName = "Core.dll";
-                    proccess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    proccess.StartInfo.Arguments = $"-e brdc1280.22n -s 2500000 -l {argv[6]} -o {argv[8]}";
-                    process.Start();
-                }
+
+                var argc = argv.Length;
+                EXMethods.SpoofingMethods.main(argc, argv);
+               
+                counter++;
             }
         }
         public void TransmitFromFile(MapViewModel viewModel)
@@ -76,7 +67,7 @@ namespace Spoofer.Services.Spoofer
                 proccess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 proccess.StartInfo.RedirectStandardInput = true;
                 proccess.StartInfo.RedirectStandardOutput = false;
-                proccess.StartInfo.Arguments = $@"--file {viewModel.Label.Trim()}.bin --type short --rate 2500000 --freq 1575420000 --gain 31.5 --repeat --ref external";
+                proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 42 --repeat --ref external";
                 proccess.StartInfo.UseShellExecute = false;
                 proccess.Start();
                 viewModel.IsTransmitting = true;

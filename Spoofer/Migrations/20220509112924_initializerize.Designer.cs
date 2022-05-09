@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Spoofer.Data;
 
 namespace Spoofer.Migrations
 {
     [DbContext(typeof(CoordinatesContext))]
-    partial class CoordinatesContextModelSnapshot : ModelSnapshot
+    [Migration("20220509112924_initializerize")]
+    partial class initializerize
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,9 +26,6 @@ namespace Spoofer.Migrations
                     b.Property<string>("CoorfianteId")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
-
-                    b.Property<bool>("HasFile")
-                        .HasColumnType("bit");
 
                     b.Property<double?>("Height")
                         .HasColumnType("float");

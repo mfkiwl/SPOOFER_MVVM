@@ -25,7 +25,7 @@ namespace Spoofer.Services.Marker
             _context = context;
         }
 
-        public void AddMarker(MapViewModel mapViewModel)
+        public void AddOrUpdateMarker(MapViewModel mapViewModel)
         {
 
             if (String.IsNullOrEmpty(mapViewModel.Label))
@@ -38,12 +38,12 @@ namespace Spoofer.Services.Marker
                 throw new InvalidCoordinateException("Coordiantes values are invalid \n" +
                                                       "Latitude: Between -90 to 90, Longitude: Between -180 to 180.");
             }
-            else if (isExist(mapViewModel))
-            {
-                throw new CoordinateExistException();
-            }
             else
             {
+                if (isExist(mapViewModel))
+                {
+                    RemoveMarker(mapViewModel);
+                }
                 var marker = new Coordinates()
                 {
                     CoorfianteId = Guid.NewGuid().ToString(),
@@ -51,6 +51,8 @@ namespace Spoofer.Services.Marker
                     Longitude = mapViewModel.Longitude,
                     Height = mapViewModel.Height ?? 0,
                     Name = mapViewModel.Label ?? "",
+                    HasFile = mapViewModel.IsFileCreated,
+                    NumberInOrder = mapViewModel.NumberInOrder.Count + 1
                 };
                 foreach (var user in _context.User)
                 {
@@ -88,7 +90,7 @@ namespace Spoofer.Services.Marker
             else
             {
                 string root = @"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug";
-                string fileNameToDelete = $"{model.Label}.bin";
+                string fileNameToDelete = $"{String.Concat(model.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
                 string[] realFileToDelete = System.IO.Directory.GetFiles(root, fileNameToDelete);
 
                 foreach (var file in realFileToDelete)
@@ -110,5 +112,15 @@ namespace Spoofer.Services.Marker
             }
             return false;
         }
+
+        public Coordinates GetCoordinateByViewModel(MapViewModel mapViewModel) 
+        {
+            var coordinate = _context.Coordinates.SingleOrDefault(c => c.Name == mapViewModel.Label &&
+                                                                     c.Longitude == mapViewModel.Longitude &&
+                                                                     c.Latitude == mapViewModel.Latitude);
+            return coordinate;
+        }
+       
+
     }
 }

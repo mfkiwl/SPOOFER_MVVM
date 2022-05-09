@@ -7,12 +7,14 @@ namespace Spoofer.Services.Marker
 {
     public interface IMarkerService
     {
-        void AddMarker(MapViewModel mapViewModel);
+        void AddOrUpdateMarker(MapViewModel mapViewModel);
 
-        void RemoveMarker(MapViewModel point);
+        void RemoveMarker(MapViewModel mapViewModel);
 
         IEnumerable<Coordinates> GetAll();
         bool isExist(MapViewModel mapViewModel);
+        Coordinates GetCoordinateByViewModel(MapViewModel mapViewModel);
+        
 
     }
 }

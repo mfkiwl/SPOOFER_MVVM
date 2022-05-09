@@ -7,6 +7,7 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:converters="clr-namespace:Spoofer.Converters"
              xmlns:wpfanimated="http://wpfanimatedgif.codeplex.com"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DataContext="{d:DesignInstance Type=viewmodels:MapViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
@@ -16,7 +17,6 @@
         <converters:InverseBooleanToVisibillityConverter x:Key="InverseBooleanToVisibillityConverter"/>
         <converters:BoolToConnectionStatusConverter x:Key="BoolToConnectionStatusConverter"/>
         <converters:BoolToTxStatusConverter x:Key="BoolToTxStatusConverter"/>
-
     </UserControl.Resources>
     <Grid x:Name="grid">
         <Grid.Resources>
@@ -26,7 +26,7 @@
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </Grid.Resources>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="47*" />
             <ColumnDefinition Width="53*" />
@@ -55,7 +55,6 @@
                 <RowDefinition Height="4*" />
             </Grid.RowDefinitions>
 
-            <!--<Image Source="/Assets/Phantom.png" Height="130" VerticalAlignment="Bottom" Margin="5,0,-5,108" />-->
 
             <StackPanel>
 
@@ -182,6 +181,7 @@
                      Text="{Binding Label, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
             <Border Width="400" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="8"/>
             <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="690,38,0,0" Grid.Row="8"/>
+            <ComboBox Margin="276,151,286,81" ItemsSource="{Binding NumberInOrder}" SelectedItem="{Binding SelectedItem}"/>
 
             <Grid Grid.Row="9">
                 <Grid.ColumnDefinitions>
@@ -223,7 +223,6 @@
 
             </Grid>
         </Grid>
-        <Border BorderBrush="Black" BorderThickness="3"/>
         <Border x:Name="_border" Opacity="0.6"  BorderBrush="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="540,214,288,808" Width="190" Height="58">
 
             <TextBlock x:Name="_textBlock"  HorizontalAlignment="Center" Foreground="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="{Binding Path=IsFileCreated, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource BoolToStatusStringConverter}}" VerticalAlignment="Top"/>
@@ -237,9 +236,8 @@
         <Border x:Name="ping" Opacity="0.6" ToolTip="{Binding IsPinging, Converter={StaticResource BoolToConnectionStatusConverter}}" BorderBrush="{Binding Path=IsPinging,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="3" Grid.Column="1" Grid.Row="0"  Margin="459,214,481,808">
             <iconPacks:PackIconMaterial Kind="Radio" Foreground="{Binding Path=IsPinging,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Height="33" Margin="15,9,0,0" Width="35" RenderTransformOrigin="1.088,0.971" />
         </Border>
-        <!--<iconPacks:PackIconMaterial Opacity="0.6" Kind="File" Foreground="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Height="200" Grid.Column="1" Margin="575,142,0,0" Width="24" />-->
         <Image x:Name="Spinner" wpfanimated:ImageBehavior.AnimatedSource="/Assets/loader.gif" 
-               wpfanimated:ImageBehavior.RepeatBehavior="1" Margin="28,392,30,248" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Grid.Column="1" />
+               wpfanimated:ImageBehavior.RepeatBehavior="1" Margin="880,392,80,248" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Grid.ColumnSpan="2" />
         <Image x:Name="Text" wpfanimated:ImageBehavior.AnimatedSource="/Assets/Text.png" 
                wpfanimated:ImageBehavior.RepeatBehavior="1" Margin="29,80,29,860" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         <TextBlock TextAlignment="Center"
@@ -253,5 +251,6 @@
                        Opacity="0.6"
                        FontSize="18"
                        FontWeight="SemiBold" Grid.Column="1"/>
+
     </Grid>
 </UserControl>
