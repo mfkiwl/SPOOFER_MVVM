@@ -37,7 +37,7 @@ namespace Spoofer.Commands.MarkersCommand
             try
             {
                 _mapViewModel.ErrorMessageViewModel.Refresh();
-                _service.RemoveMarker(_mapViewModel);
+                _service.RemoveMarker(_mapViewModel, false);
                 var map = parameter as MapControl;
                 onMapUpdated(map, _service);
                 log.Info("Makrer Removed Succesfully");

@@ -9,7 +9,7 @@ namespace Spoofer.Services.Marker
     {
         void AddOrUpdateMarker(MapViewModel mapViewModel);
 
-        void RemoveMarker(MapViewModel mapViewModel);
+        void RemoveMarker(MapViewModel mapViewModel, bool isUpdated);
 
         IEnumerable<Coordinates> GetAll();
         bool isExist(MapViewModel mapViewModel);

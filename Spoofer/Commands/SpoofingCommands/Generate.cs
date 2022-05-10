@@ -54,6 +54,7 @@ namespace Spoofer.Commands.Spoofing
                 await Task.Run(() => generateFile());
                 _mapViewModel.IsLoading = false;
                 _mapViewModel.IsFinishLoading = true;
+                _marker.AddOrUpdateMarker(_mapViewModel);
                 log.Info("Spoofing File Generated");
             }
             catch (CoordinateNotExistException ex)
@@ -84,12 +85,8 @@ namespace Spoofer.Commands.Spoofing
         }
         private string[] GenerateFlags()
         {
-            var ephFiles = new DirectoryInfo(Environment.CurrentDirectory)
-                .GetFiles().
-                Where(p => p.Name.Contains("brdc")).
-                OrderByDescending(o => o.LastWriteTime);
-            var file = ephFiles.
-                FirstOrDefault();
+            var ephFiles = new DirectoryInfo(Environment.CurrentDirectory).GetFiles().Where(p => p.Name.Contains("brdc")).OrderByDescending(o => o.LastWriteTime);
+            var file = ephFiles. FirstOrDefault();
             foreach (var filein in ephFiles.Skip(1))
             {
                 filein.Delete();

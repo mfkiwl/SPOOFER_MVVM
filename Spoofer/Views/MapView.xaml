@@ -8,6 +8,7 @@
              xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:converters="clr-namespace:Spoofer.Converters"
              xmlns:wpfanimated="http://wpfanimatedgif.codeplex.com"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+               xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              d:DataContext="{d:DesignInstance Type=viewmodels:MapViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
@@ -75,7 +76,7 @@
                        TextAlignment="Center" 
                        HorizontalAlignment="Stretch"
                        FontSize="21" TextWrapping="Wrap"
-                       Text="Altitude"
+                       Text="Latitude"
                        VerticalAlignment="Stretch" />
             <TextBlock Grid.Row="3"
                        Foreground="Black"
@@ -180,8 +181,11 @@
                      Margin="21,8,21,0"
                      Text="{Binding Label, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
             <Border Width="400" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="8"/>
-            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="690,38,0,0" Grid.Row="8"/>
-            <ComboBox Margin="276,151,286,81" ItemsSource="{Binding NumberInOrder}" SelectedItem="{Binding SelectedItem}"/>
+            <iconPacks:PackIconMaterial Kind="Star"  Foreground="Black" Margin="690,38,0,0" Grid.Row="8"/>
+            <TextBlock Grid.Column="1"  FontFamily="Helvetica" FontWeight="Medium" Padding="0" FontSize="19" HorizontalAlignment="Left" Margin="424,120,0,0"  Text="Number In Order" VerticalAlignment="Top" Height="70" Width="160"/>
+            <ComboBox Margin="276,151,286,81"  mah:TextBoxHelper.ClearTextButton="True" BorderBrush="Blue" SelectedIndex="-1"  BorderThickness="3" ToolTip="Place The Coordinate in order to transmit"  IsEditable="True" IsReadOnly="True" Text="-- Select Team --" Padding="5"  FontWeight="SemiBold" Foreground="Black" Opacity="0.7" Width="200" Height="36" ItemsSource="{Binding NumbersInOrder, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}" >
+
+            </ComboBox>
 
             <Grid Grid.Row="9">
                 <Grid.ColumnDefinitions>

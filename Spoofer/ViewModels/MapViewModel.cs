@@ -26,8 +26,9 @@ namespace Spoofer.ViewModels
             _service = service;
             _spoofer = spoofer;
             BaseCommand.PingHost("10.0.0.41", this);
-            numberInOrder = new ObservableCollection<int>();
             Add = new AddMark(this, _service);
+            numberInOrder = new ObservableCollection<int>();
+            updateCollection();
             Remove = new RemoveMark(this, _service);
             GenerateFile = new Generate(_service, _spoofer, this);
             TransmitNow = new Transmit(_service, _spoofer, this);
@@ -101,11 +102,11 @@ namespace Spoofer.ViewModels
             get { return _isTransmitting; }
             set { _isTransmitting = value; OnPropertyChanged(nameof(IsTransmitting)); }
         }
-        private bool _isUpToDate;
+        
         private ObservableCollection<int> numberInOrder;
 
-        public ObservableCollection<int> NumberInOrder => numberInOrder;
-        public int SelectedItem { get; set; }
+        public ObservableCollection<int> NumbersInOrder { get { return numberInOrder; } set { numberInOrder = value; OnPropertyChanged(nameof(NumbersInOrder)); } }
+        public int? SelectedItem { get; set; }
 
 
         public MessageViewModel ErrorMessageViewModel { get; }
@@ -116,18 +117,12 @@ namespace Spoofer.ViewModels
 
         public ICommand TransmitNow { get; }
         public ICommand StopTransmit { get; }
-        public ObservableCollection<int> updateCollection()
+        public void updateCollection()
         {
-            numberInOrder.Clear();
-            for (int i = 0; i < _service.GetAll().Count(); i++)
+            for (int i = 1; i < 6; i++)
             {
-
-                if (_service.GetAll().ToList()[i].HasFile)
-                {
-                    numberInOrder.Add(i);
-                }
+                numberInOrder.Add(i);
             }
-            return numberInOrder;
         }
 
     }

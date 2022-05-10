@@ -1,4 +1,5 @@
 ﻿using log4net;
+using Spoofer.Commands.UserCommands;
 using Spoofer.Data;
 using Spoofer.Exceptions;
 using Spoofer.Models;
@@ -40,9 +41,10 @@ namespace Spoofer.Services.Marker
             }
             else
             {
+
                 if (isExist(mapViewModel))
                 {
-                    RemoveMarker(mapViewModel);
+                    RemoveMarker(mapViewModel, true);
                 }
                 var marker = new Coordinates()
                 {
@@ -51,9 +53,17 @@ namespace Spoofer.Services.Marker
                     Longitude = mapViewModel.Longitude,
                     Height = mapViewModel.Height ?? 0,
                     Name = mapViewModel.Label ?? "",
-                    HasFile = mapViewModel.IsFileCreated,
-                    NumberInOrder = mapViewModel.NumberInOrder.Count + 1
+                    HasFile = BaseCommand.isFileExist(mapViewModel),
+                    NumberInOrder = null
                 };
+                if (mapViewModel.SelectedItem != null)
+                {
+                    if (_context.Coordinates.Where(c => c.NumberInOrder == mapViewModel.SelectedItem).Any())
+                    {
+                        throw new InvalidCoordinateException("There is Marker on This Place In order to transmition, please edit the list..");
+                    }
+                    marker.NumberInOrder = mapViewModel.SelectedItem;
+                }
                 foreach (var user in _context.User)
                 {
                     user.IsAuthenticated = true;
@@ -62,6 +72,7 @@ namespace Spoofer.Services.Marker
                         marker.UserId = user.UserId;
                     }
                 }
+
                 _context.Add(marker);
                 _context.SaveChanges();
                 MessageBox.Show($"{marker.Name} Added Succesfuly!!!!!");
@@ -75,7 +86,7 @@ namespace Spoofer.Services.Marker
             return _context.Coordinates.ToList();
         }
 
-        public void RemoveMarker(MapViewModel model)
+        public void RemoveMarker(MapViewModel model, bool isUpdated)
         {
 
             model.ErrorMessageViewModel.Refresh();
@@ -95,12 +106,18 @@ namespace Spoofer.Services.Marker
 
                 foreach (var file in realFileToDelete)
                 {
-                    System.IO.File.Delete(file);
+                    if (!isUpdated)
+                    {
+                        System.IO.File.Delete(file);
+                    }
                 }
                 var coordinateToRemove = _context.Coordinates.SingleOrDefault(c => c.Name == model.Label);
                 _context.Remove(coordinateToRemove);
                 _context.SaveChanges(true);
-                MessageBox.Show($"{coordinateToRemove.Name} Deleted Succesfully");
+                if (!isUpdated)
+                {
+                    MessageBox.Show($"{coordinateToRemove.Name} Deleted Succesfully");
+                }
             }
         }
 
@@ -113,14 +130,14 @@ namespace Spoofer.Services.Marker
             return false;
         }
 
-        public Coordinates GetCoordinateByViewModel(MapViewModel mapViewModel) 
+        public Coordinates GetCoordinateByViewModel(MapViewModel mapViewModel)
         {
             var coordinate = _context.Coordinates.SingleOrDefault(c => c.Name == mapViewModel.Label &&
                                                                      c.Longitude == mapViewModel.Longitude &&
                                                                      c.Latitude == mapViewModel.Latitude);
             return coordinate;
         }
-       
+
 
     }
 }
