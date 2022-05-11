@@ -11,6 +11,7 @@
         AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" WindowState="Maximized">
     <Grid>
+        
         <Grid.Resources>
             <DataTemplate DataType="{x:Type viewmodels:MapViewModel}">
                 <views1:MapView />
@@ -18,8 +19,12 @@
             <DataTemplate DataType="{x:Type viewmodels:AccountViewModel}">
                 <views1:AccountView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:TransmitInOrderViewModel}">
+                <views1:TransmitOrderView/>
+            </DataTemplate>
         </Grid.Resources>
 
         <ContentControl Content="{Binding CurrentViewModel}" />
+        
     </Grid>
 </Window>

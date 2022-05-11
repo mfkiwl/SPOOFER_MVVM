@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Spoofer.Views.MapView"
+﻿<UserControl  x:Class="Spoofer.Views.MapView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,7 +9,8 @@
              xmlns:wpfanimated="http://wpfanimatedgif.codeplex.com"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-             d:DataContext="{d:DesignInstance Type=viewmodels:MapViewModel}"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             d:DataContext="{d:DesignInstance Type={x:Type viewmodels:MapViewModel}}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
     <UserControl.Resources>
@@ -20,19 +21,33 @@
         <converters:BoolToTxStatusConverter x:Key="BoolToTxStatusConverter"/>
     </UserControl.Resources>
     <Grid x:Name="grid">
-        <Grid.Resources>
-            <ResourceDictionary>
-                <ResourceDictionary.MergedDictionaries>
-                    <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\MapDictionary.xaml"/>
-                </ResourceDictionary.MergedDictionaries>
-            </ResourceDictionary>
-        </Grid.Resources>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="47*" />
             <ColumnDefinition Width="53*" />
         </Grid.ColumnDefinitions>
-        <controls:MapControl Name="mapControl"  MapServiceToken="uBngaWz7CURplqIi8S6H~cO1jRZvaLYP-9yJuSZPZrQ~AmWWGqcQslWedBAQwV01u5ljcTQbQPRcjqA5nhE0pPdwe6IYKc2RTHhEJaclOduX" ZoomInteractionMode="GestureAndControl" TiltInteractionMode="GestureAndControl" Style="Road" DockPanel.Dock="Top" MouseMove="mapControl_MouseMove" MapDoubleTapped="mapControl_MapDoubleTapped"  Loaded="MapControl_Loaded" MapElementClick="MapControl_MapElementClick" />
+        <Grid Grid.Column="0">
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\SideBarDictionary.xaml"/>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="9*"/>
+            </Grid.ColumnDefinitions>
+            <hc:SideMenu HorizontalAlignment="Stretch" Background="#9996A5"  Grid.Column="0" Height="Auto" VerticalAlignment="Stretch" Margin="0">
+            </hc:SideMenu>
+            <iconPacks:PackIconMaterial Kind="Earth" Height="60" Width="100" Foreground="#404040" Margin="-6,178,0,0" Grid.ColumnSpan="2" />
+            <Button Height="104" Background="Transparent" BorderThickness="0" Margin="0,154,0,822" Width="90" />
+            <iconPacks:PackIconMaterial Kind="FormatListBulleted" Width="97" Foreground="#404040" Background="Transparent" Height="38" Margin="-7,60,0,0"/>
+            <Button Height="102" Margin="0,28,0,950" BorderThickness="0" Command="{Binding Navigate}" Background="Transparent" Width="90">
+
+            </Button>
+            <controls:MapControl Grid.Column="1" x:Name="mapControl"  MapServiceToken="uBngaWz7CURplqIi8S6H~cO1jRZvaLYP-9yJuSZPZrQ~AmWWGqcQslWedBAQwV01u5ljcTQbQPRcjqA5nhE0pPdwe6IYKc2RTHhEJaclOduX" ZoomInteractionMode="GestureAndControl" TiltInteractionMode="GestureAndControl" Style="Road" DockPanel.Dock="Top" MouseMove="mapControl_MouseMove" MapDoubleTapped="mapControl_MapDoubleTapped"  Loaded="MapControl_Loaded" MapElementClick="MapControl_MapElementClick" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="286,0,0,0" />
+        </Grid>
         <Border CornerRadius="10" Grid.Column="1" Grid.RowSpan="13" Visibility="Visible">
             <Border.Background>
                 <LinearGradientBrush>
@@ -42,6 +57,13 @@
             </Border.Background>
         </Border>
         <Grid Grid.Column="1" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}">
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\MapDictionary.xaml"/>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </Grid.Resources>
             <Grid.RowDefinitions>
                 <RowDefinition Height="5*" />
 
@@ -57,9 +79,7 @@
             </Grid.RowDefinitions>
 
 
-            <StackPanel>
-
-            </StackPanel>
+            <StackPanel/>
             <TextBlock Grid.Row="0"
                        Foreground="Black"
                        Padding="21" FontFamily="Helvetica" 
@@ -125,7 +145,7 @@
                      FontWeight="SemiBold"
                      Padding="18"
                      Margin="21,8,21,0" 
-                     Text="{Binding Latitude, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                     Text="{Binding Latitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Border Width="400" 
                     Height="2"
                     Background="Black"
@@ -145,7 +165,7 @@
                      FontWeight="SemiBold"
                      Padding="18"
                      Margin="21,8,21,0"
-                     Text="{Binding Longitude, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                     Text="{Binding Longitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Border Width="400"
                     Height="2"
                     Background="Black"
@@ -165,7 +185,7 @@
                      Padding="18" 
                      FontWeight="SemiBold"
                      Margin="21,8,21,0"
-                     Text="{Binding Height, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                     Text="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Border Width="400" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="6"/>
             <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="690,38,0,0" Grid.Row="6"/>
             <TextBox x:Name="lab"
@@ -178,14 +198,15 @@
                      FontSize="18"
                      Padding="18"
                      FontWeight="SemiBold"
+                     mah:TextBoxHelper.ClearTextButton="True"
                      Margin="21,8,21,0"
-                     Text="{Binding Label, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                     Text="{Binding Label, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Border Width="400" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="8"/>
             <iconPacks:PackIconMaterial Kind="Star"  Foreground="Black" Margin="690,38,0,0" Grid.Row="8"/>
             <TextBlock Grid.Column="1"  FontFamily="Helvetica" FontWeight="Medium" Padding="0" FontSize="19" HorizontalAlignment="Left" Margin="424,120,0,0"  Text="Number In Order" VerticalAlignment="Top" Height="70" Width="160"/>
-            <ComboBox Margin="276,151,286,81"  mah:TextBoxHelper.ClearTextButton="True" BorderBrush="Blue" SelectedIndex="-1"  BorderThickness="3" ToolTip="Place The Coordinate in order to transmit"  IsEditable="True" IsReadOnly="True" Text="-- Select Team --" Padding="5"  FontWeight="SemiBold" Foreground="Black" Opacity="0.7" Width="200" Height="36" ItemsSource="{Binding NumbersInOrder, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}" >
 
-            </ComboBox>
+
+            <ComboBox x:Name="Combo" Margin="276,151,286,81"  mah:TextBoxHelper.ClearTextButton="True" BorderBrush="Blue" SelectedIndex="-1"   BorderThickness="1.6" ToolTip="Place The Coordinate in order to transmit"  IsEditable="True" IsReadOnly="True" Text="-- Select Team --" Padding="5"  FontWeight="SemiBold" Foreground="Black" Opacity="0.7" Width="200" Height="36" ItemsSource="{Binding NumbersInOrder, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}" />
 
             <Grid Grid.Row="9">
                 <Grid.ColumnDefinitions>
@@ -227,9 +248,9 @@
 
             </Grid>
         </Grid>
-        <Border x:Name="_border" Opacity="0.6"  BorderBrush="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="540,214,288,808" Width="190" Height="58">
+        <Border x:Name="_border" Opacity="0.6"  BorderBrush="{Binding IsFileCreated, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="540,214,288,808" Width="190" Height="58">
 
-            <TextBlock x:Name="_textBlock"  HorizontalAlignment="Center" Foreground="{Binding Path=IsFileCreated,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="{Binding Path=IsFileCreated, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource BoolToStatusStringConverter}}" VerticalAlignment="Top"/>
+            <TextBlock x:Name="_textBlock"  HorizontalAlignment="Center" Foreground="{Binding IsFileCreated, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="{Binding IsFileCreated, Converter={StaticResource BoolToStatusStringConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
 
         </Border>
         <Border  Opacity="0.8"  BorderBrush="OrangeRed" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="276,214,562,808" Height="58">
@@ -237,8 +258,8 @@
             <TextBlock HorizontalAlignment="Center" Foreground="OrangeRed" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="TX On..." VerticalAlignment="Top"/>
 
         </Border>
-        <Border x:Name="ping" Opacity="0.6" ToolTip="{Binding IsPinging, Converter={StaticResource BoolToConnectionStatusConverter}}" BorderBrush="{Binding Path=IsPinging,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="3" Grid.Column="1" Grid.Row="0"  Margin="459,214,481,808">
-            <iconPacks:PackIconMaterial Kind="Radio" Foreground="{Binding Path=IsPinging,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToFileStatusConverter}}" Height="33" Margin="15,9,0,0" Width="35" RenderTransformOrigin="1.088,0.971" />
+        <Border x:Name="ping" Opacity="0.6" ToolTip="{Binding IsPinging, Converter={StaticResource BoolToConnectionStatusConverter}}" BorderBrush="{Binding IsPinging, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="3" Grid.Column="1" Grid.Row="0"  Margin="459,214,481,808">
+            <iconPacks:PackIconMaterial Kind="Radio" Foreground="{Binding IsPinging, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" Height="33" Margin="15,9,0,0" Width="35" RenderTransformOrigin="1.088,0.971" />
         </Border>
         <Image x:Name="Spinner" wpfanimated:ImageBehavior.AnimatedSource="/Assets/loader.gif" 
                wpfanimated:ImageBehavior.RepeatBehavior="1" Margin="880,392,80,248" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Grid.ColumnSpan="2" />
@@ -255,6 +276,8 @@
                        Opacity="0.6"
                        FontSize="18"
                        FontWeight="SemiBold" Grid.Column="1"/>
+
+
 
     </Grid>
 </UserControl>

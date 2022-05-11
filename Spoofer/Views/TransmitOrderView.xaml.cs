@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Spoofer.Views
 {
     /// <summary>
-    /// Interaction logic for SplashView.xaml
+    /// Interaction logic for TransmitOrderView.xaml
     /// </summary>
-    public partial class SplashView : UserControl
+    public partial class TransmitOrderView : UserControl
     {
-        public SplashView()
+        public TransmitOrderView()
         {
             InitializeComponent();
         }

@@ -44,11 +44,12 @@ namespace Spoofer.Views
         {
             InitializeComponent();
             _navigationService = new NavigationService();
-            _markerService = new MarkerService(App._context);
+            _markerService = new MarkerService(App._context, _navigationService);
         }
 
         private async void MapControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+            
             foreach (var location in _markerService.GetAll())
             {
                 BasicGeoposition PinPosition = new BasicGeoposition
@@ -98,9 +99,14 @@ namespace Spoofer.Views
                     alt.Text = signedElement.Location.Position.Altitude.ToString();
                     lab.Text = signedElement.Title.Trim();
                     double user = signedElement.Location.Position.Latitude;
-                    var vm = (MapViewModel)this.DataContext;
+                    var vm = (MapViewModel)DataContext;
                     vm.IsFileCreated = BaseCommand.isFileExist(vm);
                     var realMarker = _markerService.GetAll().SingleOrDefault(p => p.Name == signedElement.Title && (double)p.Height == signedElement.Location.Position.Altitude && p.Longitude == signedElement.Location.Position.Longitude && p.Latitude == signedElement.Location.Position.Latitude);
+                    Combo.SelectedItem = realMarker.NumberInOrder;
+                    if (realMarker.NumberInOrder == null)
+                    {
+                        Combo.SelectedItem = Combo.Text;
+                    }
                     if (realMarker != null)
                     {
                         _border.Visibility = Visibility.Visible;
@@ -117,8 +123,10 @@ namespace Spoofer.Views
         {
             CancelTemporaryIcons();
             DeleteTextboxes();
+            Combo.SelectedItem = Combo.Text;
             _border.Visibility = Visibility.Collapsed;
             var mousePoint = e.Location;
+
             lat.Text = mousePoint.Position.Latitude.ToString();
             lon.Text = mousePoint.Position.Longitude.ToString();
             var mapIcon = new MapIcon()

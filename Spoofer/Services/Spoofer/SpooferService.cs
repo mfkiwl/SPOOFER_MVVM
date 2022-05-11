@@ -82,5 +82,6 @@ namespace Spoofer.Services.Spoofer
             proccess.Kill();
             viewModel.IsTransmitting = false;
         }
+        
     }
 }

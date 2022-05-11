@@ -243,6 +243,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\MarkersCommands\Navigate.cs" />
     <Compile Include="Commands\SpoofingCommands\Generate.cs" />
     <Compile Include="Commands\SpoofingCommands\Stop.cs" />
     <Compile Include="Commands\SpoofingCommands\Transmit.cs" />
@@ -287,6 +288,8 @@
     <Compile Include="Services\User\Login\LoginService.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
+    <Compile Include="ViewModels\CoordinateViewModel.cs" />
+    <Compile Include="ViewModels\TransmitInOrderViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
@@ -297,8 +300,8 @@
     <Compile Include="Views\MapView.xaml.cs">
       <DependentUpon>MapView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SplashView.xaml.cs">
-      <DependentUpon>SplashView.xaml</DependentUpon>
+    <Compile Include="Views\TransmitOrderView.xaml.cs">
+      <DependentUpon>TransmitOrderView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -325,6 +328,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\SideBarDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AccountView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -333,7 +340,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SplashView.xaml">
+    <Page Include="Views\TransmitOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -372,6 +379,9 @@
   <ItemGroup>
     <PackageReference Include="AltoHttp">
       <Version>1.5.2</Version>
+    </PackageReference>
+    <PackageReference Include="HandyControls">
+      <Version>3.3.11</Version>
     </PackageReference>
     <PackageReference Include="MahApps.Metro">
       <Version>1.0.0</Version>

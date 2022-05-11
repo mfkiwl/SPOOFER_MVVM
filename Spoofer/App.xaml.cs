@@ -35,7 +35,7 @@ namespace Spoofer
             _context = new CoordinatesContext(options);
             _navigationStore = new NavigationStore();
             _iLogin = new ServiceLogin(_context, new NavigationService(_navigationStore, createMapViewModel));
-            _marker = new MarkerService(_context);
+            _marker = new MarkerService(_context, new NavigationService(_navigationStore, createTransmitViewModel));
             _spoofer = new SpooferService(_context, _marker);
         }
 
@@ -59,6 +59,10 @@ namespace Spoofer
         private AccountViewModel createAccountViewModel()
         {
             return new AccountViewModel(_iLogin);
+        }
+        private TransmitInOrderViewModel createTransmitViewModel()
+        {
+            return new TransmitInOrderViewModel();
         }
 
     }

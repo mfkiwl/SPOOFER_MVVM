@@ -7,6 +7,7 @@ namespace Spoofer.Services.Marker
 {
     public interface IMarkerService
     {
+        void Navigate();
         void AddOrUpdateMarker(MapViewModel mapViewModel);
 
         void RemoveMarker(MapViewModel mapViewModel, bool isUpdated);

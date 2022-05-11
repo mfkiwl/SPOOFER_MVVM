@@ -19,11 +19,12 @@ namespace Spoofer.Services.Marker
         private int counter;
         private readonly CoordinatesContext _context;
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly NavigationService _navigation;
 
-        public MarkerService(CoordinatesContext context)
+        public MarkerService(CoordinatesContext context, NavigationService navigation)
         {
-
             _context = context;
+            _navigation = navigation;
         }
 
         public void AddOrUpdateMarker(MapViewModel mapViewModel)
@@ -123,9 +124,13 @@ namespace Spoofer.Services.Marker
 
         public bool isExist(MapViewModel mapViewModel)
         {
-            if (_context.Coordinates.Any(p => p.Name == mapViewModel.Label || p.Longitude == mapViewModel.Longitude && p.Longitude == mapViewModel.Longitude))
+            if (_context.Coordinates.Any(p => p.Longitude == mapViewModel.Longitude && p.Longitude == mapViewModel.Longitude))
             {
                 return true;
+            }
+            else if (_context.Coordinates.Any(p => p.Name == mapViewModel.Label))
+            {
+                throw new CoordinateExistException();
             }
             return false;
         }
@@ -138,6 +143,9 @@ namespace Spoofer.Services.Marker
             return coordinate;
         }
 
-
+        public void Navigate()
+        {
+            _navigation.Navigate();
+        }
     }
 }

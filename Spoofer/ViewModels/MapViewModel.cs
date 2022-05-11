@@ -16,6 +16,7 @@ using Spoofer.Services.Spoofer;
 using Spoofer.Commands.SpoofingCommands;
 using Spoofer.Commands.UserCommands;
 using System.Linq;
+using Spoofer.Commands.MarkersCommands;
 
 namespace Spoofer.ViewModels
 {
@@ -33,6 +34,7 @@ namespace Spoofer.ViewModels
             GenerateFile = new Generate(_service, _spoofer, this);
             TransmitNow = new Transmit(_service, _spoofer, this);
             StopTransmit = new Stop(_spoofer, this);
+            Navigate = new Navigate(_service);
             ErrorMessageViewModel = new MessageViewModel();
 
         }
@@ -117,6 +119,7 @@ namespace Spoofer.ViewModels
 
         public ICommand TransmitNow { get; }
         public ICommand StopTransmit { get; }
+        public ICommand Navigate { get; set; }
         public void updateCollection()
         {
             for (int i = 1; i < 6; i++)
