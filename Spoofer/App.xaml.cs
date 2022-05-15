@@ -24,6 +24,7 @@ namespace Spoofer
         private const string CONNECTION_STRING = "Server=(localdb)\\mssqllocaldb;Database=Coordinates;Trusted_Connection=True;";
         private readonly NavigationStore _navigationStore;
         private readonly IMarkerService _marker;
+        private readonly IMarkerService _tableMarker;
         private readonly ILogin _iLogin;
         private readonly ISpooferService _spoofer;
         public static CoordinatesContext _context;
@@ -36,6 +37,7 @@ namespace Spoofer
             _navigationStore = new NavigationStore();
             _iLogin = new ServiceLogin(_context, new NavigationService(_navigationStore, createMapViewModel));
             _marker = new MarkerService(_context, new NavigationService(_navigationStore, createTransmitViewModel));
+            _tableMarker = new MarkerService(_context, new NavigationService(_navigationStore, createMapViewModel));
             _spoofer = new SpooferService(_context, _marker);
         }
 
@@ -62,7 +64,7 @@ namespace Spoofer
         }
         private TransmitInOrderViewModel createTransmitViewModel()
         {
-            return new TransmitInOrderViewModel();
+            return new TransmitInOrderViewModel(_tableMarker, _spoofer);
         }
 
     }

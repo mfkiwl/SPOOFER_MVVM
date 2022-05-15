@@ -15,12 +15,11 @@ namespace Spoofer.ViewModels
             _coordinates = coordinates;
         }
         public string Name => _coordinates.Name;
-        public double? Longitude => _coordinates.Longitude;
-        public double? Latitude => _coordinates.Latitude;
-        public double? Height => _coordinates.Height;
+        public double? Longitude => Math.Round((double)_coordinates.Longitude, 5);
+        public double? Latitude => Math.Round((double)_coordinates.Latitude, 5);
+        public double? Height => Math.Round((double)_coordinates.Height, 5);
         public int? NumberInOrder => _coordinates.NumberInOrder;
         public bool HasFile => _coordinates.HasFile;
-
 
     }
 }

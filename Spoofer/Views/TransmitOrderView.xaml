@@ -5,28 +5,155 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             
              xmlns:hc="https://handyorg.github.io/handycontrol"
              
-             xmlns:local="clr-namespace:Spoofer.Views"
+             xmlns:local="clr-namespace:Spoofer.Views" xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:converters="clr-namespace:Spoofer.Converters" d:DataContext="{d:DesignInstance Type=viewmodels:TransmitInOrderViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
+    <UserControl.Resources>
+        <converters:BoolToFileStatusConverter x:Key="BoolToFileStatusConverter"/>
+        <converters:BoolToStatusStringConverter x:Key="BoolToStatusStringConverter"/>
+        <converters:InverseBooleanToVisibillityConverter x:Key="InverseBooleanToVisibillityConverter"/>
+        <converters:BoolToConnectionStatusConverter x:Key="BoolToConnectionStatusConverter"/>
+        <converters:BoolToTxStatusConverter x:Key="BoolToTxStatusConverter"/>
+    </UserControl.Resources>
     <Grid Background="White">
+
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\DataGrid.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="198*"/>
+            <RowDefinition Height="122*"/>
+            <RowDefinition Height="147*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="47*" />
             <ColumnDefinition Width="53*" />
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
+        <Border CornerRadius="10" Grid.ColumnSpan="2" Grid.RowSpan="4" Visibility="Visible">
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="LightGray" Offset="0.0"/>
+                    <GradientStop Color="White"  Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <TextBlock Grid.Row="0"
+                       Foreground="Black"
+                       Padding="21" FontFamily="Helvetica" 
+                       TextAlignment="Center" 
+                       HorizontalAlignment="Stretch"
+                       FontSize="60" FontWeight="DemiBold" 
+                       TextWrapping="Wrap" Text="Order Table"
+                       VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="532,0,486,0" />
+        <Grid Grid.Column="0" Grid.RowSpan="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="9*"/>
 
             </Grid.ColumnDefinitions>
-            <hc:SideMenu HorizontalAlignment="Stretch" Background="#9996A5"  Grid.Column="0" Height="Auto" VerticalAlignment="Stretch" Margin="0">
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\SideBarDictionary.xaml"/>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </Grid.Resources>
+            <hc:SideMenu HorizontalAlignment="Stretch" Background="#9996A5"  Grid.Column="0" Height="Auto" VerticalAlignment="Stretch" Margin="0,0,810,0" Grid.ColumnSpan="2">
             </hc:SideMenu>
-            <iconPacks:PackIconMaterial Kind="Earth" Height="35" Width="28" Foreground="#404040" Margin="5,77,0,0" />
-            <Button Height="51" Background="Transparent" BorderThickness="0" Margin="1,1,1,398" Width="36" />
-            <iconPacks:PackIconMaterial Kind="FormatListBulleted" Width="33" Foreground="#404040" Background="Transparent" Height="38" Margin="1,15,0,0"/>
-            <Button Height="43" Margin="5,73,0,334" BorderThickness="0" Command="{Binding Navigate}" Background="Transparent" Width="33"/>
+            <iconPacks:PackIconMaterial Kind="Earth" Height="60" Width="100" Foreground="#404040" Margin="-6,178,0,0" Grid.ColumnSpan="2" />
+            <Button Height="104" Background="Transparent" BorderThickness="0" Command="{Binding Navigate}" Margin="0,154,0,822" Width="90" />
+            <iconPacks:PackIconMaterial Kind="FormatListBulleted" Width="97" Foreground="#404040" Background="Transparent" Height="38" Margin="-7,60,0,0"/>
+            <Button Height="102" Margin="0,28,0,950" BorderThickness="0"  Background="Transparent" Width="90">
+
+            </Button>
+        </Grid>
+        <DataGrid
+            x:Name="DATAgRID"
+            IsReadOnly="True"
+            AutoGenerateColumns="False"
+            BorderThickness="0"
+            Grid.Row="1"
+            Background="Transparent"
+            ItemsSource="{Binding Coordinates, UpdateSourceTrigger=PropertyChanged}"
+            Grid.ColumnSpan="2" Margin="92,0,0,0" Grid.RowSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Header="Name"
+                    MinWidth="170"
+                    Width="*"
+                    Binding="{Binding Name}"/>
+                <DataGridTextColumn
+                    Header="Latitude"
+                    MinWidth="120"
+                    Width="0.4*"
+                    Binding="{Binding Latitude}"/>
+                <DataGridTextColumn
+                    Header="Longitude"
+                    MinWidth="170"
+                    Width="*"
+                    Binding="{Binding Longitude}"/>
+                <DataGridTextColumn
+                    Header="Height"
+                    MinWidth="170"
+                    Width="0.5*"
+                    Binding="{Binding Height}"/>
+                <DataGridTextColumn
+                    Header="Order"
+                    MinWidth="170"
+                    Width="0.25*"
+                    Binding="{Binding NumberInOrder}"/>
+                <DataGridTextColumn
+                    Header="File*"
+                    MinWidth="170"
+                    Width="0.25*"
+                    Binding="{Binding HasFile}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock TextWrapping="Wrap" Padding="7" FontSize="16" Text="NOTE: If file dose not exist, the system will not transmit it..." FontWeight="SemiBold" Foreground="Red" Opacity="0.6" Grid.ColumnSpan="2" Height="66" VerticalAlignment="Top"  Margin="772,6,698,0" Grid.Row="2"/>
+        <TextBlock FontFamily="Helvetica" 
+                       FontWeight="Medium"
+                       Grid.Row="2"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Stretch"
+                       FontSize="31" 
+                   Margin="616,93,602,20"
+                       TextWrapping="Wrap"
+                       Text="Duration" Grid.ColumnSpan="2"/>
+        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top"  Text="--select seconds--" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding DurationList}" SelectedItem="{Binding Duration}" mah:TextBoxHelper.ClearTextButton="True" Width="174" Grid.ColumnSpan="2" Margin="882,151,0,0" Grid.Row="2" Height="37">
+
+        </ComboBox>
+        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\MapDictionary.xaml"/>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </Grid.Resources>
+            <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Command="{Binding Transmit}" Margin="706,117,1033,121"/>
+            <iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black"  Kind="AccessPointNetwork" Width="Auto" Height="40" Margin="820,124,0,0" RenderTransformOrigin="1.67,1.889"/>
+            <Button Height="56" ToolTip="Stop Transmitting" Width="181" Content="Stop" Margin="1033,119,706,119"/>
+            <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkRed" Kind="CloseOctagon" Width="Auto" Height="40" Margin="1157,127,0,0" RenderTransformOrigin="1.67,1.889" />
+            <TextBlock TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       Text="{Binding ErrorMessageViewModel.ErrorMessage}"
+                       Visibility="{Binding ErrorMessageViewModel.HasError, Converter={StaticResource InverseBooleanToVisibillityConverter}}"
+                       Margin="824,188,810,36"
+                       Height="70" 
+                       Width="286"
+                       Foreground="Red" 
+                       Opacity="0.6"
+                       FontSize="18"
+                       FontWeight="SemiBold"/>
+
         </Grid>
     </Grid>
 </UserControl>

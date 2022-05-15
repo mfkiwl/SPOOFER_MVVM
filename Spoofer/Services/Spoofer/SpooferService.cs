@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Spoofer.Services.Spoofer
@@ -63,13 +64,7 @@ namespace Spoofer.Services.Spoofer
             }
             else
             {
-                proccess.StartInfo.FileName = "tx_samples_from_file";
-                proccess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                proccess.StartInfo.RedirectStandardInput = true;
-                proccess.StartInfo.RedirectStandardOutput = false;
-                proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 42 --repeat --ref external";
-                proccess.StartInfo.UseShellExecute = false;
-                proccess.Start();
+                transmit(viewModel.Label);
                 viewModel.IsTransmitting = true;
                 if (proccess.HasExited)
                 {
@@ -82,6 +77,38 @@ namespace Spoofer.Services.Spoofer
             proccess.Kill();
             viewModel.IsTransmitting = false;
         }
-        
+
+        public void TransmitInOrder(TransmitInOrderViewModel viewModel)
+        {
+            
+            var list = new List<CoordinateViewModel>();
+            foreach (var coordinate in _marker.GetAll())
+            {
+                if (coordinate.NumberInOrder != null && coordinate.HasFile)
+                {
+                    list.Add(new CoordinateViewModel(coordinate));
+                }
+                //else
+                //{
+                //    throw new FileNotExistException();
+                //}
+            }
+            foreach (var coordinate in list.OrderBy(p=>p.NumberInOrder))
+            {
+                transmit(coordinate.Name);
+                Thread.Sleep(new TimeSpan(0, 0, viewModel.Duration) );
+                proccess.Kill();
+            }
+        }
+        private void transmit(string viewModel)
+        {
+            proccess.StartInfo.FileName = "tx_samples_from_file";
+            proccess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            proccess.StartInfo.RedirectStandardInput = true;
+            proccess.StartInfo.RedirectStandardOutput = false;
+            proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 42 --repeat --ref external";
+            proccess.StartInfo.UseShellExecute = false;
+            proccess.Start();
+        }
     }
 }
