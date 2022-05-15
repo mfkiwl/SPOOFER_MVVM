@@ -11,6 +11,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace Spoofer.Services.Spoofer
 {
@@ -43,7 +44,7 @@ namespace Spoofer.Services.Spoofer
 
                 var argc = argv.Length;
                 EXMethods.SpoofingMethods.main(argc, argv);
-               
+
                 counter++;
             }
         }
@@ -80,7 +81,7 @@ namespace Spoofer.Services.Spoofer
 
         public void TransmitInOrder(TransmitInOrderViewModel viewModel)
         {
-            
+
             var list = new List<CoordinateViewModel>();
             foreach (var coordinate in _marker.GetAll())
             {
@@ -88,17 +89,28 @@ namespace Spoofer.Services.Spoofer
                 {
                     list.Add(new CoordinateViewModel(coordinate));
                 }
-                //else
-                //{
-                //    throw new FileNotExistException();
-                //}
             }
-            foreach (var coordinate in list.OrderBy(p=>p.NumberInOrder))
+            if (list.Count < 1)
+            {
+                throw new FileNotExistException();
+            }
+
+            foreach (var coordinate in list.OrderBy(p => p.NumberInOrder))
             {
                 transmit(coordinate.Name);
-                Thread.Sleep(new TimeSpan(0, 0, viewModel.Duration) );
+                viewModel.CurrentTimerStatus = viewModel.Duration;
+                viewModel._timer.Interval = TimeSpan.FromSeconds(1);
+                viewModel._timer.Tick += (sender, args) =>
+                {
+                    viewModel.CurrentTimerStatus--;
+                };
+                viewModel.IsTransmitting = true;
+                viewModel._timer.Start();
+                Thread.Sleep(new TimeSpan(0, 0, viewModel.Duration));
                 proccess.Kill();
+                viewModel.IsTransmitting = false;
             }
+            viewModel._timer.Stop();
         }
         private void transmit(string viewModel)
         {
@@ -109,6 +121,7 @@ namespace Spoofer.Services.Spoofer
             proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 42 --repeat --ref external";
             proccess.StartInfo.UseShellExecute = false;
             proccess.Start();
+
         }
     }
 }

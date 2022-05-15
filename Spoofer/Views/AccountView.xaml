@@ -17,7 +17,7 @@
         <Grid.Resources>
             <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
-                    <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\ButtonDictionary.xaml"/>
+                    <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\MapDictionary.xaml"/>
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </Grid.Resources>
@@ -40,8 +40,8 @@
             <Border CornerRadius="10" Grid.RowSpan="2" Grid.ColumnSpan="2" >
                 <Border.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="Black" Offset="0.0"/>
-                        <GradientStop Color="DarkBlue" Offset="1"/>
+                        <GradientStop Color="White" Offset="0.0"/>
+                        <GradientStop Color="LightGray" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
@@ -53,7 +53,7 @@
                            FontWeight="SemiBold"
                            FontFamily="Helvetica"
                            FontSize="40"
-                           Foreground="White"
+                           Foreground="Black"
                            HorizontalAlignment="Center" Margin="801,0,800,0"/>
             </StackPanel>
 
@@ -66,7 +66,7 @@
                             
                              FontSize="27"
                              HorizontalAlignment="Center"
-                             Foreground="White"
+                             Foreground="Black"
                              Background="Transparent"
                              BorderThickness="0"
                              Width="319"
@@ -79,11 +79,11 @@
                     <iconPacks:PackIconMaterial Kind="Account" 
                                                 VerticalAlignment="Center" 
                                                 HorizontalAlignment="Center" 
-                                                Foreground="White" Height="40" Width="28"/>
+                                                Foreground="Black" Height="40" Width="28"/>
                 </StackPanel>
                 <Border
                         Height="2"
-                        Background="White"
+                        Background="Black"
                         Opacity="0.5" Margin="772,0"/>
 
 
@@ -95,7 +95,7 @@
                              FontSize="27"
                              Padding="32"
                              HorizontalAlignment="Center"
-                             Foreground="White"
+                             Foreground="Black"
                              Background="Transparent"
                              BorderThickness="0"
                              Width="319"
@@ -106,11 +106,11 @@
                     <iconPacks:PackIconMaterial Kind="FormTextboxPassword" 
                                                 VerticalAlignment="Center" 
                                                 HorizontalAlignment="Center" 
-                                                Foreground="White" Width="40" Height="28"/>
+                                                Foreground="Black" Width="40" Height="28"/>
                 </StackPanel>
                 <Border
                         Height="2"
-                        Background="White"
+                        Background="Black"
                         Opacity="0.5" Margin="772,0"/>
 
 

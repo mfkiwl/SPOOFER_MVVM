@@ -1,4 +1,5 @@
 ﻿using Spoofer.Commands.UserCommands;
+using Spoofer.Exceptions;
 using Spoofer.Services.Spoofer;
 using Spoofer.ViewModels;
 using System;
@@ -19,13 +20,13 @@ namespace Spoofer.Commands.SpoofingCommands
             _spoofer = spoofer;
             _transmitInOrderViewModel = transmitInOrderViewModel;
         }
-        public override void Execute(object parameter)
+        public async override void Execute(object parameter)
         {
             try
             {
-                Task.Run(() => _spoofer.TransmitInOrder(_transmitInOrderViewModel));
+                await Task.Run(() => _spoofer.TransmitInOrder(_transmitInOrderViewModel));
             }
-            catch(Exception ex)
+            catch(FileNotExistException ex)
             {
                 _transmitInOrderViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
             }

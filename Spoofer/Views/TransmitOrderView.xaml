@@ -53,7 +53,7 @@
                        FontSize="60" FontWeight="DemiBold" 
                        TextWrapping="Wrap" Text="Order Table"
                        VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="532,0,486,0" />
-        <Grid Grid.Column="0" Grid.RowSpan="4">
+        <Grid Grid.Column="0" Panel.ZIndex="1"  Grid.RowSpan="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="9*"/>
@@ -66,7 +66,7 @@
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </Grid.Resources>
-            <hc:SideMenu HorizontalAlignment="Stretch" Background="#9996A5"  Grid.Column="0" Height="Auto" VerticalAlignment="Stretch" Margin="0,0,810,0" Grid.ColumnSpan="2">
+            <hc:SideMenu HorizontalAlignment="Stretch"  Background="#9996A5"  Grid.Column="0" Height="Auto" VerticalAlignment="Stretch" Margin="0,0,810,0" Grid.ColumnSpan="2">
             </hc:SideMenu>
             <iconPacks:PackIconMaterial Kind="Earth" Height="60" Width="100" Foreground="#404040" Margin="-6,178,0,0" Grid.ColumnSpan="2" />
             <Button Height="104" Background="Transparent" BorderThickness="0" Command="{Binding Navigate}" Margin="0,154,0,822" Width="90" />
@@ -79,11 +79,11 @@
             x:Name="DATAgRID"
             IsReadOnly="True"
             AutoGenerateColumns="False"
-            BorderThickness="0"
+            BorderThickness="1"
             Grid.Row="1"
             Background="Transparent"
             ItemsSource="{Binding Coordinates, UpdateSourceTrigger=PropertyChanged}"
-            Grid.ColumnSpan="2" Margin="92,0,0,0" Grid.RowSpan="2">
+            Grid.ColumnSpan="2" Margin="90,0,0,0" Grid.RowSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="Name"
@@ -138,7 +138,7 @@
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </Grid.Resources>
-            <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Command="{Binding Transmit}" Margin="706,117,1033,121"/>
+            <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Command="{Binding Transmit, ValidatesOnExceptions=True}" Margin="706,117,1033,121"/>
             <iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black"  Kind="AccessPointNetwork" Width="Auto" Height="40" Margin="820,124,0,0" RenderTransformOrigin="1.67,1.889"/>
             <Button Height="56" ToolTip="Stop Transmitting" Width="181" Content="Stop" Margin="1033,119,706,119"/>
             <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkRed" Kind="CloseOctagon" Width="Auto" Height="40" Margin="1157,127,0,0" RenderTransformOrigin="1.67,1.889" />
@@ -146,7 +146,7 @@
                        TextWrapping="Wrap"
                        Text="{Binding ErrorMessageViewModel.ErrorMessage}"
                        Visibility="{Binding ErrorMessageViewModel.HasError, Converter={StaticResource InverseBooleanToVisibillityConverter}}"
-                       Margin="824,188,810,36"
+                       Margin="814,2,820,222"
                        Height="70" 
                        Width="286"
                        Foreground="Red" 
@@ -155,5 +155,10 @@
                        FontWeight="SemiBold"/>
 
         </Grid>
+
+        <Border BorderBrush="Black" Opacity="0.6" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="36" Margin="22,44,0,0" Grid.Row="2" VerticalAlignment="Top" Width="68">
+            <TextBlock  Text="{Binding CurrentTimerStatus, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" Padding="8" />
+
+        </Border>
     </Grid>
 </UserControl>

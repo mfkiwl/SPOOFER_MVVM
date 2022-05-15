@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Spoofer.ViewModels
 {
@@ -22,6 +23,8 @@ namespace Spoofer.ViewModels
         {
             _service = service;
             _spoofer = spoofer;
+            _timer = new DispatcherTimer();
+            ErrorMessageViewModel = new MessageViewModel();
             Navigate = new Navigate(_service);
             coordinates = new ObservableCollection<CoordinateViewModel>();
             durationList = new ObservableCollection<int>();
@@ -29,13 +32,13 @@ namespace Spoofer.ViewModels
             Coordinates = CollectionViewSource.GetDefaultView(UpdateData());
             Coordinates.SortDescriptions.Add(new SortDescription(nameof(CoordinateViewModel.NumberInOrder), ListSortDirection.Ascending));
             Transmit = new TransmitInOrderCommand(_spoofer, this);
-            ErrorMessageViewModel = new MessageViewModel();
+
         }
         private ObservableCollection<CoordinateViewModel> coordinates;
         private ObservableCollection<int> durationList;
-        public ObservableCollection<int> DurationList { get { return durationList; } set {durationList = value; OnPropertyChanged(nameof(DurationList)); } }
+        public ObservableCollection<int> DurationList { get { return durationList; } set { durationList = value; OnPropertyChanged(nameof(DurationList)); } }
         public ICollectionView Coordinates { get; }
-        
+
         private int duration;
 
         public int Duration
@@ -43,6 +46,23 @@ namespace Spoofer.ViewModels
             get { return duration; }
             set { duration = value; OnPropertyChanged(nameof(Duration)); }
         }
+        public DispatcherTimer _timer;
+
+        private int _currentTimerStatus;
+
+        public int CurrentTimerStatus
+        {
+            get { return _currentTimerStatus; }
+            set { _currentTimerStatus = value; OnPropertyChanged(nameof(CurrentTimerStatus)); }
+        }
+        private bool _isTransmitting;
+
+        public bool IsTransmitting
+        {
+            get { return _isTransmitting; }
+            set { _isTransmitting = value; OnPropertyChanged(nameof(IsTransmitting)); }
+        }
+
         public MessageViewModel ErrorMessageViewModel { get; }
         public ICommand Transmit { get; }
         public ICommand Stop { get; }
@@ -63,7 +83,7 @@ namespace Spoofer.ViewModels
         }
         private void setDurations()
         {
-            for (int i = 30; i < 120; i=i+15)
+            for (int i = 30; i <= 120; i = i + 15)
             {
                 durationList.Add(i);
             }
