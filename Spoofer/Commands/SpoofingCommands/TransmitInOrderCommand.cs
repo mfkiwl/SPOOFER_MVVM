@@ -5,6 +5,7 @@ using Spoofer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,6 +28,10 @@ namespace Spoofer.Commands.SpoofingCommands
                 await Task.Run(() => _spoofer.TransmitInOrder(_transmitInOrderViewModel));
             }
             catch(FileNotExistException ex)
+            {
+                _transmitInOrderViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+            }
+            catch(PingException ex)
             {
                 _transmitInOrderViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
             }

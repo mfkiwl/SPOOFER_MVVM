@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-             
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:hc="https://handyorg.github.io/handycontrol"
              
              xmlns:local="clr-namespace:Spoofer.Views" xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:converters="clr-namespace:Spoofer.Converters" d:DataContext="{d:DesignInstance Type=viewmodels:TransmitInOrderViewModel}"
@@ -79,6 +79,9 @@
             x:Name="DATAgRID"
             IsReadOnly="True"
             AutoGenerateColumns="False"
+            dd:DragDrop.IsDragSource="True"
+            dd:DragDrop.IsDropTarget="True"
+            dd:DragDrop.DropHandler="{Binding}"
             BorderThickness="1"
             Grid.Row="1"
             Background="Transparent"
@@ -114,10 +117,10 @@
                     Header="File*"
                     MinWidth="170"
                     Width="0.25*"
-                    Binding="{Binding HasFile}"/>
+                    Binding="{Binding HasFile, Converter={StaticResource BoolToStatusStringConverter}}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock TextWrapping="Wrap" Padding="7" FontSize="16" Text="NOTE: If file dose not exist, the system will not transmit it..." FontWeight="SemiBold" Foreground="Red" Opacity="0.6" Grid.ColumnSpan="2" Height="66" VerticalAlignment="Top"  Margin="772,6,698,0" Grid.Row="2"/>
+        <TextBlock TextWrapping="Wrap" Padding="7" FontSize="16" Text="NOTE: If file dose not exist, the system will not transmit it..." FontWeight="SemiBold" Foreground="Red" Opacity="0.6" Grid.ColumnSpan="2" Height="66" VerticalAlignment="Top"  Margin="749,184,721,0" Grid.Row="3"/>
         <TextBlock FontFamily="Helvetica" 
                        FontWeight="Medium"
                        Grid.Row="2"
@@ -156,9 +159,9 @@
 
         </Grid>
 
-        <Border BorderBrush="Black" Opacity="0.6" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="36" Margin="22,44,0,0" Grid.Row="2" VerticalAlignment="Top" Width="68">
-            <TextBlock  Text="{Binding CurrentTimerStatus, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center" Padding="8" />
-
+        <Border BorderBrush="Black" Opacity="0.6" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="1" HorizontalAlignment="Left" Height="94" Margin="831,2,0,0" Grid.Row="2" VerticalAlignment="Top" Width="280" Grid.ColumnSpan="2">
+            <TextBlock VerticalAlignment="Bottom" Foreground="DarkOrange" Opacity="0.6"  Text="TX On" FontSize="28" FontWeight="DemiBold" TextAlignment="Center" Padding="8" />
         </Border>
+        <TextBlock VerticalAlignment="Top" Visibility="{Binding IsTransmitting, Converter={StaticResource BoolToStatusStringConverter}}" Text="{Binding LocationTransmitted}" TextAlignment="Center" Padding="7" Foreground="DarkGreen" FontSize="22" FontWeight="DemiBold" Height="52" Margin="833,0,810,0" Grid.Row="2" Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>

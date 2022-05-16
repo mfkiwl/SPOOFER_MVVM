@@ -26,7 +26,7 @@ namespace Spoofer.ViewModels
         {
             _service = service;
             _spoofer = spoofer;
-            BaseCommand.PingHost("10.0.0.41", this);
+            BaseCommand.PingHost("10.0.0.41");
             Add = new AddMark(this, _service);
             numberInOrder = new ObservableCollection<int>();
             updateCollection();

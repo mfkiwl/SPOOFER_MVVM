@@ -1,5 +1,7 @@
-﻿using Spoofer.Commands.MarkersCommands;
+﻿using GongSolutions.Wpf.DragDrop;
+using Spoofer.Commands.MarkersCommands;
 using Spoofer.Commands.SpoofingCommands;
+using Spoofer.Models;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Spoofer;
 using System;
@@ -9,13 +11,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace Spoofer.ViewModels
 {
-    public class TransmitInOrderViewModel : ViewModelBase
+    public class TransmitInOrderViewModel : ViewModelBase , IDropTarget 
     {
         private readonly ISpooferService _spoofer;
         private readonly IMarkerService _service;
@@ -23,7 +26,6 @@ namespace Spoofer.ViewModels
         {
             _service = service;
             _spoofer = spoofer;
-            _timer = new DispatcherTimer();
             ErrorMessageViewModel = new MessageViewModel();
             Navigate = new Navigate(_service);
             coordinates = new ObservableCollection<CoordinateViewModel>();
@@ -46,21 +48,24 @@ namespace Spoofer.ViewModels
             get { return duration; }
             set { duration = value; OnPropertyChanged(nameof(Duration)); }
         }
-        public DispatcherTimer _timer;
-
-        private int _currentTimerStatus;
-
-        public int CurrentTimerStatus
-        {
-            get { return _currentTimerStatus; }
-            set { _currentTimerStatus = value; OnPropertyChanged(nameof(CurrentTimerStatus)); }
-        }
+       
         private bool _isTransmitting;
 
         public bool IsTransmitting
         {
             get { return _isTransmitting; }
             set { _isTransmitting = value; OnPropertyChanged(nameof(IsTransmitting)); }
+        }
+        private string _locationTransmitted;
+
+        public string LocationTransmitted
+        {
+            get { return _locationTransmitted; }
+            set
+            {
+                _locationTransmitted = value;
+                OnPropertyChanged(nameof(LocationTransmitted));
+            }
         }
 
         public MessageViewModel ErrorMessageViewModel { get; }
@@ -76,6 +81,7 @@ namespace Spoofer.ViewModels
                 if (coordinate.NumberInOrder != null)
                 {
                     var viewModel = new CoordinateViewModel(coordinate);
+                    
                     coordinates.Add(viewModel);
                 }
             }
@@ -89,5 +95,35 @@ namespace Spoofer.ViewModels
             }
         }
 
+        public void DragEnter(IDropInfo dropInfo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            var sourceItem = dropInfo.Data as CoordinateViewModel;
+            var targetItem = dropInfo.TargetItem as CoordinateViewModel;
+            if (sourceItem != null && targetItem != null)
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+                dropInfo.Effects = DragDropEffects.Copy;
+            }
+
+        }
+        public void DragLeave(IDropInfo dropInfo)
+        {
+        }
+        
+
+        public void Drop(IDropInfo dropInfo)
+        { 
+            var sourceItem = dropInfo.Data as CoordinateViewModel;
+            var realcooSource = _service.GetAll().SingleOrDefault(c => c.NumberInOrder == sourceItem.NumberInOrder);
+            var targetItem = dropInfo.TargetItem as CoordinateViewModel;
+            var realcootarget = _service.GetAll().SingleOrDefault(c => c.NumberInOrder == targetItem.NumberInOrder);
+            _service.UpdateAfterDrop(realcooSource, realcootarget);
+            UpdateData();
+        }
     }
 }

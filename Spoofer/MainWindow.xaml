@@ -8,10 +8,11 @@
 
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        AllowsTransparency="True" Background="Transparent"
-        WindowStyle="None" WindowState="Maximized">
-    <Grid>
-        
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowState="Maximized"
+        WindowStyle="None">
+    <Grid >
         <Grid.Resources>
             <DataTemplate DataType="{x:Type viewmodels:MapViewModel}">
                 <views1:MapView />
@@ -25,6 +26,14 @@
         </Grid.Resources>
 
         <ContentControl Content="{Binding CurrentViewModel}" />
+        <Border Panel.ZIndex="-2">
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="LightGray" Offset="0.0"/>
+                    <GradientStop Color="White"  Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
         
     </Grid>
 </Window>

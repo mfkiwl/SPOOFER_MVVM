@@ -147,5 +147,20 @@ namespace Spoofer.Services.Marker
         {
             _navigation.Navigate();
         }
+        public void UpdateAfterDrop(Coordinates realcooSource, Coordinates realcootarget)
+        {
+            
+            var tmpSource = realcooSource;
+            var tmpTarget = realcootarget;
+            tmpSource.NumberInOrder = tmpTarget.NumberInOrder;
+            tmpTarget.NumberInOrder = tmpSource.NumberInOrder;
+            tmpSource.CoorfianteId = Guid.NewGuid().ToString();
+            tmpTarget.CoorfianteId = Guid.NewGuid().ToString();
+            _context.Coordinates.AddRange(tmpSource, tmpTarget);
+            _context.Remove(realcooSource);
+            _context.Remove(realcootarget);
+            _context.SaveChanges();
+
+        }
     }
 }

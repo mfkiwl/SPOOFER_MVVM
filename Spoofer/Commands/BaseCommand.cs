@@ -57,12 +57,11 @@ namespace Spoofer.Commands.UserCommands
             var path = $@"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug\{String.Concat(mapViewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
             return File.Exists(path);
         }
-        public static bool PingHost(string ipAddress, MapViewModel viewModel)
+        public static bool PingHost(string ipAddress)
         {
             var pinger = new Ping();
             var replay = pinger.Send(ipAddress);
             bool pingable = replay.Status == IPStatus.Success;
-            viewModel.IsPinging = pingable;
             return pingable;
         }
        

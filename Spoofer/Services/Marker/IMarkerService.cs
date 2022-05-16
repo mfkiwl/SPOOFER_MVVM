@@ -15,7 +15,6 @@ namespace Spoofer.Services.Marker
         IEnumerable<Coordinates> GetAll();
         bool isExist(MapViewModel mapViewModel);
         Coordinates GetCoordinateByViewModel(MapViewModel mapViewModel);
-        
-
+        void UpdateAfterDrop(Coordinates realcooSource, Coordinates realcootarget);
     }
 }

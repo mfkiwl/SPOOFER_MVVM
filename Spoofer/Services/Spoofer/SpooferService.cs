@@ -58,7 +58,7 @@ namespace Spoofer.Services.Spoofer
             {
                 throw new CoordinateNotExistException();
             }
-            if (!BaseCommand.PingHost(IP_ADDRESS, viewModel))
+            if (!BaseCommand.PingHost(IP_ADDRESS))
             {
                 viewModel.IsPinging = false;
                 throw new PingException($"{IP_ADDRESS} is not connected");
@@ -82,6 +82,10 @@ namespace Spoofer.Services.Spoofer
         public void TransmitInOrder(TransmitInOrderViewModel viewModel)
         {
 
+            if (!BaseCommand.PingHost("10.0.0.41"))
+            {
+                throw new PingException("Not Connected");
+            }
             var list = new List<CoordinateViewModel>();
             foreach (var coordinate in _marker.GetAll())
             {
@@ -98,19 +102,11 @@ namespace Spoofer.Services.Spoofer
             foreach (var coordinate in list.OrderBy(p => p.NumberInOrder))
             {
                 transmit(coordinate.Name);
-                viewModel.CurrentTimerStatus = viewModel.Duration;
-                viewModel._timer.Interval = TimeSpan.FromSeconds(1);
-                viewModel._timer.Tick += (sender, args) =>
-                {
-                    viewModel.CurrentTimerStatus--;
-                };
-                viewModel.IsTransmitting = true;
-                viewModel._timer.Start();
+                viewModel.LocationTransmitted = coordinate.Name.Trim();
                 Thread.Sleep(new TimeSpan(0, 0, viewModel.Duration));
                 proccess.Kill();
                 viewModel.IsTransmitting = false;
             }
-            viewModel._timer.Stop();
         }
         private void transmit(string viewModel)
         {
