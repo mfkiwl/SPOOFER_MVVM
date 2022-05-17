@@ -12,13 +12,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace Spoofer.ViewModels
 {
-    public class TransmitInOrderViewModel : ViewModelBase , IDropTarget 
+    public class TransmitInOrderViewModel : ViewModelBase, IDropTarget
     {
         private readonly ISpooferService _spoofer;
         private readonly IMarkerService _service;
@@ -27,13 +28,14 @@ namespace Spoofer.ViewModels
             _service = service;
             _spoofer = spoofer;
             ErrorMessageViewModel = new MessageViewModel();
-            Navigate = new Navigate(_service);
+            Navigate = new Navigate(_service, this);
             coordinates = new ObservableCollection<CoordinateViewModel>();
             durationList = new ObservableCollection<int>();
             setDurations();
             Coordinates = CollectionViewSource.GetDefaultView(UpdateData());
             Coordinates.SortDescriptions.Add(new SortDescription(nameof(CoordinateViewModel.NumberInOrder), ListSortDirection.Ascending));
             Transmit = new TransmitInOrderCommand(_spoofer, this);
+            Stop = new Stop(_spoofer, this);
 
         }
         private ObservableCollection<CoordinateViewModel> coordinates;
@@ -48,7 +50,7 @@ namespace Spoofer.ViewModels
             get { return duration; }
             set { duration = value; OnPropertyChanged(nameof(Duration)); }
         }
-       
+
         private bool _isTransmitting;
 
         public bool IsTransmitting
@@ -81,7 +83,7 @@ namespace Spoofer.ViewModels
                 if (coordinate.NumberInOrder != null)
                 {
                     var viewModel = new CoordinateViewModel(coordinate);
-                    
+
                     coordinates.Add(viewModel);
                 }
             }
@@ -102,28 +104,40 @@ namespace Spoofer.ViewModels
 
         public void DragOver(IDropInfo dropInfo)
         {
-            var sourceItem = dropInfo.Data as CoordinateViewModel;
-            var targetItem = dropInfo.TargetItem as CoordinateViewModel;
-            if (sourceItem != null && targetItem != null)
-            {
-                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
-                dropInfo.Effects = DragDropEffects.Copy;
-            }
+
+            dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+            dropInfo.Effects = DragDropEffects.All;
+
 
         }
         public void DragLeave(IDropInfo dropInfo)
         {
         }
-        
+
 
         public void Drop(IDropInfo dropInfo)
-        { 
+        {
+
             var sourceItem = dropInfo.Data as CoordinateViewModel;
             var realcooSource = _service.GetAll().SingleOrDefault(c => c.NumberInOrder == sourceItem.NumberInOrder);
-            var targetItem = dropInfo.TargetItem as CoordinateViewModel;
-            var realcootarget = _service.GetAll().SingleOrDefault(c => c.NumberInOrder == targetItem.NumberInOrder);
-            _service.UpdateAfterDrop(realcooSource, realcootarget);
+            if (dropInfo.TargetItem is CoordinateViewModel)
+            {
+                var targetItem = dropInfo.TargetItem as CoordinateViewModel;
+                var realcootarget = _service.GetAll().SingleOrDefault(c => c.NumberInOrder == targetItem.NumberInOrder);
+                coordinates.Clear();
+                _service.UpdateAfterDrop(realcooSource, realcootarget);
+                dropInfo.Effects = DragDropEffects.All;
+                dropInfo.EffectText = "Drop Here";
+            }
+
+            else
+            {
+                coordinates.Clear();
+                _service.RemoveFromList(realcooSource);
+            }
             UpdateData();
         }
+
+        
     }
 }

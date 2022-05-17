@@ -16,13 +16,10 @@ namespace Spoofer.Commands.UserCommands
     public abstract class BaseCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-
-
         public virtual bool CanExecute(object parameter)
         {
             return true;
         }
-
         public abstract void Execute(object parameter);
 
         public void OnCanExecuteChange()
@@ -60,7 +57,7 @@ namespace Spoofer.Commands.UserCommands
         public static bool PingHost(string ipAddress)
         {
             var pinger = new Ping();
-            var replay = pinger.Send(ipAddress);
+            var replay = pinger.Send(ipAddress, 10);
             bool pingable = replay.Status == IPStatus.Success;
             return pingable;
         }

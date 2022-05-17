@@ -151,16 +151,31 @@ namespace Spoofer.Services.Marker
         {
             
             var tmpSource = realcooSource;
+            var idSource = realcooSource.NumberInOrder;
             var tmpTarget = realcootarget;
-            tmpSource.NumberInOrder = tmpTarget.NumberInOrder;
-            tmpTarget.NumberInOrder = tmpSource.NumberInOrder;
-            tmpSource.CoorfianteId = Guid.NewGuid().ToString();
-            tmpTarget.CoorfianteId = Guid.NewGuid().ToString();
-            _context.Coordinates.AddRange(tmpSource, tmpTarget);
+            var idTarget = realcootarget.NumberInOrder;
             _context.Remove(realcooSource);
             _context.Remove(realcootarget);
             _context.SaveChanges();
+            tmpSource.NumberInOrder = idTarget;
+            tmpTarget.NumberInOrder = idSource;
+            tmpSource.CoorfianteId = Guid.NewGuid().ToString();
+            tmpTarget.CoorfianteId = Guid.NewGuid().ToString();
+            _context.Coordinates.AddRange(tmpSource, tmpTarget);
+           
+            _context.SaveChanges();
 
+        }
+
+        public void RemoveFromList(Coordinates coordinate)
+        {
+            var tmp = coordinate;
+            _context.Coordinates.Remove(coordinate);
+            _context.SaveChanges();
+            tmp.NumberInOrder = null;
+            coordinate.CoorfianteId = Guid.NewGuid().ToString();
+            _context.Coordinates.Add(coordinate);
+            _context.SaveChanges();
         }
     }
 }

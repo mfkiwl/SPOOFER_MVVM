@@ -21,6 +21,10 @@ namespace Spoofer.Commands.SpoofingCommands
             _spoofer = spoofer;
             _transmitInOrderViewModel = transmitInOrderViewModel;
         }
+        public override bool CanExecute(object parameter)
+        {
+            return base.CanExecute(parameter) && !_transmitInOrderViewModel.IsTransmitting;
+        }
         public async override void Execute(object parameter)
         {
             try
@@ -32,6 +36,10 @@ namespace Spoofer.Commands.SpoofingCommands
                 _transmitInOrderViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
             }
             catch(PingException ex)
+            {
+                _transmitInOrderViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+            }
+            catch(SDRException ex)
             {
                 _transmitInOrderViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
             }

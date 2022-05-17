@@ -58,6 +58,10 @@ namespace Spoofer.Commands.Spoofing
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
             }
+            catch(SDRException ex)
+            {
+                _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);

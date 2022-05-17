@@ -73,10 +73,19 @@ namespace Spoofer.Services.Spoofer
                 }
             }
         }
-        public void StopTransmitting(MapViewModel viewModel)
+        public void StopTransmitting(ViewModelBase viewModel)
         {
             proccess.Kill();
-            viewModel.IsTransmitting = false;
+            if (viewModel is MapViewModel)
+            {
+                var vm = viewModel as MapViewModel;
+                vm.IsTransmitting = false;
+            }
+            else
+            {
+                var vmw = viewModel as TransmitInOrderViewModel;
+                vmw.IsTransmitting = false;
+            }
         }
 
         public void TransmitInOrder(TransmitInOrderViewModel viewModel)
@@ -102,11 +111,12 @@ namespace Spoofer.Services.Spoofer
             foreach (var coordinate in list.OrderBy(p => p.NumberInOrder))
             {
                 transmit(coordinate.Name);
+                viewModel.IsTransmitting = true;
                 viewModel.LocationTransmitted = coordinate.Name.Trim();
                 Thread.Sleep(new TimeSpan(0, 0, viewModel.Duration));
                 proccess.Kill();
-                viewModel.IsTransmitting = false;
             }
+            viewModel.IsTransmitting = false;
         }
         private void transmit(string viewModel)
         {
@@ -117,6 +127,11 @@ namespace Spoofer.Services.Spoofer
             proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 42 --repeat --ref external";
             proccess.StartInfo.UseShellExecute = false;
             proccess.Start();
+            if (proccess.HasExited)
+            {
+
+                throw new SDRException();
+            }
 
         }
     }

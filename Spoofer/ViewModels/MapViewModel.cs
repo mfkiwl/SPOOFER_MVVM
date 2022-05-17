@@ -26,7 +26,7 @@ namespace Spoofer.ViewModels
         {
             _service = service;
             _spoofer = spoofer;
-            BaseCommand.PingHost("10.0.0.41");
+            IsPinging =BaseCommand.PingHost("10.0.0.41");
             Add = new AddMark(this, _service);
             numberInOrder = new ObservableCollection<int>();
             updateCollection();
@@ -34,7 +34,7 @@ namespace Spoofer.ViewModels
             GenerateFile = new Generate(_service, _spoofer, this);
             TransmitNow = new Transmit(_service, _spoofer, this);
             StopTransmit = new Stop(_spoofer, this);
-            Navigate = new Navigate(_service);
+            Navigate = new Navigate(_service, this);
             ErrorMessageViewModel = new MessageViewModel();
 
         }

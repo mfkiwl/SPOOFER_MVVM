@@ -284,6 +284,7 @@
     <Compile Include="Services\Marker\MarkerService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\Spoofer\ISpooferService.cs" />
+    <Compile Include="Exceptions\SDRException.cs" />
     <Compile Include="Services\Spoofer\SpooferService.cs" />
     <Compile Include="Services\User\Login\ILoginService.cs" />
     <Compile Include="Services\User\Login\LoginService.cs" />

@@ -141,15 +141,17 @@
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </Grid.Resources>
+            <Button x:Name="Trash" AllowDrop="True"  dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ToolTip="Remove From List"  Width="181" Content="Trash Place" Height="56"  Margin="873,49,866,189"/>
+            <iconPacks:PackIconMaterial Kind="TrashCanOutline" Height="37" Width="Auto" Margin="995,58,0,0" Foreground="Green" Opacity="0.6" />
             <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Command="{Binding Transmit, ValidatesOnExceptions=True}" Margin="706,117,1033,121"/>
             <iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black"  Kind="AccessPointNetwork" Width="Auto" Height="40" Margin="820,124,0,0" RenderTransformOrigin="1.67,1.889"/>
-            <Button Height="56" ToolTip="Stop Transmitting" Width="181" Content="Stop" Margin="1033,119,706,119"/>
+            <Button Height="56" ToolTip="Stop Transmitting" Command="{Binding Stop, ValidatesOnExceptions=True}" Width="181" Content="Stop" Margin="1033,119,706,119"/>
             <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkRed" Kind="CloseOctagon" Width="Auto" Height="40" Margin="1157,127,0,0" RenderTransformOrigin="1.67,1.889" />
             <TextBlock TextAlignment="Center"
                        TextWrapping="Wrap"
                        Text="{Binding ErrorMessageViewModel.ErrorMessage}"
                        Visibility="{Binding ErrorMessageViewModel.HasError, Converter={StaticResource InverseBooleanToVisibillityConverter}}"
-                       Margin="814,2,820,222"
+                       Margin="812,-36,822,260"
                        Height="70" 
                        Width="286"
                        Foreground="Red" 
@@ -158,10 +160,9 @@
                        FontWeight="SemiBold"/>
 
         </Grid>
-
-        <Border BorderBrush="Black" Opacity="0.6" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="1" HorizontalAlignment="Left" Height="94" Margin="831,2,0,0" Grid.Row="2" VerticalAlignment="Top" Width="280" Grid.ColumnSpan="2">
+        <Border BorderBrush="Black" Opacity="0.6" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="1" HorizontalAlignment="Left" Height="94" Margin="831,377,0,0" Grid.Row="1" VerticalAlignment="Top" Width="280" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <TextBlock VerticalAlignment="Bottom" Foreground="DarkOrange" Opacity="0.6"  Text="TX On" FontSize="28" FontWeight="DemiBold" TextAlignment="Center" Padding="8" />
         </Border>
-        <TextBlock VerticalAlignment="Top" Visibility="{Binding IsTransmitting, Converter={StaticResource BoolToStatusStringConverter}}" Text="{Binding LocationTransmitted}" TextAlignment="Center" Padding="7" Foreground="DarkGreen" FontSize="22" FontWeight="DemiBold" Height="52" Margin="833,0,810,0" Grid.Row="2" Grid.ColumnSpan="2"/>
+        <TextBlock VerticalAlignment="Top" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Text="{Binding LocationTransmitted}" TextAlignment="Center" Padding="7" Foreground="DarkGreen" FontSize="22" FontWeight="DemiBold" Height="52" Margin="832,375,812,0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
     </Grid>
 </UserControl>
