@@ -52,6 +52,7 @@ namespace Spoofer.Commands.Spoofing
             try
             {
                 await Task.Run(() => generateFile());
+                Counter++;
                 _mapViewModel.IsLoading = false;
                 _mapViewModel.IsFinishLoading = true;
                 _marker.AddOrUpdateMarker(_mapViewModel);
@@ -97,16 +98,18 @@ namespace Spoofer.Commands.Spoofing
             }
             while (true)
             {
-                var flags = new string[9];
-                flags[0] = "Core.dll";
+                var flags = new string[11];
+                flags[0] = $"Core.dll";
                 flags[1] = "-e";
                 flags[2] = $"{file.ToString().Trim()}";
                 flags[3] = "-s";
                 flags[4] = "2500000";
                 flags[5] = "-l";
-                flags[6] = $"{_mapViewModel.Latitude},{_mapViewModel.Longitude},{_mapViewModel.Height}";
+                flags[6] = $"{_mapViewModel.Latitude.ToString().Trim()},{_mapViewModel.Longitude.ToString().Trim()},{_mapViewModel.Height.ToString().Trim()}";
                 flags[7] = "-o";
                 flags[8] = $"{String.Concat(_mapViewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
+                flags[9] = "-d";
+                flags[10] = "70";
                 return flags;
             }
         }
@@ -115,7 +118,6 @@ namespace Spoofer.Commands.Spoofing
         {
             var argv = GenerateFlags();
             _spoofer.GenerateIQFile(argv, _mapViewModel);
-
         }
     }
 

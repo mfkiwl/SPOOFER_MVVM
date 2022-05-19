@@ -12,6 +12,7 @@ namespace Spoofer.Services.Spoofer
         void GenerateIQFile(string [] argv, MapViewModel viewModel);
         void TransmitFromFile(MapViewModel viewModel);
         void StopTransmitting(ViewModelBase viewModel);
+        void GenerateInOrder(TransmitInOrderViewModel viewModel);
         void TransmitInOrder(TransmitInOrderViewModel viewModel);
     }
 }

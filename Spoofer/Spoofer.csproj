@@ -245,12 +245,18 @@
     </ApplicationDefinition>
     <Compile Include="Commands\MarkersCommands\Navigate.cs" />
     <Compile Include="Commands\SpoofingCommands\Generate.cs" />
+    <Compile Include="Commands\SpoofingCommands\GenerateOrderFile.cs" />
     <Compile Include="Commands\SpoofingCommands\Stop.cs" />
     <Compile Include="Commands\SpoofingCommands\Transmit.cs" />
     <Compile Include="Commands\SpoofingCommands\TransmitInOrderCommand.cs" />
     <Compile Include="Converters\BoolToFileStatusConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibillityConverter.cs" />
     <Compile Include="Exceptions\MapExceptions.cs" />
+    <Compile Include="EXMethods\SpoofingMethods3.cs" />
+    <Compile Include="EXMethods\SpoofingMethods4.cs" />
+    <Compile Include="EXMethods\SpoofingMethods5.cs" />
+    <Compile Include="EXMethods\SpoofingMethods6.cs" />
+    <Compile Include="EXMethods\SpoofingMethods7.cs" />
     <Compile Include="Extensions\SpoofingMethods.cs" />
     <Compile Include="Extensions\SpoofingMethods2.cs" />
     <Compile Include="Extensions\TXMethods.cs" />

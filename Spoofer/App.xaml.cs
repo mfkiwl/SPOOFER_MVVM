@@ -44,7 +44,6 @@ namespace Spoofer
         protected override void OnStartup(StartupEventArgs e)
         {
             //base.OnStartup(e);
-
             _navigationStore.BaseViewModel = createAccountViewModel();
             MainWindow = new MainWindow()
             {

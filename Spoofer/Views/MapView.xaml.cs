@@ -30,6 +30,15 @@ namespace Spoofer.Views
         private readonly IMarkerService _markerService;
         private bool isIconSigned;
 
+
+        public MapView()
+        {
+            InitializeComponent();
+            _navigationService = new NavigationService();
+            _markerService = new MarkerService(App._context, _navigationService);
+            
+            
+        }
         private void mapControl_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
 
@@ -38,13 +47,6 @@ namespace Spoofer.Views
             var position = mapControl.TranslatePoint(capturedMouse, mapControl);
             lat.Text = position.X.ToString();
             lon.Text = position.Y.ToString();
-        }
-
-        public MapView()
-        {
-            InitializeComponent();
-            _navigationService = new NavigationService();
-            _markerService = new MarkerService(App._context, _navigationService);
         }
 
         private async void MapControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
@@ -101,7 +103,10 @@ namespace Spoofer.Views
                     double user = signedElement.Location.Position.Latitude;
                     var vm = (MapViewModel)DataContext;
                     vm.IsFileCreated = BaseCommand.isFileExist(vm);
-                    var realMarker = _markerService.GetAll().SingleOrDefault(p => p.Name == signedElement.Title && (double)p.Height == signedElement.Location.Position.Altitude && p.Longitude == signedElement.Location.Position.Longitude && p.Latitude == signedElement.Location.Position.Latitude);
+                    var realMarker = _markerService.GetAll().SingleOrDefault(p => p.Name == signedElement.Title && 
+                    (double)p.Height == signedElement.Location.Position.Altitude &&
+                    p.Longitude == signedElement.Location.Position.Longitude &&
+                    p.Latitude == signedElement.Location.Position.Latitude);
                     Combo.SelectedItem = realMarker.NumberInOrder;
                     if (realMarker.NumberInOrder == null)
                     {
@@ -121,6 +126,7 @@ namespace Spoofer.Views
         }
         private void mapControl_MapDoubleTapped(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.MapInputEventArgs e)
         {
+            
             CancelTemporaryIcons();
             DeleteTextboxes();
             Combo.SelectedItem = Combo.Text;

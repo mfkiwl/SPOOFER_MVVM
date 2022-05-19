@@ -18,7 +18,7 @@
         <converters:BoolToConnectionStatusConverter x:Key="BoolToConnectionStatusConverter"/>
         <converters:BoolToTxStatusConverter x:Key="BoolToTxStatusConverter"/>
     </UserControl.Resources>
-    <Grid Background="White">
+    <Grid Background="White" dd:DragDrop.IsDropTarget="False">
 
         <Grid.Resources>
             <ResourceDictionary>
@@ -28,16 +28,16 @@
             </ResourceDictionary>
         </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="73*"/>
-            <RowDefinition Height="198*"/>
-            <RowDefinition Height="122*"/>
-            <RowDefinition Height="147*"/>
+            <RowDefinition Height="146*"/>
+            <RowDefinition Height="396*"/>
+            <RowDefinition Height="235*"/>
+            <RowDefinition Height="303*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="47*" />
             <ColumnDefinition Width="53*" />
         </Grid.ColumnDefinitions>
-        <Border CornerRadius="10" Grid.ColumnSpan="2" Grid.RowSpan="4" Visibility="Visible">
+        <Border CornerRadius="10" Grid.ColumnSpan="2"  Grid.RowSpan="4" Visibility="Visible">
             <Border.Background>
                 <LinearGradientBrush>
                     <GradientStop Color="LightGray" Offset="0.0"/>
@@ -53,7 +53,7 @@
                        FontSize="60" FontWeight="DemiBold" 
                        TextWrapping="Wrap" Text="Order Table"
                        VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="532,0,486,0" />
-        <Grid Grid.Column="0" Panel.ZIndex="1"  Grid.RowSpan="4">
+        <Grid Grid.Column="0" Panel.ZIndex="1" dd:DragDrop.IsDropTarget="False"  Grid.RowSpan="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="9*"/>
@@ -141,7 +141,7 @@
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </Grid.Resources>
-            <Button x:Name="Trash" AllowDrop="True"  dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ToolTip="Remove From List"  Width="181" Content="Trash Place" Height="56"  Margin="873,49,866,189"/>
+            <Button x:Name="Trash" AllowDrop="True" Command="{Binding GenerateInOrder}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ToolTip="Remove From List"  Width="181" Content="Trash Place" Height="56"  Margin="873,49,866,189"/>
             <iconPacks:PackIconMaterial Kind="TrashCanOutline" Height="37" Width="Auto" Margin="995,58,0,0" Foreground="Green" Opacity="0.6" />
             <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Command="{Binding Transmit, ValidatesOnExceptions=True}" Margin="706,117,1033,121"/>
             <iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black"  Kind="AccessPointNetwork" Width="Auto" Height="40" Margin="820,124,0,0" RenderTransformOrigin="1.67,1.889"/>

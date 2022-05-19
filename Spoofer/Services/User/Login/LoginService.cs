@@ -2,6 +2,7 @@
 using Spoofer.Services.Navigation;
 using Spoofer.ViewModels;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,24 +21,21 @@ namespace Spoofer.Services.User
 
         public void OnLogin(AccountViewModel model)
         {
-            model.IsLoading = true;
             model.ErrorMessageViewModel.ErrorMessage = "";
-            foreach (var user in _context.User)
+            model.IsLoading = true;
+
+            if (!_context.User.Any(p => p.UserName == model.UserName && p.Password == model.Password))
             {
-                if (model.UserName == user.UserName)
-                {
-                    var userLog = user;
-                    if (userLog.Password == model.Password)
-                    {
-                        _navigation.Navigate();
-                    }
-                }
-                else
-                {
-                    model.IsLoading = false;
-                    throw new ArgumentException("Username Or Password are Incorrect");
-                }
+
+                throw new Exception("Username Or Password are Incorrect");
+                model.IsLoading = false;
+
             }
+            else
+            {
+                _navigation.Navigate();
+            }
+
         }
     }
 }

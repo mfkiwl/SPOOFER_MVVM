@@ -36,6 +36,7 @@ namespace Spoofer.ViewModels
             Coordinates.SortDescriptions.Add(new SortDescription(nameof(CoordinateViewModel.NumberInOrder), ListSortDirection.Ascending));
             Transmit = new TransmitInOrderCommand(_spoofer, this);
             Stop = new Stop(_spoofer, this);
+            GenerateInOrder = new GenerateOrderFile(this, _spoofer);
 
         }
         private ObservableCollection<CoordinateViewModel> coordinates;
@@ -74,6 +75,7 @@ namespace Spoofer.ViewModels
         public ICommand Transmit { get; }
         public ICommand Stop { get; }
         public ICommand RemoveFromList { get; }
+        public ICommand GenerateInOrder { get; }
         public ICommand Navigate { get; }
         public ObservableCollection<CoordinateViewModel> UpdateData()
         {
@@ -99,12 +101,13 @@ namespace Spoofer.ViewModels
 
         public void DragEnter(IDropInfo dropInfo)
         {
-            throw new NotImplementedException();
+            dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+            dropInfo.Effects = DragDropEffects.All;
         }
 
         public void DragOver(IDropInfo dropInfo)
         {
-
+            
             dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
             dropInfo.Effects = DragDropEffects.All;
 
@@ -112,6 +115,7 @@ namespace Spoofer.ViewModels
         }
         public void DragLeave(IDropInfo dropInfo)
         {
+            return;
         }
 
 
@@ -129,7 +133,7 @@ namespace Spoofer.ViewModels
                 dropInfo.Effects = DragDropEffects.All;
                 dropInfo.EffectText = "Drop Here";
             }
-
+           
             else
             {
                 coordinates.Clear();
@@ -138,6 +142,6 @@ namespace Spoofer.ViewModels
             UpdateData();
         }
 
-        
+
     }
 }

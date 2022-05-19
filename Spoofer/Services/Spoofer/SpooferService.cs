@@ -6,6 +6,7 @@ using Spoofer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -43,8 +44,30 @@ namespace Spoofer.Services.Spoofer
             {
 
                 var argc = argv.Length;
-                EXMethods.SpoofingMethods.main(argc, argv);
-
+                switch (counter)
+                {
+                    case 0:
+                        EXMethods.SpoofingMethods.main(argc, argv);
+                        break;
+                    case 1:
+                        EXMethods.SpoofingMethods2.main(argc, argv);
+                        break;
+                    case 2:
+                        EXMethods.SpoofingMethods3.main(argc, argv);
+                        break;
+                    case 3:
+                        EXMethods.SpoofingMethods4.main(argc, argv);
+                        break;
+                    case 4:
+                        EXMethods.SpoofingMethods5.main(argc, argv);
+                        break;
+                    case 5:
+                        EXMethods.SpoofingMethods6.main(argc, argv);
+                        break;
+                    case 6:
+                        EXMethods.SpoofingMethods7.main(argc, argv);
+                        break;
+                }
                 counter++;
             }
         }
@@ -88,13 +111,10 @@ namespace Spoofer.Services.Spoofer
             }
         }
 
-        public void TransmitInOrder(TransmitInOrderViewModel viewModel)
+        public void GenerateInOrder(TransmitInOrderViewModel viewModel)
         {
 
-            if (!BaseCommand.PingHost("10.0.0.41"))
-            {
-                throw new PingException("Not Connected");
-            }
+
             var list = new List<CoordinateViewModel>();
             foreach (var coordinate in _marker.GetAll())
             {
@@ -107,25 +127,32 @@ namespace Spoofer.Services.Spoofer
             {
                 throw new FileNotExistException();
             }
-
-            foreach (var coordinate in list.OrderBy(p => p.NumberInOrder))
+            else
             {
-                transmit(coordinate.Name);
-                viewModel.IsTransmitting = true;
-                viewModel.LocationTransmitted = coordinate.Name.Trim();
-                Thread.Sleep(new TimeSpan(0, 0, viewModel.Duration));
-                proccess.Kill();
+                var listToGenerate = list.OrderBy(P => P.NumberInOrder)
+                                         .Select(p => String.Concat(p.Name.Where(c => !Char.IsWhiteSpace(c))))
+                                         .ToList();
+                CombineFileToSingleFile(listToGenerate);
             }
-            viewModel.IsTransmitting = false;
+
+        }
+        public void TransmitInOrder(TransmitInOrderViewModel viewModel)
+        {
+            if (!BaseCommand.PingHost("10.0.0.41"))
+            {
+                throw new PingException("Not Connected");
+            }
+            transmit("Streak");
+            viewModel.IsTransmitting = true;
+
         }
         private void transmit(string viewModel)
         {
-            proccess.StartInfo.FileName = "tx_samples_from_file";
-            proccess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            proccess.StartInfo.FileName = "tx_samples_from_file.exe";
             proccess.StartInfo.RedirectStandardInput = true;
-            proccess.StartInfo.RedirectStandardOutput = false;
-            proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 42 --repeat --ref external";
             proccess.StartInfo.UseShellExecute = false;
+            proccess.StartInfo.RedirectStandardOutput = false;
+            proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 31.5 --repeat --ref external";
             proccess.Start();
             if (proccess.HasExited)
             {
@@ -133,6 +160,27 @@ namespace Spoofer.Services.Spoofer
                 throw new SDRException();
             }
 
+        }
+        public void CombineFileToSingleFile(List<string> list)
+        {
+            var anotherList = new List<string>();
+            foreach (var item in list)
+            {
+                var file = Directory.GetFiles(Environment.CurrentDirectory).Where(p => p.Contains(item)).SingleOrDefault();
+                anotherList.Add(file);
+            }
+
+            using (var outputStream = File.Create(Environment.CurrentDirectory + "/Streak.bin"))
+            {
+                foreach (var inputFilePath in anotherList)
+                {
+                    using (var inputStream = File.OpenRead(inputFilePath))
+                    {
+                        // Buffer size can be passed as the second argument.
+                        inputStream.CopyTo(outputStream);
+                    }
+                }
+            }
         }
     }
 }

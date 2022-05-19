@@ -16,7 +16,6 @@ namespace Spoofer.Commands.UserCommands
         {
             _accountViewModel = accountViewModel;
             _login = login;
-            _accountViewModel.PropertyChanged += _accountViewModel_PropertyChanged;
         }
 
         private void _accountViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -38,7 +37,7 @@ namespace Spoofer.Commands.UserCommands
             try
             {
                 _accountViewModel.IsLoading = true;
-                Task.Run(() => login());
+                Task.Run(() => _login.OnLogin(_accountViewModel));
                 
                 log.Info($"User {_accountViewModel.UserName} Logged In Seccesfully!!!!!");
 
@@ -47,14 +46,12 @@ namespace Spoofer.Commands.UserCommands
             {
                 _accountViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                _accountViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
                 log.Error("Can't log in Exception");
             }
         }
-        private void login()
-        {
-            _login.OnLogin(_accountViewModel);
-        }
+        
     }
 }
