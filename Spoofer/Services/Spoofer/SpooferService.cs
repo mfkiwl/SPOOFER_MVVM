@@ -42,7 +42,7 @@ namespace Spoofer.Services.Spoofer
             }
             else
             {
-
+                
                 var argc = argv.Length;
                 switch (counter)
                 {
@@ -141,6 +141,10 @@ namespace Spoofer.Services.Spoofer
             if (!BaseCommand.PingHost("10.0.0.41"))
             {
                 throw new PingException("Not Connected");
+            }
+            else if (true)
+            {
+
             }
             transmit("Streak");
             viewModel.IsTransmitting = true;

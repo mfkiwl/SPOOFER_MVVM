@@ -1,4 +1,5 @@
 ﻿using log4net;
+using Spoofer.Exceptions;
 using Spoofer.Services.User;
 using Spoofer.ViewModels;
 using System;
@@ -26,23 +27,18 @@ namespace Spoofer.Commands.UserCommands
             }
         }
 
-        //public override bool CanExecute(object parameter)
-        //{
-        //    return !String.IsNullOrEmpty(_accountViewModel.UserName) &&
-        //        !String.IsNullOrEmpty(_accountViewModel.Password);
-        //}
+        
 
         public override void Execute(object parameter)
         {
             try
             {
-                _accountViewModel.IsLoading = true;
                 Task.Run(() => _login.OnLogin(_accountViewModel));
-                
+                _accountViewModel.IsLoading = true;
                 log.Info($"User {_accountViewModel.UserName} Logged In Seccesfully!!!!!");
 
             }
-            catch(ArgumentException ex)
+            catch(FileNotExistException ex)
             {
                 _accountViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
             }

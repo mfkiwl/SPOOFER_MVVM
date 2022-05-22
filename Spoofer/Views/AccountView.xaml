@@ -40,21 +40,22 @@
             <Border CornerRadius="10" Grid.RowSpan="2" Grid.ColumnSpan="2" >
                 <Border.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="White" Offset="0.0"/>
-                        <GradientStop Color="LightGray" Offset="1"/>
+                        <GradientStop Color="#C0C0C0" Offset="0.0"/>
+                        <GradientStop Color="White" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
 
 
             <StackPanel VerticalAlignment="Center" Height="276" Margin="0,40,0,153" Grid.ColumnSpan="2">
-                <Image Source="/Assets/Phantom.png" Width="150" Margin="885,0" />
+                <Image Source="/Assets/Phantom.png" Margin="823,0,829,0" />
                 <TextBlock Text="Phantom Spoofer"
                            FontWeight="SemiBold"
                            FontFamily="Helvetica"
-                           FontSize="40"
+                           FontSize="70"
                            Foreground="Black"
-                           HorizontalAlignment="Center" Margin="801,0,800,0"/>
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center" Width="600"  Height="168" Margin="660,0"/>
             </StackPanel>
 
 
@@ -75,7 +76,7 @@
                              Padding="32"
                              Height="88"
                              Margin="773,0,25,0"
-                             Text="{Binding UserName,ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged, FallbackValue=Username}"/>
                     <iconPacks:PackIconMaterial Kind="Account" 
                                                 VerticalAlignment="Center" 
                                                 HorizontalAlignment="Center" 
@@ -91,6 +92,7 @@
                 <StackPanel Orientation="Horizontal" Margin="-5,20,0,0">
                     <PasswordBox FontFamily="Helvetica"
                              PasswordChanged="PasswordBox_PasswordChanged"
+                             
                              FontWeight="Light"
                              FontSize="27"
                              Padding="32"
@@ -112,14 +114,12 @@
                         Height="2"
                         Background="Black"
                         Opacity="0.5" Margin="772,0"/>
-
-
-                <StackPanel Orientation="Horizontal" Margin="750,50,0,0" Grid.Column="1">
-                    <Button Width="125" Height="50" Content="LOGIN" Margin="60,0,60,0" Command="{Binding Login, ValidatesOnExceptions=True}" />
-                    <Button Width="125" Height="50" Content="REGISTER" Command="{Binding Register, ValidatesOnExceptions=True}"/>
+                <StackPanel Orientation="Horizontal" Margin="826,50,0,0">
+                    <Button Width="160" Height="70" Content="LOGIN" Margin="60,0,60,0" Command="{Binding Login, ValidatesOnExceptions=True}" />
                 </StackPanel>
-            
+
             </StackPanel>
+            <iconPacks:PackIconMaterial Kind="Login" Height="52" Width="40" Margin="22,258,0,0" Foreground="Green" Opacity="0.7" Grid.Column="1" Grid.Row="1"/>
             <Image x:Name="Spinner" wpfanimated:ImageBehavior.AnimatedSource="/Assets/loader.gif" 
                wpfanimated:ImageBehavior.RepeatBehavior="1"
                Height="110" Grid.ColumnSpan="2" Margin="480,284,480,27" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Grid.Row="1" />
@@ -128,7 +128,7 @@
                        Text="{Binding ErrorMessageViewModel.ErrorMessage}"
                        Visibility="{Binding ErrorMessageViewModel.HasError, Converter={StaticResource InverseBooleanToVisibillityConverter}}"
                        Grid.ColumnSpan="2"
-                       Margin="825,320,825,0"
+                       Margin="825,402,809,139"
                        Grid.Row="1"
                        Height="70" 
                        Width="286"

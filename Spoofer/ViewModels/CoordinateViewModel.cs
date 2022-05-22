@@ -15,9 +15,9 @@ namespace Spoofer.ViewModels
             _coordinates = coordinates;
         }
         public string Name => _coordinates.Name;
-        public double? Longitude => Math.Round((double)_coordinates.Longitude, 5);
-        public double? Latitude => Math.Round((double)_coordinates.Latitude, 5);
-        public double? Height => Math.Round((double)_coordinates.Height, 5);
+        public double? Longitude => Math.Round((double)_coordinates.Longitude, 3);
+        public double? Latitude => Math.Round((double)_coordinates.Latitude, 3);
+        public double? Height => Math.Round((double)_coordinates.Height, 3);
         public int? NumberInOrder => _coordinates.NumberInOrder;
         public bool HasFile => _coordinates.HasFile;
 

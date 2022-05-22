@@ -77,6 +77,7 @@ namespace Spoofer.ViewModels
         public ICommand RemoveFromList { get; }
         public ICommand GenerateInOrder { get; }
         public ICommand Navigate { get; }
+
         public ObservableCollection<CoordinateViewModel> UpdateData()
         {
             var list = _service.GetAll();

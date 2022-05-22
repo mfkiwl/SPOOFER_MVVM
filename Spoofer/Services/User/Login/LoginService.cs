@@ -1,4 +1,5 @@
 ﻿using Spoofer.Data;
+using Spoofer.Exceptions;
 using Spoofer.Services.Navigation;
 using Spoofer.ViewModels;
 using System;
@@ -26,8 +27,8 @@ namespace Spoofer.Services.User
 
             if (!_context.User.Any(p => p.UserName == model.UserName && p.Password == model.Password))
             {
-
-                throw new Exception("Username Or Password are Incorrect");
+                //throw new FileNotExistException("Username Or Password are Incorrect");
+                model.ErrorMessageViewModel.ErrorMessage = "Username Or Password are Incorrect";
                 model.IsLoading = false;
 
             }

@@ -55,7 +55,7 @@ namespace Spoofer.Commands.Spoofing
                 Counter++;
                 _mapViewModel.IsLoading = false;
                 _mapViewModel.IsFinishLoading = true;
-                _marker.AddOrUpdateMarker(_mapViewModel);
+                _marker.AddOrUpdateMarker(_mapViewModel, true);
                 log.Info("Spoofing File Generated");
             }
             catch (CoordinateNotExistException ex)
@@ -109,7 +109,7 @@ namespace Spoofer.Commands.Spoofing
                 flags[7] = "-o";
                 flags[8] = $"{String.Concat(_mapViewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
                 flags[9] = "-d";
-                flags[10] = "70";
+                flags[10] = "65";
                 return flags;
             }
         }

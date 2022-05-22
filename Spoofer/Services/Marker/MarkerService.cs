@@ -27,7 +27,7 @@ namespace Spoofer.Services.Marker
             _navigation = navigation;
         }
 
-        public void AddOrUpdateMarker(MapViewModel mapViewModel)
+        public void AddOrUpdateMarker(MapViewModel mapViewModel, bool isUpdated)
         {
 
             if (String.IsNullOrEmpty(mapViewModel.Label))
@@ -53,7 +53,7 @@ namespace Spoofer.Services.Marker
                     Latitude = mapViewModel.Latitude,
                     Longitude = mapViewModel.Longitude,
                     Height = mapViewModel.Height ?? 0,
-                    Name = mapViewModel.Label ?? "",
+                    Name = mapViewModel.Label,
                     HasFile = BaseCommand.isFileExist(mapViewModel),
                     NumberInOrder = null
                 };
@@ -76,7 +76,14 @@ namespace Spoofer.Services.Marker
 
                 _context.Add(marker);
                 _context.SaveChanges();
-                MessageBox.Show($"{marker.Name} Added Succesfuly!!!!!");
+                if (!isUpdated)
+                {
+                    MessageBox.Show($"{marker.Name} Added Succesfuly!!!!!");
+                }
+                else
+                {
+                    MessageBox.Show($"{marker.Name} Updated Succesfully");
+                }
             }
 
 
@@ -149,7 +156,7 @@ namespace Spoofer.Services.Marker
         }
         public void UpdateAfterDrop(Coordinates realcooSource, Coordinates realcootarget)
         {
-            
+
             var tmpSource = realcooSource;
             var idSource = realcooSource.NumberInOrder;
             var tmpTarget = realcootarget;
@@ -162,7 +169,7 @@ namespace Spoofer.Services.Marker
             tmpSource.CoorfianteId = Guid.NewGuid().ToString();
             tmpTarget.CoorfianteId = Guid.NewGuid().ToString();
             _context.Coordinates.AddRange(tmpSource, tmpTarget);
-           
+
             _context.SaveChanges();
 
         }

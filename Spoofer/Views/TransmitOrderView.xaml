@@ -18,7 +18,7 @@
         <converters:BoolToConnectionStatusConverter x:Key="BoolToConnectionStatusConverter"/>
         <converters:BoolToTxStatusConverter x:Key="BoolToTxStatusConverter"/>
     </UserControl.Resources>
-    <Grid Background="White" dd:DragDrop.IsDropTarget="False">
+    <Grid Background="Transparent">
 
         <Grid.Resources>
             <ResourceDictionary>
@@ -37,10 +37,10 @@
             <ColumnDefinition Width="47*" />
             <ColumnDefinition Width="53*" />
         </Grid.ColumnDefinitions>
-        <Border CornerRadius="10" Grid.ColumnSpan="2"  Grid.RowSpan="4" Visibility="Visible">
+        <Border CornerRadius="10" Grid.ColumnSpan="2"  Grid.RowSpan="4" Visibility="Visible" Margin="-3,-42,3,0">
             <Border.Background>
                 <LinearGradientBrush>
-                    <GradientStop Color="LightGray" Offset="0.0"/>
+                    <GradientStop Color="#C0C0C0" Offset="0.0"/>
                     <GradientStop Color="White"  Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
@@ -133,7 +133,7 @@
         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top"  Text="--select seconds--" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding DurationList}" SelectedItem="{Binding Duration}" mah:TextBoxHelper.ClearTextButton="True" Width="174" Grid.ColumnSpan="2" Margin="882,151,0,0" Grid.Row="2" Height="37">
 
         </ComboBox>
-        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" Background="Transparent">
             <Grid.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
@@ -141,12 +141,14 @@
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </Grid.Resources>
-            <Button x:Name="Trash" AllowDrop="True" Command="{Binding GenerateInOrder}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ToolTip="Remove From List"  Width="181" Content="Trash Place" Height="56"  Margin="873,49,866,189"/>
-            <iconPacks:PackIconMaterial Kind="TrashCanOutline" Height="37" Width="Auto" Margin="995,58,0,0" Foreground="Green" Opacity="0.6" />
-            <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Command="{Binding Transmit, ValidatesOnExceptions=True}" Margin="706,117,1033,121"/>
-            <iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black"  Kind="AccessPointNetwork" Width="Auto" Height="40" Margin="820,124,0,0" RenderTransformOrigin="1.67,1.889"/>
-            <Button Height="56" ToolTip="Stop Transmitting" Command="{Binding Stop, ValidatesOnExceptions=True}" Width="181" Content="Stop" Margin="1033,119,706,119"/>
-            <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkRed" Kind="CloseOctagon" Width="Auto" Height="40" Margin="1157,127,0,0" RenderTransformOrigin="1.67,1.889" />
+            <Button x:Name="Trash" AllowDrop="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ToolTip="Remove From List"  Width="181" Content="Trash Place" Height="56"  Margin="869,38,870,209"/>
+            <iconPacks:PackIconMaterial Kind="TrashCanOutline" Height="38" Width="Auto" Margin="992,46,0,0" Foreground="Green" Opacity="0.6" RenderTransformOrigin="0.5,0.5" />
+            <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Command="{Binding Transmit, ValidatesOnExceptions=True}" Margin="647,122,1092,125"/>
+            <iconPacks:PackIconMaterial Kind="PlaylistPlay" Height="100" Margin="993,103,0,0" Foreground="DeepSkyBlue"  Opacity="0.5" Width="39" />
+            <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Create List" Command="{Binding GenerateInOrder, ValidatesOnExceptions=True}" Margin="867,121,872,126"/>
+            <iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black"  Kind="AccessPointNetwork" Width="Auto" Height="40" Margin="771,129,0,0" RenderTransformOrigin="1.67,1.889"/>
+            <Button Height="56" ToolTip="Stop Transmitting" Command="{Binding Stop, ValidatesOnExceptions=True}" Width="181" Content="Stop" Margin="1086,123,654,124"/>
+            <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkRed" Kind="CloseOctagon" Width="Auto" Height="40" Margin="1216,131,0,0" RenderTransformOrigin="1.67,1.889" />
             <TextBlock TextAlignment="Center"
                        TextWrapping="Wrap"
                        Text="{Binding ErrorMessageViewModel.ErrorMessage}"
@@ -161,8 +163,8 @@
 
         </Grid>
         <Border BorderBrush="Black" Opacity="0.6" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="1" HorizontalAlignment="Left" Height="94" Margin="831,377,0,0" Grid.Row="1" VerticalAlignment="Top" Width="280" Grid.ColumnSpan="2" Grid.RowSpan="2">
-            <TextBlock VerticalAlignment="Bottom" Foreground="DarkOrange" Opacity="0.6"  Text="TX On" FontSize="28" FontWeight="DemiBold" TextAlignment="Center" Padding="8" />
+            <TextBlock VerticalAlignment="Center" Foreground="Orange" Opacity="0.9"  Text="TX On" FontSize="28" FontWeight="DemiBold" TextAlignment="Center" Padding="8" />
         </Border>
-        <TextBlock VerticalAlignment="Top" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Text="{Binding LocationTransmitted}" TextAlignment="Center" Padding="7" Foreground="DarkGreen" FontSize="22" FontWeight="DemiBold" Height="52" Margin="832,375,812,0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+       
     </Grid>
 </UserControl>
