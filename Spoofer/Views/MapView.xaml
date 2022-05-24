@@ -82,7 +82,7 @@
             <StackPanel/>
             <TextBlock Grid.Row="0"
                        Foreground="Black"
-                       Padding="21" FontFamily="Helvetica" 
+                       Padding="21" FontFamily="Comic Sans MS" 
                        TextAlignment="Center" 
                        HorizontalAlignment="Stretch"
                        FontSize="60" FontWeight="DemiBold" 
@@ -125,6 +125,7 @@
             <TextBlock Grid.Row="7"
                        Foreground="Black"
                        Padding="32"
+                       materialDesign:TextBlockAssist.AutoToolTip="True"
                        FontFamily="Helvetica"
                        FontWeight="Medium"
                        Grid.Column="1"
@@ -189,6 +190,7 @@
             <Border Width="400" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="6"/>
             <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="690,38,0,0" Grid.Row="6"/>
             <TextBox x:Name="lab"
+                     mah:TextBoxHelper.ClearTextButton="True"
                      Background="Transparent"
                      Foreground="Black"
                      Opacity="0.5"
@@ -198,7 +200,6 @@
                      FontSize="18"
                      Padding="18"
                      FontWeight="SemiBold"
-                     mah:TextBoxHelper.ClearTextButton="True"
                      Margin="21,8,21,0"
                      Text="{Binding Label, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Border Width="400" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="8"/>
@@ -206,7 +207,7 @@
             <TextBlock Grid.Column="1"  FontFamily="Helvetica" FontWeight="Medium" Padding="0" FontSize="19" HorizontalAlignment="Left" Margin="424,120,0,0"  Text="Number In Order" VerticalAlignment="Top" Height="70" Width="160"/>
 
 
-            <ComboBox x:Name="Combo" Margin="276,151,286,81"  mah:TextBoxHelper.ClearTextButton="True" BorderBrush="Blue" SelectedIndex="-1"   BorderThickness="1.6" ToolTip="Place The Coordinate in order to transmit"  IsEditable="True" IsReadOnly="True" Text="-- Select Team --" Padding="5"  FontWeight="SemiBold" Foreground="Black" Opacity="0.7" Width="200" Height="36" ItemsSource="{Binding NumbersInOrder, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}" />
+            <hc:ComboBox x:Name="Combo" Margin="276,151,286,81"  mah:TextBoxHelper.ClearTextButton="True" BorderBrush="Blue" SelectedIndex="-1"   BorderThickness="1.6" ToolTip="Place The Coordinate in order to transmit"  IsEditable="True" IsReadOnly="True" Text="-- Select Team --" Padding="5"  FontWeight="SemiBold" Foreground="Black" Opacity="0.7" Width="200" Height="36" ItemsSource="{Binding NumbersInOrder, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}" />
 
             <Grid Grid.Row="9">
                 <Grid.ColumnDefinitions>
@@ -262,7 +263,7 @@
             <iconPacks:PackIconMaterial Kind="Radio" Foreground="{Binding IsPinging, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" Height="33" Margin="15,9,0,0" Width="35" RenderTransformOrigin="1.088,0.971" />
         </Border>
         <Image x:Name="Spinner" wpfanimated:ImageBehavior.AnimatedSource="/Assets/loader.gif" 
-               wpfanimated:ImageBehavior.RepeatBehavior="1" Margin="880,392,80,248" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Grid.ColumnSpan="2" />
+               wpfanimated:ImageBehavior.RepeatBehavior="1" Margin="35,389,23,251" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Grid.Column="1" />
         <Image x:Name="Text" wpfanimated:ImageBehavior.AnimatedSource="/Assets/Text.png" 
                wpfanimated:ImageBehavior.RepeatBehavior="1" Margin="29,80,29,860" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         <TextBlock TextAlignment="Center"

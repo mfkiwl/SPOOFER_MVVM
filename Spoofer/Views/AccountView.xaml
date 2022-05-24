@@ -51,7 +51,7 @@
                 <Image Source="/Assets/Phantom.png" Margin="823,0,829,0" />
                 <TextBlock Text="Phantom Spoofer"
                            FontWeight="SemiBold"
-                           FontFamily="Helvetica"
+                           FontFamily="Comic Sans MS"
                            FontSize="70"
                            Foreground="Black"
                            VerticalAlignment="Center"

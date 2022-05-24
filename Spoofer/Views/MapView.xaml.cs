@@ -93,6 +93,7 @@ namespace Spoofer.Views
             foreach (var element in e.MapElements)
             {
                 var signedElement = element as MapIcon;
+                
                 if (!String.IsNullOrEmpty(signedElement.Title))
                 {
                     isIconSigned = true;

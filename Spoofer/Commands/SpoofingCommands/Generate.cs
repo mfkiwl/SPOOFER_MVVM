@@ -1,19 +1,15 @@
 ﻿using log4net;
-using Microsoft.Toolkit.Wpf.UI.Controls;
 using Spoofer.Commands.UserCommands;
-using Spoofer.Data;
 using Spoofer.Exceptions;
-using Spoofer.EXMethods;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Spoofer;
 using Spoofer.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -42,10 +38,10 @@ namespace Spoofer.Commands.Spoofing
         {
             return base.CanExecute(parameter) && !_mapViewModel.IsTransmitting;
         }
-        
+
         public async override void Execute(object parameter)
         {
-           
+
             _mapViewModel.ErrorMessageViewModel.Refresh();
             _mapViewModel.IsLoading = true;
             _mapViewModel.IsFinishLoading = false;
@@ -70,7 +66,7 @@ namespace Spoofer.Commands.Spoofing
                 _mapViewModel.IsLoading = false;
                 _mapViewModel.IsFinishLoading = true;
             }
-            catch(ArgumentException ex)
+            catch (ArgumentException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
                 _mapViewModel.IsLoading = false;
@@ -86,15 +82,25 @@ namespace Spoofer.Commands.Spoofing
         }
         private string[] GenerateFlags()
         {
-            var ephFiles = new DirectoryInfo(Environment.CurrentDirectory).GetFiles().Where(p => p.Name.Contains("brdc")).OrderByDescending(o => o.LastWriteTime);
-            var file = ephFiles. FirstOrDefault();
+            var year = DateTime.Now.Year.ToString();
+            var dayOfYear = DateTime.Now.DayOfYear - 1;
+            var ephFiles = new DirectoryInfo(Environment.CurrentDirectory).GetFiles().Where(p => p.Name.Contains($".{year.Substring(2)}n")).OrderBy(o => o.LastWriteTime);
+            var file = ephFiles.FirstOrDefault();
             foreach (var filein in ephFiles.Skip(1))
             {
                 filein.Delete();
             }
-            if (file.LastWriteTimeUtc.Date != DateTime.Today)
+            if (file.LastWriteTimeUtc.Date != DateTime.Today || file == null)
             {
-                throw new ArgumentException("No Ephemeris Navigation File Specefied");
+                string remoteUri = $"https://data.unavco.org/archive/gnss/rinex/nav/{year}/{dayOfYear}/";
+                string fileName = $@"ab01{dayOfYear}0.{year.Substring(2)}n.Z", myStringWebResource = null;
+                myStringWebResource = remoteUri + fileName;
+                WebClient client = new WebClient();
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential("oriri123", "Oriri123");
+                client.Headers.Add(HttpRequestHeader.Cookie, "I Dont Know How to get the cookie");
+                client.DownloadFile(myStringWebResource, fileName);
+                Process.Start(@"C:\Program Files\WinRAR\Winrar.exe", $@"E -y {Environment.CurrentDirectory}/{fileName}");
             }
             while (true)
             {
@@ -109,7 +115,7 @@ namespace Spoofer.Commands.Spoofing
                 flags[7] = "-o";
                 flags[8] = $"{String.Concat(_mapViewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
                 flags[9] = "-d";
-                flags[10] = "65";
+                flags[10] = "70";
                 return flags;
             }
         }

@@ -27,6 +27,7 @@ namespace Spoofer.Commands.SpoofingCommands
             try
             {
                 spoofer.GenerateInOrder(viewModel);
+                MessageBox.Show($"Streak File is ready");
             }
             catch(FileNotExistException ex)
             {

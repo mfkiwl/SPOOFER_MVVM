@@ -119,7 +119,9 @@ namespace Spoofer.ViewModels
 
         public ICommand TransmitNow { get; }
         public ICommand StopTransmit { get; }
-        public ICommand Navigate { get; set; }
+        public ICommand Navigate { get;  }
+        public ICommand Receiver { get; }
+
         public void updateCollection()
         {
             for (int i = 1; i < 6; i++)

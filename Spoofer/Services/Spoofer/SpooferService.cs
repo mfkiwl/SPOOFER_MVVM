@@ -42,7 +42,7 @@ namespace Spoofer.Services.Spoofer
             }
             else
             {
-                
+
                 var argc = argv.Length;
                 switch (counter)
                 {
@@ -186,5 +186,7 @@ namespace Spoofer.Services.Spoofer
                 }
             }
         }
+
+        
     }
 }

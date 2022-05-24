@@ -47,7 +47,7 @@
         </Border>
         <TextBlock Grid.Row="0"
                        Foreground="Black"
-                       Padding="21" FontFamily="Helvetica" 
+                       Padding="21" FontFamily="Comic Sans MS" 
                        TextAlignment="Center" 
                        HorizontalAlignment="Stretch"
                        FontSize="60" FontWeight="DemiBold" 
@@ -162,8 +162,8 @@
                        FontWeight="SemiBold"/>
 
         </Grid>
-        <Border BorderBrush="Black" Opacity="0.6" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="1" HorizontalAlignment="Left" Height="94" Margin="831,377,0,0" Grid.Row="1" VerticalAlignment="Top" Width="280" Grid.ColumnSpan="2" Grid.RowSpan="2">
-            <TextBlock VerticalAlignment="Center" Foreground="Orange" Opacity="0.9"  Text="TX On" FontSize="28" FontWeight="DemiBold" TextAlignment="Center" Padding="8" />
+        <Border BorderBrush="OrangeRed" Opacity="0.9" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="1" HorizontalAlignment="Left" Height="94" Margin="831,377,0,0" Grid.Row="1" VerticalAlignment="Top" Width="280" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <TextBlock VerticalAlignment="Center" Foreground="OrangeRed" Opacity="0.9"  Text="TX On" FontSize="28" FontWeight="DemiBold" TextAlignment="Center" Padding="8" />
         </Border>
        
     </Grid>
