@@ -80,6 +80,12 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icons-Land-Vista-Map-Markers-Map-Marker-Bubble-Azure.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Spoofer.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=2.0.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.14\lib\net45\log4net.dll</HintPath>
@@ -195,6 +201,7 @@
     </Reference>
     <Reference Include="System.Data.SqlXml" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Device" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
@@ -257,6 +264,7 @@
     <Compile Include="EXMethods\SpoofingMethods5.cs" />
     <Compile Include="EXMethods\SpoofingMethods6.cs" />
     <Compile Include="EXMethods\SpoofingMethods7.cs" />
+    <Compile Include="EXMethods\SpoofingMethods8.cs" />
     <Compile Include="Extensions\SpoofingMethods.cs" />
     <Compile Include="Extensions\SpoofingMethods2.cs" />
     <Compile Include="Extensions\TXMethods.cs" />
@@ -284,6 +292,14 @@
     <Compile Include="Migrations\20220510083159_ol.cs" />
     <Compile Include="Migrations\20220510083159_ol.designer.cs">
       <DependentUpon>20220510083159_ol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20220526085034_new.cs" />
+    <Compile Include="Migrations\20220526085034_new.designer.cs">
+      <DependentUpon>20220526085034_new.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20220526085115_newr.cs" />
+    <Compile Include="Migrations\20220526085115_newr.designer.cs">
+      <DependentUpon>20220526085115_newr.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\CoordinatesContextModelSnapshot.cs" />
     <Compile Include="Services\Marker\IMarkerService.cs" />
@@ -435,6 +451,7 @@
     <Resource Include="Assets\windows-circle-shining.gif" />
     <Resource Include="Assets\Text.png" />
     <Resource Include="Assets\TNDy.gif" />
+    <Resource Include="Icons-Land-Vista-Map-Markers-Map-Marker-Bubble-Azure.ico" />
     <Content Include="WpfAnimatedGif.dll" />
     <Resource Include="Assets\loading.gif" />
     <Resource Include="Assets\download.jpg" />

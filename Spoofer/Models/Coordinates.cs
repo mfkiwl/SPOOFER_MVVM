@@ -20,6 +20,7 @@ namespace Spoofer.Models
         public int? NumberInOrder { get; set; }
         public bool HasFile { get; set; }
         public string UserId { get; set; }
+        public DateTime? GenerationDate { get; set; }
 
         public virtual User User { get; set; }
     }

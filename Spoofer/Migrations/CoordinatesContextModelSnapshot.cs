@@ -25,6 +25,9 @@ namespace Spoofer.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<DateTime?>("GenerationDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("HasFile")
                         .HasColumnType("bit");
 

@@ -51,7 +51,7 @@ namespace Spoofer.Commands.UserCommands
         }
         public static bool isFileExist(MapViewModel mapViewModel)
         {
-            var path = $@"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug\{String.Concat(mapViewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
+            var path = $@"{Environment.CurrentDirectory}\{String.Concat(mapViewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
             return File.Exists(path);
         }
         public static bool PingHost(string ipAddress)

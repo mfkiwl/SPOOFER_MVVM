@@ -35,10 +35,10 @@ namespace Spoofer
             DbContextOptions options = new DbContextOptionsBuilder().UseSqlServer(CONNECTION_STRING).Options;
             _context = new CoordinatesContext(options);
             _navigationStore = new NavigationStore();
-            _iLogin = new ServiceLogin(_context, new NavigationService(_navigationStore, createMapViewModel));
             _marker = new MarkerService(_context, new NavigationService(_navigationStore, createTransmitViewModel));
             _tableMarker = new MarkerService(_context, new NavigationService(_navigationStore, createMapViewModel));
             _spoofer = new SpooferService(_context, _marker);
+            _iLogin = new ServiceLogin(_context, new NavigationService(_navigationStore, createMapViewModel), _spoofer);
         }
 
         protected override void OnStartup(StartupEventArgs e)

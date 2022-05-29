@@ -83,31 +83,15 @@ namespace Spoofer.Commands.Spoofing
         private string[] GenerateFlags()
         {
             var year = DateTime.Now.Year.ToString();
-            var dayOfYear = DateTime.Now.DayOfYear - 1;
             var ephFiles = new DirectoryInfo(Environment.CurrentDirectory).GetFiles().Where(p => p.Name.Contains($".{year.Substring(2)}n")).OrderBy(o => o.LastWriteTime);
             var file = ephFiles.FirstOrDefault();
-            foreach (var filein in ephFiles.Skip(1))
-            {
-                filein.Delete();
-            }
-            if (file.LastWriteTimeUtc.Date != DateTime.Today || file == null)
-            {
-                string remoteUri = $"https://data.unavco.org/archive/gnss/rinex/nav/{year}/{dayOfYear}/";
-                string fileName = $@"ab01{dayOfYear}0.{year.Substring(2)}n.Z", myStringWebResource = null;
-                myStringWebResource = remoteUri + fileName;
-                WebClient client = new WebClient();
-                client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential("oriri123", "Oriri123");
-                client.Headers.Add(HttpRequestHeader.Cookie, "I Dont Know How to get the cookie");
-                client.DownloadFile(myStringWebResource, fileName);
-                Process.Start(@"C:\Program Files\WinRAR\Winrar.exe", $@"E -y {Environment.CurrentDirectory}/{fileName}");
-            }
+
             while (true)
             {
                 var flags = new string[11];
                 flags[0] = $"Core.dll";
                 flags[1] = "-e";
-                flags[2] = $"{file.ToString().Trim()}";
+                flags[2] = $"{file.Name}";
                 flags[3] = "-s";
                 flags[4] = "2500000";
                 flags[5] = "-l";
@@ -115,7 +99,7 @@ namespace Spoofer.Commands.Spoofing
                 flags[7] = "-o";
                 flags[8] = $"{String.Concat(_mapViewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
                 flags[9] = "-d";
-                flags[10] = "70";
+                flags[10] = "65";
                 return flags;
             }
         }

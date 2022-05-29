@@ -17,6 +17,7 @@ using Spoofer.Commands.SpoofingCommands;
 using Spoofer.Commands.UserCommands;
 using System.Linq;
 using Spoofer.Commands.MarkersCommands;
+using System.Threading.Tasks;
 
 namespace Spoofer.ViewModels
 {
@@ -26,7 +27,7 @@ namespace Spoofer.ViewModels
         {
             _service = service;
             _spoofer = spoofer;
-            IsPinging =BaseCommand.PingHost("10.0.0.41");
+            IsPinging = BaseCommand.PingHost("10.0.0.41");
             Add = new AddMark(this, _service);
             numberInOrder = new ObservableCollection<int>();
             updateCollection();
@@ -36,6 +37,7 @@ namespace Spoofer.ViewModels
             StopTransmit = new Stop(_spoofer, this);
             Navigate = new Navigate(_service, this);
             ErrorMessageViewModel = new MessageViewModel();
+            
 
         }
         private bool _isPinging;
@@ -75,7 +77,7 @@ namespace Spoofer.ViewModels
 
         private double _height;
 
-        public Nullable<double> Height
+        public double? Height
         {
             get { return _height; }
             set { _height = (double)value; OnPropertyChanged(nameof(Height)); }
@@ -129,6 +131,7 @@ namespace Spoofer.ViewModels
                 numberInOrder.Add(i);
             }
         }
+        
 
     }
 }

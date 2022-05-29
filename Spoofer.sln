@@ -4,13 +4,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spoofer", "Spoofer\Spoofer.csproj", "{FBF016B8-26B8-4789-85D1-F1008F0E36B2}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DA8B0590-16B1-45E3-9D96-41C7F77580EA} = {DA8B0590-16B1-45E3-9D96-41C7F77580EA}
-	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Core\Core.vcxproj", "{DA8B0590-16B1-45E3-9D96-41C7F77580EA}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{886CF843-E3E9-4573-A8D9-3A673D24181C}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{C1F9090C-DA9F-4E76-BE6F-68DCCBA9BE0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,23 +29,12 @@ Global
 		{FBF016B8-26B8-4789-85D1-F1008F0E36B2}.Release|x64.Build.0 = Release|Any CPU
 		{FBF016B8-26B8-4789-85D1-F1008F0E36B2}.Release|x86.ActiveCfg = Release|Win32
 		{FBF016B8-26B8-4789-85D1-F1008F0E36B2}.Release|x86.Build.0 = Release|Win32
-		{DA8B0590-16B1-45E3-9D96-41C7F77580EA}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{DA8B0590-16B1-45E3-9D96-41C7F77580EA}.Debug|Any CPU.Build.0 = Debug|Win32
-		{DA8B0590-16B1-45E3-9D96-41C7F77580EA}.Debug|x64.ActiveCfg = Debug|x64
-		{DA8B0590-16B1-45E3-9D96-41C7F77580EA}.Debug|x64.Build.0 = Debug|x64
-		{DA8B0590-16B1-45E3-9D96-41C7F77580EA}.Debug|x86.ActiveCfg = Debug|Win32
-		{DA8B0590-16B1-45E3-9D96-41C7F77580EA}.Debug|x86.Build.0 = Debug|Win32
-		{DA8B0590-16B1-45E3-9D96-41C7F77580EA}.Release|Any CPU.ActiveCfg = Release|Win32
-		{DA8B0590-16B1-45E3-9D96-41C7F77580EA}.Release|x64.ActiveCfg = Release|x64
-		{DA8B0590-16B1-45E3-9D96-41C7F77580EA}.Release|x64.Build.0 = Release|x64
-		{DA8B0590-16B1-45E3-9D96-41C7F77580EA}.Release|x86.ActiveCfg = Release|Win32
-		{DA8B0590-16B1-45E3-9D96-41C7F77580EA}.Release|x86.Build.0 = Release|Win32
-		{886CF843-E3E9-4573-A8D9-3A673D24181C}.Debug|Any CPU.ActiveCfg = Debug
-		{886CF843-E3E9-4573-A8D9-3A673D24181C}.Debug|x64.ActiveCfg = Debug
-		{886CF843-E3E9-4573-A8D9-3A673D24181C}.Debug|x86.ActiveCfg = Debug
-		{886CF843-E3E9-4573-A8D9-3A673D24181C}.Release|Any CPU.ActiveCfg = Release
-		{886CF843-E3E9-4573-A8D9-3A673D24181C}.Release|x64.ActiveCfg = Release
-		{886CF843-E3E9-4573-A8D9-3A673D24181C}.Release|x86.ActiveCfg = Release
+		{C1F9090C-DA9F-4E76-BE6F-68DCCBA9BE0B}.Debug|Any CPU.ActiveCfg = Debug
+		{C1F9090C-DA9F-4E76-BE6F-68DCCBA9BE0B}.Debug|x64.ActiveCfg = Debug
+		{C1F9090C-DA9F-4E76-BE6F-68DCCBA9BE0B}.Debug|x86.ActiveCfg = Debug
+		{C1F9090C-DA9F-4E76-BE6F-68DCCBA9BE0B}.Release|Any CPU.ActiveCfg = Release
+		{C1F9090C-DA9F-4E76-BE6F-68DCCBA9BE0B}.Release|x64.ActiveCfg = Release
+		{C1F9090C-DA9F-4E76-BE6F-68DCCBA9BE0B}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

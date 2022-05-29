@@ -42,7 +42,7 @@ namespace Spoofer.Services.Spoofer
             }
             else
             {
-
+               
                 var argc = argv.Length;
                 switch (counter)
                 {
@@ -67,9 +67,45 @@ namespace Spoofer.Services.Spoofer
                     case 6:
                         EXMethods.SpoofingMethods7.main(argc, argv);
                         break;
+                    case 7:
+                        EXMethods.SpoofingMethods8.main(argc, argv);
+                        break;
                 }
                 counter++;
             }
+        }
+        public void GenerateIQFile(string[] argv)
+        {
+            var argc = argv.Length;
+            switch (counter)
+            {
+                case 0:
+                    EXMethods.SpoofingMethods.main(argc, argv);
+                    break;
+                case 1:
+                    EXMethods.SpoofingMethods2.main(argc, argv);
+                    break;
+                case 2:
+                    EXMethods.SpoofingMethods3.main(argc, argv);
+                    break;
+                case 3:
+                    EXMethods.SpoofingMethods4.main(argc, argv);
+                    break;
+                case 4:
+                    EXMethods.SpoofingMethods5.main(argc, argv);
+                    break;
+                case 5:
+                    EXMethods.SpoofingMethods6.main(argc, argv);
+                    break;
+                case 6:
+                    EXMethods.SpoofingMethods7.main(argc, argv);
+                    break;
+                case 7:
+                    EXMethods.SpoofingMethods8.main(argc, argv);
+                    break;
+            }
+            counter++;
+
         }
         public void TransmitFromFile(MapViewModel viewModel)
         {
@@ -156,7 +192,7 @@ namespace Spoofer.Services.Spoofer
             proccess.StartInfo.RedirectStandardInput = true;
             proccess.StartInfo.UseShellExecute = false;
             proccess.StartInfo.RedirectStandardOutput = false;
-            proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 31.5 --repeat --ref external";
+            proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 15 --repeat --ref external";
             proccess.Start();
             if (proccess.HasExited)
             {
@@ -187,6 +223,6 @@ namespace Spoofer.Services.Spoofer
             }
         }
 
-        
+
     }
 }

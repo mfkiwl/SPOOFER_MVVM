@@ -7,6 +7,7 @@ using Spoofer.Services.Navigation;
 using Spoofer.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -20,6 +21,8 @@ namespace Spoofer.Services.Marker
         private readonly CoordinatesContext _context;
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly NavigationService _navigation;
+        private string root = Environment.CurrentDirectory;
+
 
         public MarkerService(CoordinatesContext context, NavigationService navigation)
         {
@@ -73,6 +76,21 @@ namespace Spoofer.Services.Marker
                         marker.UserId = user.UserId;
                     }
                 }
+                if (isUpdated)
+                {
+
+                    string fileName = $"{String.Concat(mapViewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
+                    var file = new DirectoryInfo(root).GetFiles(fileName).SingleOrDefault(p => p.Exists);
+                    if (file != null)
+                    {
+                        marker.GenerationDate = file.LastWriteTimeUtc;
+                    }
+                    else
+                    {
+                        marker.GenerationDate = null;
+                    }
+
+                }
 
                 _context.Add(marker);
                 _context.SaveChanges();
@@ -108,7 +126,6 @@ namespace Spoofer.Services.Marker
             }
             else
             {
-                string root = @"C:\Users\max\source\repos\Spoofer\Spoofer\bin\Debug";
                 string fileNameToDelete = $"{String.Concat(model.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
                 string[] realFileToDelete = System.IO.Directory.GetFiles(root, fileNameToDelete);
 
