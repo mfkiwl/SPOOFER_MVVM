@@ -47,11 +47,11 @@
         </Border>
         <TextBlock Grid.Row="0"
                        Foreground="Black"
-                       Padding="21" FontFamily="Comic Sans MS" 
+                       Padding="21" FontFamily="Cambria" 
                        TextAlignment="Center" 
                        HorizontalAlignment="Stretch"
                        FontSize="60" FontWeight="DemiBold" 
-                       TextWrapping="Wrap" Text="Order Table"
+                       TextWrapping="Wrap" Text="Sequence Table"
                        VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="532,0,486,0" />
         <Grid Grid.Column="0" Panel.ZIndex="1" dd:DragDrop.IsDropTarget="False"  Grid.RowSpan="4">
             <Grid.ColumnDefinitions>
@@ -162,7 +162,7 @@
                        FontWeight="SemiBold"/>
 
         </Grid>
-        <Border BorderBrush="OrangeRed" Opacity="0.9" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="1" HorizontalAlignment="Left" Height="94" Margin="831,377,0,0" Grid.Row="1" VerticalAlignment="Top" Width="280" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <Border BorderBrush="OrangeRed" BorderThickness="3" Opacity="0.9" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}"  HorizontalAlignment="Left" Height="94" Margin="819,375,0,0" Grid.Row="1" VerticalAlignment="Top" Width="280" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <TextBlock VerticalAlignment="Center" Foreground="OrangeRed" Opacity="0.9"  Text="TX On" FontSize="28" FontWeight="DemiBold" TextAlignment="Center" Padding="8" />
         </Border>
        

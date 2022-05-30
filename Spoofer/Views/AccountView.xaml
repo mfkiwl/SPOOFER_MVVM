@@ -51,7 +51,7 @@
                 <Image Source="/Assets/Phantom.png" Margin="823,0,829,0" />
                 <TextBlock Text="Phantom Spoofer"
                            FontWeight="SemiBold"
-                           FontFamily="Comic Sans MS"
+                           FontFamily="Cambria"
                            FontSize="70"
                            Foreground="Black"
                            VerticalAlignment="Center"
@@ -64,7 +64,6 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBox FontFamily="Helvetica"
                              FontWeight="Light"
-                            
                              FontSize="27"
                              HorizontalAlignment="Center"
                              Foreground="Black"
@@ -72,7 +71,7 @@
                              BorderThickness="0"
                              Width="319"
                              HorizontalContentAlignment="Left"
-                             Opacity="0.5"
+                             Opacity="0.8"
                              Padding="32"
                              Height="88"
                              Margin="773,0,25,0"
@@ -102,7 +101,7 @@
                              BorderThickness="0"
                              Width="319"
                              HorizontalContentAlignment="Left"
-                             Opacity="0.5"
+                             Opacity="0.8"
                              Height="88"
                              Margin="773,0,25,0"/>
                     <iconPacks:PackIconMaterial Kind="FormTextboxPassword" 

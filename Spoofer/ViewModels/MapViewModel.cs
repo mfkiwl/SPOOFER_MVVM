@@ -25,6 +25,7 @@ namespace Spoofer.ViewModels
     {
         public MapViewModel(IMarkerService service, ISpooferService spoofer)
         {
+            IsLoading = false;
             _service = service;
             _spoofer = spoofer;
             IsPinging = BaseCommand.PingHost("10.0.0.41");
@@ -110,8 +111,15 @@ namespace Spoofer.ViewModels
         private ObservableCollection<int> numberInOrder;
 
         public ObservableCollection<int> NumbersInOrder { get { return numberInOrder; } set { numberInOrder = value; OnPropertyChanged(nameof(NumbersInOrder)); } }
-        public int? SelectedItem { get; set; }
+        private int _selectedItem;
 
+        public int? SelectedItem
+        {
+            get { return _selectedItem; }
+            set { _selectedItem = (int)value; OnPropertyChanged(nameof(HasValue)); OnPropertyChanged(nameof(SelectedItem)); }
+        }
+
+        public bool HasValue => SelectedItem >= 1;
 
         public MessageViewModel ErrorMessageViewModel { get; }
         public ICommand GenerateFile { get; }
@@ -122,7 +130,6 @@ namespace Spoofer.ViewModels
         public ICommand TransmitNow { get; }
         public ICommand StopTransmit { get; }
         public ICommand Navigate { get;  }
-        public ICommand Receiver { get; }
 
         public void updateCollection()
         {

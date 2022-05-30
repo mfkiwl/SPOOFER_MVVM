@@ -46,7 +46,7 @@
             <Button Height="102" Margin="0,28,0,950" BorderThickness="0" Command="{Binding Navigate}" Background="Transparent" Width="90">
 
             </Button>
-            <controls:MapControl Grid.Column="1"  x:Name="mapControl" MapServiceToken="uBngaWz7CURplqIi8S6H~cO1jRZvaLYP-9yJuSZPZrQ~AmWWGqcQslWedBAQwV01u5ljcTQbQPRcjqA5nhE0pPdwe6IYKc2RTHhEJaclOduX" ZoomInteractionMode="GestureAndControl" TiltInteractionMode="GestureAndControl" Style="Road" DockPanel.Dock="Top" MapDoubleTapped="mapControl_MapDoubleTapped"  Loaded="MapControl_Loaded" MapElementClick="MapControl_MapElementClick" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="286,0,0,0" />
+            <controls:MapControl Grid.Column="1"  x:Name="mapControl" MapServiceToken="uBngaWz7CURplqIi8S6H~cO1jRZvaLYP-9yJuSZPZrQ~AmWWGqcQslWedBAQwV01u5ljcTQbQPRcjqA5nhE0pPdwe6IYKc2RTHhEJaclOduX" MapElementClick="MapControl_MapElementClick" ZoomInteractionMode="GestureAndControl" TiltInteractionMode="GestureAndControl" Style="Road" DockPanel.Dock="Top" MapDoubleTapped="mapControl_MapDoubleTapped"  Loaded="MapControl_Loaded" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="286,0,0,0" />
         </Grid>
         <Border CornerRadius="10" Grid.Column="1" Grid.RowSpan="13" Visibility="Visible">
             <Border.Background>
@@ -82,7 +82,7 @@
             <StackPanel/>
             <TextBlock Grid.Row="0"
                        Foreground="Black"
-                       Padding="21" FontFamily="Comic Sans MS" 
+                       Padding="21" FontFamily="Cambria" 
                        TextAlignment="Center" 
                        HorizontalAlignment="Stretch"
                        FontSize="60" FontWeight="DemiBold" 
@@ -137,78 +137,80 @@
                        VerticalAlignment="Stretch" />
             <TextBox x:Name="lat"
                      Background="Transparent"
-                     Foreground="Black"
+                     Foreground="#FF1C7CAF"
                      BorderThickness="0"
                      TextAlignment="Center"
-                     Opacity="0.5"
+                     Opacity="0.7"
                      Grid.Row="2"
                      FontSize="18"
-                     FontWeight="SemiBold"
+                     FontWeight="Bold"
                      Padding="18"
                      Margin="21,8,21,0" 
                      Text="{Binding Latitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Border Width="400" 
+            <Border Width="300" 
                     Height="2"
                     Background="Black"
                     Grid.Column="1"
                     Opacity="0.5"
                     VerticalAlignment="Bottom"
                     Grid.Row="2"/>
-            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="690,38,0,0" Grid.Row="4"/>
+            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="640,38,0,0" Grid.Row="4"/>
             <TextBox x:Name="lon"
                      Background="Transparent"
-                     Foreground="Black"
+                     Foreground="#FF1C7CAF"
                      BorderThickness="0"
-                     Opacity="0.5"
+                     Opacity="0.7"
                      TextAlignment="Center"
                      Grid.Row="4" 
                      FontSize="18" 
-                     FontWeight="SemiBold"
+                     FontWeight="Bold"
                      Padding="18"
                      Margin="21,8,21,0"
                      Text="{Binding Longitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Border Width="400"
+            <Border Width="300"
                     Height="2"
                     Background="Black"
                     Grid.Column="1"
                     Opacity="0.5"
                     VerticalAlignment="Bottom" 
                     Grid.Row="4"/>
-            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="690,38,0,0" Grid.Row="2"/>
+            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="640,38,0,0" Grid.Row="2"/>
             <TextBox x:Name="alt"
                      Background="Transparent"
-                     Foreground="Black"
-                     Opacity="0.5"
+                     Foreground="#FF1C7CAF"
+                     Opacity="0.7"
                      BorderThickness="0"
                      TextAlignment="Center"
                      Grid.Row="6"
                      FontSize="18"
                      Padding="18" 
-                     FontWeight="SemiBold"
+                     FontWeight="Bold"
                      Margin="21,8,21,0"
                      Text="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Border Width="400" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="6"/>
-            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="690,38,0,0" Grid.Row="6"/>
+            <Border Width="300" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="6"/>
+            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="640,38,0,0" Grid.Row="6"/>
             <TextBox x:Name="lab"
                      mah:TextBoxHelper.ClearTextButton="True"
                      Background="Transparent"
-                     Foreground="Black"
-                     Opacity="0.5"
+                     Foreground="#FF1C7CAF"
+                     Opacity="0.7"
                      BorderThickness="0" 
                      TextAlignment="Center" 
                      Grid.Row="8"
                      FontSize="18"
                      Padding="18"
-                     FontWeight="SemiBold"
+                     FontWeight="Bold"
+                     
                      Margin="21,8,21,0"
                      Text="{Binding Label, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Border Width="400" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="8"/>
-            <iconPacks:PackIconMaterial Kind="Star"  Foreground="Black" Margin="690,38,0,0" Grid.Row="8"/>
-            <TextBlock Grid.Column="1"  FontFamily="Helvetica" FontWeight="Medium" Padding="0" FontSize="19" HorizontalAlignment="Left" Margin="424,120,0,0"  Text="Number In Order" VerticalAlignment="Top" Height="70" Width="160"/>
+            <Border Width="300" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="8"/>
+            <iconPacks:PackIconMaterial Kind="Star"  Foreground="Black" Margin="640,38,0,0" Grid.Row="8"/>
+            <TextBlock Grid.Column="1" Foreground="Black" FontFamily="Helvetica" FontWeight="Medium" Padding="0" FontSize="19" HorizontalAlignment="Left" Margin="424,120,0,0"  Text="Number In Order" VerticalAlignment="Top" Height="70" Width="160"/>
 
 
-            <hc:ComboBox x:Name="Combo" Margin="276,151,286,81"  mah:TextBoxHelper.ClearTextButton="True" BorderBrush="Blue" SelectedIndex="-1"   BorderThickness="1.6" ToolTip="Place The Coordinate in order to transmit"  IsEditable="True" IsReadOnly="True" Text="-- Select Team --" Padding="5"  FontWeight="SemiBold" Foreground="Black" Opacity="0.7" Width="200" Height="36" ItemsSource="{Binding NumbersInOrder, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}" />
-
+            <hc:ComboBox x:Name="Combo" Margin="276,151,286,81"  mah:TextBoxHelper.ClearTextButton="True" BorderBrush="Blue" SelectedIndex="-1"   BorderThickness="1.6" ToolTip="Place The Coordinate in order to transmit"  IsEditable="True" IsReadOnly="True" Text="-- Select Team --" Padding="5"  FontWeight="SemiBold" Foreground="Black" Opacity="0.7" Width="200" Height="36" ItemsSource="{Binding NumbersInOrder, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
+            </hc:ComboBox>
+            <iconPacks:PackIconMaterial Kind="Close" Margin="563.5,172,0,0" Foreground="Blue" Visibility="{Binding HasValue, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Opacity="0.7" Height="12" Width="11" />
             <Grid Grid.Row="9">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -219,7 +221,7 @@
                 </Grid.ColumnDefinitions>
                 <Button Height="56"
                         Width="181"
-                        Content="Add Marker"
+                        Content="Add/Update"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center" 
                         Command="{Binding Add, ValidatesOnExceptions=True}" 
@@ -277,6 +279,7 @@
                        Opacity="0.6"
                        FontSize="18"
                        FontWeight="SemiBold" Grid.Column="1"/>
+        <Button x:Name="Cancel" Click="Cancel_Click" Grid.Column="1" HorizontalAlignment="Left" Visibility="{Binding HasValue, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="0" Background="Transparent" Margin="558,166,0,0" VerticalAlignment="Top" Width="22" Height="24"/>
 
 
 

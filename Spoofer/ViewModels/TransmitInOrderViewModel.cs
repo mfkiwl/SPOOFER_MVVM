@@ -19,6 +19,7 @@ using System.Windows.Threading;
 
 namespace Spoofer.ViewModels
 {
+    
     public class TransmitInOrderViewModel : ViewModelBase, IDropTarget
     {
         private readonly ISpooferService _spoofer;
@@ -83,7 +84,7 @@ namespace Spoofer.ViewModels
             var list = _service.GetAll();
             foreach (var coordinate in list)
             {
-                if (coordinate.NumberInOrder != null)
+                if (coordinate.NumberInOrder > 0)
                 {
                     var viewModel = new CoordinateViewModel(coordinate);
 

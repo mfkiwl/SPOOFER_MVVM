@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spoofer", "Spoofer\Spoofer.csproj", "{FBF016B8-26B8-4789-85D1-F1008F0E36B2}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{C1F9090C-DA9F-4E76-BE6F-68DCCBA9BE0B}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{C5E3C1B3-D6EF-4E16-B0C0-5738C31DF6EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,12 +29,12 @@ Global
 		{FBF016B8-26B8-4789-85D1-F1008F0E36B2}.Release|x64.Build.0 = Release|Any CPU
 		{FBF016B8-26B8-4789-85D1-F1008F0E36B2}.Release|x86.ActiveCfg = Release|Win32
 		{FBF016B8-26B8-4789-85D1-F1008F0E36B2}.Release|x86.Build.0 = Release|Win32
-		{C1F9090C-DA9F-4E76-BE6F-68DCCBA9BE0B}.Debug|Any CPU.ActiveCfg = Debug
-		{C1F9090C-DA9F-4E76-BE6F-68DCCBA9BE0B}.Debug|x64.ActiveCfg = Debug
-		{C1F9090C-DA9F-4E76-BE6F-68DCCBA9BE0B}.Debug|x86.ActiveCfg = Debug
-		{C1F9090C-DA9F-4E76-BE6F-68DCCBA9BE0B}.Release|Any CPU.ActiveCfg = Release
-		{C1F9090C-DA9F-4E76-BE6F-68DCCBA9BE0B}.Release|x64.ActiveCfg = Release
-		{C1F9090C-DA9F-4E76-BE6F-68DCCBA9BE0B}.Release|x86.ActiveCfg = Release
+		{C5E3C1B3-D6EF-4E16-B0C0-5738C31DF6EC}.Debug|Any CPU.ActiveCfg = Debug
+		{C5E3C1B3-D6EF-4E16-B0C0-5738C31DF6EC}.Debug|x64.ActiveCfg = Debug
+		{C5E3C1B3-D6EF-4E16-B0C0-5738C31DF6EC}.Debug|x86.ActiveCfg = Debug
+		{C5E3C1B3-D6EF-4E16-B0C0-5738C31DF6EC}.Release|Any CPU.ActiveCfg = Release
+		{C5E3C1B3-D6EF-4E16-B0C0-5738C31DF6EC}.Release|x64.ActiveCfg = Release
+		{C5E3C1B3-D6EF-4E16-B0C0-5738C31DF6EC}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

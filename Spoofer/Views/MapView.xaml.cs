@@ -45,7 +45,7 @@ namespace Spoofer.Views
         private async void MapControl_Loaded(object sender, RoutedEventArgs e)
         {
             GeoCoordinateWatcher watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
-            watcher.Start(); 
+            watcher.Start();
             GeoCoordinate coord = watcher.Position.Location;
             if (!watcher.Position.Location.IsUnknown)
             {
@@ -102,63 +102,70 @@ namespace Spoofer.Views
 
         private void MapControl_MapElementClick(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.MapElementClickEventArgs e)
         {
-            CancelTemporaryIcons();
-            DeleteTextboxes();
-            _border.Visibility = Visibility.Collapsed;
-            foreach (var element in e.MapElements)
-            {
-                var signedElement = element as MapIcon;
 
-                if (!String.IsNullOrEmpty(signedElement.Title))
+            var vm = (MapViewModel)DataContext;
+            if (vm.IsFinishLoading)
+            {
+                CancelTemporaryIcons();
+                DeleteTextboxes();
+                _border.Visibility = Visibility.Collapsed;
+                foreach (var element in e.MapElements)
                 {
-                    isIconSigned = true;
-                    lat.Text = signedElement.Location.Position.Latitude.ToString();
-                    lon.Text = signedElement.Location.Position.Longitude.ToString();
-                    alt.Text = signedElement.Location.Position.Altitude.ToString();
-                    lab.Text = signedElement.Title.Trim();
-                    var vm = (MapViewModel)DataContext;
-                    vm.IsFileCreated = BaseCommand.isFileExist(vm);
-                    double user = signedElement.Location.Position.Latitude;
-                    var realMarker = _markerService.GetAll().SingleOrDefault(p => p.Name == signedElement.Title &&
-                    (double)p.Height == signedElement.Location.Position.Altitude &&
-                    p.Longitude == signedElement.Location.Position.Longitude &&
-                    p.Latitude == signedElement.Location.Position.Latitude);
-                    Combo.SelectedItem = realMarker.NumberInOrder;
-                    if (realMarker.NumberInOrder == null)
+                    var signedElement = element as MapIcon;
+
+                    if (!String.IsNullOrEmpty(signedElement.Title))
                     {
-                        Combo.SelectedItem = Combo.Text;
+                        isIconSigned = true;
+                        lat.Text = signedElement.Location.Position.Latitude.ToString();
+                        lon.Text = signedElement.Location.Position.Longitude.ToString();
+                        alt.Text = signedElement.Location.Position.Altitude.ToString();
+                        lab.Text = signedElement.Title.Trim();
+                        double user = signedElement.Location.Position.Latitude;
+                        var realMarker = _markerService.GetAll().SingleOrDefault(p => p.Name == signedElement.Title &&
+                        (double)p.Height == signedElement.Location.Position.Altitude &&
+                        p.Longitude == signedElement.Location.Position.Longitude &&
+                        p.Latitude == signedElement.Location.Position.Latitude);
+                        Combo.SelectedItem = realMarker.NumberInOrder;
+                        vm.IsFileCreated = BaseCommand.isFileExist(vm);
+                        if (realMarker.NumberInOrder < 1)
+                        {
+                            Combo.SelectedItem = Combo.Text = "";
+                        }
+                        if (realMarker != null)
+                        {
+                            _border.Visibility = Visibility.Visible;
+                        }
                     }
-                    if (realMarker != null)
+                    else
                     {
-                        _border.Visibility = Visibility.Visible;
+                        mapControl.MapElements.Remove(element);
+                        isIconSigned = false;
                     }
-                }
-                else
-                {
-                    mapControl.MapElements.Remove(element);
-                    isIconSigned = false;
                 }
             }
         }
         private void mapControl_MapDoubleTapped(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.MapInputEventArgs e)
         {
 
-            CancelTemporaryIcons();
-            DeleteTextboxes();
-            Combo.SelectedItem = Combo.Text;
-            _border.Visibility = Visibility.Collapsed;
-            var mousePoint = e.Location;
-
-            lat.Text = mousePoint.Position.Latitude.ToString();
-            lon.Text = mousePoint.Position.Longitude.ToString();
-            var mapIcon = new MapIcon()
+            var vm = (MapViewModel)DataContext;
+            if (!vm.IsLoading)
             {
-                Location = mousePoint,
-                Image = RandomAccessStreamReference.CreateFromUri(new Uri(@"C:/Users/max/source/repos/Spoofer/Spoofer/Assets/icon.png")),
-                ZIndex = 0,
-                IsEnabled = false
-            };
-            mapControl.MapElements.Add(mapIcon);
+                CancelTemporaryIcons();
+                DeleteTextboxes();
+                Combo.SelectedItem = Combo.Text;
+                _border.Visibility = Visibility.Collapsed;
+                var mousePoint = e.Location;
+                lat.Text = mousePoint.Position.Latitude.ToString();
+                lon.Text = mousePoint.Position.Longitude.ToString();
+                var mapIcon = new MapIcon()
+                {
+                    Location = mousePoint,
+                    Image = RandomAccessStreamReference.CreateFromUri(new Uri(@"C:/Users/max/source/repos/Spoofer/Spoofer/Assets/icon.png")),
+                    ZIndex = 0,
+                    IsEnabled = false
+                };
+                mapControl.MapElements.Add(mapIcon);
+            }
         }
 
         private void CancelTemporaryIcons()
@@ -177,6 +184,13 @@ namespace Spoofer.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             _border.Visibility = Visibility.Collapsed;
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = (MapViewModel)DataContext;
+            vm.SelectedItem = 0;
+            Combo.Text = "";
         }
     }
 }

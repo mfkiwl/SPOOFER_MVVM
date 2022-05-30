@@ -15,7 +15,8 @@ namespace Spoofer.ViewModels
         {
             get { return _errorMessage; }
             set 
-            { _errorMessage = value;
+            { 
+                _errorMessage = value;
                 OnPropertyChanged(nameof(HasError));
                 OnPropertyChanged(nameof(ErrorMessage));
             }

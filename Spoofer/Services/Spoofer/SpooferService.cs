@@ -154,7 +154,7 @@ namespace Spoofer.Services.Spoofer
             var list = new List<CoordinateViewModel>();
             foreach (var coordinate in _marker.GetAll())
             {
-                if (coordinate.NumberInOrder != null && coordinate.HasFile)
+                if (coordinate.NumberInOrder > 0 && coordinate.HasFile)
                 {
                     list.Add(new CoordinateViewModel(coordinate));
                 }
@@ -191,6 +191,7 @@ namespace Spoofer.Services.Spoofer
             proccess.StartInfo.FileName = "tx_samples_from_file.exe";
             proccess.StartInfo.RedirectStandardInput = true;
             proccess.StartInfo.UseShellExecute = false;
+            proccess.StartInfo.CreateNoWindow = true;
             proccess.StartInfo.RedirectStandardOutput = false;
             proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 15 --repeat --ref external";
             proccess.Start();

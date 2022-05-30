@@ -62,7 +62,8 @@ namespace Spoofer.Services.Marker
                 };
                 if (mapViewModel.SelectedItem != null)
                 {
-                    if (_context.Coordinates.Where(c => c.NumberInOrder == mapViewModel.SelectedItem).Any())
+                    
+                    if (_context.Coordinates.Where(c => c.NumberInOrder == mapViewModel.SelectedItem && c.NumberInOrder > 0).Any())
                     {
                         throw new InvalidCoordinateException("There is Marker on This Place In order to transmition, please edit the list..");
                     }

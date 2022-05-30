@@ -49,8 +49,8 @@ namespace Spoofer.Commands.Spoofing
             {
                 await Task.Run(() => generateFile());
                 Counter++;
-                _mapViewModel.IsLoading = false;
                 _mapViewModel.IsFinishLoading = true;
+                _mapViewModel.IsLoading = false;
                 _marker.AddOrUpdateMarker(_mapViewModel, true);
                 log.Info("Spoofing File Generated");
             }
