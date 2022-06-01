@@ -38,8 +38,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="9*"/>
             </Grid.ColumnDefinitions>
-            <hc:SideMenu HorizontalAlignment="Stretch" Background="#9996A5"  Grid.Column="0" Height="Auto" VerticalAlignment="Stretch" Margin="0">
-            </hc:SideMenu>
+            <hc:SideMenu HorizontalAlignment="Stretch" Background="#9996A5"  Grid.Column="0" Height="Auto" VerticalAlignment="Stretch"/>
             <iconPacks:PackIconMaterial Kind="Earth" Height="60" Width="100" Foreground="#404040" Margin="-6,178,0,0" Grid.ColumnSpan="2" />
             <Button Height="104" Background="Transparent" BorderThickness="0" Margin="0,154,0,822" Width="90" />
             <iconPacks:PackIconMaterial Kind="FormatListBulleted" Width="97" Foreground="#404040" Background="Transparent" Height="38" Margin="-7,60,0,0"/>

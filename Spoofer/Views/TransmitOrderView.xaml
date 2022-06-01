@@ -66,7 +66,7 @@
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </Grid.Resources>
-            <hc:SideMenu HorizontalAlignment="Stretch"  Background="#9996A5"  Grid.Column="0" Height="Auto" VerticalAlignment="Stretch" Margin="0,0,810,0" Grid.ColumnSpan="2">
+            <hc:SideMenu HorizontalAlignment="Stretch"  Background="#9996A5"  Grid.Column="0" Height="Auto" VerticalAlignment="Stretch" Margin="0,0,806,0" Grid.ColumnSpan="2">
             </hc:SideMenu>
             <iconPacks:PackIconMaterial Kind="Earth" Height="60" Width="100" Foreground="#404040" Margin="-6,178,0,0" Grid.ColumnSpan="2" />
             <Button Height="104" Background="Transparent" BorderThickness="0" Command="{Binding Navigate}" Margin="0,154,0,822" Width="90" />

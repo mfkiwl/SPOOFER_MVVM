@@ -47,6 +47,7 @@ namespace Spoofer.Commands.Spoofing
             _mapViewModel.IsFinishLoading = false;
             try
             {
+                
                 await Task.Run(() => generateFile());
                 Counter++;
                 _mapViewModel.IsFinishLoading = true;
@@ -67,6 +68,12 @@ namespace Spoofer.Commands.Spoofing
                 _mapViewModel.IsFinishLoading = true;
             }
             catch (ArgumentException ex)
+            {
+                _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+                _mapViewModel.IsLoading = false;
+                _mapViewModel.IsFinishLoading = true;
+            }
+            catch(InvalidCoordinateException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
                 _mapViewModel.IsLoading = false;

@@ -128,13 +128,13 @@ namespace Spoofer.Services.Marker
             else
             {
                 string fileNameToDelete = $"{String.Concat(model.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
-                string[] realFileToDelete = System.IO.Directory.GetFiles(root, fileNameToDelete);
+                string[] realFileToDelete = Directory.GetFiles(root, fileNameToDelete);
 
                 foreach (var file in realFileToDelete)
                 {
                     if (!isUpdated)
                     {
-                        System.IO.File.Delete(file);
+                        File.Delete(file);
                     }
                 }
                 var coordinateToRemove = _context.Coordinates.SingleOrDefault(c => c.Name == model.Label);

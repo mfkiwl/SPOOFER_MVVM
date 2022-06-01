@@ -100,7 +100,7 @@ namespace Spoofer.Views
 
         }
 
-        private void MapControl_MapElementClick(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.MapElementClickEventArgs e)
+        private async  void MapControl_MapElementClick(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.MapElementClickEventArgs e)
         {
 
             var vm = (MapViewModel)DataContext;
@@ -115,6 +115,7 @@ namespace Spoofer.Views
 
                     if (!String.IsNullOrEmpty(signedElement.Title))
                     {
+                        await ((MapControl)sender).TrySetViewAsync(signedElement.Location, 16);
                         isIconSigned = true;
                         lat.Text = signedElement.Location.Position.Latitude.ToString();
                         lon.Text = signedElement.Location.Position.Longitude.ToString();

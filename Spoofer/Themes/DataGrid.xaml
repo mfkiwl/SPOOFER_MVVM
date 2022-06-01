@@ -169,9 +169,9 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="DGR_Border" Property="TextElement.Foreground" Value="{StaticResource Brush_DataGridSelectedForeground}" />
                             <Setter Property="Visibility" TargetName="dataGridDetailsPresenter" Value="Hidden"/>
-                            <Setter Property="FontSize" TargetName="dataGridCellsPresenter" Value="14.667"/>
-                            <Setter Property="Background" TargetName="DGR_Border" Value="{DynamicResource Brush_DataGridSelected}"/>
-
+                            <Setter Property="FontSize" TargetName="dataGridCellsPresenter" Value="29"/>
+                            <Setter Property="Background" TargetName="DGR_Border" Value="#FF1C7CAF"/>
+                            <Setter Property="Height" TargetName="selectiveScrollingGrid" Value="40"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

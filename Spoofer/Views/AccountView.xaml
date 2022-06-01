@@ -13,11 +13,11 @@
     <UserControl.Resources>
         <converters:InverseBooleanToVisibillityConverter x:Key="InverseBooleanToVisibillityConverter"/>
     </UserControl.Resources>
-    <Grid>
+    <Grid Margin="-2,0,0,0">
         <Grid.Resources>
             <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
-                    <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\MapDictionary.xaml"/>
+                    <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\ButtonDictionary.xaml"/>
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </Grid.Resources>
@@ -40,8 +40,8 @@
             <Border CornerRadius="10" Grid.RowSpan="2" Grid.ColumnSpan="2" >
                 <Border.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="#C0C0C0" Offset="0.0"/>
-                        <GradientStop Color="White" Offset="1"/>
+                        <GradientStop Color="#232b2b" Offset="1.0"/>
+                        <GradientStop Color="#232b2b" Offset="2.0"/>
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
@@ -53,7 +53,7 @@
                            FontWeight="SemiBold"
                            FontFamily="Cambria"
                            FontSize="70"
-                           Foreground="Black"
+                           Foreground="#FF1C7CAF"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center" Width="600"  Height="106" Margin="660,0"/>
             </StackPanel>
@@ -66,7 +66,7 @@
                              FontWeight="Light"
                              FontSize="27"
                              HorizontalAlignment="Center"
-                             Foreground="Black"
+                             Foreground="#FF1C7CAF"
                              Background="Transparent"
                              BorderThickness="0"
                              Width="319"
@@ -79,11 +79,11 @@
                     <iconPacks:PackIconMaterial Kind="Account" 
                                                 VerticalAlignment="Center" 
                                                 HorizontalAlignment="Center" 
-                                                Foreground="Black" Height="40" Width="28"/>
+                                                Foreground="#FF1C7CAF" Height="40" Width="28"/>
                 </StackPanel>
                 <Border
                         Height="2"
-                        Background="Black"
+                        Background="#FF1C7CAF"
                         Opacity="0.5" Margin="772,0"/>
 
 
@@ -96,7 +96,7 @@
                              FontSize="27"
                              Padding="32"
                              HorizontalAlignment="Center"
-                             Foreground="Black"
+                             Foreground="#FF1C7CAF"
                              Background="Transparent"
                              BorderThickness="0"
                              Width="319"
@@ -107,18 +107,18 @@
                     <iconPacks:PackIconMaterial Kind="FormTextboxPassword" 
                                                 VerticalAlignment="Center" 
                                                 HorizontalAlignment="Center" 
-                                                Foreground="Black" Width="40" Height="28"/>
+                                                Foreground="#FF1C7CAF" Width="40" Height="28"/>
                 </StackPanel>
                 <Border
                         Height="2"
-                        Background="Black"
+                        Background="#FF1C7CAF"
                         Opacity="0.5" Margin="772,0"/>
                 <StackPanel Orientation="Horizontal" Margin="826,50,0,0">
                     <Button Width="160" Height="70" Content="LOGIN" Margin="60,0,60,0" Command="{Binding Login, ValidatesOnExceptions=True}" />
                 </StackPanel>
 
             </StackPanel>
-            <iconPacks:PackIconMaterial Kind="Login" Height="52" Width="40" Margin="22,258,0,0" Foreground="Green" Opacity="0.7" Grid.Column="1" Grid.Row="1"/>
+            <iconPacks:PackIconMaterial Kind="Login" Height="52" Width="40" Margin="22,258,0,0" Foreground="#3A6152" Opacity="0.7" Grid.Column="1" Grid.Row="1"/>
             <Image x:Name="Spinner" wpfanimated:ImageBehavior.AnimatedSource="/Assets/loader.gif" 
                wpfanimated:ImageBehavior.RepeatBehavior="1"
                Height="110" Grid.ColumnSpan="2" Margin="480,363,480,138" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Grid.Row="1" />
