@@ -44,11 +44,12 @@ namespace Spoofer
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            _navigationStore.BaseViewModel = createAccountViewModel();
+            _navigationStore.BaseViewModel = createMapViewModel();
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(_navigationStore)
             };
+
             MainWindow.Show();
         }
 

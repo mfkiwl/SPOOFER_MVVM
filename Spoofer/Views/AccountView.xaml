@@ -17,16 +17,24 @@
         <Grid.Resources>
             <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
-                    <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\ButtonDictionary.xaml"/>
+                    <ResourceDictionary Source="..\Themes\ButtonDictionary.xaml"/>
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="155*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="38*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="42*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="237*"/>
-            <ColumnDefinition Width="325*"/>
-            <ColumnDefinition Width="238*"/>
+            <ColumnDefinition Width="370*"/>
+            <ColumnDefinition Width="225*"/>
+            <ColumnDefinition Width="366*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.ColumnSpan="3">
+        <Grid Grid.ColumnSpan="3" Grid.RowSpan="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -37,7 +45,7 @@
             </Grid.RowDefinitions>
 
 
-            <Border CornerRadius="10" Grid.RowSpan="2" Grid.ColumnSpan="2" >
+            <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.ColumnSpan="2" >
                 <Border.Background>
                     <LinearGradientBrush>
                         <GradientStop Color="#232b2b" Offset="1.0"/>

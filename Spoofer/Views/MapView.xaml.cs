@@ -58,7 +58,7 @@ namespace Spoofer.Views
                 var currentMapIcon = new MapIcon()
                 {
                     Location = currentGeoPoint,
-                    Image = RandomAccessStreamReference.CreateFromUri(new Uri("C:/Users/max/source/repos/Spoofer/Spoofer/Assets/icon.png")),
+                    //Image = RandomAccessStreamReference.CreateFromUri(new Uri("~/Assets/icon.png")),
                     ZIndex = 0,
                     IsEnabled = true,
                     Title = "Your Current Location",
@@ -78,7 +78,7 @@ namespace Spoofer.Views
                 var mapIcon = new MapIcon()
                 {
                     Location = geoPoint,
-                    Image = RandomAccessStreamReference.CreateFromUri(new Uri("C:/Users/max/source/repos/Spoofer/Spoofer/Assets/icon.png")),
+                    //Image = RandomAccessStreamReference.CreateFromUri(new Uri("~/Assets/icon.png")),
                     ZIndex = 0,
                     IsEnabled = true,
                     Title = location.Name,

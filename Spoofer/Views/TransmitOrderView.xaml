@@ -23,7 +23,7 @@
         <Grid.Resources>
             <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
-                    <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\DataGrid.xaml"/>
+                    <ResourceDictionary Source="..\Themes\DataGrid.xaml"/>
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </Grid.Resources>
@@ -62,7 +62,7 @@
             <Grid.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\SideBarDictionary.xaml"/>
+                        <ResourceDictionary Source="..\Themes\SideBarDictionary.xaml"/>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </Grid.Resources>
@@ -137,7 +137,7 @@
             <Grid.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="C:\Users\max\source\repos\Spoofer\Spoofer\Themes\MapDictionary.xaml"/>
+                        <ResourceDictionary Source="..\Themes\MapDictionary.xaml"/>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </Grid.Resources>

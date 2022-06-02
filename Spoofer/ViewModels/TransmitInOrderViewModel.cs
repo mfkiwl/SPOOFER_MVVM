@@ -43,7 +43,10 @@ namespace Spoofer.ViewModels
         private ObservableCollection<CoordinateViewModel> coordinates;
         private ObservableCollection<int> durationList;
         public ObservableCollection<int> DurationList { get { return durationList; } set { durationList = value; OnPropertyChanged(nameof(DurationList)); } }
-        public ICollectionView Coordinates { get; }
+        public ICollectionView Coordinates 
+        {
+            get;
+        }
 
         private int duration;
 
