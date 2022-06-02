@@ -1,18 +1,11 @@
 ﻿using log4net;
-using Microsoft.Toolkit.Wpf.UI.Controls;
 using Spoofer.Commands.UserCommands;
 using Spoofer.Exceptions;
-using Spoofer.EXMethods;
 using Spoofer.Services.Marker;
 using Spoofer.ViewModels;
 using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Threading;
-using Windows.Devices.Geolocation;
-using Windows.Storage.Streams;
-using Windows.UI.Core;
-using Windows.UI.Xaml.Controls.Maps;
 using MapControl = Microsoft.Toolkit.Wpf.UI.Controls.MapControl;
 
 namespace Spoofer.Commands.MarkersCommand

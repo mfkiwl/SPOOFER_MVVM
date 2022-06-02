@@ -1,6 +1,5 @@
 ﻿using Spoofer.Commands.UserCommands;
 using Spoofer.Services.User;
-using System;
 using System.Windows.Input;
 
 namespace Spoofer.ViewModels
@@ -9,7 +8,7 @@ namespace Spoofer.ViewModels
     {
         private readonly ILogin _iLogin;
 
-        public AccountViewModel( ILogin iLogin)
+        public AccountViewModel(ILogin iLogin)
         {
             _iLogin = iLogin;
             ErrorMessageViewModel = new MessageViewModel();
@@ -17,15 +16,15 @@ namespace Spoofer.ViewModels
         }
 
         private string password;
-       
+
         public string Password
         {
             get { return password; }
-            set 
+            set
             {
-               
+
                 password = value;
-                OnPropertyChanged(nameof(Password)); 
+                OnPropertyChanged(nameof(Password));
             }
         }
 
@@ -34,11 +33,11 @@ namespace Spoofer.ViewModels
         public string UserName
         {
             get { return userName; }
-            set 
+            set
             {
-               
+
                 userName = value;
-                OnPropertyChanged(nameof(UserName)); 
+                OnPropertyChanged(nameof(UserName));
             }
         }
         private bool _isLoading;
@@ -46,13 +45,13 @@ namespace Spoofer.ViewModels
         public bool IsLoading
         {
             get { return _isLoading; }
-            set 
+            set
             {
                 _isLoading = value;
                 OnPropertyChanged(nameof(IsLoading));
             }
         }
-        public MessageViewModel ErrorMessageViewModel { get;}
+        public MessageViewModel ErrorMessageViewModel { get; }
         public ICommand Login { get; }
         public ICommand Register { get; }
     }

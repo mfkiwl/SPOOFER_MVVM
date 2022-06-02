@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
-using Windows.UI.Xaml.Media;
 using SolidColorBrush = System.Windows.Media.SolidColorBrush;
 
 namespace Spoofer.Converters

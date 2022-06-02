@@ -6,10 +6,8 @@ using Spoofer.Services.Spoofer;
 using Spoofer.ViewModels;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -47,7 +45,7 @@ namespace Spoofer.Commands.Spoofing
             _mapViewModel.IsFinishLoading = false;
             try
             {
-                
+
                 await Task.Run(() => generateFile());
                 Counter++;
                 _mapViewModel.IsFinishLoading = true;
@@ -73,7 +71,7 @@ namespace Spoofer.Commands.Spoofing
                 _mapViewModel.IsLoading = false;
                 _mapViewModel.IsFinishLoading = true;
             }
-            catch(InvalidCoordinateException ex)
+            catch (InvalidCoordinateException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
                 _mapViewModel.IsLoading = false;

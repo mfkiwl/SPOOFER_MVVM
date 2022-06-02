@@ -1,25 +1,18 @@
 ﻿using GongSolutions.Wpf.DragDrop;
 using Spoofer.Commands.MarkersCommands;
 using Spoofer.Commands.SpoofingCommands;
-using Spoofer.Models;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Spoofer;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Threading;
 
 namespace Spoofer.ViewModels
 {
-    
+
     public class TransmitInOrderViewModel : ViewModelBase, IDropTarget
     {
         private readonly ISpooferService _spoofer;
@@ -43,7 +36,7 @@ namespace Spoofer.ViewModels
         private ObservableCollection<CoordinateViewModel> coordinates;
         private ObservableCollection<int> durationList;
         public ObservableCollection<int> DurationList { get { return durationList; } set { durationList = value; OnPropertyChanged(nameof(DurationList)); } }
-        public ICollectionView Coordinates 
+        public ICollectionView Coordinates
         {
             get;
         }
@@ -112,7 +105,7 @@ namespace Spoofer.ViewModels
 
         public void DragOver(IDropInfo dropInfo)
         {
-            
+
             dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
             dropInfo.Effects = DragDropEffects.All;
 
@@ -138,7 +131,7 @@ namespace Spoofer.ViewModels
                 dropInfo.Effects = DragDropEffects.All;
                 dropInfo.EffectText = "Drop Here";
             }
-           
+
             else
             {
                 coordinates.Clear();

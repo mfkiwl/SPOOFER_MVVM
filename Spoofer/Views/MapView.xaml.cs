@@ -100,7 +100,7 @@ namespace Spoofer.Views
 
         }
 
-        private async  void MapControl_MapElementClick(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.MapElementClickEventArgs e)
+        private async void MapControl_MapElementClick(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.MapElementClickEventArgs e)
         {
 
             var vm = (MapViewModel)DataContext;

@@ -1,24 +1,18 @@
 ﻿using Spoofer.Commands.UserCommands;
 using Spoofer.Exceptions;
-using Spoofer.EXMethods;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Spoofer;
 using Spoofer.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Spoofer.Commands.Spoofing
 {
     public class Transmit : BaseCommand
     {
-       
+
         private readonly IMarkerService _marker;
         private readonly ISpooferService _spoofer;
         private readonly MapViewModel _mapViewModel;
@@ -46,19 +40,19 @@ namespace Spoofer.Commands.Spoofing
                 _spoofer.TransmitFromFile(_mapViewModel);
                 MessageBox.Show("Tx Is On");
             }
-            catch(CoordinateNotExistException ex)
+            catch (CoordinateNotExistException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
             }
-            catch(FileNotExistException ex)
+            catch (FileNotExistException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
             }
-            catch(PingException ex)
+            catch (PingException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
             }
-            catch(SDRException ex)
+            catch (SDRException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
             }

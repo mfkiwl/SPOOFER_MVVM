@@ -1,23 +1,12 @@
-﻿using Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT;
-using Spoofer.Commands.MarkersCommand;
+﻿using Spoofer.Commands.MarkersCommand;
+using Spoofer.Commands.MarkersCommands;
 using Spoofer.Commands.Spoofing;
-using Spoofer.Services.Marker;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows.Input;
-using Windows.Storage.Streams;
-using Windows.UI.Xaml.Controls.Maps;
-using Windows.Devices.Geolocation;
-using static System.Net.Mime.MediaTypeNames;
-using System.IO;
-using Spoofer.Services.Spoofer;
 using Spoofer.Commands.SpoofingCommands;
 using Spoofer.Commands.UserCommands;
-using System.Linq;
-using Spoofer.Commands.MarkersCommands;
-using System.Threading.Tasks;
+using Spoofer.Services.Marker;
+using Spoofer.Services.Spoofer;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Spoofer.ViewModels
 {
@@ -38,7 +27,7 @@ namespace Spoofer.ViewModels
             StopTransmit = new Stop(_spoofer, this);
             Navigate = new Navigate(_service, this);
             ErrorMessageViewModel = new MessageViewModel();
-            
+
 
         }
         private bool _isPinging;
@@ -107,7 +96,7 @@ namespace Spoofer.ViewModels
             get { return _isTransmitting; }
             set { _isTransmitting = value; OnPropertyChanged(nameof(IsTransmitting)); }
         }
-        
+
         private ObservableCollection<int> numberInOrder;
 
         public ObservableCollection<int> NumbersInOrder { get { return numberInOrder; } set { numberInOrder = value; OnPropertyChanged(nameof(NumbersInOrder)); } }
@@ -129,7 +118,7 @@ namespace Spoofer.ViewModels
 
         public ICommand TransmitNow { get; }
         public ICommand StopTransmit { get; }
-        public ICommand Navigate { get;  }
+        public ICommand Navigate { get; }
 
         public void updateCollection()
         {
@@ -138,7 +127,7 @@ namespace Spoofer.ViewModels
                 numberInOrder.Add(i);
             }
         }
-        
+
 
     }
 }

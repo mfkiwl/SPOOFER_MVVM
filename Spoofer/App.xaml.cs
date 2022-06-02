@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Spoofer.Commands.UserCommands;
 using Spoofer.Data;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Navigation;
@@ -7,11 +6,6 @@ using Spoofer.Services.Spoofer;
 using Spoofer.Services.User;
 using Spoofer.Stores;
 using Spoofer.ViewModels;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.IO.Compression;
-using System.Net;
 using System.Windows;
 
 namespace Spoofer

@@ -1,7 +1,6 @@
 ﻿using Spoofer.Models;
 using Spoofer.ViewModels;
 using System.Collections.Generic;
-using Windows.Devices.Geolocation;
 
 namespace Spoofer.Services.Marker
 {

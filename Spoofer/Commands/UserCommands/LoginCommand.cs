@@ -27,7 +27,7 @@ namespace Spoofer.Commands.UserCommands
             }
         }
 
-        
+
 
         public override void Execute(object parameter)
         {
@@ -38,7 +38,7 @@ namespace Spoofer.Commands.UserCommands
                 log.Info($"User {_accountViewModel.UserName} Logged In Seccesfully!!!!!");
 
             }
-            catch(FileNotExistException ex)
+            catch (FileNotExistException ex)
             {
                 _accountViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
             }
@@ -48,6 +48,6 @@ namespace Spoofer.Commands.UserCommands
                 log.Error("Can't log in Exception");
             }
         }
-        
+
     }
 }

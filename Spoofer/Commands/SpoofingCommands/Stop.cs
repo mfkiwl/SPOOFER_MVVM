@@ -2,10 +2,6 @@
 using Spoofer.Services.Spoofer;
 using Spoofer.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Spoofer.Commands.SpoofingCommands
@@ -29,9 +25,9 @@ namespace Spoofer.Commands.SpoofingCommands
             {
                 _spoofer.StopTransmitting(_mapViewModel);
                 MessageBox.Show("Tx Is Off");
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }

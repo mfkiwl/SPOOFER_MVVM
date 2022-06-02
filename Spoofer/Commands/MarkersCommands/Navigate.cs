@@ -1,17 +1,12 @@
 ﻿using Spoofer.Commands.UserCommands;
 using Spoofer.Services.Marker;
 using Spoofer.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Spoofer.Commands.MarkersCommands
 {
     public class Navigate : BaseCommand
     {
-        
+
         private readonly IMarkerService _service;
         private readonly ViewModelBase viewModelBase;
 
@@ -29,7 +24,7 @@ namespace Spoofer.Commands.MarkersCommands
         {
             _service = service;
             viewModelBase = baseVM;
-            
+
         }
         public override void Execute(object parameter)
         {

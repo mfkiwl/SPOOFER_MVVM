@@ -1,13 +1,10 @@
-﻿using Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT;
-using Microsoft.Toolkit.Wpf.UI.Controls;
-using Spoofer.Services.Marker;
+﻿using Spoofer.Services.Marker;
 using Spoofer.ViewModels;
 using System;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Windows.Input;
-using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls.Maps;
 using MapControl = Microsoft.Toolkit.Wpf.UI.Controls.MapControl;
 
@@ -61,7 +58,7 @@ namespace Spoofer.Commands.UserCommands
             bool pingable = replay.Status == IPStatus.Success;
             return pingable;
         }
-       
-       
+
+
     }
 }

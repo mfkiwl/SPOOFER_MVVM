@@ -6,7 +6,6 @@ using Spoofer.Services.Marker;
 using Spoofer.ViewModels;
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 
 namespace Spoofer.Commands.MarkersCommand

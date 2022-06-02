@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Spoofer.Exceptions
 {
@@ -10,9 +6,9 @@ namespace Spoofer.Exceptions
     {
         public override string Message => DEFAULT_MESSAGE;
         private const string DEFAULT_MESSAGE = "There is no I/Q sampeling file specefied for this action!!!";
-        public FileNotExistException() :  base()
+        public FileNotExistException() : base()
         {
-                
+
         }
         public FileNotExistException(string message) : base(DEFAULT_MESSAGE)
         {

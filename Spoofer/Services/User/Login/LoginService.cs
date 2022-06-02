@@ -1,5 +1,4 @@
 ﻿using Spoofer.Data;
-using Spoofer.Exceptions;
 using Spoofer.Services.Navigation;
 using Spoofer.Services.Spoofer;
 using Spoofer.ViewModels;
@@ -8,8 +7,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Spoofer.Services.User
 {

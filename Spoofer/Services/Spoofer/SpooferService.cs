@@ -9,10 +9,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Threading;
 
 namespace Spoofer.Services.Spoofer
 {
@@ -42,7 +38,7 @@ namespace Spoofer.Services.Spoofer
             }
             else
             {
-               
+
                 var argc = argv.Length;
                 switch (counter)
                 {

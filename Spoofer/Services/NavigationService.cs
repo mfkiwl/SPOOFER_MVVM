@@ -1,7 +1,6 @@
 ﻿using Spoofer.Stores;
 using Spoofer.ViewModels;
 using System;
-using System.Diagnostics;
 
 namespace Spoofer.Services.Navigation
 {

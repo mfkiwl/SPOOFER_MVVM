@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Spoofer.ViewModels
 {
@@ -14,8 +9,8 @@ namespace Spoofer.ViewModels
         public string ErrorMessage
         {
             get { return _errorMessage; }
-            set 
-            { 
+            set
+            {
                 _errorMessage = value;
                 OnPropertyChanged(nameof(HasError));
                 OnPropertyChanged(nameof(ErrorMessage));
