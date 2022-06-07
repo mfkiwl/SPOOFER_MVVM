@@ -12,7 +12,7 @@
              xmlns:hc="https://handyorg.github.io/handycontrol"
              d:DataContext="{d:DesignInstance Type={x:Type viewmodels:MapViewModel}}"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800" Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
+              Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
     <UserControl.Resources>
         <converters:BoolToFileStatusConverter x:Key="BoolToFileStatusConverter"/>
         <converters:BoolToStatusStringConverter x:Key="BoolToStatusStringConverter"/>

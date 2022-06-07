@@ -174,10 +174,6 @@ namespace Spoofer.Services.Spoofer
             {
                 throw new PingException("Not Connected");
             }
-            else if (true)
-            {
-
-            }
             transmit("Streak");
             viewModel.IsTransmitting = true;
 
@@ -189,6 +185,7 @@ namespace Spoofer.Services.Spoofer
             proccess.StartInfo.UseShellExecute = false;
             proccess.StartInfo.CreateNoWindow = true;
             proccess.StartInfo.RedirectStandardOutput = false;
+            proccess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
             proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 15 --repeat --ref external";
             proccess.Start();
             if (proccess.HasExited)
@@ -213,7 +210,6 @@ namespace Spoofer.Services.Spoofer
                 {
                     using (var inputStream = File.OpenRead(inputFilePath))
                     {
-                        // Buffer size can be passed as the second argument.
                         inputStream.CopyTo(outputStream);
                     }
                 }

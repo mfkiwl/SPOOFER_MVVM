@@ -59,7 +59,7 @@ namespace Spoofer.Services.User
                     var newFile = Path.GetFileNameWithoutExtension(fileName);
                     Process.Start(@"C:\Program Files\WinRAR\Winrar.exe", $@"E -y {Environment.CurrentDirectory}/{fileName}");
                 }
-                if (file != null && _context.Coordinates != null && file.LastWriteTimeUtc == DateTime.Today)
+                if (file != null && _context.Coordinates != null)
                 {
 
                     foreach (var coordinate in _context.Coordinates)

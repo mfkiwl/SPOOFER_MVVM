@@ -10,7 +10,7 @@
              
              xmlns:local="clr-namespace:Spoofer.Views" xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:converters="clr-namespace:Spoofer.Converters" d:DataContext="{d:DesignInstance Type=viewmodels:TransmitInOrderViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
+              Height="{x:Static SystemParameters.PrimaryScreenHeight}" Width="{x:Static SystemParameters.PrimaryScreenWidth}">
     <UserControl.Resources>
         <converters:BoolToFileStatusConverter x:Key="BoolToFileStatusConverter"/>
         <converters:BoolToStatusStringConverter x:Key="BoolToStatusStringConverter"/>
@@ -69,11 +69,9 @@
             <hc:SideMenu HorizontalAlignment="Stretch"  Background="#9996A5"  Grid.Column="0" Height="Auto" VerticalAlignment="Stretch" Margin="0,0,806,0" Grid.ColumnSpan="2">
             </hc:SideMenu>
             <iconPacks:PackIconMaterial Kind="Earth" Height="60" Width="100" Foreground="#404040" Margin="-6,178,0,0" Grid.ColumnSpan="2" />
-            <Button Height="104" Background="Transparent" BorderThickness="0" Command="{Binding Navigate}" Margin="0,154,0,822" Width="90" />
+            <Button Height="104" Background="Transparent" BorderThickness="0" Command="{Binding Navigate}" Margin="0,154,807,822" Grid.ColumnSpan="2" />
             <iconPacks:PackIconMaterial Kind="FormatListBulleted" Width="97" Foreground="#404040" Background="Transparent" Height="38" Margin="-7,60,0,0"/>
-            <Button Height="102" Margin="0,28,0,950" BorderThickness="0"  Background="Transparent" Width="90">
-
-            </Button>
+            <Button Height="102" Margin="0,28,806,950" BorderThickness="0"  Background="Transparent" Grid.ColumnSpan="2"/>
         </Grid>
         <DataGrid
             x:Name="DATAgRID"
@@ -165,6 +163,6 @@
         <Border BorderBrush="OrangeRed" BorderThickness="3" Opacity="0.9" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}"  HorizontalAlignment="Left" Height="94" Margin="819,375,0,0" Grid.Row="1" VerticalAlignment="Top" Width="280" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <TextBlock VerticalAlignment="Center" Foreground="OrangeRed" Opacity="0.9"  Text="TX On" FontSize="28" FontWeight="DemiBold" TextAlignment="Center" Padding="8" />
         </Border>
-       
+
     </Grid>
 </UserControl>

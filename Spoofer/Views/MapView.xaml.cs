@@ -104,7 +104,7 @@ namespace Spoofer.Views
         {
 
             var vm = (MapViewModel)DataContext;
-            if (vm.IsFinishLoading)
+            if (vm.IsFinishLoading && !vm.IsTransmitting)
             {
                 CancelTemporaryIcons();
                 DeleteTextboxes();
@@ -122,7 +122,7 @@ namespace Spoofer.Views
                         alt.Text = signedElement.Location.Position.Altitude.ToString();
                         lab.Text = signedElement.Title.Trim();
                         double user = signedElement.Location.Position.Latitude;
-                        var realMarker = _markerService.GetAll().SingleOrDefault(p => p.Name == signedElement.Title &&
+                        var realMarker = _markerService.GetAll().SingleOrDefault(p => p.Name.Trim() == signedElement.Title.Trim() &&
                         (double)p.Height == signedElement.Location.Position.Altitude &&
                         p.Longitude == signedElement.Location.Position.Longitude &&
                         p.Latitude == signedElement.Location.Position.Latitude);
@@ -149,7 +149,7 @@ namespace Spoofer.Views
         {
 
             var vm = (MapViewModel)DataContext;
-            if (!vm.IsLoading)
+            if (!vm.IsLoading && !vm.IsTransmitting)
             {
                 CancelTemporaryIcons();
                 DeleteTextboxes();
