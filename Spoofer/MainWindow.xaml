@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Spoofer"
         xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:views1="clr-namespace:Spoofer.Views" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
-
+        ResizeMode="CanResizeWithGrip"
+        WindowStartupLocation="CenterScreen"
+        
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Background="Transparent"

@@ -64,17 +64,17 @@
                 </ResourceDictionary>
             </Grid.Resources>
             <Grid.RowDefinitions>
-                <RowDefinition Height="5*" />
+                <RowDefinition Height="290*" />
 
-                <RowDefinition Height="1.2*" />
-                <RowDefinition Height="1.2*" />
-                <RowDefinition Height="1.2*" />
-                <RowDefinition Height="1.2*" />
-                <RowDefinition Height="1.2*" />
-                <RowDefinition Height="1.2*" />
-                <RowDefinition Height="1.2*" />
-                <RowDefinition Height="1.2*" />
-                <RowDefinition Height="4*" />
+                <RowDefinition Height="70*" />
+                <RowDefinition Height="69*" />
+                <RowDefinition Height="70*" />
+                <RowDefinition Height="69*" />
+                <RowDefinition Height="70*" />
+                <RowDefinition Height="70*" />
+                <RowDefinition Height="70*" />
+                <RowDefinition Height="0*" />
+                <RowDefinition Height="302*" />
             </Grid.RowDefinitions>
 
 
@@ -102,7 +102,6 @@
                        Padding="29"
                        FontFamily="Helvetica"
                        FontWeight="Medium"
-                       Grid.Column="1"
                        TextAlignment="Center" 
                        HorizontalAlignment="Stretch"
                        FontSize="21" 
@@ -114,26 +113,13 @@
                        Padding="32" 
                        FontFamily="Helvetica" 
                        FontWeight="Medium"
-                       Grid.Column="1"
                        TextAlignment="Center"
                        HorizontalAlignment="Stretch"
                        FontSize="21" 
                        TextWrapping="Wrap"
-                       Text="Altitude"
-                       VerticalAlignment="Stretch" />
-            <TextBlock Grid.Row="7"
-                       Foreground="Black"
-                       Padding="32"
-                       materialDesign:TextBlockAssist.AutoToolTip="True"
-                       FontFamily="Helvetica"
-                       FontWeight="Medium"
-                       Grid.Column="1"
-                       TextAlignment="Center"
-                       HorizontalAlignment="Stretch"
-                       FontSize="21"
-                       TextWrapping="Wrap"
                        Text="Title"
                        VerticalAlignment="Stretch" />
+
             <TextBox x:Name="lat"
                      Background="Transparent"
                      Foreground="#FF1C7CAF"
@@ -146,13 +132,12 @@
                      Padding="18"
                      Margin="21,8,21,0" 
                      Text="{Binding Latitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Border Width="300" 
+            <Border 
                     Height="2"
                     Background="Black"
-                    Grid.Column="1"
                     Opacity="0.5"
                     VerticalAlignment="Bottom"
-                    Grid.Row="2"/>
+                    Grid.Row="2" Margin="359,0"/>
             <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="640,38,0,0" Grid.Row="4"/>
             <TextBox x:Name="lon"
                      Background="Transparent"
@@ -166,13 +151,12 @@
                      Padding="18"
                      Margin="21,8,21,0"
                      Text="{Binding Longitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Border Width="300"
+            <Border
                     Height="2"
                     Background="Black"
-                    Grid.Column="1"
                     Opacity="0.5"
                     VerticalAlignment="Bottom" 
-                    Grid.Row="4"/>
+                    Grid.Row="4" Margin="359,0"/>
             <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="640,38,0,0" Grid.Row="2"/>
             <TextBox x:Name="alt"
                      Background="Transparent"
@@ -185,31 +169,15 @@
                      Padding="18" 
                      FontWeight="Bold"
                      Margin="21,8,21,0"
-                     Text="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Border Width="300" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="6"/>
-            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="640,38,0,0" Grid.Row="6"/>
-            <TextBox x:Name="lab"
-                     mah:TextBoxHelper.ClearTextButton="True"
-                     Background="Transparent"
-                     Foreground="#FF1C7CAF"
-                     Opacity="0.7"
-                     BorderThickness="0" 
-                     TextAlignment="Center" 
-                     Grid.Row="8"
-                     FontSize="18"
-                     Padding="18"
-                     FontWeight="Bold"
-                     
-                     Margin="21,8,21,0"
                      Text="{Binding Label, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Border Width="300" Height="2" Background="Black" Grid.Column="1" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="8"/>
-            <iconPacks:PackIconMaterial Kind="Star"  Foreground="Black" Margin="640,38,0,0" Grid.Row="8"/>
-            <TextBlock Grid.Column="1" Foreground="Black" FontFamily="Helvetica" FontWeight="Medium" Padding="0" FontSize="19" HorizontalAlignment="Left" Margin="424,120,0,0"  Text="Number In Order" VerticalAlignment="Top" Height="70" Width="160"/>
+            <Border Height="2" Background="Black" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="6" Margin="359,0"/>
+            <iconPacks:PackIconMaterial Kind="Star" Foreground="Black" Margin="640,38,0,0" Grid.Row="6"/>
+
+            <TextBlock Foreground="Black" FontFamily="Helvetica" FontWeight="Medium" Padding="0" FontSize="19" HorizontalAlignment="Left" Margin="424,120,0,0"  Text="Number In Order" VerticalAlignment="Top" Height="70" Width="160"/>
 
 
-            <hc:ComboBox x:Name="Combo" Margin="276,151,286,81"  mah:TextBoxHelper.ClearTextButton="True" BorderBrush="Blue" SelectedIndex="-1"   BorderThickness="1.6" ToolTip="Place The Coordinate in order to transmit"  IsEditable="True" IsReadOnly="True" Text="-- Select Team --" Padding="5"  FontWeight="SemiBold" Foreground="Black" Opacity="0.7" Width="200" Height="36" ItemsSource="{Binding NumbersInOrder, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" >
-            </hc:ComboBox>
-            <iconPacks:PackIconMaterial Kind="Close" Margin="563.5,172,0,0" Foreground="Blue" Visibility="{Binding HasValue, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Opacity="0.7" Height="12" Width="11" />
+            <hc:ComboBox x:Name="Combo" Margin="404,162,414,92"  mah:TextBoxHelper.ClearTextButton="True" BorderBrush="Blue" SelectedIndex="-1"   BorderThickness="1.6" ToolTip="Place The Coordinate in order to transmit"  IsEditable="True" IsReadOnly="True" Text="-- Select Team --" Padding="5"  FontWeight="SemiBold" Foreground="Black" Opacity="0.7" ItemsSource="{Binding NumbersInOrder, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            <iconPacks:PackIconMaterial Kind="Close" Margin="564,172,0,0" Foreground="Blue" Visibility="{Binding HasValue, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Opacity="0.7" Height="12" Width="10" />
             <Grid Grid.Row="9">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -242,11 +210,11 @@
                          Margin="8,108,8,68"
                          Click="Button_Click"
                          />
-                <iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black" Kind="FileMarkerOutline" Height="40" Width="Auto" HorizontalAlignment="Stretch" Grid.Column="4" Margin="120,115,-2,0" RenderTransformOrigin="1.67,1.889"/>
-                <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkRed" Kind="CloseOctagon" Grid.Column="3" Width="Auto" Height="40" Margin="131,116,0,0" RenderTransformOrigin="1.67,1.889" />
-                <iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black"  Kind="AccessPointNetwork" Grid.Column="2" Width="Auto" Height="40" Margin="124,116,0,0" RenderTransformOrigin="1.67,1.889"/>
-                <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkRed"  Kind="MapMarkerRemove"  Grid.Column="1" Width="Auto" Height="40" Margin="132,116,0,0" RenderTransformOrigin="1.67,1.889" />
-                <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkGreen" Kind="MapMarkerPlus" Width="Auto" Height="40" Margin="136,116,0,0" RenderTransformOrigin="1.67,1.889" />
+                <iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black" Kind="FileMarkerOutline" Height="40" Width="Auto" HorizontalAlignment="Stretch" Grid.Column="4" Margin="118,150,0,0" RenderTransformOrigin="1.67,1.889"/>
+                <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkRed" Kind="CloseOctagon" Grid.Column="3" Width="Auto" Height="40" Margin="131,150,0,0" RenderTransformOrigin="1.67,1.889" />
+                <iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black"  Kind="AccessPointNetwork" Grid.Column="2" Width="Auto" Height="40" Margin="124,150,0,0" RenderTransformOrigin="1.67,1.889"/>
+                <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkRed"  Kind="MapMarkerRemove"  Grid.Column="1" Width="Auto" Height="40" Margin="132,150,0,0" RenderTransformOrigin="1.67,1.889" />
+                <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkGreen" Kind="MapMarkerPlus" Width="Auto" Height="40" Margin="136,150,0,0" RenderTransformOrigin="1.67,1.889" />
 
             </Grid>
         </Grid>
@@ -271,12 +239,11 @@
                        TextWrapping="Wrap"
                        Text="{Binding ErrorMessageViewModel.ErrorMessage}"
                        Visibility="{Binding ErrorMessageViewModel.HasError, Converter={StaticResource InverseBooleanToVisibillityConverter}}"
-                       Margin="366,861,366,149"
-                       Height="70" 
+                       Margin="367,802,365,201" 
                        Width="286"
                        Foreground="Red" 
                        Opacity="0.6"
-                       FontSize="18"
+                       FontSize="20"
                        FontWeight="SemiBold" Grid.Column="1"/>
         <Button x:Name="Cancel" Click="Cancel_Click" Grid.Column="1" HorizontalAlignment="Left" Visibility="{Binding HasValue, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="0" Background="Transparent" Margin="558,166,0,0" VerticalAlignment="Top" Width="22" Height="24"/>
 

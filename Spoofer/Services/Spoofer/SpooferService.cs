@@ -9,6 +9,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Spoofer.Services.Spoofer
 {
@@ -145,8 +147,6 @@ namespace Spoofer.Services.Spoofer
 
         public void GenerateInOrder(TransmitInOrderViewModel viewModel)
         {
-
-
             var list = new List<CoordinateViewModel>();
             foreach (var coordinate in _marker.GetAll())
             {
@@ -175,6 +175,7 @@ namespace Spoofer.Services.Spoofer
                 throw new PingException("Not Connected");
             }
             transmit("Streak");
+            
             viewModel.IsTransmitting = true;
 
         }
@@ -186,14 +187,13 @@ namespace Spoofer.Services.Spoofer
             proccess.StartInfo.CreateNoWindow = true;
             proccess.StartInfo.RedirectStandardOutput = false;
             proccess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
-            proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 15 --repeat --ref external";
+            proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 0 --repeat --ref external";
             proccess.Start();
             if (proccess.HasExited)
             {
-
                 throw new SDRException();
             }
-
+            Thread.Sleep(5000);
         }
         public void CombineFileToSingleFile(List<string> list)
         {

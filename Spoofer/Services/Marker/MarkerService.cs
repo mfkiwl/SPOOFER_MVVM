@@ -54,7 +54,7 @@ namespace Spoofer.Services.Marker
                     Latitude = mapViewModel.Latitude,
                     Longitude = mapViewModel.Longitude,
                     Height = mapViewModel.Height ?? 0,
-                    Name = mapViewModel.Label,
+                    Name = mapViewModel.Label.Trim(),
                     HasFile = BaseCommand.isFileExist(mapViewModel),
                     NumberInOrder = null
                 };
@@ -82,7 +82,7 @@ namespace Spoofer.Services.Marker
                     var file = new DirectoryInfo(root).GetFiles(fileName).SingleOrDefault(p => p.Exists);
                     if (file != null)
                     {
-                        marker.GenerationDate = file.LastWriteTimeUtc;
+                        marker.GenerationDate = file.LastWriteTimeUtc.Date;
                     }
                     else
                     {
@@ -140,7 +140,7 @@ namespace Spoofer.Services.Marker
                 _context.SaveChanges(true);
                 if (!isUpdated)
                 {
-                    MessageBox.Show($"{coordinateToRemove.Name} Deleted Succesfully");
+                    MessageBox.Show($"{coordinateToRemove.Name.Trim()} Deleted Succesfully");
                 }
             }
         }

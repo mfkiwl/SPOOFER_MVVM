@@ -37,7 +37,6 @@ namespace Spoofer.Services.User
             }
             else
             {
-
                 var year = DateTime.Now.Year.ToString();
                 var dayOfYear = DateTime.Now.DayOfYear - 1;
                 string remoteUri = $"https://data.unavco.org/archive/gnss/rinex/nav/{year}/{dayOfYear}/";
@@ -64,20 +63,24 @@ namespace Spoofer.Services.User
 
                     foreach (var coordinate in _context.Coordinates)
                     {
-                        var flags = new string[11];
-                        flags[0] = $"Core.dll";
-                        flags[1] = "-e";
-                        flags[2] = $"{Path.GetFileNameWithoutExtension(fileName.Trim())}";
-                        flags[3] = "-s";
-                        flags[4] = "2500000";
-                        flags[5] = "-l";
-                        flags[6] = $"{coordinate.Latitude.ToString().Trim()},{coordinate.Longitude.ToString().Trim()},{coordinate.Height.ToString().Trim()}";
-                        flags[7] = "-o";
-                        flags[8] = $"{String.Concat(coordinate.Name.Where(c => !Char.IsWhiteSpace(c)))}.bin";
-                        flags[9] = "-d";
-                        flags[10] = "65";
-                        var argc = flags.Length;
-                        _spoofer.GenerateIQFile(flags);
+                        if (coordinate.GenerationDate != DateTime.Today && coordinate.GenerationDate != null)
+                        {
+                            var flags = new string[11];
+                            flags[0] = $"Core.dll";
+                            flags[1] = "-e";
+                            flags[2] = $"{Path.GetFileNameWithoutExtension(fileName.Trim())}";
+                            flags[3] = "-s";
+                            flags[4] = "2500000";
+                            flags[5] = "-l";
+                            flags[6] = $"{coordinate.Latitude.ToString().Trim()},{coordinate.Longitude.ToString().Trim()},{coordinate.Height.ToString().Trim()}";
+                            flags[7] = "-o";
+                            flags[8] = $"{String.Concat(coordinate.Name.Where(c => !Char.IsWhiteSpace(c)))}.bin";
+                            flags[9] = "-d";
+                            flags[10] = "65";
+                            
+                            var argc = flags.Length;
+                            _spoofer.GenerateIQFile(flags);
+                        }
                     }
                 }
                 _navigation.Navigate();

@@ -117,12 +117,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_06A497F0F90D423FB72207FC5CA47327"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_06E587E8E29673863112EC099DC6DD26"
         "OwnerKey" = "8:_4B312DEA27914DA8BD86BA682AB73320"
         "MsmSig" = "8:_UNDEFINED"
@@ -640,12 +634,6 @@
         "Entry"
         {
         "MsmKey" = "8:_23BC72AF919E4FBEB0F01533815592D8"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_251E99BA6E674863B0377E10EE9B675C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1365,12 +1353,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4215BF65690B43CCA808A7145F117775"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_4522948299AF74969D1A2946BA3CADA4"
         "OwnerKey" = "8:_4B312DEA27914DA8BD86BA682AB73320"
         "MsmSig" = "8:_UNDEFINED"
@@ -1509,12 +1491,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_53CB34FB1B1D4F0AB72E65666D4BB539"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_55056F3C762A5D7552958A28CF5C31C5"
         "OwnerKey" = "8:_F012A7B545753F70F4EF8908560026D0"
         "MsmSig" = "8:_UNDEFINED"
@@ -1529,12 +1505,6 @@
         {
         "MsmKey" = "8:_55056F3C762A5D7552958A28CF5C31C5"
         "OwnerKey" = "8:_4B312DEA27914DA8BD86BA682AB73320"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_57A1EC8B25ED4A70B019DD083F79BF2C"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1617,12 +1587,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_60BCD56C7EB346CC9066B6AB9F6A478E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_610363DF346A4BC6B7982E35506BA64E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1678,12 +1642,6 @@
         "Entry"
         {
         "MsmKey" = "8:_6AA7C4902EC84849A72968B575F5E335"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6B0B16AAEA9F4665B92C5E3D1DAC01B6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1912,12 +1870,6 @@
         "Entry"
         {
         "MsmKey" = "8:_7767BCDA515D4912B76169B5B80D2AE7"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_77C228A69DE1439FBF0E1D659FF7B285"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2241,12 +2193,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_82091EC16EAD4326BD9F37BA8B1F82AD"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_82DF5EA33E0C478BAF2E7268C6CCDF40"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -2290,12 +2236,6 @@
         "Entry"
         {
         "MsmKey" = "8:_8458CA31A9D64D4FA8667393328F2868"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_84D085E916FF499F9FD15AC57FE99413"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2656,12 +2596,6 @@
         "Entry"
         {
         "MsmKey" = "8:_97E2E4BF3B6942DFA3F83017F37404E1"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_99BDD2F09169427D960BD6BEAD3C5ED4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -3123,12 +3057,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C693C2E558FD4D329026AE315D5E57DE"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_C861A9A7C6FA4188A147B47D2DA73584"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -3203,12 +3131,6 @@
         {
         "MsmKey" = "8:_CECBD32DB46A7B0FC0901A7AE82C4DDE"
         "OwnerKey" = "8:_4B312DEA27914DA8BD86BA682AB73320"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CEF278B70D4944A38D224F02F7792D40"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -3341,12 +3263,6 @@
         {
         "MsmKey" = "8:_D6FDAB6EDF10229CC4191CB475416F28"
         "OwnerKey" = "8:_4B312DEA27914DA8BD86BA682AB73320"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D7E4D7CA2D1A4154A010CA95F991F4B0"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -3958,12 +3874,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D7E4D7CA2D1A4154A010CA95F991F4B0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_D505F40B3C613924AD07000DF57E0FBD"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -3976,19 +3886,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_CEF278B70D4944A38D224F02F7792D40"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C9E3103C36944E498A20795B3A38A129"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C693C2E558FD4D329026AE315D5E57DE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -4132,12 +4030,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_84D085E916FF499F9FD15AC57FE99413"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_8458CA31A9D64D4FA8667393328F2868"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -4145,12 +4037,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_82F131B6F51F150F56E3710BB8078187"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_82091EC16EAD4326BD9F37BA8B1F82AD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -4180,12 +4066,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_77C228A69DE1439FBF0E1D659FF7B285"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_7767BCDA515D4912B76169B5B80D2AE7"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -4199,12 +4079,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_6D613AB2CB13D4684E0A8A269BC50E57"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6B0B16AAEA9F4665B92C5E3D1DAC01B6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -4240,18 +4114,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_57A1EC8B25ED4A70B019DD083F79BF2C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_53CB34FB1B1D4F0AB72E65666D4BB539"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_4B4095EACCC440FA830DEF5F0193E2B2"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -4265,12 +4127,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_481CAEA92707A740F3D6294F29148DA3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4215BF65690B43CCA808A7145F117775"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -4324,12 +4180,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_251E99BA6E674863B0377E10EE9B675C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_23BC72AF919E4FBEB0F01533815592D8"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -4373,12 +4223,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_0906471404A246F4B774A53BC29DDEA5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_06A497F0F90D423FB72207FC5CA47327"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -5569,37 +5413,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_06A497F0F90D423FB72207FC5CA47327"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.QualityTools.Testing.Fakes.resources, Version=12.0.0.0, Culture=ja, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_06A497F0F90D423FB72207FC5CA47327"
-                    {
-                    "Name" = "8:Microsoft.QualityTools.Testing.Fakes.resources.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Spoofer\\bin\\Release\\ja\\Microsoft.QualityTools.Testing.Fakes.resources.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_CB38F9C57A5A4282A826F933DD4E3D51"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_06E587E8E29673863112EC099DC6DD26"
             {
             "AssemblyRegister" = "3:1"
@@ -6359,37 +6172,6 @@
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_6F32896EBF194DF8BE14A28C70F1021E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_251E99BA6E674863B0377E10EE9B675C"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.QualityTools.Testing.Fakes.resources, Version=12.0.0.0, Culture=es, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_251E99BA6E674863B0377E10EE9B675C"
-                    {
-                    "Name" = "8:Microsoft.QualityTools.Testing.Fakes.resources.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Spoofer\\bin\\Release\\es\\Microsoft.QualityTools.Testing.Fakes.resources.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A9CA0E6E316E4AB5B1678F2437734E60"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -7556,37 +7338,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4215BF65690B43CCA808A7145F117775"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.QualityTools.Testing.Fakes.resources, Version=12.0.0.0, Culture=ko, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_4215BF65690B43CCA808A7145F117775"
-                    {
-                    "Name" = "8:Microsoft.QualityTools.Testing.Fakes.resources.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Spoofer\\bin\\Release\\ko\\Microsoft.QualityTools.Testing.Fakes.resources.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_734D1323927940DCA069D51D3BA992C7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4522948299AF74969D1A2946BA3CADA4"
             {
             "AssemblyRegister" = "3:1"
@@ -8070,37 +7821,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_53CB34FB1B1D4F0AB72E65666D4BB539"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.QualityTools.Testing.Fakes.resources, Version=12.0.0.0, Culture=pt-BR, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_53CB34FB1B1D4F0AB72E65666D4BB539"
-                    {
-                    "Name" = "8:Microsoft.QualityTools.Testing.Fakes.resources.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Spoofer\\bin\\Release\\pt-BR\\Microsoft.QualityTools.Testing.Fakes.resources.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_C6B884A5F10D46898EC8C29B547381D5"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_55056F3C762A5D7552958A28CF5C31C5"
             {
             "AssemblyRegister" = "3:1"
@@ -8130,37 +7850,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_57A1EC8B25ED4A70B019DD083F79BF2C"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.QualityTools.Testing.Fakes.resources, Version=12.0.0.0, Culture=zh-Hant, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_57A1EC8B25ED4A70B019DD083F79BF2C"
-                    {
-                    "Name" = "8:Microsoft.QualityTools.Testing.Fakes.resources.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Spoofer\\bin\\Release\\zh-Hant\\Microsoft.QualityTools.Testing.Fakes.resources.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_808779DADEFD41B684FF8506A954C4EF"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_580758BB82870FC588B4EE4530C04568"
@@ -8482,26 +8171,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_60BCD56C7EB346CC9066B6AB9F6A478E"
-            {
-            "SourcePath" = "8:..\\Spoofer\\bin\\Release\\Microsoft.Toolkit.Wpf.UI.Controls.xml"
-            "TargetName" = "8:Microsoft.Toolkit.Wpf.UI.Controls.xml"
-            "Tag" = "8:"
-            "Folder" = "8:_C2A9D16E76D14850818538E9208FCED2"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_610363DF346A4BC6B7982E35506BA64E"
             {
             "AssemblyRegister" = "3:1"
@@ -8743,37 +8412,6 @@
             "TargetName" = "8:Microsoft.IdentityModel.JsonWebTokens.xml"
             "Tag" = "8:"
             "Folder" = "8:_C2A9D16E76D14850818538E9208FCED2"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6B0B16AAEA9F4665B92C5E3D1DAC01B6"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.QualityTools.Testing.Fakes.resources, Version=12.0.0.0, Culture=it, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_6B0B16AAEA9F4665B92C5E3D1DAC01B6"
-                    {
-                    "Name" = "8:Microsoft.QualityTools.Testing.Fakes.resources.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Spoofer\\bin\\Release\\it\\Microsoft.QualityTools.Testing.Fakes.resources.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_6F32896EBF194DF8BE14A28C70F1021E"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -9251,37 +8889,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_77C228A69DE1439FBF0E1D659FF7B285"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.QualityTools.Testing.Fakes.resources, Version=12.0.0.0, Culture=ru, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_77C228A69DE1439FBF0E1D659FF7B285"
-                    {
-                    "Name" = "8:Microsoft.QualityTools.Testing.Fakes.resources.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Spoofer\\bin\\Release\\ru\\Microsoft.QualityTools.Testing.Fakes.resources.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_BC8B45778A5641A1B8F70A8FCB360CBB"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_78D29B53547922361E606F485803721B"
             {
             "AssemblyRegister" = "3:1"
@@ -9725,37 +9332,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_82091EC16EAD4326BD9F37BA8B1F82AD"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.QualityTools.Testing.Fakes.resources, Version=12.0.0.0, Culture=zh-Hans, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_82091EC16EAD4326BD9F37BA8B1F82AD"
-                    {
-                    "Name" = "8:Microsoft.QualityTools.Testing.Fakes.resources.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Spoofer\\bin\\Release\\zh-Hans\\Microsoft.QualityTools.Testing.Fakes.resources.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_1FC5DADFD78C45B2B50E8B7CBE1266D6"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_82DF5EA33E0C478BAF2E7268C6CCDF40"
             {
             "SourcePath" = "8:..\\Spoofer\\bin\\Release\\Microsoft.EntityFrameworkCore.Relational.xml"
@@ -9855,37 +9431,6 @@
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_C2A9D16E76D14850818538E9208FCED2"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_84D085E916FF499F9FD15AC57FE99413"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.QualityTools.Testing.Fakes.resources, Version=12.0.0.0, Culture=de, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_84D085E916FF499F9FD15AC57FE99413"
-                    {
-                    "Name" = "8:Microsoft.QualityTools.Testing.Fakes.resources.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Spoofer\\bin\\Release\\de\\Microsoft.QualityTools.Testing.Fakes.resources.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_FD20B8A9F11D49BE9BF94FA841A61448"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -11007,26 +10552,6 @@
             {
             "SourcePath" = "8:..\\Spoofer\\bin\\Release\\System.Collections.Immutable.xml"
             "TargetName" = "8:System.Collections.Immutable.xml"
-            "Tag" = "8:"
-            "Folder" = "8:_C2A9D16E76D14850818538E9208FCED2"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_99BDD2F09169427D960BD6BEAD3C5ED4"
-            {
-            "SourcePath" = "8:..\\Spoofer\\bin\\Release\\Microsoft.Toolkit.Wpf.UI.Controls.pdb"
-            "TargetName" = "8:Microsoft.Toolkit.Wpf.UI.Controls.pdb"
             "Tag" = "8:"
             "Folder" = "8:_C2A9D16E76D14850818538E9208FCED2"
             "Condition" = "8:"
@@ -12392,37 +11917,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C693C2E558FD4D329026AE315D5E57DE"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.QualityTools.Testing.Fakes.resources, Version=12.0.0.0, Culture=pl, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_C693C2E558FD4D329026AE315D5E57DE"
-                    {
-                    "Name" = "8:Microsoft.QualityTools.Testing.Fakes.resources.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Spoofer\\bin\\Release\\pl\\Microsoft.QualityTools.Testing.Fakes.resources.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_7DDFB04AE28740859D3E828685ED2EFF"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C861A9A7C6FA4188A147B47D2DA73584"
             {
             "SourcePath" = "8:..\\Spoofer\\bin\\Release\\Microsoft.Extensions.Primitives.xml"
@@ -12731,37 +12225,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CEF278B70D4944A38D224F02F7792D40"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.QualityTools.Testing.Fakes.resources, Version=12.0.0.0, Culture=fr, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_CEF278B70D4944A38D224F02F7792D40"
-                    {
-                    "Name" = "8:Microsoft.QualityTools.Testing.Fakes.resources.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Spoofer\\bin\\Release\\fr\\Microsoft.QualityTools.Testing.Fakes.resources.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_4076E8B4310A4C9797F1F3ADBDE8B54E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D00E06980EE44932B48C230166C7D594"
             {
             "SourcePath" = "8:..\\Spoofer\\bin\\Release\\IdentityModel.pdb"
@@ -13059,37 +12522,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D7E4D7CA2D1A4154A010CA95F991F4B0"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.QualityTools.Testing.Fakes.resources, Version=12.0.0.0, Culture=tr, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_D7E4D7CA2D1A4154A010CA95F991F4B0"
-                    {
-                    "Name" = "8:Microsoft.QualityTools.Testing.Fakes.resources.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Spoofer\\bin\\Release\\tr\\Microsoft.QualityTools.Testing.Fakes.resources.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_31A0918AAFEC4868A0FACBE9986B4358"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D8C039FEE69B485291DAE4F2783EE5E8"
@@ -14836,7 +14268,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Setup"
         "ProductCode" = "8:{E40E3174-9263-492A-BED7-8875436B77FE}"
-        "PackageCode" = "8:{027C79DE-2B0B-493D-84D2-3FAED232E2D0}"
+        "PackageCode" = "8:{A9E0A419-975D-41F8-9525-74105B815EA6}"
         "UpgradeCode" = "8:{5A4FACB9-33AF-4CD4-8954-C3162F83A754}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

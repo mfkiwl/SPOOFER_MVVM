@@ -119,8 +119,8 @@ namespace Spoofer.Views
                         isIconSigned = true;
                         lat.Text = signedElement.Location.Position.Latitude.ToString();
                         lon.Text = signedElement.Location.Position.Longitude.ToString();
-                        alt.Text = signedElement.Location.Position.Altitude.ToString();
-                        lab.Text = signedElement.Title.Trim();
+                        //alt.Text = signedElement.Location.Position.Altitude.ToString();
+                        alt.Text = signedElement.Title.Trim();
                         double user = signedElement.Location.Position.Latitude;
                         var realMarker = _markerService.GetAll().SingleOrDefault(p => p.Name.Trim() == signedElement.Title.Trim() &&
                         (double)p.Height == signedElement.Location.Position.Altitude &&
@@ -179,7 +179,7 @@ namespace Spoofer.Views
 
         private void DeleteTextboxes()
         {
-            lab.Text = string.Empty;
+            alt.Text = string.Empty;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
