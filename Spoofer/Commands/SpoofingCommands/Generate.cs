@@ -88,7 +88,7 @@ namespace Spoofer.Commands.Spoofing
         private string[] GenerateFlags()
         {
             var year = DateTime.Now.Year.ToString();
-            var ephFiles = new DirectoryInfo(Environment.CurrentDirectory).GetFiles().Where(p => p.Name.Contains($".{year.Substring(2)}n")).OrderBy(o => o.LastWriteTime);
+            var ephFiles = new DirectoryInfo(Directory.GetCurrentDirectory()).GetFiles().Where(p => p.Name.Contains($".{year.Substring(2)}n")).OrderBy(o => o.LastWriteTime);
             var file = ephFiles.FirstOrDefault();
 
             while (true)

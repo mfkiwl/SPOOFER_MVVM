@@ -1,10 +1,12 @@
-﻿using Spoofer.Data;
+﻿using log4net;
+using Spoofer.Data;
 using Spoofer.Services.Navigation;
 using Spoofer.Services.Spoofer;
 using Spoofer.ViewModels;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 
@@ -12,6 +14,7 @@ namespace Spoofer.Services.User
 {
     public class ServiceLogin : ILogin
     {
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly CoordinatesContext _context;
         private readonly NavigationService _navigation;
         private readonly ISpooferService _spoofer;
@@ -30,18 +33,19 @@ namespace Spoofer.Services.User
 
             if (!_context.User.Any(p => p.UserName == model.UserName && p.Password == model.Password))
             {
-                //throw new FileNotExistException("Username Or Password are Incorrect");
                 model.ErrorMessageViewModel.ErrorMessage = "Username Or Password are Incorrect";
                 model.IsLoading = false;
+                log.Error("Error");
 
             }
+           
             else
             {
                 var year = DateTime.Now.Year.ToString();
                 var dayOfYear = DateTime.Now.DayOfYear - 1;
                 string remoteUri = $"https://data.unavco.org/archive/gnss/rinex/nav/{year}/{dayOfYear}/";
                 string fileName = $@"ab11{dayOfYear}0.{year.Substring(2)}n.Z", myStringWebResource = null;
-                var ephFiles = new DirectoryInfo(Environment.CurrentDirectory).GetFiles().Where(p => p.Name.Contains($".{year.Substring(2)}n")).OrderBy(o => o.LastWriteTime);
+                var ephFiles = new DirectoryInfo(Directory.GetCurrentDirectory()).GetFiles().Where(p => p.Name.Contains($".{year.Substring(2)}n")).OrderBy(o => o.LastWriteTime);
                 var file = ephFiles.FirstOrDefault();
                 if (file == null || file.LastWriteTimeUtc.Date != DateTime.Today)
                 {
@@ -56,7 +60,7 @@ namespace Spoofer.Services.User
                     client.Headers.Add(HttpRequestHeader.Cookie, "v~de73b5db86e3962ef8c0c585ceda1a8234ccabe8~vpv~1~v11.rlc~1653382430264");
                     client.DownloadFile(myStringWebResource, fileName);
                     var newFile = Path.GetFileNameWithoutExtension(fileName);
-                    Process.Start(@"C:\Program Files\WinRAR\Winrar.exe", $@"E -y {Environment.CurrentDirectory}/{fileName}");
+                    Process.Start(@"C:\Program Files\WinRAR\Winrar.exe", $@"E -y {Directory.GetCurrentDirectory()}/{fileName}");
                 }
                 if (file != null && _context.Coordinates != null)
                 {

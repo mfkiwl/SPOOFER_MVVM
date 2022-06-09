@@ -1,4 +1,5 @@
-﻿using Spoofer.Commands.UserCommands;
+﻿using log4net;
+using Spoofer.Commands.UserCommands;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Navigation;
 using Spoofer.ViewModels;
@@ -22,6 +23,7 @@ namespace Spoofer.Views
         private readonly NavigationService _navigationService;
         private readonly IMarkerService _markerService;
         private bool isIconSigned;
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 
         public MapView()
@@ -44,27 +46,34 @@ namespace Spoofer.Views
 
         private async void MapControl_Loaded(object sender, RoutedEventArgs e)
         {
-            GeoCoordinateWatcher watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
-            watcher.Start();
-            GeoCoordinate coord = watcher.Position.Location;
-            if (!watcher.Position.Location.IsUnknown)
+            try
             {
-                BasicGeoposition currentPoint = new BasicGeoposition
+                GeoCoordinateWatcher watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
+                watcher.Start();
+                GeoCoordinate coord = watcher.Position.Location;
+                if (!watcher.Position.Location.IsUnknown)
                 {
-                    Latitude = coord.Latitude,
-                    Longitude = coord.Longitude
-                };
-                var currentGeoPoint = new Geopoint(currentPoint);
-                var currentMapIcon = new MapIcon()
-                {
-                    Location = currentGeoPoint,
-                    //Image = RandomAccessStreamReference.CreateFromUri(new Uri("~/Assets/icon.png")),
-                    ZIndex = 0,
-                    IsEnabled = true,
-                    Title = "Your Current Location",
-                };
-                mapControl.MapElements.Add(currentMapIcon);
-                await (sender as MapControl).TrySetViewAsync(currentGeoPoint, 13);
+                    BasicGeoposition currentPoint = new BasicGeoposition
+                    {
+                        Latitude = coord.Latitude,
+                        Longitude = coord.Longitude
+                    };
+                    var currentGeoPoint = new Geopoint(currentPoint);
+                    var currentMapIcon = new MapIcon()
+                    {
+                        Location = currentGeoPoint,
+                        //Image = RandomAccessStreamReference.CreateFromUri(new Uri("~/Assets/icon.png")),
+                        ZIndex = 0,
+                        IsEnabled = true,
+                        Title = "Your Current Location",
+                    };
+                    mapControl.MapElements.Add(currentMapIcon);
+                    await (sender as MapControl).TrySetViewAsync(currentGeoPoint, 13);
+                }
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.Message);
             }
             foreach (var location in _markerService.GetAll())
             {

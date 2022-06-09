@@ -3,7 +3,9 @@ using Spoofer.Exceptions;
 using Spoofer.Services.User;
 using Spoofer.ViewModels;
 using System;
+using System.Net;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Spoofer.Commands.UserCommands
 {
@@ -47,6 +49,7 @@ namespace Spoofer.Commands.UserCommands
                 _accountViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
                 log.Error("Can't log in Exception");
             }
+           
         }
 
     }

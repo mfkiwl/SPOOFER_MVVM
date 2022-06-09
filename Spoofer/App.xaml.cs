@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using log4net;
+using Microsoft.EntityFrameworkCore;
 using Spoofer.Data;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Navigation;
@@ -15,6 +16,7 @@ namespace Spoofer
     /// </summary>
     public partial class App : Application
     {
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private const string CONNECTION_STRING = "Server=(localdb)\\mssqllocaldb;Database=Coordinates;Trusted_Connection=True;";
         private readonly NavigationStore _navigationStore;
         private readonly IMarkerService _marker;
@@ -25,7 +27,6 @@ namespace Spoofer
 
         public App()
         {
-
             DbContextOptions options = new DbContextOptionsBuilder().UseSqlServer(CONNECTION_STRING).Options;
             _context = new CoordinatesContext(options);
             _navigationStore = new NavigationStore();

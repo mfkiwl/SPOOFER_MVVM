@@ -19,7 +19,7 @@ namespace Spoofer.Services.Marker
         private readonly CoordinatesContext _context;
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly NavigationService _navigation;
-        private string root = Environment.CurrentDirectory;
+        private string root = Directory.GetCurrentDirectory();
 
 
         public MarkerService(CoordinatesContext context, NavigationService navigation)
