@@ -1,4 +1,5 @@
-﻿using Spoofer.Commands.UserCommands;
+﻿using log4net;
+using Spoofer.Commands.UserCommands;
 using Spoofer.Exceptions;
 using Spoofer.Services.Spoofer;
 using Spoofer.ViewModels;
@@ -9,6 +10,7 @@ namespace Spoofer.Commands.SpoofingCommands
 {
     public class GenerateOrderFile : BaseCommand
     {
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly TransmitInOrderViewModel viewModel;
         private readonly ISpooferService spoofer;
 
@@ -28,10 +30,13 @@ namespace Spoofer.Commands.SpoofingCommands
             catch (FileNotExistException ex)
             {
                 viewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+                log.Error(ex.Message);
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                log.Error($"Unexpected Error", ex);
             }
         }
     }

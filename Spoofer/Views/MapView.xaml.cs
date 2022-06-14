@@ -87,7 +87,6 @@ namespace Spoofer.Views
                 var mapIcon = new MapIcon()
                 {
                     Location = geoPoint,
-                    //Image = RandomAccessStreamReference.CreateFromUri(new Uri("~/Assets/icon.png")),
                     ZIndex = 0,
                     IsEnabled = true,
                     Title = location.Name,

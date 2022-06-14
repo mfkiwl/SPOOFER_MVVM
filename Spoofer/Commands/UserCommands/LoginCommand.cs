@@ -35,7 +35,7 @@ namespace Spoofer.Commands.UserCommands
         {
             try
             {
-                Task.Run(() => _login.OnLogin(_accountViewModel));
+               _login.OnLogin(_accountViewModel);
                 _accountViewModel.IsLoading = true;
                 log.Info($"User {_accountViewModel.UserName} Logged In Seccesfully!!!!!");
 
@@ -43,11 +43,12 @@ namespace Spoofer.Commands.UserCommands
             catch (FileNotExistException ex)
             {
                 _accountViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+                log.Error(ex.Message);
             }
             catch (Exception ex)
             {
                 _accountViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
-                log.Error("Can't log in Exception");
+                log.Error("Can't log in", ex);
             }
            
         }

@@ -1,5 +1,6 @@
 ﻿using Spoofer.Commands.UserCommands;
 using Spoofer.Services.User;
+using Spoofer.Services.User.Register;
 using System.Windows.Input;
 
 namespace Spoofer.ViewModels
@@ -7,12 +8,15 @@ namespace Spoofer.ViewModels
     public class AccountViewModel : ViewModelBase
     {
         private readonly ILogin _iLogin;
+        private readonly IRegister _register;
 
-        public AccountViewModel(ILogin iLogin)
+        public AccountViewModel(ILogin iLogin, IRegister register)
         {
             _iLogin = iLogin;
+            _register = register;
             ErrorMessageViewModel = new MessageViewModel();
             Login = new LoginCommand(_iLogin, this);
+            Register = new RegisterCommand(_register, this);
         }
 
         private string password;

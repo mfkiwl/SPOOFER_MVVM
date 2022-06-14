@@ -253,6 +253,7 @@
     <Compile Include="Commands\SpoofingCommands\Stop.cs" />
     <Compile Include="Commands\SpoofingCommands\Transmit.cs" />
     <Compile Include="Commands\SpoofingCommands\TransmitInOrderCommand.cs" />
+    <Compile Include="Commands\UserCommands\RegisterCommand.cs" />
     <Compile Include="Converters\BoolToFileStatusConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibillityConverter.cs" />
     <Compile Include="Exceptions\MapExceptions.cs" />
@@ -307,6 +308,8 @@
     <Compile Include="Services\Spoofer\SpooferService.cs" />
     <Compile Include="Services\User\Login\ILoginService.cs" />
     <Compile Include="Services\User\Login\LoginService.cs" />
+    <Compile Include="Services\User\Register\IRegister.cs" />
+    <Compile Include="Services\User\Register\ServiceRegister.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\CoordinateViewModel.cs" />

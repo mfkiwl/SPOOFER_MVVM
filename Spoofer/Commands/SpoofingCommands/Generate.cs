@@ -58,24 +58,28 @@ namespace Spoofer.Commands.Spoofing
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
                 _mapViewModel.IsLoading = false;
                 _mapViewModel.IsFinishLoading = true;
+                log.Error(ex.Message);
             }
             catch (FileAlreadyExistException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
                 _mapViewModel.IsLoading = false;
                 _mapViewModel.IsFinishLoading = true;
+                log.Error(ex.Message);
             }
             catch (ArgumentException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
                 _mapViewModel.IsLoading = false;
                 _mapViewModel.IsFinishLoading = true;
+                log.Error(ex.Message);
             }
             catch (InvalidCoordinateException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
                 _mapViewModel.IsLoading = false;
                 _mapViewModel.IsFinishLoading = true;
+                log.Error(ex.Message);
             }
             catch (Exception e)
             {
@@ -88,7 +92,7 @@ namespace Spoofer.Commands.Spoofing
         private string[] GenerateFlags()
         {
             var year = DateTime.Now.Year.ToString();
-            var ephFiles = new DirectoryInfo(Directory.GetCurrentDirectory()).GetFiles().Where(p => p.Name.Contains($".{year.Substring(2)}n")).OrderBy(o => o.LastWriteTime);
+            var ephFiles = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).GetFiles().Where(p => p.Name.Contains($".{year.Substring(2)}n")).OrderBy(o => o.LastWriteTime);
             var file = ephFiles.FirstOrDefault();
 
             while (true)

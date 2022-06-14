@@ -1,4 +1,5 @@
-﻿using Spoofer.Commands.UserCommands;
+﻿using log4net;
+using Spoofer.Commands.UserCommands;
 using Spoofer.Data;
 using Spoofer.Exceptions;
 using Spoofer.Services.Marker;
@@ -9,6 +10,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,6 +18,8 @@ namespace Spoofer.Services.Spoofer
 {
     public class SpooferService : ISpooferService
     {
+
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private const string IP_ADDRESS = "10.0.0.41";
         private readonly Process proccess;
         private int counter = 0;
@@ -124,15 +128,19 @@ namespace Spoofer.Services.Spoofer
             {
                 transmit(viewModel.Label);
                 viewModel.IsTransmitting = true;
+                log.Info("System is Transmitting");
+
                 if (proccess.HasExited)
                 {
                     viewModel.IsTransmitting = false;
+                    log.Info("System Stop Transmitting");
                 }
             }
         }
         public void StopTransmitting(ViewModelBase viewModel)
         {
             proccess.Kill();
+            log.Info("System Stop Transmitting");
             if (viewModel is MapViewModel)
             {
                 var vm = viewModel as MapViewModel;
@@ -165,6 +173,7 @@ namespace Spoofer.Services.Spoofer
                                          .Select(p => String.Concat(p.Name.Where(c => !Char.IsWhiteSpace(c))))
                                          .ToList();
                 CombineFileToSingleFile(listToGenerate);
+                log.Info("Order Generated");
             }
 
         }
@@ -175,7 +184,7 @@ namespace Spoofer.Services.Spoofer
                 throw new PingException("Not Connected");
             }
             transmit("Streak");
-            
+            log.Info("Transmitting in order");
             viewModel.IsTransmitting = true;
 
         }

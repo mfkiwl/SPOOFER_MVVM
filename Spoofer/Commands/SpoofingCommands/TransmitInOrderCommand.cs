@@ -1,14 +1,18 @@
-﻿using Spoofer.Commands.UserCommands;
+﻿using log4net;
+using Spoofer.Commands.UserCommands;
 using Spoofer.Exceptions;
 using Spoofer.Services.Spoofer;
 using Spoofer.ViewModels;
+using System;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Spoofer.Commands.SpoofingCommands
 {
     public class TransmitInOrderCommand : BaseCommand
     {
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly ISpooferService _spoofer;
         private readonly TransmitInOrderViewModel _transmitInOrderViewModel;
 
@@ -30,14 +34,24 @@ namespace Spoofer.Commands.SpoofingCommands
             catch (FileNotExistException ex)
             {
                 _transmitInOrderViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+                log.Error(ex.Message);
             }
             catch (PingException ex)
             {
                 _transmitInOrderViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+                log.Error(ex.Message);
+
             }
             catch (SDRException ex)
             {
                 _transmitInOrderViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+                log.Error(ex.Message);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                log.Error("Unhandled", ex);
             }
         }
     }

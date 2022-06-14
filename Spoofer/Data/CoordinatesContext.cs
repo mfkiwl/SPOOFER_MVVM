@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Spoofer.Models;
+using System;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
@@ -61,6 +62,11 @@ namespace Spoofer.Data
             OnModelCreatingPartial(modelBuilder);
         }
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        public void OnModelCreatingPartial(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasData(
+                new User {UserId = Guid.NewGuid().ToString(), UserName = "ori", Password="imsi400"}
+                );
+        }
     }
 }

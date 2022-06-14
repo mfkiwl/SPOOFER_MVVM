@@ -19,7 +19,7 @@ namespace Spoofer.Services.Marker
         private readonly CoordinatesContext _context;
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly NavigationService _navigation;
-        private string root = Directory.GetCurrentDirectory();
+        private string root = AppDomain.CurrentDomain.BaseDirectory;
 
 
         public MarkerService(CoordinatesContext context, NavigationService navigation)
@@ -47,6 +47,7 @@ namespace Spoofer.Services.Marker
                 if (isExist(mapViewModel))
                 {
                     RemoveMarker(mapViewModel, true);
+                    log.Debug($"{mapViewModel.Label} To Update");
                 }
                 var marker = new Coordinates()
                 {
@@ -96,10 +97,12 @@ namespace Spoofer.Services.Marker
                 if (!isUpdated)
                 {
                     MessageBox.Show($"{marker.Name} Added Succesfuly!!!!!");
+                    log.Info(marker);
                 }
                 else
                 {
                     MessageBox.Show($"{marker.Name} Updated Succesfully");
+                    log.Info(marker);
                 }
             }
 
@@ -133,6 +136,7 @@ namespace Spoofer.Services.Marker
                     if (!isUpdated)
                     {
                         File.Delete(file);
+                        log.Debug($"{file} is deleted");
                     }
                 }
                 var coordinateToRemove = _context.Coordinates.SingleOrDefault(c => c.Name == model.Label);
@@ -141,7 +145,9 @@ namespace Spoofer.Services.Marker
                 if (!isUpdated)
                 {
                     MessageBox.Show($"{coordinateToRemove.Name.Trim()} Deleted Succesfully");
+                    
                 }
+                log.Info($"{model.Label} Removed Succesfully");
             }
         }
 
@@ -185,8 +191,8 @@ namespace Spoofer.Services.Marker
             tmpSource.CoorfianteId = Guid.NewGuid().ToString();
             tmpTarget.CoorfianteId = Guid.NewGuid().ToString();
             _context.Coordinates.AddRange(tmpSource, tmpTarget);
-
             _context.SaveChanges();
+            log.Info($"{realcooSource.Name} and {realcootarget.Name} switch their order");
 
         }
 
@@ -199,6 +205,7 @@ namespace Spoofer.Services.Marker
             coordinate.CoorfianteId = Guid.NewGuid().ToString();
             _context.Coordinates.Add(coordinate);
             _context.SaveChanges();
+            log.Info($"{coordinate.Name} is out of order");
         }
     }
 }

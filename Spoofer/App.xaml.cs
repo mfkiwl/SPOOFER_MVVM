@@ -5,6 +5,7 @@ using Spoofer.Services.Marker;
 using Spoofer.Services.Navigation;
 using Spoofer.Services.Spoofer;
 using Spoofer.Services.User;
+using Spoofer.Services.User.Register;
 using Spoofer.Stores;
 using Spoofer.ViewModels;
 using System.Windows;
@@ -22,6 +23,7 @@ namespace Spoofer
         private readonly IMarkerService _marker;
         private readonly IMarkerService _tableMarker;
         private readonly ILogin _iLogin;
+        private readonly IRegister _register;
         private readonly ISpooferService _spoofer;
         public static CoordinatesContext _context;
 
@@ -34,11 +36,12 @@ namespace Spoofer
             _tableMarker = new MarkerService(_context, new NavigationService(_navigationStore, createMapViewModel));
             _spoofer = new SpooferService(_context, _marker);
             _iLogin = new ServiceLogin(_context, new NavigationService(_navigationStore, createMapViewModel), _spoofer);
+            _register = new ServiceRegister(_context);
         }
-
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            _context.Database.EnsureCreated();
             _navigationStore.BaseViewModel = createAccountViewModel();
             MainWindow = new MainWindow()
             {
@@ -55,7 +58,7 @@ namespace Spoofer
 
         private AccountViewModel createAccountViewModel()
         {
-            return new AccountViewModel(_iLogin);
+            return new AccountViewModel(_iLogin, _register);
         }
         private TransmitInOrderViewModel createTransmitViewModel()
         {

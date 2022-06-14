@@ -47,14 +47,17 @@ namespace Spoofer.Commands.MarkersCommand
             catch (InvalidCoordinateException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+                log.Error(ex.Message);
             }
             catch (CoordinateExistException ex)
             {
                 _mapViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
+                log.Error(ex.Message);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                log.Error("Unexpected", ex);
             }
         }
     }
