@@ -209,11 +209,11 @@ namespace Spoofer.Services.Spoofer
             var anotherList = new List<string>();
             foreach (var item in list)
             {
-                var file = Directory.GetFiles(Environment.CurrentDirectory).Where(p => p.Contains(item)).SingleOrDefault();
+                var file = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory).Where(p => p.Contains(item)).SingleOrDefault();
                 anotherList.Add(file);
             }
 
-            using (var outputStream = File.Create(Environment.CurrentDirectory + "/Streak.bin"))
+            using (var outputStream = File.Create(AppDomain.CurrentDomain.BaseDirectory + "/Streak.bin"))
             {
                 foreach (var inputFilePath in anotherList)
                 {

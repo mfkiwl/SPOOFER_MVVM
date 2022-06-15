@@ -71,9 +71,9 @@ namespace Spoofer.Services.User
                     log.Debug("Ephemeris File Created Succesfully");
                     var newFile = Path.GetFileNameWithoutExtension(fileName);
                     Process.Start(@"C:\Program Files\WinRAR\Winrar.exe", $@"E -y {AppDomain.CurrentDomain.BaseDirectory}/{fileName}");
-                    log.Debug("Extracted Succesfully");
                 }
-                Thread.Sleep(300);
+                Thread.Sleep(30000);
+                log.Debug("Extracted Succesfully");
                 if (_context.Coordinates != null)
                 {
 

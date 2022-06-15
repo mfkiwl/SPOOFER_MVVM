@@ -35,7 +35,7 @@ namespace Spoofer.Commands.UserCommands
         {
             try
             {
-               _login.OnLogin(_accountViewModel);
+                Task.Run(() => _login.OnLogin(_accountViewModel));
                 _accountViewModel.IsLoading = true;
                 log.Info($"User {_accountViewModel.UserName} Logged In Seccesfully!!!!!");
 
@@ -50,7 +50,7 @@ namespace Spoofer.Commands.UserCommands
                 _accountViewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
                 log.Error("Can't log in", ex);
             }
-           
+
         }
 
     }
