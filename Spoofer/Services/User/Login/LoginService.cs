@@ -32,7 +32,17 @@ namespace Spoofer.Services.User
         {
             model.ErrorMessageViewModel.ErrorMessage = "";
             model.IsLoading = true;
-
+            if (!_context.User.Any())
+            {
+                var user = new Models.User()
+                {
+                    UserId = Guid.NewGuid().ToString(),
+                    UserName = model.UserName,
+                    Password = model.Password
+                };
+                _context.User.Add(user);
+                _context.SaveChanges();
+            }
             if (!_context.User.Any(p => p.UserName == model.UserName && p.Password == model.Password))
             {
                 log.Debug("False");
@@ -42,16 +52,15 @@ namespace Spoofer.Services.User
             }
             else
             {
-                log.Debug("True");
                 var year = DateTime.Now.Year.ToString();
                 var dayOfYear = DateTime.Now.DayOfYear - 1;
                 string remoteUri = $"https://data.unavco.org/archive/gnss/rinex/nav/{year}/{dayOfYear}/";
                 string fileName = $@"ab11{dayOfYear}0.{year.Substring(2)}n.Z", myStringWebResource = null;
-                log.Debug("Details");
                 var ephFiles = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).GetFiles().Where(p => p.Name.Contains($".{year.Substring(2)}n")).OrderBy(o => o.LastWriteTime);
                 log.Debug(ephFiles);
                 var file = ephFiles.FirstOrDefault();
                 log.Debug(file);
+                var proccess = new Process();
                 if (file == null || file.LastWriteTimeUtc.Date != DateTime.Today)
                 {
                     log.Debug("DetectFiles");
@@ -66,20 +75,28 @@ namespace Spoofer.Services.User
                     client.UseDefaultCredentials = false;
                     client.Credentials = new NetworkCredential("oriri123", "Oriri123");
                     log.Debug(client);
-                    client.Headers.Add(HttpRequestHeader.Cookie, "v~de73b5db86e3962ef8c0c585ceda1a8234ccabe8~vpv~1~v11.rlc~1653382430264");
+                    client.Headers.Add(HttpRequestHeader.Cookie, "v~de73b5db86e3962ef8c0c585ceda1a8234ccabe8~VP~1~v11.rlc~1653382430264");
                     client.DownloadFile(myStringWebResource, fileName);
-                    log.Debug("Ephemeris File Created Succesfully");
-                    var newFile = Path.GetFileNameWithoutExtension(fileName);
-                    Process.Start(@"C:\Program Files\WinRAR\Winrar.exe", $@"E -y {AppDomain.CurrentDomain.BaseDirectory}/{fileName}");
+                    log.Debug(AppDomain.CurrentDomain.BaseDirectory);
+                    proccess.StartInfo.FileName = "7z.exe";
+                    proccess.StartInfo.RedirectStandardInput = true;
+                    proccess.StartInfo.UseShellExecute = false;
+                    proccess.StartInfo.CreateNoWindow = false;
+                    proccess.StartInfo.RedirectStandardOutput = false;
+                    proccess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+                    proccess.StartInfo.Arguments = $@"x {fileName}";
+                    log.Debug(proccess.StartInfo.Arguments);
+                    proccess.Start();
                 }
-                Thread.Sleep(30000);
-                log.Debug("Extracted Succesfully");
+                Thread.Sleep(300);
+                log.Info($@"Arguments: {proccess.StartInfo.Arguments} ");
+                log.Debug("Extracted Successfully");
+                var newFile = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).GetFiles().Where(p => p.Name.Contains($".{year.Substring(2)}n")).OrderBy(o => o.LastWriteTime).FirstOrDefault();
                 if (_context.Coordinates != null)
                 {
-
                     foreach (var coordinate in _context.Coordinates)
                     {
-                        if (coordinate.GenerationDate != DateTime.Today && coordinate.GenerationDate != null)
+                        if (newFile.LastWriteTime.AddMinutes(1) >= DateTime.Now)
                         {
                             var flags = new string[11];
                             flags[0] = $"Core.dll";

@@ -82,10 +82,10 @@ namespace Spoofer.Services.Spoofer
             switch (counter)
             {
                 case 0:
-                    EXMethods.SpoofingMethods.main(argc, argv);
+                    EXMethods.SpoofingMethods2.main(argc, argv);
                     break;
                 case 1:
-                    EXMethods.SpoofingMethods2.main(argc, argv);
+                    EXMethods.SpoofingMethods.main(argc, argv);
                     break;
                 case 2:
                     EXMethods.SpoofingMethods3.main(argc, argv);

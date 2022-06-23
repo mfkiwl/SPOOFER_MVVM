@@ -31,12 +31,11 @@ namespace Spoofer.Views
             InitializeComponent();
             _navigationService = new NavigationService();
             _markerService = new MarkerService(App._context, _navigationService);
-
+            var height = SystemParameters.PrimaryScreenHeight;
 
         }
         private void mapControl_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-
             e.Handled = true;
             var capturedMouse = e.GetPosition(this);
             var position = mapControl.TranslatePoint(capturedMouse, mapControl);
@@ -69,6 +68,7 @@ namespace Spoofer.Views
                     };
                     mapControl.MapElements.Add(currentMapIcon);
                     await (sender as MapControl).TrySetViewAsync(currentGeoPoint, 13);
+                    log.Info("Yout Location Is :" + currentGeoPoint);
                 }
             }
             catch(Exception ex)
@@ -123,7 +123,6 @@ namespace Spoofer.Views
 
                     if (!String.IsNullOrEmpty(signedElement.Title))
                     {
-                        await ((MapControl)sender).TrySetViewAsync(signedElement.Location, 16);
                         isIconSigned = true;
                         lat.Text = signedElement.Location.Position.Latitude.ToString();
                         lon.Text = signedElement.Location.Position.Longitude.ToString();
@@ -136,6 +135,7 @@ namespace Spoofer.Views
                         p.Latitude == signedElement.Location.Position.Latitude);
                         Combo.SelectedItem = realMarker.NumberInOrder;
                         vm.IsFileCreated = BaseCommand.isFileExist(vm);
+                        await ((MapControl)sender).TrySetViewAsync(signedElement.Location, 16);
                         if (realMarker.NumberInOrder < 1)
                         {
                             Combo.SelectedItem = Combo.Text = "";

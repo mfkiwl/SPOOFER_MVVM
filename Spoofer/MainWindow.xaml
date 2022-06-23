@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Spoofer"
         xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:views1="clr-namespace:Spoofer.Views" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
-        ResizeMode="CanResizeWithGrip"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="1920" Width="1080"
         Background="Transparent"
+        SizeToContent="WidthAndHeight"
         >
     <Grid Margin="-0,0,0,0" >
         <Grid.Resources>

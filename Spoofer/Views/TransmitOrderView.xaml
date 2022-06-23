@@ -18,7 +18,7 @@
         <converters:BoolToConnectionStatusConverter x:Key="BoolToConnectionStatusConverter"/>
         <converters:BoolToTxStatusConverter x:Key="BoolToTxStatusConverter"/>
     </UserControl.Resources>
-    <Grid Background="Transparent">
+    <Grid Background="Transparent" SnapsToDevicePixels="True">
 
         <Grid.Resources>
             <ResourceDictionary>

@@ -18,7 +18,8 @@ namespace Spoofer
     public partial class App : Application
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private const string CONNECTION_STRING = "Server=(localdb)\\mssqllocaldb;Database=Coordinates;Trusted_Connection=True;";
+        //"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True; = Release
+        private const string CONNECTION_STRING = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
         private readonly NavigationStore _navigationStore;
         private readonly IMarkerService _marker;
         private readonly IMarkerService _tableMarker;
