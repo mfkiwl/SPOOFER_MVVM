@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -130,6 +131,7 @@ namespace Spoofer.ViewModels
                 _service.UpdateAfterDrop(realcooSource, realcootarget);
                 dropInfo.Effects = DragDropEffects.All;
                 dropInfo.EffectText = "Drop Here";
+
             }
 
             else
@@ -137,6 +139,7 @@ namespace Spoofer.ViewModels
                 coordinates.Clear();
                 _service.RemoveFromList(realcooSource);
             }
+            _spoofer.GenerateInOrder(this);
             UpdateData();
         }
 

@@ -205,6 +205,7 @@ namespace Spoofer.Services.Marker
             coordinate.CoorfianteId = Guid.NewGuid().ToString();
             _context.Coordinates.Add(coordinate);
             _context.SaveChanges();
+            
             log.Info($"{coordinate.Name} is out of order");
         }
     }

@@ -165,7 +165,7 @@ namespace Spoofer.Services.Spoofer
             }
             if (list.Count < 1)
             {
-                throw new FileNotExistException();
+               
             }
             else
             {

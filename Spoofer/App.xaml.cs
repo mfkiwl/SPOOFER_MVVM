@@ -19,7 +19,7 @@ namespace Spoofer
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         //"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True; = Release
-        private const string CONNECTION_STRING = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
+        private const string CONNECTION_STRING = "Server=(localdb)\\mssqllocaldb;Database=Coordinates;Trusted_Connection=True;";
         private readonly NavigationStore _navigationStore;
         private readonly IMarkerService _marker;
         private readonly IMarkerService _tableMarker;
@@ -63,7 +63,9 @@ namespace Spoofer
         }
         private TransmitInOrderViewModel createTransmitViewModel()
         {
-            return new TransmitInOrderViewModel(_tableMarker, _spoofer);
+            var vm = new TransmitInOrderViewModel(_tableMarker, _spoofer);
+            _spoofer.GenerateInOrder(vm);
+            return vm;
         }
 
     }

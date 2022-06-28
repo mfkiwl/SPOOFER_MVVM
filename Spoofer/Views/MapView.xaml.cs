@@ -1,4 +1,5 @@
 ﻿using log4net;
+using Plugin.Geolocator;
 using Spoofer.Commands.UserCommands;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Navigation;
@@ -47,11 +48,29 @@ namespace Spoofer.Views
         {
             try
             {
+                foreach (var location in _markerService.GetAll())
+                {
+                    BasicGeoposition PinPosition = new BasicGeoposition
+                    {
+                        Latitude = (double)location.Latitude,
+                        Longitude = (double)location.Longitude,
+                        Altitude = (double)location.Height
+                    };
+                    var geoPoint = new Geopoint(PinPosition);
+                    var mapIcon = new MapIcon()
+                    {
+                        Location = geoPoint,
+                        ZIndex = 0,
+                        IsEnabled = true,
+                        Title = location.Name,
+                    };
+                    mapControl.MapElements.Add(mapIcon);
+                };
                 GeoCoordinateWatcher watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
                 watcher.Start();
-                GeoCoordinate coord = watcher.Position.Location;
                 if (!watcher.Position.Location.IsUnknown)
                 {
+                    GeoCoordinate coord = watcher.Position.Location;
                     BasicGeoposition currentPoint = new BasicGeoposition
                     {
                         Latitude = coord.Latitude,
@@ -70,40 +89,26 @@ namespace Spoofer.Views
                     await (sender as MapControl).TrySetViewAsync(currentGeoPoint, 13);
                     log.Info("Yout Location Is :" + currentGeoPoint);
                 }
+                else
+                {
+                    if (mapControl.MapElements.Any())
+                    {
+
+                        var lastLocationAdded = _markerService.GetAll().Last();
+                        BasicGeoposition lastPos = new BasicGeoposition()
+                        {
+                            Latitude = (double)lastLocationAdded.Latitude,
+                            Longitude = (double)lastLocationAdded.Longitude
+                        };
+                        var lastPosPoint = new Geopoint(lastPos);
+                        await (sender as MapControl).TrySetViewAsync(lastPosPoint, 13);
+                    }
+
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.Error(ex.Message);
-            }
-            foreach (var location in _markerService.GetAll())
-            {
-                BasicGeoposition PinPosition = new BasicGeoposition
-                {
-                    Latitude = (double)location.Latitude,
-                    Longitude = (double)location.Longitude,
-                    Altitude = (double)location.Height
-                };
-                var geoPoint = new Geopoint(PinPosition);
-                var mapIcon = new MapIcon()
-                {
-                    Location = geoPoint,
-                    ZIndex = 0,
-                    IsEnabled = true,
-                    Title = location.Name,
-                };
-                mapControl.MapElements.Add(mapIcon);
-            };
-            if (mapControl.MapElements.Any())
-            {
-                var lastLocationAdded = _markerService.GetAll().Last();
-                BasicGeoposition lastPos = new BasicGeoposition()
-                {
-                    Latitude = (double)lastLocationAdded.Latitude,
-                    Longitude = (double)lastLocationAdded.Longitude
-                };
-                var lastPosPoint = new Geopoint(lastPos);
-                await (sender as MapControl).TrySetViewAsync(lastPosPoint, 13);
-
             }
 
         }
