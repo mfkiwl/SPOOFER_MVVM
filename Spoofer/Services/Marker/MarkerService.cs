@@ -128,7 +128,7 @@ namespace Spoofer.Services.Marker
             }
             else
             {
-                string fileNameToDelete = $"{String.Concat(model.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
+                string fileNameToDelete = $"{String.Concat(model.Label.Where(c => !char.IsWhiteSpace(c)))}.bin";
                 string[] realFileToDelete = Directory.GetFiles(root, fileNameToDelete);
 
                 foreach (var file in realFileToDelete)
@@ -198,14 +198,11 @@ namespace Spoofer.Services.Marker
 
         public void RemoveFromList(Coordinates coordinate)
         {
+
             var tmp = coordinate;
-            _context.Coordinates.Remove(coordinate);
-            _context.SaveChanges();
             tmp.NumberInOrder = null;
-            coordinate.CoorfianteId = Guid.NewGuid().ToString();
-            _context.Coordinates.Add(coordinate);
+            _context.Entry(coordinate).CurrentValues.SetValues(tmp);
             _context.SaveChanges();
-            
             log.Info($"{coordinate.Name} is out of order");
         }
     }

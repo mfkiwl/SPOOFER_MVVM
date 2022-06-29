@@ -1,6 +1,7 @@
 ﻿using log4net;
 using Microsoft.EntityFrameworkCore;
 using Spoofer.Data;
+using Spoofer.Models;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Navigation;
 using Spoofer.Services.Spoofer;
@@ -46,11 +47,25 @@ namespace Spoofer
             _navigationStore.BaseViewModel = createAccountViewModel();
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(_navigationStore)
+                DataContext = new MainViewModel(_navigationStore),
+
             };
 
             MainWindow.Show();
+            MainWindow.Closed += (sender, args) =>
+            {
+                foreach (var entity in _context.User)
+                {
+                    var user = new User();
+                    user = entity;
+                    user.IsAuthenticated = false;
+                    _context.Entry(entity).CurrentValues.SetValues(user);
+                }
+                _context.SaveChanges();
+            };
         }
+
+
 
         private MapViewModel createMapViewModel()
         {

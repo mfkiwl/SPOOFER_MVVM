@@ -224,7 +224,5 @@ namespace Spoofer.Services.Spoofer
                 }
             }
         }
-
-
     }
 }

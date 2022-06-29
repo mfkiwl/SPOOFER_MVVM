@@ -299,6 +299,10 @@
     <Compile Include="Migrations\20220526085115_newr.designer.cs">
       <DependentUpon>20220526085115_newr.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20220629095106_permission.cs" />
+    <Compile Include="Migrations\20220629095106_permission.designer.cs">
+      <DependentUpon>20220629095106_permission.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\CoordinatesContextModelSnapshot.cs" />
     <Compile Include="Services\Marker\IMarkerService.cs" />
     <Compile Include="Services\Marker\MarkerService.cs" />

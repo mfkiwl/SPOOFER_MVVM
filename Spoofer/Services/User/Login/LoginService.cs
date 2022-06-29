@@ -52,6 +52,7 @@ namespace Spoofer.Services.User
             }
             else
             {
+
                 var year = DateTime.Now.Year.ToString();
                 var dayOfYear = DateTime.Now.DayOfYear - 1;
                 string remoteUri = $"https://data.unavco.org/archive/gnss/rinex/nav/{year}/{dayOfYear}/";
@@ -115,6 +116,11 @@ namespace Spoofer.Services.User
                         }
                     }
                 }
+                var user = _context.User.SingleOrDefault(p => p.UserName == model.UserName && p.Password == model.Password);
+                var authUser = user;
+                authUser.IsAuthenticated = true;
+                _context.Entry(user).CurrentValues.SetValues(authUser);
+                _context.SaveChanges();
                 log.Debug("All Files Is Up To Date");
                 _navigation.Navigate();
             }
