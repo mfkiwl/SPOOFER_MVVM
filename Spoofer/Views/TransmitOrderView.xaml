@@ -139,11 +139,9 @@
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </Grid.Resources>
-            <Button x:Name="Trash" AllowDrop="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ToolTip="Remove From List"  Width="181" Content="Trash Place" Height="56"  Margin="869,38,870,209"/>
-            <iconPacks:PackIconMaterial Kind="TrashCanOutline" Height="38" Width="Auto" Margin="992,46,0,0" Foreground="Green" Opacity="0.6" RenderTransformOrigin="0.5,0.5" />
+            <Button x:Name="Trash" AllowDrop="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ToolTip="Remove From List"  Width="181" Content="Trash Place" Height="56"  Margin="869,122,870,125"/>
+            <iconPacks:PackIconMaterial Kind="TrashCanOutline" Height="38" Width="Auto" Margin="992,131,0,0" Foreground="Green" Opacity="0.6" RenderTransformOrigin="0.5,0.5" />
             <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Command="{Binding Transmit, ValidatesOnExceptions=True}" Margin="647,122,1092,125"/>
-            <iconPacks:PackIconMaterial Kind="PlaylistPlay" Height="100" Margin="993,103,0,0" Foreground="DeepSkyBlue"  Opacity="0.5" Width="39" />
-            <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Create List" Command="{Binding GenerateInOrder, ValidatesOnExceptions=True}" Margin="867,121,872,126"/>
             <iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black"  Kind="AccessPointNetwork" Width="Auto" Height="40" Margin="771,129,0,0" RenderTransformOrigin="1.67,1.889"/>
             <Button Height="56" ToolTip="Stop Transmitting" Command="{Binding Stop, ValidatesOnExceptions=True}" Width="181" Content="Stop" Margin="1086,123,654,124"/>
             <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkRed" Kind="CloseOctagon" Width="Auto" Height="40" Margin="1216,131,0,0" RenderTransformOrigin="1.67,1.889" />

@@ -68,10 +68,9 @@ namespace Spoofer.Exceptions
     public class CoordinateExistException : Exception
     {
         public override string Message => DEFAULT_MESSAGE;
-        private const string DEFAULT_MESSAGE = "There is marker on this location already...";
+        private const string DEFAULT_MESSAGE = "There is marker Containing This Name Already...";
         public CoordinateExistException() : base()
         {
-
         }
         public CoordinateExistException(string message) : base(DEFAULT_MESSAGE)
         {
