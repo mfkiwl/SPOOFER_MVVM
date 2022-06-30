@@ -40,13 +40,13 @@
         <Border CornerRadius="10" Grid.ColumnSpan="2"  Grid.RowSpan="4" Visibility="Visible" Margin="-3,-42,3,0">
             <Border.Background>
                 <LinearGradientBrush>
-                    <GradientStop Color="#C0C0C0" Offset="0.0"/>
-                    <GradientStop Color="White"  Offset="1"/>
+                    <GradientStop Color="#232b2b" Offset="0.0"/>
+                    <GradientStop Color="#232b2b"  Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
         <TextBlock Grid.Row="0"
-                       Foreground="Black"
+                       Foreground="Green"
                        Padding="21" FontFamily="Cambria" 
                        TextAlignment="Center" 
                        HorizontalAlignment="Stretch"
@@ -119,18 +119,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <TextBlock TextWrapping="Wrap" Padding="7" FontSize="16" Text="NOTE: If file dose not exist, the system will not transmit it..." FontWeight="SemiBold" Foreground="Red" Opacity="0.6" Grid.ColumnSpan="2" Height="66" VerticalAlignment="Top"  Margin="749,184,721,0" Grid.Row="3"/>
-        <TextBlock FontFamily="Helvetica" 
-                       FontWeight="Medium"
-                       Grid.Row="2"
-                       TextAlignment="Center"
-                       HorizontalAlignment="Stretch"
-                       FontSize="31" 
-                   Margin="616,93,602,20"
-                       TextWrapping="Wrap"
-                       Text="Duration" Grid.ColumnSpan="2"/>
-        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top"  Text="--select seconds--" IsEditable="True" IsReadOnly="True" ItemsSource="{Binding DurationList}" SelectedItem="{Binding Duration}" mah:TextBoxHelper.ClearTextButton="True" Width="174" Grid.ColumnSpan="2" Margin="882,151,0,0" Grid.Row="2" Height="37">
-
-        </ComboBox>
         <Grid Grid.Row="3" Grid.ColumnSpan="2" Background="Transparent">
             <Grid.Resources>
                 <ResourceDictionary>
@@ -140,11 +128,8 @@
                 </ResourceDictionary>
             </Grid.Resources>
             <Button x:Name="Trash" AllowDrop="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ToolTip="Remove From List"  Width="181" Content="Trash Place" Height="56"  Margin="869,122,870,125"/>
-            <iconPacks:PackIconMaterial Kind="TrashCanOutline" Height="38" Width="Auto" Margin="992,131,0,0" Foreground="Green" Opacity="0.6" RenderTransformOrigin="0.5,0.5" />
             <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Command="{Binding Transmit, ValidatesOnExceptions=True}" Margin="647,122,1092,125"/>
-            <iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black"  Kind="AccessPointNetwork" Width="Auto" Height="40" Margin="771,129,0,0" RenderTransformOrigin="1.67,1.889"/>
             <Button Height="56" ToolTip="Stop Transmitting" Command="{Binding Stop, ValidatesOnExceptions=True}" Width="181" Content="Stop" Margin="1086,123,654,124"/>
-            <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkRed" Kind="CloseOctagon" Width="Auto" Height="40" Margin="1216,131,0,0" RenderTransformOrigin="1.67,1.889" />
             <TextBlock TextAlignment="Center"
                        TextWrapping="Wrap"
                        Text="{Binding ErrorMessageViewModel.ErrorMessage}"

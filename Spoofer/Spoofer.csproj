@@ -314,6 +314,7 @@
     <Compile Include="Services\User\Login\LoginService.cs" />
     <Compile Include="Services\User\Register\IRegister.cs" />
     <Compile Include="Services\User\Register\ServiceRegister.cs" />
+    <Compile Include="Services\User\RoleAdministration.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\CoordinateViewModel.cs" />
@@ -482,6 +483,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

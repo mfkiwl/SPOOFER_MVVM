@@ -2,6 +2,7 @@
 using Spoofer.Commands.UserCommands;
 using Spoofer.Exceptions;
 using Spoofer.Services.Marker;
+using Spoofer.Services.User;
 using Spoofer.ViewModels;
 using System;
 using System.ComponentModel;

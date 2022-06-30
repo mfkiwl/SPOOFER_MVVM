@@ -12,7 +12,7 @@ namespace Spoofer.Converters
         {
             if ((bool)value)
             {
-                return new SolidColorBrush(Colors.DarkGreen);
+                return new SolidColorBrush(Colors.Green);
             }
             return new SolidColorBrush(Colors.Red);
         }
