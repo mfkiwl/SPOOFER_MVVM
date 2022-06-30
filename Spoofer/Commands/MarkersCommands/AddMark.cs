@@ -33,7 +33,7 @@ namespace Spoofer.Commands.MarkersCommand
         }
         public override bool CanExecute(object parameter)
         {
-            return base.CanExecute(parameter) && !_mapViewModel.IsTransmitting;
+            return base.CanExecute(parameter) && !_mapViewModel.IsTransmitting && RoleAdministration.IsInRole("Admin", "SuperUser");
         }
         public override void Execute(object parameter)
         {

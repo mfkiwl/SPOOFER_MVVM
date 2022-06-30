@@ -188,7 +188,7 @@
                         Visibility="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled, Converter={StaticResource InverseBooleanToVisibillityConverter}}" 
                         ToolTip="Add Marker to the database"
                         Margin="9,108,14,68" />
-                <Button Height="56" ToolTip="Remove Marker From Database"  Width="183" Content="Remove " Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove, ValidatesOnExceptions=True}" CommandParameter="{Binding ElementName=mapControl}" Margin="14,108,7,68"/>
+                <Button Height="56" ToolTip="Remove Marker From Database" Visibility="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled, Converter={StaticResource InverseBooleanToVisibillityConverter}}"   Width="183" Content="Remove " Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove, ValidatesOnExceptions=True}" CommandParameter="{Binding ElementName=mapControl}" Margin="14,108,7,68"/>
                 <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding TransmitNow, ValidatesOnExceptions=True}" Margin="10,108,12,68" />
                 <Button Height="56" ToolTip="Stop SDR Transmition"  Width="188" Content="Stop" Grid.Column="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding StopTransmit, ValidatesOnExceptions=True}" Margin="10,108,5,68"/>
                 <Button  Height="56"
@@ -200,6 +200,7 @@
                          HorizontalAlignment="Center"
                          VerticalAlignment="Center"
                          Command="{Binding GenerateFile, ValidatesOnExceptions=True}"
+                         Visibility="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled, Converter={StaticResource InverseBooleanToVisibillityConverter}}" 
                          Margin="8,108,8,68"
                          Click="Button_Click"
                          />

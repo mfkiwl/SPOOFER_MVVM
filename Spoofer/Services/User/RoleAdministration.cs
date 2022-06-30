@@ -15,14 +15,13 @@ namespace Spoofer.Services.User
             using (var _context = new CoordinatesContext())
             {
                 var userToCheck = _context.User.SingleOrDefault(p => p.IsAuthenticated == true);
-                foreach (var item in role)
-                {
-                    if (userToCheck.Permission == item)
+
+                if (role.Any(r => r == userToCheck.Permission))
                         return true;
-                    else
-                        return false;
-                }
-                return false;
+                else
+                    return false;
+
+               
             }
 
         }

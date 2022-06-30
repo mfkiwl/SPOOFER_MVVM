@@ -3,6 +3,7 @@ using Microsoft.Toolkit.Wpf.UI.Controls;
 using Spoofer.Commands.UserCommands;
 using Spoofer.Exceptions;
 using Spoofer.Services.Marker;
+using Spoofer.Services.User;
 using Spoofer.ViewModels;
 using System;
 using System.ComponentModel;
@@ -29,7 +30,7 @@ namespace Spoofer.Commands.MarkersCommand
         }
         public override bool CanExecute(object parameter)
         {
-            return base.CanExecute(parameter) && !_mapViewModel.IsTransmitting;
+            return base.CanExecute(parameter) && !_mapViewModel.IsTransmitting && RoleAdministration.IsInRole("Admin", "SuperUser");
         }
         public override void Execute(object parameter)
         {
