@@ -215,7 +215,7 @@
 
             </Grid>
         </Grid>
-        <Border x:Name="_border" Opacity="0.6"  BorderBrush="{Binding IsFileCreated, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="540,214,288,808" Width="190" Height="58">
+        <Border x:Name="_border" Opacity="0.6 "  BorderBrush="{Binding IsFileCreated, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="540,214,288,808" Width="190" Height="58">
 
             <TextBlock x:Name="_textBlock"  HorizontalAlignment="Center" Foreground="{Binding IsFileCreated, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="{Binding IsFileCreated, Converter={StaticResource BoolToStatusStringConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
 
