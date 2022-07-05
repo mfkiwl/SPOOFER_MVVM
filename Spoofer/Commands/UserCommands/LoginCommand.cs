@@ -12,10 +12,10 @@ namespace Spoofer.Commands.UserCommands
     public class LoginCommand : BaseCommand
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly AccountViewModel _accountViewModel;
+        private readonly LoginViewModel _accountViewModel;
         private readonly ILogin _login;
 
-        public LoginCommand(ILogin login, AccountViewModel accountViewModel)
+        public LoginCommand(ILogin login, LoginViewModel accountViewModel)
         {
             _accountViewModel = accountViewModel;
             _login = login;

@@ -27,8 +27,11 @@ namespace Spoofer.Services.User
             _navigation = navigation;
             _spoofer = spoofer;
         }
-
-        public void OnLogin(AccountViewModel model)
+        /// <summary>
+        /// Login the user, download the updated ephemeris file, and Update all the saved spoofing files 
+        /// </summary>
+        /// <param name="model"></param>
+        public void OnLogin(LoginViewModel model)
         {
             model.ErrorMessageViewModel.ErrorMessage = "";
             model.IsLoading = true;

@@ -5,14 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
               xmlns:wpfanimated="http://wpfanimatedgif.codeplex.com"
-             xmlns:local="clr-namespace:Spoofer.Views" xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:converters="clr-namespace:Spoofer.Converters" d:DataContext="{d:DesignInstance Type=viewmodels:AccountViewModel}"
+             xmlns:local="clr-namespace:Spoofer.Views" xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:converters="clr-namespace:Spoofer.Converters" d:DataContext="{d:DesignInstance Type=viewmodels:LoginViewModel}"
              mc:Ignorable="d"
              Height="1080" Width="1920"
              Background="Transparent">
     <UserControl.Resources>
         <converters:InverseBooleanToVisibillityConverter x:Key="InverseBooleanToVisibillityConverter"/>
     </UserControl.Resources>
-    <Grid Margin="-2,0,0,0" SnapsToDevicePixels="True">
+    <Grid Margin="-2,0,0,0">
         <Grid.Resources>
             <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
@@ -51,7 +51,6 @@
                         <GradientStop Color="#232b2b" Offset="2.0"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                
             </Border>
 
 
@@ -61,7 +60,7 @@
                            FontWeight="SemiBold"
                            FontFamily="Cambria"
                            FontSize="70"
-                           Foreground="Green"
+                           Foreground="#FF1C7CAF"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center" Width="600"  Height="106" Margin="660,0"/>
             </StackPanel>
@@ -74,7 +73,7 @@
                              FontWeight="Light"
                              FontSize="27"
                              HorizontalAlignment="Center"
-                             Foreground="Green"
+                             Foreground="#FF1C7CAF"
                              Background="Transparent"
                              BorderThickness="0"
                              Width="319"
@@ -87,11 +86,11 @@
                     <iconPacks:PackIconMaterial Kind="Account" 
                                                 VerticalAlignment="Center" 
                                                 HorizontalAlignment="Center" 
-                                                Foreground="Green" Height="40" Width="28"/>
+                                                Foreground="#FF1C7CAF" Height="40" Width="28"/>
                 </StackPanel>
                 <Border
                         Height="2"
-                        Background="Green"
+                        Background="#FF1C7CAF"
                         Opacity="0.5" Margin="772,0"/>
 
 
@@ -104,7 +103,7 @@
                              FontSize="27"
                              Padding="32"
                              HorizontalAlignment="Center"
-                             Foreground="Green"
+                             Foreground="#FF1C7CAF"
                              Background="Transparent"
                              BorderThickness="0"
                              Width="319"
@@ -115,18 +114,18 @@
                     <iconPacks:PackIconMaterial Kind="FormTextboxPassword" 
                                                 VerticalAlignment="Center" 
                                                 HorizontalAlignment="Center" 
-                                                Foreground="Green" Width="40" Height="28"/>
+                                                Foreground="#FF1C7CAF" Width="40" Height="28"/>
                 </StackPanel>
                 <Border
                         Height="2"
-                        Background="Green"
+                        Background="#FF1C7CAF"
                         Opacity="0.5" Margin="772,0"/>
                 <StackPanel Orientation="Horizontal" Margin="826,50,0,0">
-                    <Button Width="160" Height="70" Content="LOGIN" Margin="60,0,60,0" Command="{Binding Login, ValidatesOnExceptions=True}" />
+                    <Button Width="160" Height="70" Content="LOGIN        " Margin="60,0,60,0" Command="{Binding Login, ValidatesOnExceptions=True}" />
                 </StackPanel>
 
             </StackPanel>
-            <iconPacks:PackIconMaterial Kind="Login" Height="52" Width="40" Margin="22,258,0,0" Foreground="Green" Opacity="0.7" Grid.Column="1" Grid.Row="1"/>
+            <iconPacks:PackIconMaterial Kind="Login" Height="52" Width="40" Margin="22,258,0,0" Foreground="#77c66e" Opacity="0.75" Grid.Column="1" Grid.Row="1"/>
             <Image x:Name="Spinner" wpfanimated:ImageBehavior.AnimatedSource="/Assets/loader.gif" 
                wpfanimated:ImageBehavior.RepeatBehavior="1"
                Height="110" Grid.ColumnSpan="2" Margin="480,363,480,138" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Grid.Row="1" />

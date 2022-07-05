@@ -3,6 +3,7 @@ using Spoofer.Commands.MarkersCommands;
 using Spoofer.Commands.SpoofingCommands;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Spoofer;
+using Spoofer.Services.User;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -100,15 +101,21 @@ namespace Spoofer.ViewModels
 
         public void DragEnter(IDropInfo dropInfo)
         {
-            dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
-            dropInfo.Effects = DragDropEffects.All;
+            if (RoleAdministration.IsInRole("Admin", "SuperUser"))
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+                dropInfo.Effects = DragDropEffects.All;
+            }
         }
 
         public void DragOver(IDropInfo dropInfo)
         {
 
-            dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
-            dropInfo.Effects = DragDropEffects.All;
+            if (RoleAdministration.IsInRole("Admin", "SuperUser"))
+            {
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+                dropInfo.Effects = DragDropEffects.All;
+            }
 
 
         }
@@ -120,29 +127,27 @@ namespace Spoofer.ViewModels
 
         public void Drop(IDropInfo dropInfo)
         {
-
-            var sourceItem = dropInfo.Data as CoordinateViewModel;
-            var realcooSource = _service.GetAll().SingleOrDefault(c => c.NumberInOrder == sourceItem.NumberInOrder);
-            if (dropInfo.TargetItem is CoordinateViewModel)
+            if (RoleAdministration.IsInRole("Admin", "SuperUser"))
             {
-                var targetItem = dropInfo.TargetItem as CoordinateViewModel;
-                var realcootarget = _service.GetAll().SingleOrDefault(c => c.NumberInOrder == targetItem.NumberInOrder);
-                coordinates.Clear();
-                _service.UpdateAfterDrop(realcooSource, realcootarget);
-                dropInfo.Effects = DragDropEffects.All;
-                dropInfo.EffectText = "Drop Here";
-
+                var sourceItem = dropInfo.Data as CoordinateViewModel;
+                var realcooSource = _service.GetAll().SingleOrDefault(c => c.NumberInOrder == sourceItem.NumberInOrder);
+                if (dropInfo.TargetItem is CoordinateViewModel)
+                {
+                    var targetItem = dropInfo.TargetItem as CoordinateViewModel;
+                    var realcootarget = _service.GetAll().SingleOrDefault(c => c.NumberInOrder == targetItem.NumberInOrder);
+                    coordinates.Clear();
+                    _service.UpdateAfterDrop(realcooSource, realcootarget);
+                    dropInfo.Effects = DragDropEffects.All;
+                    dropInfo.EffectText = "Drop Here";
+                }
+                else
+                {
+                    coordinates.Clear();
+                    _service.RemoveFromList(realcooSource);
+                }
+                _spoofer.GenerateInOrder(this);
+                UpdateData();
             }
-
-            else
-            {
-                coordinates.Clear();
-                _service.RemoveFromList(realcooSource);
-            }
-            _spoofer.GenerateInOrder(this);
-            UpdateData();
         }
-
-
     }
 }

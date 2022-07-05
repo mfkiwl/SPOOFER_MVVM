@@ -26,7 +26,7 @@ namespace Spoofer.Services.User.Register
             return false;
         }
 
-        public void OnRegister(AccountViewModel model)
+        public void OnRegister(LoginViewModel model)
         {
             if (!IsRegistered(model.UserName))
             {

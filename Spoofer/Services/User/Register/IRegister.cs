@@ -9,6 +9,6 @@ namespace Spoofer.Services.User.Register
 {
     public interface IRegister
     {
-        void OnRegister(AccountViewModel model);
+        void OnRegister(LoginViewModel model);
     }
 }

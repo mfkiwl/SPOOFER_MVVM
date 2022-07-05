@@ -37,16 +37,16 @@
             <ColumnDefinition Width="47*" />
             <ColumnDefinition Width="53*" />
         </Grid.ColumnDefinitions>
-        <Border CornerRadius="10" Grid.ColumnSpan="2"  Grid.RowSpan="4" Visibility="Visible" Margin="-3,-42,3,0">
+        <Border CornerRadius="10" Grid.ColumnSpan="2" Opacity="0.95"  Grid.RowSpan="4" Visibility="Visible" Margin="-3,-42,3,0">
             <Border.Background>
                 <LinearGradientBrush>
-                    <GradientStop Color="#232b2b" Offset="0.0"/>
-                    <GradientStop Color="#232b2b"  Offset="1"/>
+                    <GradientStop Color="#232b2b"  Offset="0.0"/>
+                    <GradientStop Color="#232b2b"   Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
         <TextBlock Grid.Row="0"
-                       Foreground="Green"
+                       Foreground="#FF1C7CAF"
                        Padding="21" FontFamily="Cambria" 
                        TextAlignment="Center" 
                        HorizontalAlignment="Stretch"
@@ -123,7 +123,7 @@
             <Grid.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="..\Themes\MapDictionary.xaml"/>
+                        <ResourceDictionary Source="..\Themes\ButtonDictionary.xaml"/>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </Grid.Resources>

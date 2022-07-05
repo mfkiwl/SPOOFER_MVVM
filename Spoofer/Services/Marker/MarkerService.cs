@@ -27,7 +27,15 @@ namespace Spoofer.Services.Marker
             _context = context;
             _navigation = navigation;
         }
-
+        /// <summary>
+        /// Add or update specific location by User specification on the map.
+        /// </summary>
+        /// <param name="mapViewModel">
+        /// Location
+        /// </param>
+        /// <param name="isUpdated">
+        /// True When User Is Exist and need to be Updated, False when the user add it for the first time.
+        /// </param>
         public void AddOrUpdateMarker(MapViewModel mapViewModel, bool isUpdated)
         {
 
@@ -108,12 +116,21 @@ namespace Spoofer.Services.Marker
 
 
         }
-
+        /// <summary>
+        /// Get All The Coordinates from the Database.
+        /// </summary>
+        /// <returns>
+        /// List Of Coordinates Entities 
+        /// </returns>
         public IEnumerable<Coordinates> GetAll()
         {
             return _context.Coordinates.ToList();
         }
-
+        /// <summary>
+        /// Remove Marker From The Database and the Map.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="isUpdated"></param>
         public void RemoveMarker(MapViewModel model, bool isUpdated)
         {
 
@@ -150,7 +167,13 @@ namespace Spoofer.Services.Marker
                 log.Info($"{model.Label} Removed Succesfully");
             }
         }
-
+        /// <summary>
+        /// Check If The Marker User chose exists on the Database
+        /// </summary>
+        /// <param name="mapViewModel"></param>
+        /// <returns>
+        /// Returns True when The Marker specefied on the database and false if he did not specefied.
+        /// </returns>
         public bool isExist(MapViewModel mapViewModel)
         {
             if (_context.Coordinates.Any(p => p.Longitude == mapViewModel.Longitude && p.Longitude == mapViewModel.Longitude))
@@ -163,7 +186,11 @@ namespace Spoofer.Services.Marker
             }
             return false;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mapViewModel"></param>
+        /// <returns></returns>
         public Coordinates GetCoordinateByViewModel(MapViewModel mapViewModel)
         {
             var coordinate = _context.Coordinates.SingleOrDefault(c => c.Name == mapViewModel.Label &&
@@ -171,11 +198,18 @@ namespace Spoofer.Services.Marker
                                                                      c.Latitude == mapViewModel.Latitude);
             return coordinate;
         }
-
+        /// <summary>
+        /// Navigate Between Pages.
+        /// </summary>
         public void Navigate()
         {
             _navigation.Navigate();
         }
+        /// <summary>
+        /// Changing The Order Of Coordinates In The Sequence Table By Drag and drop
+        /// </summary>
+        /// <param name="realcooSource"></param>
+        /// <param name="realcootarget"></param>
         public void UpdateAfterDrop(Coordinates realcooSource, Coordinates realcootarget)
         {
 
@@ -195,7 +229,10 @@ namespace Spoofer.Services.Marker
             log.Info($"{realcooSource.Name} and {realcootarget.Name} switch their order");
 
         }
-
+        /// <summary>
+        /// Remove From The List In Order To Transmit
+        /// </summary>
+        /// <param name="coordinate"></param>
         public void RemoveFromList(Coordinates coordinate)
         {
 

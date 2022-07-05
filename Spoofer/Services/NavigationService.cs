@@ -20,7 +20,6 @@ namespace Spoofer.Services.Navigation
             _navigationStore = navigationStore;
             _createViewModel = createViewModel;
         }
-
         public void Navigate()
         {
             _navigationStore.BaseViewModel = _createViewModel();

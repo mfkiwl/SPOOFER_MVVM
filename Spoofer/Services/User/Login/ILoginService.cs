@@ -4,6 +4,6 @@ namespace Spoofer.Services.User
 {
     public interface ILogin
     {
-        void OnLogin(AccountViewModel model);
+        void OnLogin(LoginViewModel model);
     }
 }

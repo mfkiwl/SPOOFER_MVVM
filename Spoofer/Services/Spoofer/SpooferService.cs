@@ -32,6 +32,15 @@ namespace Spoofer.Services.Spoofer
             _context = context;
             _marker = marker;
         }
+        /// <summary>
+        /// Initializes I/Q File for the location The User Spotted On The Map.
+        /// </summary>
+        /// <param name="argv">
+        /// Represents the parameters of the file CMD.   
+        /// </param>
+        /// <param name="viewModel">
+        /// Represents the Location the user create the spoofing file for.
+        /// </param>
         public void GenerateIQFile(string[] argv, MapViewModel viewModel)
         {
             if (!_marker.isExist(viewModel))
@@ -76,6 +85,10 @@ namespace Spoofer.Services.Spoofer
                 counter++;
             }
         }
+        /// <summary>
+        /// Updating All The Saved Files for the current datetime when initializing
+        /// </summary>
+        /// <param name="argv"></param>
         public void GenerateIQFile(string[] argv)
         {
             var argc = argv.Length;
@@ -109,6 +122,10 @@ namespace Spoofer.Services.Spoofer
             counter++;
 
         }
+        /// <summary>
+        /// Transmition of specific Location On The Map.
+        /// </summary>
+        /// <param name="viewModel"></param>
         public void TransmitFromFile(MapViewModel viewModel)
         {
             if (!BaseCommand.isFileExist(viewModel))
@@ -137,6 +154,10 @@ namespace Spoofer.Services.Spoofer
                 }
             }
         }
+        /// <summary>
+        /// Stop the Transmition.
+        /// </summary>
+        /// <param name="viewModel"></param>
         public void StopTransmitting(ViewModelBase viewModel)
         {
             proccess.Kill();
@@ -152,7 +173,10 @@ namespace Spoofer.Services.Spoofer
                 vmw.IsTransmitting = false;
             }
         }
-
+        /// <summary>
+        /// Generate Files By Sequence Number(NumberInOrder) in order to transmit them.
+        /// </summary>
+        /// <param name="viewModel"></param>
         public void GenerateInOrder(TransmitInOrderViewModel viewModel)
         {
             var list = new List<CoordinateViewModel>();
@@ -177,6 +201,10 @@ namespace Spoofer.Services.Spoofer
             }
 
         }
+        /// <summary>
+        /// Transmit All the Locations that was specefied to the list.
+        /// </summary>
+        /// <param name="viewModel"></param>
         public void TransmitInOrder(TransmitInOrderViewModel viewModel)
         {
             if (!BaseCommand.PingHost("10.0.0.41"))

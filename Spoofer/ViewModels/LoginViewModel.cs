@@ -5,12 +5,12 @@ using System.Windows.Input;
 
 namespace Spoofer.ViewModels
 {
-    public class AccountViewModel : ViewModelBase
+    public class LoginViewModel : ViewModelBase
     {
         private readonly ILogin _iLogin;
         private readonly IRegister _register;
 
-        public AccountViewModel(ILogin iLogin, IRegister register)
+        public LoginViewModel(ILogin iLogin, IRegister register)
         {
             _iLogin = iLogin;
             _register = register;

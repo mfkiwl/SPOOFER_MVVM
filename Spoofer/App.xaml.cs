@@ -72,9 +72,9 @@ namespace Spoofer
             return new MapViewModel(_marker, _spoofer);
         }
 
-        private AccountViewModel createAccountViewModel()
+        private LoginViewModel createAccountViewModel()
         {
-            return new AccountViewModel(_iLogin, _register);
+            return new LoginViewModel(_iLogin, _register);
         }
         private TransmitInOrderViewModel createTransmitViewModel()
         {

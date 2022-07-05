@@ -16,7 +16,7 @@
             <DataTemplate DataType="{x:Type viewmodels:MapViewModel}">
                 <views1:MapView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:AccountViewModel}">
+            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
                 <views1:AccountView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:TransmitInOrderViewModel}">

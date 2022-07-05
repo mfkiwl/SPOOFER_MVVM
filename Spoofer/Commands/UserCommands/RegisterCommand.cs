@@ -12,9 +12,9 @@ namespace Spoofer.Commands.UserCommands
     public class RegisterCommand : BaseCommand
     {
         private readonly IRegister _iRegister;
-        private readonly AccountViewModel _accountViewModel;
+        private readonly LoginViewModel _accountViewModel;
 
-        public RegisterCommand(IRegister iRegister, AccountViewModel accountViewModel)
+        public RegisterCommand(IRegister iRegister, LoginViewModel accountViewModel)
         {
             _iRegister = iRegister;
             _accountViewModel = accountViewModel;

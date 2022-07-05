@@ -20,7 +20,7 @@
         <converters:BoolToConnectionStatusConverter x:Key="BoolToConnectionStatusConverter"/>
         <converters:BoolToTxStatusConverter x:Key="BoolToTxStatusConverter"/>
     </UserControl.Resources>
-    <Grid x:Name="grid" SnapsToDevicePixels="True">
+    <Grid x:Name="grid">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="47*" />
@@ -47,11 +47,11 @@
             </Button>
             <controls:MapControl Grid.Column="1"  x:Name="mapControl" MapServiceToken="uBngaWz7CURplqIi8S6H~cO1jRZvaLYP-9yJuSZPZrQ~AmWWGqcQslWedBAQwV01u5ljcTQbQPRcjqA5nhE0pPdwe6IYKc2RTHhEJaclOduX" MapElementClick="MapControl_MapElementClick" ZoomInteractionMode="GestureAndControl" TiltInteractionMode="GestureAndControl" Style="Road" DockPanel.Dock="Top" MapDoubleTapped="mapControl_MapDoubleTapped"  Loaded="MapControl_Loaded" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="286,0,0,0" />
         </Grid>
-        <Border CornerRadius="0" Grid.Column="1" Grid.RowSpan="13" Visibility="Visible">
+        <Border CornerRadius="0" Opacity="0.95" Grid.Column="1" Grid.RowSpan="13" Visibility="Visible">
             <Border.Background>
                 <LinearGradientBrush>
-                    <GradientStop Color="#232b2b" Offset="0.0"/>
-                    <GradientStop Color="#232b2b"  Offset="1"/>
+                    <GradientStop Color="#232b2b"  Offset="0.0"/>
+                    <GradientStop Color="#232b2b"   Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
         </Border>
@@ -59,7 +59,7 @@
             <Grid.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="..\Themes\MapDictionary.xaml"/>
+                        <ResourceDictionary Source="..\Themes\ButtonDictionary.xaml"/>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </Grid.Resources>
@@ -80,7 +80,8 @@
 
             <StackPanel/>
             <TextBlock Grid.Row="0"
-                       Foreground="Green"
+                       Opacity="0.7"
+                       Foreground="#FF1C7CAF"
                        Padding="21" FontFamily="Cambria" 
                        TextAlignment="Center" 
                        HorizontalAlignment="Stretch"
@@ -88,7 +89,7 @@
                        TextWrapping="Wrap" Text="Spoofer Control"
                        VerticalAlignment="Stretch" />
             <TextBlock Grid.Row="1"
-                       Foreground="Green"
+                       Foreground="#FF1C7CAF"
                        Padding="32"
                        FontFamily="Helvetica"
                        FontWeight="Medium"
@@ -98,7 +99,7 @@
                        Text="Latitude"
                        VerticalAlignment="Stretch" />
             <TextBlock Grid.Row="3"
-                       Foreground="Green"
+                       Foreground="#FF1C7CAF"
                        Padding="29"
                        FontFamily="Helvetica"
                        FontWeight="Medium"
@@ -109,7 +110,7 @@
                        Text="Longitude"
                 VerticalAlignment="Stretch" />
             <TextBlock Grid.Row="5"
-                       Foreground="Green"
+                       Foreground="#FF1C7CAF"
                        Padding="32" 
                        FontFamily="Helvetica" 
                        FontWeight="Medium"
@@ -122,54 +123,62 @@
 
             <TextBox x:Name="lat"
                      Background="Transparent"
-                     Foreground="Green"
-                     BorderBrush="Green"
-                     BorderThickness="2"
+                     Foreground="#FF1C7CAF"
+                     BorderThickness="0"
                      TextAlignment="Center"
                      Opacity="0.7"
                      Grid.Row="2"
                      FontSize="18"
-                     Width="250"
                      FontWeight="Bold"
                      Padding="18"
                      Margin="21,8,21,0" 
                      Text="{Binding Latitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Border 
+                    Height="2"
+                    Background="#FF1C7CAF"
+                    Opacity="0.5"
+                    VerticalAlignment="Bottom"
+                    Grid.Row="2" Margin="359,0"/>
+            <iconPacks:PackIconMaterial Kind="Star" Foreground="#FF1C7CAF" Margin="640,38,0,0" Grid.Row="4"/>
             <TextBox x:Name="lon"
                      Background="Transparent"
-                     Foreground="Green"
-                     BorderBrush="Green"
-                     BorderThickness="2"
+                     Foreground="#FF1C7CAF"
+                     BorderThickness="0"
                      Opacity="0.7"
                      TextAlignment="Center"
-                     Grid.Row="4"
-                     Width="250"
+                     Grid.Row="4" 
                      FontSize="18" 
                      FontWeight="Bold"
                      Padding="18"
                      Margin="21,8,21,0"
                      Text="{Binding Longitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            
+            <Border
+                    Height="2"
+                    Background="#FF1C7CAF"
+                    Opacity="0.5"
+                    VerticalAlignment="Bottom" 
+                    Grid.Row="4" Margin="359,0"/>
+            <iconPacks:PackIconMaterial Kind="Star" Foreground="#FF1C7CAF" Margin="640,38,0,0" Grid.Row="2"/>
             <TextBox x:Name="alt"
                      Background="Transparent"
-                     Foreground="Green"
+                     Foreground="#FF1C7CAF"
                      Opacity="0.7"
-                     BorderThickness="2"
-                     BorderBrush="Green"
+                     BorderThickness="0"
                      TextAlignment="Center"
                      Grid.Row="6"
-                     Width="250"
                      FontSize="18"
                      Padding="18" 
                      FontWeight="Bold"
                      Margin="21,8,21,0"
                      Text="{Binding Label, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Border Height="2" Background="#FF1C7CAF" Opacity="0.5" VerticalAlignment="Bottom" Grid.Row="6" Margin="359,0"/>
+            <iconPacks:PackIconMaterial Kind="Star" Foreground="#FF1C7CAF" Margin="640,38,0,0" Grid.Row="6"/>
+
+            <TextBlock Foreground="#FF1C7CAF" FontFamily="Helvetica" FontWeight="Medium" Padding="0" FontSize="19" HorizontalAlignment="Left" Margin="424,120,0,0"  Text="Number In Order" VerticalAlignment="Top" Height="70" Width="160"/>
 
 
-            <TextBlock Foreground="Green" FontFamily="Helvetica" FontWeight="Medium" Padding="0" FontSize="19" HorizontalAlignment="Left" Margin="424,120,0,0"  Text="Number In Order" VerticalAlignment="Top" Height="70" Width="160"/>
-
-
-            <hc:ComboBox x:Name="Combo" Margin="404,162,414,92"  mah:TextBoxHelper.ClearTextButton="True" BorderBrush="Green" SelectedIndex="-1"   BorderThickness="1.6" ToolTip="Place The Coordinate in order to transmit"  IsEditable="True" IsReadOnly="True" Text="-- Select Team --" Padding="5"  FontWeight="SemiBold" Foreground="Black" Opacity="0.7" ItemsSource="{Binding NumbersInOrder, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-            <iconPacks:PackIconMaterial Kind="Close" Margin="564,172,0,0" Foreground="Green" Visibility="{Binding HasValue, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Opacity="0.7" Height="12" Width="10" />
+            <hc:ComboBox x:Name="Combo" Margin="404,162,414,92"  mah:TextBoxHelper.ClearTextButton="True" BorderBrush="#FF1C7CAF" SelectedIndex="-1"   BorderThickness="1.6" ToolTip="Place The Coordinate in order to transmit"  IsEditable="True" IsReadOnly="True" Text="-- Select Team --" Padding="5"  FontWeight="SemiBold" Foreground="#FF1C7CAF" Opacity="0.7" ItemsSource="{Binding NumbersInOrder, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            <iconPacks:PackIconMaterial Kind="Close" Margin="564,172,0,0" Foreground="#FF1C7CAF" Visibility="{Binding HasValue, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Opacity="0.7" Height="12" Width="10" />
             <Grid Grid.Row="9">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -185,11 +194,10 @@
                         VerticalAlignment="Center" 
                         Command="{Binding Add, ValidatesOnExceptions=True}" 
                         CommandParameter="{Binding ElementName=mapControl}"
-                        Visibility="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled, Converter={StaticResource InverseBooleanToVisibillityConverter}}" 
                         ToolTip="Add Marker to the database"
                         Margin="9,108,14,68" />
-                <Button Height="56" ToolTip="Remove Marker From Database" Visibility="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled, Converter={StaticResource InverseBooleanToVisibillityConverter}}"   Width="183" Content="Remove " Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove, ValidatesOnExceptions=True}" CommandParameter="{Binding ElementName=mapControl}" Margin="14,108,7,68"/>
-                <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding TransmitNow, ValidatesOnExceptions=True}" Margin="10,108,12,68" />
+                <Button Height="56" ToolTip="Remove Marker From Database"  Width="183" Content="Remove " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove, ValidatesOnExceptions=True}" CommandParameter="{Binding ElementName=mapControl}" Margin="14,108,7,68"/>
+                <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding TransmitNow, ValidatesOnExceptions=True}" Margin="10,108,12,68" />
                 <Button Height="56" ToolTip="Stop SDR Transmition"  Width="188" Content="Stop" Grid.Column="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding StopTransmit, ValidatesOnExceptions=True}" Margin="10,108,5,68"/>
                 <Button  Height="56"
                          Width="188"
@@ -200,15 +208,10 @@
                          HorizontalAlignment="Center"
                          VerticalAlignment="Center"
                          Command="{Binding GenerateFile, ValidatesOnExceptions=True}"
-                         Visibility="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled, Converter={StaticResource InverseBooleanToVisibillityConverter}}" 
                          Margin="8,108,8,68"
                          Click="Button_Click"
                          />
-                <!--<iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black" Kind="FileMarkerOutline" Height="40" Width="Auto" HorizontalAlignment="Stretch" Grid.Column="4" Margin="118,150,0,0" RenderTransformOrigin="1.67,1.889"/>
-                <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkRed" Kind="CloseOctagon" Grid.Column="3" Width="Auto" Height="40" Margin="131,150,0,0" RenderTransformOrigin="1.67,1.889" />
-                <iconPacks:PackIconMaterial Opacity="0.6" Foreground="Black"  Kind="AccessPointNetwork" Grid.Column="2" Width="Auto" Height="40" Margin="124,150,0,0" RenderTransformOrigin="1.67,1.889"/>
-                <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkRed"  Kind="MapMarkerRemove"  Grid.Column="1" Width="Auto" Height="40" Margin="132,150,0,0" RenderTransformOrigin="1.67,1.889" />
-                <iconPacks:PackIconMaterial Opacity="0.6" Foreground="DarkGreen" Kind="MapMarkerPlus" Width="Auto" Height="40" Margin="136,150,0,0" RenderTransformOrigin="1.67,1.889" />-->
+                
 
             </Grid>
         </Grid>
@@ -217,9 +220,9 @@
             <TextBlock x:Name="_textBlock"  HorizontalAlignment="Center" Foreground="{Binding IsFileCreated, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="{Binding IsFileCreated, Converter={StaticResource BoolToStatusStringConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
 
         </Border>
-        <Border  Opacity="0.6"  BorderBrush="Red" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="276,214,562,808" Height="58">
+        <Border  Opacity="0.8"  BorderBrush="OrangeRed" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="276,214,562,808" Height="58">
 
-            <TextBlock HorizontalAlignment="Center" Foreground="Red" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="TX On..." VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Center" Foreground="OrangeRed" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="TX On..." VerticalAlignment="Top"/>
 
         </Border>
         <Border x:Name="ping" Opacity="0.6" ToolTip="{Binding IsPinging, Converter={StaticResource BoolToConnectionStatusConverter}}" BorderBrush="{Binding IsPinging, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="3" Grid.Column="1" Grid.Row="0"  Margin="459,214,481,808">
