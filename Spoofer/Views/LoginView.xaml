@@ -51,6 +51,7 @@
                         <GradientStop Color="#232b2b" Offset="2.0"/>
                     </LinearGradientBrush>
                 </Border.Background>
+                <TextBlock TextWrapping="Wrap" Padding="24" FontFamily="Palatino Linotype" TextAlignment="Center" Foreground="#D3D3D3" FontSize="16" Text="{Binding Description}" Margin="711,338,739,646"/>
             </Border>
 
 

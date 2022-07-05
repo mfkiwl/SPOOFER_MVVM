@@ -47,7 +47,7 @@
             </Button>
             <controls:MapControl Grid.Column="1"  x:Name="mapControl" MapServiceToken="uBngaWz7CURplqIi8S6H~cO1jRZvaLYP-9yJuSZPZrQ~AmWWGqcQslWedBAQwV01u5ljcTQbQPRcjqA5nhE0pPdwe6IYKc2RTHhEJaclOduX" MapElementClick="MapControl_MapElementClick" ZoomInteractionMode="GestureAndControl" TiltInteractionMode="GestureAndControl" Style="Road" DockPanel.Dock="Top" MapDoubleTapped="mapControl_MapDoubleTapped"  Loaded="MapControl_Loaded" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="286,0,0,0" />
         </Grid>
-        <Border CornerRadius="0" Opacity="0.95" Grid.Column="1" Grid.RowSpan="13" Visibility="Visible">
+        <Border CornerRadius="0" Opacity="0.98" Grid.Column="1" Grid.RowSpan="13" Visibility="Visible">
             <Border.Background>
                 <LinearGradientBrush>
                     <GradientStop Color="#232b2b"  Offset="0.0"/>
@@ -195,10 +195,10 @@
                         Command="{Binding Add, ValidatesOnExceptions=True}" 
                         CommandParameter="{Binding ElementName=mapControl}"
                         ToolTip="Add Marker to the database"
-                        Margin="9,108,14,68" />
-                <Button Height="56" ToolTip="Remove Marker From Database"  Width="183" Content="Remove " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove, ValidatesOnExceptions=True}" CommandParameter="{Binding ElementName=mapControl}" Margin="14,108,7,68"/>
-                <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding TransmitNow, ValidatesOnExceptions=True}" Margin="10,108,12,68" />
-                <Button Height="56" ToolTip="Stop SDR Transmition"  Width="188" Content="Stop" Grid.Column="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding StopTransmit, ValidatesOnExceptions=True}" Margin="10,108,5,68"/>
+                        Margin="9,85,14,68" />
+                <Button Height="56" ToolTip="Remove Marker From Database"  Width="183" Content="Remove " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove, ValidatesOnExceptions=True}" CommandParameter="{Binding ElementName=mapControl}" Margin="14,85,7,68"/>
+                <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding TransmitNow, ValidatesOnExceptions=True}" Margin="10,85,12,68" />
+                <Button Height="56" ToolTip="Stop SDR Transmition"  Width="188" Content="Stop" Grid.Column="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding StopTransmit, ValidatesOnExceptions=True}" Margin="10,85,5,68"/>
                 <Button  Height="56"
                          Width="188"
                          ToolTip="Generate I/Q Sampeling file"
@@ -208,7 +208,7 @@
                          HorizontalAlignment="Center"
                          VerticalAlignment="Center"
                          Command="{Binding GenerateFile, ValidatesOnExceptions=True}"
-                         Margin="8,108,8,68"
+                         Margin="8,85,8,68"
                          Click="Button_Click"
                          />
                 
@@ -236,7 +236,7 @@
                        TextWrapping="Wrap"
                        Text="{Binding ErrorMessageViewModel.ErrorMessage}"
                        Visibility="{Binding ErrorMessageViewModel.HasError, Converter={StaticResource InverseBooleanToVisibillityConverter}}"
-                       Margin="367,802,365,201" 
+                       Margin="367,790,365,201" 
                        Width="286"
                        Foreground="Red" 
                        Opacity="0.6"

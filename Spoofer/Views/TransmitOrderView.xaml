@@ -28,8 +28,8 @@
             </ResourceDictionary>
         </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="146*"/>
-            <RowDefinition Height="396*"/>
+            <RowDefinition Height="197*"/>
+            <RowDefinition Height="345*"/>
             <RowDefinition Height="235*"/>
             <RowDefinition Height="303*"/>
         </Grid.RowDefinitions>
@@ -37,7 +37,7 @@
             <ColumnDefinition Width="47*" />
             <ColumnDefinition Width="53*" />
         </Grid.ColumnDefinitions>
-        <Border CornerRadius="10" Grid.ColumnSpan="2" Opacity="0.95"  Grid.RowSpan="4" Visibility="Visible" Margin="-3,-42,3,0">
+        <Border CornerRadius="10" Grid.ColumnSpan="2" Opacity="0.98"  Grid.RowSpan="4" Visibility="Visible" Margin="-3,-42,3,0">
             <Border.Background>
                 <LinearGradientBrush>
                     <GradientStop Color="#232b2b"  Offset="0.0"/>
@@ -47,7 +47,7 @@
         </Border>
         <TextBlock Grid.Row="0"
                        Foreground="#FF1C7CAF"
-                       Padding="21" FontFamily="Cambria" 
+                       Padding="37" FontFamily="Cambria" 
                        TextAlignment="Center" 
                        HorizontalAlignment="Stretch"
                        FontSize="60" FontWeight="DemiBold" 
@@ -118,8 +118,8 @@
                     Binding="{Binding HasFile, Converter={StaticResource BoolToStatusStringConverter}}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBlock TextWrapping="Wrap" Padding="7" FontSize="16" Text="NOTE: If file dose not exist, the system will not transmit it..." FontWeight="SemiBold" Foreground="Red" Opacity="0.6" Grid.ColumnSpan="2" Height="66" VerticalAlignment="Top"  Margin="749,184,721,0" Grid.Row="3"/>
-        <Grid Grid.Row="3" Grid.ColumnSpan="2" Background="Transparent">
+        <TextBlock TextWrapping="Wrap" Padding="7" FontSize="16" Text="NOTE: If file dose not exist, the system will not transmit it..." FontWeight="SemiBold" Foreground="Red" Opacity="0.6" Grid.ColumnSpan="2" Height="66" VerticalAlignment="Top"  Margin="749,170,721,0" Grid.Row="3"/>
+        <Grid Grid.Row="2" Grid.ColumnSpan="2" Background="Transparent" Margin="0,229,0,6" Grid.RowSpan="2">
             <Grid.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
@@ -127,9 +127,9 @@
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </Grid.Resources>
-            <Button x:Name="Trash" AllowDrop="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ToolTip="Remove From List"  Width="181" Content="Trash Place" Height="56"  Margin="869,122,870,125"/>
-            <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Command="{Binding Transmit, ValidatesOnExceptions=True}" Margin="647,122,1092,125"/>
-            <Button Height="56" ToolTip="Stop Transmitting" Command="{Binding Stop, ValidatesOnExceptions=True}" Width="181" Content="Stop" Margin="1086,123,654,124"/>
+            <Button x:Name="Trash" AllowDrop="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ToolTip="Remove From List"  Width="181" Content="Trash Place" Height="56"  Margin="869,56,870,191"/>
+            <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Command="{Binding Transmit, ValidatesOnExceptions=True}" Margin="647,56,1092,191"/>
+            <Button Height="56" ToolTip="Stop Transmitting" Command="{Binding Stop, ValidatesOnExceptions=True}" Width="181" Content="Stop" Margin="1086,57,653,190"/>
             <TextBlock TextAlignment="Center"
                        TextWrapping="Wrap"
                        Text="{Binding ErrorMessageViewModel.ErrorMessage}"
@@ -143,7 +143,7 @@
                        FontWeight="SemiBold"/>
 
         </Grid>
-        <Border BorderBrush="OrangeRed" BorderThickness="3" Opacity="0.9" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}"  HorizontalAlignment="Left" Height="94" Margin="819,375,0,0" Grid.Row="1" VerticalAlignment="Top" Width="280" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <Border BorderBrush="OrangeRed" BorderThickness="3" Opacity="0.9" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}"  HorizontalAlignment="Left" Height="94" Margin="819,26,0,0" Grid.Row="2" VerticalAlignment="Top" Width="280" Grid.ColumnSpan="2">
             <TextBlock VerticalAlignment="Center" Foreground="OrangeRed" Opacity="0.9"  Text="TX On" FontSize="28" FontWeight="DemiBold" TextAlignment="Center" Padding="8" />
         </Border>
 
