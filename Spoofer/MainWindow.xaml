@@ -11,6 +11,7 @@
         Background="Transparent"
         SizeToContent="WidthAndHeight"
         >
+    
     <Grid Margin="-0,0,0,0" >
         <Grid.Resources>
             <DataTemplate DataType="{x:Type viewmodels:MapViewModel}">
@@ -22,8 +23,11 @@
             <DataTemplate DataType="{x:Type viewmodels:TransmitInOrderViewModel}">
                 <views1:TransmitOrderView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:UserViewModel}">
+                <views1:UserView/>
+            </DataTemplate>
         </Grid.Resources>
-
+        
         <ContentControl Content="{Binding CurrentViewModel}" />
         <Border Panel.ZIndex="-2" BorderThickness="0" Margin="0,0,0,0">
             <Border.Background>

@@ -23,7 +23,7 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#a6dced"/>
-                <Setter Property="Opacity" Value="0.4"/>
+                <Setter Property="Opacity" Value="0.7"/>
                 <Setter Property="Foreground" Value="Gray"/>
             </Trigger>
         </Style.Triggers>

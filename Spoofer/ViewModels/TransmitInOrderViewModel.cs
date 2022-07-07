@@ -1,9 +1,12 @@
 ﻿using GongSolutions.Wpf.DragDrop;
 using Spoofer.Commands.MarkersCommands;
 using Spoofer.Commands.SpoofingCommands;
+using Spoofer.Commands.UserCommands;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Spoofer;
 using Spoofer.Services.User;
+using Spoofer.Services.User.Repository;
+using Spoofer.Stores;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -19,10 +22,12 @@ namespace Spoofer.ViewModels
     {
         private readonly ISpooferService _spoofer;
         private readonly IMarkerService _service;
-        public TransmitInOrderViewModel(IMarkerService service, ISpooferService spoofer)
+        private readonly IMarkerService _serviceToManagement;
+        public TransmitInOrderViewModel(IMarkerService service, IMarkerService serviceToManagement,  ISpooferService spoofer, IRepository<Models.User> repository)
         {
             _service = service;
             _spoofer = spoofer;
+            _serviceToManagement = serviceToManagement;
             ErrorMessageViewModel = new MessageViewModel();
             Navigate = new Navigate(_service, this);
             coordinates = new ObservableCollection<CoordinateViewModel>();
@@ -33,11 +38,23 @@ namespace Spoofer.ViewModels
             Transmit = new TransmitInOrderCommand(_spoofer, this);
             Stop = new Stop(_spoofer, this);
             GenerateInOrder = new GenerateOrderFile(this, _spoofer);
+            NavigateToManagement = new NavigateToManagement(_serviceToManagement, repository);
 
         }
         private ObservableCollection<CoordinateViewModel> coordinates;
         private ObservableCollection<int> durationList;
-        public ObservableCollection<int> DurationList { get { return durationList; } set { durationList = value; OnPropertyChanged(nameof(DurationList)); } }
+        public ObservableCollection<int> DurationList
+        {
+            get
+            {
+                return durationList;
+            }
+            set
+            {
+                durationList = value; 
+                OnPropertyChanged(nameof(DurationList));
+            }
+        }
         public ICollectionView Coordinates
         {
             get;
@@ -76,7 +93,7 @@ namespace Spoofer.ViewModels
         public ICommand RemoveFromList { get; }
         public ICommand GenerateInOrder { get; }
         public ICommand Navigate { get; }
-
+        public ICommand NavigateToManagement { get; set; }
         public ObservableCollection<CoordinateViewModel> UpdateData()
         {
             var list = _service.GetAll();

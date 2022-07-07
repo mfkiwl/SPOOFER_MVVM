@@ -7,9 +7,9 @@ using System;
 namespace Spoofer.Models
 {
 
-    public partial class Coordinates
+    public partial class Coordinates : IEntityWithId
     {
-        public string CoorfianteId { get; set; }
+        public string Id { get; set; }
 
         public string Name { get; set; }
         public double? Longitude { get; set; }

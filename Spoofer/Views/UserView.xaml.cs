@@ -18,9 +18,9 @@ namespace Spoofer.Views
     /// <summary>
     /// Interaction logic for UserViewModel.xaml
     /// </summary>
-    public partial class UserViewModel : UserControl
+    public partial class UserView : UserControl
     {
-        public UserViewModel()
+        public UserView()
         {
             InitializeComponent();
         }

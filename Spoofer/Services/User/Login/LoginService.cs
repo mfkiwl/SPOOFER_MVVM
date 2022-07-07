@@ -3,6 +3,7 @@ using Spoofer.Data;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Navigation;
 using Spoofer.Services.Spoofer;
+using Spoofer.Services.User.Repository;
 using Spoofer.ViewModels;
 using System;
 using System.Diagnostics;
@@ -11,20 +12,23 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using Spoofer.Models;
 
 namespace Spoofer.Services.User
 {
     public class ServiceLogin : ILogin
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly CoordinatesContext _context;
         private readonly NavigationService _navigation;
+        private readonly IRepository<Models.User> _userRepo;
+        private readonly IRepository<Models.Coordinates> _coordinatesRepo;
         private readonly ISpooferService _spoofer;
 
-        public ServiceLogin(CoordinatesContext context, NavigationService navigation, ISpooferService spoofer)
+        public ServiceLogin(IRepository<Models.User> userRepo, IRepository<Coordinates> coordinateRepo, NavigationService navigation, ISpooferService spoofer)
         {
-            _context = context;
+            _userRepo = userRepo;
             _navigation = navigation;
+            _coordinatesRepo = coordinateRepo;
             _spoofer = spoofer;
         }
         /// <summary>
@@ -35,18 +39,19 @@ namespace Spoofer.Services.User
         {
             model.ErrorMessageViewModel.ErrorMessage = "";
             model.IsLoading = true;
-            if (!_context.User.Any())
+            if (!_userRepo.GetAll().Any())
             {
                 var user = new Models.User()
                 {
-                    UserId = Guid.NewGuid().ToString(),
+                    Id = Guid.NewGuid().ToString(),
                     UserName = model.UserName,
+                    Permission = "SuperUser",
                     Password = model.Password
                 };
-                _context.User.Add(user);
-                _context.SaveChanges();
+                _userRepo.AddOrUpdate(user);
+                _userRepo.Save();
             }
-            if (!_context.User.Any(p => p.UserName == model.UserName && p.Password == model.Password))
+            if (!_userRepo.GetAll().Any(p => p.UserName == model.UserName && p.Password == model.Password))
             {
                 log.Debug("False");
                 model.ErrorMessageViewModel.ErrorMessage = "Username Or Password are Incorrect";
@@ -96,9 +101,9 @@ namespace Spoofer.Services.User
                 log.Info($@"Arguments: {proccess.StartInfo.Arguments} ");
                 log.Debug("Extracted Successfully");
                 var newFile = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).GetFiles().Where(p => p.Name.Contains($".{year.Substring(2)}n")).OrderBy(o => o.LastWriteTime).FirstOrDefault();
-                if (_context.Coordinates != null)
+                if ( _coordinatesRepo.GetAll() != null)
                 {
-                    foreach (var coordinate in _context.Coordinates)
+                    foreach (var coordinate in _coordinatesRepo.GetAll())
                     {
                         if (newFile.LastWriteTime.AddMinutes(1) >= DateTime.Now)
                         {
@@ -115,15 +120,16 @@ namespace Spoofer.Services.User
                             flags[9] = "-d";
                             flags[10] = "65";
                             var argc = flags.Length;
+                            
                             _spoofer.GenerateIQFile(flags);
                         }
                     }
                 }
-                var user = _context.User.SingleOrDefault(p => p.UserName == model.UserName && p.Password == model.Password);
+                var user = _userRepo.GetAll().SingleOrDefault(p => p.UserName == model.UserName && p.Password == model.Password);
                 var authUser = user;
                 authUser.IsAuthenticated = true;
-                _context.Entry(user).CurrentValues.SetValues(authUser);
-                _context.SaveChanges();
+                _userRepo.Update(authUser);
+                _userRepo.Save();
                 log.Debug("All Files Is Up To Date");
                 _navigation.Navigate();
             }

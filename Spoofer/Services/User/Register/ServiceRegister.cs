@@ -32,7 +32,7 @@ namespace Spoofer.Services.User.Register
             {
                 var user = new Models.User()
                 {
-                    UserId = Guid.NewGuid().ToString(),
+                    Id = Guid.NewGuid().ToString(),
                     UserName = model.UserName,
                     Password = model.Password
                 };

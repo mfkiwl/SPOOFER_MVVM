@@ -192,11 +192,12 @@
                         Content="Add/Update"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center" 
+                         Visibility="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled, Converter={StaticResource InverseBooleanToVisibillityConverter}}" 
                         Command="{Binding Add, ValidatesOnExceptions=True}" 
                         CommandParameter="{Binding ElementName=mapControl}"
                         ToolTip="Add Marker to the database"
                         Margin="9,85,14,68" />
-                <Button Height="56" ToolTip="Remove Marker From Database"  Width="183" Content="Remove " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove, ValidatesOnExceptions=True}" CommandParameter="{Binding ElementName=mapControl}" Margin="14,85,7,68"/>
+                <Button Height="56" ToolTip="Remove Marker From Database"  Visibility="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled, Converter={StaticResource InverseBooleanToVisibillityConverter}}"   Width="183" Content="Remove " Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Remove, ValidatesOnExceptions=True}" CommandParameter="{Binding ElementName=mapControl}" Margin="14,85,7,68"/>
                 <Button Height="56" ToolTip="Transmit the GPS Coordinates of this location" Width="181" Content="Transmit" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding TransmitNow, ValidatesOnExceptions=True}" Margin="10,85,12,68" />
                 <Button Height="56" ToolTip="Stop SDR Transmition"  Width="188" Content="Stop" Grid.Column="3"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding StopTransmit, ValidatesOnExceptions=True}" Margin="10,85,5,68"/>
                 <Button  Height="56"
@@ -204,6 +205,7 @@
                          ToolTip="Generate I/Q Sampeling file"
                          Grid.Column="4"
                          FontSize="19"
+                          Visibility="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled, Converter={StaticResource InverseBooleanToVisibillityConverter}}" 
                          Content="Generate" 
                          HorizontalAlignment="Center"
                          VerticalAlignment="Center"

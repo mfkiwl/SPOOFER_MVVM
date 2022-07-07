@@ -3,6 +3,7 @@ using Plugin.Geolocator;
 using Spoofer.Commands.UserCommands;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Navigation;
+using Spoofer.Services.User.Repository;
 using Spoofer.ViewModels;
 using System;
 using System.Device.Location;
@@ -31,7 +32,7 @@ namespace Spoofer.Views
         {
             InitializeComponent();
             _navigationService = new NavigationService();
-            _markerService = new MarkerService(App._context, _navigationService);
+            _markerService = new MarkerService(new MyRepository<Models.Coordinates>(App._context), _navigationService);
             var height = SystemParameters.PrimaryScreenHeight;
 
         }

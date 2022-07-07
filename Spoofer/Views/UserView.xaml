@@ -1,12 +1,93 @@
-﻿<UserControl x:Class="Spoofer.Views.UserViewModel"
+﻿<UserControl x:Class="Spoofer.Views.UserView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Spoofer.Views"
+             xmlns:local="clr-namespace:Spoofer.Views" xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:UserViewModel}"
              mc:Ignorable="d" 
+             Height="1080" Width="1920"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="..\Themes\DataGrid.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="22*"/>
+            <RowDefinition Height="113*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="47*"/>
+            <ColumnDefinition Width="913*"/>
+        </Grid.ColumnDefinitions>
+        <Border CornerRadius="10" Grid.ColumnSpan="2" Opacity="0.98" Visibility="Visible" Margin="-3,-42,3,0" Grid.RowSpan="2">
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#232b2b"  Offset="0.0"/>
+                    <GradientStop Color="#232b2b"   Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <Grid Grid.Column="0" Panel.ZIndex="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="11*"/>
+                <ColumnDefinition Width="109*"/>
+
+            </Grid.ColumnDefinitions>
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="..\Themes\SideBarDictionary.xaml"/>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </Grid.Resources>
+            <hc:SideMenu HorizontalAlignment="Stretch"  Background="#9996A5"  Grid.Column="0" Height="Auto" VerticalAlignment="Stretch" Margin="0,0,79,0"/>
+            <iconPacks:PackIconMaterial Kind="Earth" Height="60" Width="100" Foreground="#404040" Margin="-6,178,0,0" />
+            <Button Background="Transparent" BorderThickness="0" Command="{Binding Navigate}" Margin="0,154,82,822" />
+            <iconPacks:PackIconMaterial Kind="FormatListBulleted" Width="97" Foreground="#404040" Background="Transparent" Height="38" Margin="-7,60,0,0"/>
+            <Button Margin="0,28,82,950" BorderThickness="0"  Background="Transparent"/>
+            <iconPacks:PackIconMaterial Kind="Account" Width="97" Foreground="#404040" Background="Transparent" Height="44" Margin="-5,700,0,0"/>
+            <Button Margin="0,670,84,304" BorderThickness="0" Command="{Binding NavigateToManagement}"  Background="Transparent"/>
+        </Grid>
+        <DataGrid
+            x:Name="DATAgRID"
+            IsReadOnly="True"
+            AutoGenerateColumns="False"
+            BorderThickness="1"
+            Grid.Column="1"
+            Grid.Row="1"
+            Background="Transparent"
+            ItemsSource="{Binding Users, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn
+                    Header="Username"
+                    MinWidth="170"
+                    Width="*"
+                    Binding="{Binding Username}"/>
+                <DataGridTextColumn
+                    Header="Password"
+                    MinWidth="120"
+                    Width="0.4*"
+                    Binding="{Binding Password}"/>
+                <DataGridTextColumn
+                    Header="Permission"
+                    MinWidth="170"
+                    Width="*"
+                    Binding="{Binding Permission}"/>
+                <DataGridTextColumn
+                    Header="Actions"
+                    MinWidth="170"
+                    Width="2.5*"
+                    />
+
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

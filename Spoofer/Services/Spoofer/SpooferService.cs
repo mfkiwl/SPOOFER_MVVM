@@ -23,13 +23,11 @@ namespace Spoofer.Services.Spoofer
         private const string IP_ADDRESS = "10.0.0.41";
         private readonly Process proccess;
         private int counter = 0;
-        private readonly CoordinatesContext _context;
         private readonly IMarkerService _marker;
 
-        public SpooferService(CoordinatesContext context, IMarkerService marker)
+        public SpooferService( IMarkerService marker)
         {
             proccess = new Process();
-            _context = context;
             _marker = marker;
         }
         /// <summary>
@@ -199,7 +197,6 @@ namespace Spoofer.Services.Spoofer
                 CombineFileToSingleFile(listToGenerate);
                 log.Info("Order Generated");
             }
-
         }
         /// <summary>
         /// Transmit All the Locations that was specefied to the list.

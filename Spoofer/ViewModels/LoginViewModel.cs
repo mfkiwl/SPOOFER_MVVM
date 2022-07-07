@@ -16,7 +16,7 @@ namespace Spoofer.ViewModels
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             Version version = assembly.GetName().Version;
-            Description = $"Software Version  {version}\nCopyright © 1996-{DateTime.Now.ToString("yyyy")}";
+            Description = $"Software Version  {version}\nCopyright © 1996-{DateTime.Now:yyyy}";
             _iLogin = iLogin;
             _register = register;
             ErrorMessageViewModel = new MessageViewModel();

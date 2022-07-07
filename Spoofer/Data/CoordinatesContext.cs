@@ -33,11 +33,11 @@ namespace Spoofer.Data
         {
             modelBuilder.Entity<Coordinates>(entity =>
             {
-                entity.HasKey(e => e.CoorfianteId);
+                entity.HasKey(e => e.Id);
 
                 entity.HasIndex(e => e.UserId);
 
-                entity.Property(e => e.CoorfianteId).HasMaxLength(50);
+                entity.Property(e => e.Id).HasMaxLength(50);
 
                 entity.HasIndex(e => e.Name)
                     .IsUnique();
@@ -52,7 +52,7 @@ namespace Spoofer.Data
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.UserId).HasMaxLength(50);
+                entity.Property(e => e.Id).HasMaxLength(50);
 
                 entity.Property(e => e.Password).HasMaxLength(50);
 
@@ -65,7 +65,7 @@ namespace Spoofer.Data
         public void OnModelCreatingPartial(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasData(
-                new User {UserId = Guid.NewGuid().ToString(), UserName = "ori", Password="imsi400"}
+                new User {Id = Guid.NewGuid().ToString(), UserName = "ori", Password="imsi400"}
                 );
         }
     }

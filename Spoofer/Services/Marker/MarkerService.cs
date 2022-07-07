@@ -4,6 +4,7 @@ using Spoofer.Data;
 using Spoofer.Exceptions;
 using Spoofer.Models;
 using Spoofer.Services.Navigation;
+using Spoofer.Services.User.Repository;
 using Spoofer.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -16,15 +17,15 @@ namespace Spoofer.Services.Marker
     public class MarkerService : IMarkerService
     {
         private int counter;
-        private readonly CoordinatesContext _context;
+        private readonly IRepository<Coordinates> _coordinateRepo;
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly NavigationService _navigation;
         private string root = AppDomain.CurrentDomain.BaseDirectory;
 
 
-        public MarkerService(CoordinatesContext context, NavigationService navigation)
+        public MarkerService(IRepository<Coordinates> coordinateRepo, NavigationService navigation)
         {
-            _context = context;
+            _coordinateRepo = coordinateRepo;
             _navigation = navigation;
         }
         /// <summary>
@@ -59,7 +60,7 @@ namespace Spoofer.Services.Marker
                 }
                 var marker = new Coordinates()
                 {
-                    CoorfianteId = Guid.NewGuid().ToString(),
+                    Id = Guid.NewGuid().ToString(),
                     Latitude = mapViewModel.Latitude,
                     Longitude = mapViewModel.Longitude,
                     Height = mapViewModel.Height ?? 0,
@@ -70,19 +71,11 @@ namespace Spoofer.Services.Marker
                 if (mapViewModel.SelectedItem != null)
                 {
 
-                    if (_context.Coordinates.Where(c => c.NumberInOrder == mapViewModel.SelectedItem && c.NumberInOrder > 0).Any())
+                    if (_coordinateRepo.GetAll().Where(c => c.NumberInOrder == mapViewModel.SelectedItem && c.NumberInOrder > 0).Any())
                     {
                         throw new InvalidCoordinateException("There is Marker on This Place In order to transmition, please edit the list..");
                     }
                     marker.NumberInOrder = mapViewModel.SelectedItem;
-                }
-                foreach (var user in _context.User)
-                {
-                    user.IsAuthenticated = true;
-                    if ((bool)user.IsAuthenticated)
-                    {
-                        marker.UserId = user.UserId;
-                    }
                 }
                 if (isUpdated)
                 {
@@ -100,8 +93,8 @@ namespace Spoofer.Services.Marker
 
                 }
 
-                _context.Add(marker);
-                _context.SaveChanges();
+                _coordinateRepo.AddOrUpdate(marker);
+                _coordinateRepo.Save();
                 if (!isUpdated)
                 {
                     MessageBox.Show($"{marker.Name} Added Succesfuly!!!!!");
@@ -124,7 +117,7 @@ namespace Spoofer.Services.Marker
         /// </returns>
         public IEnumerable<Coordinates> GetAll()
         {
-            return _context.Coordinates.ToList();
+            return _coordinateRepo.GetAll();
         }
         /// <summary>
         /// Remove Marker From The Database and the Map.
@@ -156,9 +149,9 @@ namespace Spoofer.Services.Marker
                         log.Debug($"{file} is deleted");
                     }
                 }
-                var coordinateToRemove = _context.Coordinates.SingleOrDefault(c => c.Name == model.Label);
-                _context.Remove(coordinateToRemove);
-                _context.SaveChanges(true);
+                var coordinateToRemove = _coordinateRepo.GetAll().SingleOrDefault(c => c.Name.Trim() == model.Label.Trim());
+                _coordinateRepo.Remove(coordinateToRemove.Id);
+                _coordinateRepo.Save();
                 if (!isUpdated)
                 {
                     MessageBox.Show($"{coordinateToRemove.Name.Trim()} Deleted Succesfully");
@@ -176,11 +169,11 @@ namespace Spoofer.Services.Marker
         /// </returns>
         public bool isExist(MapViewModel mapViewModel)
         {
-            if (_context.Coordinates.Any(p => p.Longitude == mapViewModel.Longitude && p.Longitude == mapViewModel.Longitude))
+            if (_coordinateRepo.GetAll().Any(p => p.Longitude == mapViewModel.Longitude && p.Longitude == mapViewModel.Longitude))
             {
                 return true;
             }
-            else if (_context.Coordinates.Any(p => p.Name == mapViewModel.Label))
+            else if (_coordinateRepo.GetAll().Any(p => p.Name == mapViewModel.Label))
             {
                 throw new CoordinateExistException();
             }
@@ -193,7 +186,7 @@ namespace Spoofer.Services.Marker
         /// <returns></returns>
         public Coordinates GetCoordinateByViewModel(MapViewModel mapViewModel)
         {
-            var coordinate = _context.Coordinates.SingleOrDefault(c => c.Name == mapViewModel.Label &&
+            var coordinate = _coordinateRepo.GetAll().SingleOrDefault(c => c.Name == mapViewModel.Label &&
                                                                      c.Longitude == mapViewModel.Longitude &&
                                                                      c.Latitude == mapViewModel.Latitude);
             return coordinate;
@@ -217,15 +210,10 @@ namespace Spoofer.Services.Marker
             var idSource = realcooSource.NumberInOrder;
             var tmpTarget = realcootarget;
             var idTarget = realcootarget.NumberInOrder;
-            _context.Remove(realcooSource);
-            _context.Remove(realcootarget);
-            _context.SaveChanges();
             tmpSource.NumberInOrder = idTarget;
             tmpTarget.NumberInOrder = idSource;
-            tmpSource.CoorfianteId = Guid.NewGuid().ToString();
-            tmpTarget.CoorfianteId = Guid.NewGuid().ToString();
-            _context.Coordinates.AddRange(tmpSource, tmpTarget);
-            _context.SaveChanges();
+            _coordinateRepo.Update(tmpSource, tmpTarget);
+            _coordinateRepo.Save();
             log.Info($"{realcooSource.Name} and {realcootarget.Name} switch their order");
 
         }
@@ -238,8 +226,8 @@ namespace Spoofer.Services.Marker
 
             var tmp = coordinate;
             tmp.NumberInOrder = null;
-            _context.Entry(coordinate).CurrentValues.SetValues(tmp);
-            _context.SaveChanges();
+            _coordinateRepo.Update(tmp);
+            _coordinateRepo.Save();
             log.Info($"{coordinate.Name} is out of order");
         }
     }

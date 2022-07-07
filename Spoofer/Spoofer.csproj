@@ -253,6 +253,7 @@
     <Compile Include="Commands\SpoofingCommands\Stop.cs" />
     <Compile Include="Commands\SpoofingCommands\Transmit.cs" />
     <Compile Include="Commands\SpoofingCommands\TransmitInOrderCommand.cs" />
+    <Compile Include="Commands\UserCommands\NavigateToManagement.cs" />
     <Compile Include="Commands\UserCommands\RegisterCommand.cs" />
     <Compile Include="Converters\BoolToFileStatusConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibillityConverter.cs" />
@@ -303,25 +304,35 @@
     <Compile Include="Migrations\20220629095106_permission.designer.cs">
       <DependentUpon>20220629095106_permission.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20220706081448_contextNew.cs" />
+    <Compile Include="Migrations\20220706081448_contextNew.designer.cs">
+      <DependentUpon>20220706081448_contextNew.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\CoordinatesContextModelSnapshot.cs" />
+    <Compile Include="Models\IEntityWithId.cs" />
     <Compile Include="Services\Marker\IMarkerService.cs" />
     <Compile Include="Services\Marker\MarkerService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\Spoofer\ISpooferService.cs" />
     <Compile Include="Exceptions\SDRException.cs" />
     <Compile Include="Services\Spoofer\SpooferService.cs" />
+    <Compile Include="Services\User\Admin\AdminService.cs" />
+    <Compile Include="Services\User\Admin\IAdminService.cs" />
     <Compile Include="Services\User\Login\ILoginService.cs" />
     <Compile Include="Services\User\Login\LoginService.cs" />
     <Compile Include="Services\User\Register\IRegister.cs" />
     <Compile Include="Services\User\Register\ServiceRegister.cs" />
+    <Compile Include="Services\User\Repository\IRepository.cs" />
+    <Compile Include="Services\User\Repository\MyRepository.cs" />
     <Compile Include="Services\User\RoleAdministration.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
+    <Compile Include="ViewModels\DTO\UserDTOViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\CoordinateViewModel.cs" />
+    <Compile Include="ViewModels\DTO\CoordinateViewModel.cs" />
     <Compile Include="ViewModels\TransmitInOrderViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
-    <Compile Include="ViewModels\MessageViewModel.cs" />
+    <Compile Include="ViewModels\DTO\MessageViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\LoginView.xaml.cs">
