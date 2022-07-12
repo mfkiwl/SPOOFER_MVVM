@@ -14,6 +14,7 @@ namespace Spoofer.ViewModels.DTO
         {
             _user = user;
         }
+        public string Id => _user.Id;
         public string Username => _user.UserName;
         public string Permission => _user.Permission;
         public string Password => _user.Password;

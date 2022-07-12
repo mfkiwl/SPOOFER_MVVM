@@ -17,8 +17,12 @@ namespace Spoofer.Commands.MarkersCommands
                 var vm = viewModelBase as MapViewModel;
                 return base.CanExecute(parameter) && !vm.IsTransmitting && !vm.IsLoading;
             }
-            var vmw = viewModelBase as TransmitInOrderViewModel;
-            return base.CanExecute(parameter) && !vmw.IsTransmitting;
+            else if (viewModelBase is TransmitInOrderViewModel)
+            {
+                var vmw = viewModelBase as TransmitInOrderViewModel;
+                return base.CanExecute(parameter) && !vmw.IsTransmitting;
+            }
+            return true;
         }
         public Navigate(IMarkerService service, ViewModelBase baseVM)
         {

@@ -91,7 +91,7 @@ namespace Spoofer
         }
         private UserViewModel createUserViewModel()
         {
-            return new UserViewModel(_userRepo);
+            return new UserViewModel(_userRepo, _tableMarker, _marker);
         }
         
 

@@ -46,7 +46,7 @@ namespace Spoofer.Services.User.Repository
         {
             foreach (var item in entity)
             {
-                var currentEntity = _table.Find((item as IEntityWithId).Id);
+                var currentEntity = _table.Find(((IEntityWithId)item).Id);
                 _context.Entry(currentEntity).CurrentValues.SetValues(item);
             }
         }

@@ -3,7 +3,7 @@
     <Style TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="#77c66e"/>
         <Setter Property="FontFamily" Value="Helvetica"/>
-        <Setter Property="Opacity" Value="0.75"/>
+        <Setter Property="Opacity" Value="1"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="FontSize" Value="19"/>

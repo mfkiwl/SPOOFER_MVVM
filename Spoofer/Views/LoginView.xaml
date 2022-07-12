@@ -80,7 +80,7 @@
                              Width="319"
                              HorizontalContentAlignment="Left"
                              Opacity="0.8"
-                             Padding="32"
+                             Padding="29"
                              Height="88"
                              Margin="773,0,25,0"
                              Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged, FallbackValue=Username}"/>

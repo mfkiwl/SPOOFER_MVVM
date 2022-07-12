@@ -16,7 +16,6 @@ namespace Spoofer.Commands.UserCommands
     {
         private readonly IRepository<Models.User> _repository;
         private readonly IMarkerService _marker;
-        private readonly NavigationService _navigation;
         public NavigateToManagement(IMarkerService marker, IRepository<Models.User> repository)
         {
             _repository = repository;
@@ -29,10 +28,6 @@ namespace Spoofer.Commands.UserCommands
         public override void Execute(object parameter)
         {
             _marker.Navigate();
-        }
-        private UserViewModel createUserViewModel()
-        {
-            return new UserViewModel(_repository);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Spoofer.Views
         }
         private void mapControl_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            e.Handled = true;
+            //e.Handled = true;
             var capturedMouse = e.GetPosition(this);
             var position = mapControl.TranslatePoint(capturedMouse, mapControl);
             lat.Text = position.X.ToString();
