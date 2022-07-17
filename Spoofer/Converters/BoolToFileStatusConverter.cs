@@ -12,9 +12,9 @@ namespace Spoofer.Converters
         {
             if ((bool)value)
             {
-                return new SolidColorBrush(Colors.Green);
+                return (SolidColorBrush)new BrushConverter().ConvertFrom("#ACD1AF");
             }
-            return new SolidColorBrush(Colors.Red);
+            return (SolidColorBrush)new BrushConverter().ConvertFrom("#F47174"); 
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

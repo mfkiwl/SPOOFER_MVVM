@@ -73,7 +73,6 @@ namespace Spoofer
         }
 
 
-
         private MapViewModel createMapViewModel()
         {
             return new MapViewModel(_marker, _spoofer);

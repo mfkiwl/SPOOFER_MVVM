@@ -5,6 +5,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wat="clr-namespace:WPFWaterMarkTextBox;assembly=WPFWaterMarkTextBox"
              xmlns:local="clr-namespace:Spoofer.Views" xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:converters="clr-namespace:Spoofer.Converters" d:DataContext="{d:DesignInstance Type=viewmodels:UserViewModel}"
              mc:Ignorable="d" 
              Height="1080" Width="1920"
@@ -19,7 +20,7 @@
     <Grid>
 
         <Grid.Resources>
-           
+
             <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
                     <ResourceDictionary Source="..\Themes\DataGrid.xaml"/>
@@ -75,12 +76,10 @@
             <Button Background="Transparent" BorderThickness="0" Command="{Binding NavigateToMap}" Margin="0,154,82,822" />
             <iconPacks:PackIconMaterial Kind="FormatListBulleted" Width="97" Foreground="#404040" Background="Transparent" Height="38" Margin="-7,60,0,0"/>
             <Button Margin="0,28,82,950" BorderThickness="0" Command="{Binding NavigateToSequence}"  Background="Transparent"/>
-            <iconPacks:PackIconMaterial Kind="Account" Width="97" Foreground="#404040" Background="Transparent" Height="44" Margin="-5,700,0,0"/>
-            <Button Margin="0,670,84,304" BorderThickness="0" Command="{Binding NavigateToManagement}"  Background="Transparent"/>
         </Grid>
         <Button Grid.Column="2" Height="75" Width="150"  Foreground="BlanchedAlmond"  Panel.ZIndex="11" Grid.Row="1" Content="Remove" Command="{Binding Delete}" VerticalAlignment="Bottom" Margin="290,0,646,76"/>
         <DataGrid
-            x:Name="DATAgRID"
+            x:Name="datagrid"
             IsReadOnly="True"
             AutoGenerateColumns="False"
             BorderThickness="1"
@@ -90,7 +89,7 @@
             IsEnabled="True"
             Grid.Row="1"
             Background="Transparent"
-            ItemsSource="{Binding Users, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" Margin="93,120">
+            ItemsSource="{Binding Users, UpdateSourceTrigger=PropertyChanged}" Margin="93,120,93,176">
 
             <DataGrid.Columns>
 
@@ -111,19 +110,19 @@
                     Binding="{Binding Permission}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <hc:Divider HorizontalAlignment="Left" Height="100" Margin="72,42,0,0" Background="#FF1C7CAF" VerticalAlignment="Top" Width="595" Grid.Column="1" Grid.Row="1"/>
-        <hc:Divider HorizontalAlignment="Left" Height="100" Margin="235,42,0,0" Background="#FF1C7CAF" VerticalAlignment="Top" Width="595" Grid.Column="2" Grid.Row="1"/>
+        <hc:Divider HorizontalAlignment="Left" Height="100" Margin="72,70,0,0" Background="#FF1C7CAF" VerticalAlignment="Top" Width="595" Grid.Column="1" Grid.Row="1"/>
+        <hc:Divider HorizontalAlignment="Left" Height="100" Margin="235,70,0,0" Background="#FF1C7CAF" VerticalAlignment="Top" Width="595" Grid.Column="2" Grid.Row="1"/>
         <hc:DashedBorder Grid.Column="1" CornerRadius="20" Panel.ZIndex="0" Background="Transparent" BorderThickness="3" BorderBrush="#FF1C7CAF" HorizontalAlignment="Left" Height="561" Margin="12,0,0,0" VerticalAlignment="Top" Width="725" Grid.Row="1">
         </hc:DashedBorder>
         <hc:DashedBorder Grid.Column="2" CornerRadius="20" Panel.ZIndex="0" Background="Transparent" BorderThickness="3" BorderBrush="#FF1C7CAF" HorizontalAlignment="Left" Height="561" Margin="74,0,0,0" VerticalAlignment="Top" Width="945" Grid.Row="1">
         </hc:DashedBorder>
-        
-        <hc:TextBox Grid.Column="1" HorizontalAlignment="Left" Background="Ivory"  BorderThickness="2" BorderBrush="Black" Opacity="0.8" Height="40" Margin="130,126,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding UserFormViewModel.Username, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="300"/>
-        <hc:TextBox Grid.Column="1" HorizontalAlignment="Left" Background="Ivory"  BorderThickness="2" BorderBrush="Black" Opacity="0.8" Height="40" Margin="130,226,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding UserFormViewModel.Password, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="300"/>
-        <hc:ComboBox Grid.Column="1" HorizontalAlignment="Left" Background="Ivory"  BorderThickness="2" ItemsSource="{Binding UserFormViewModel.Permission}" SelectedItem="{Binding SelectedPermission}" BorderBrush="Black" Opacity="0.8" Height="40" Margin="130,326,0,0" Grid.Row="1"  Text="--Permission--" VerticalAlignment="Top" Width="300"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Foreground="Red"    Opacity="0.8" Height="40" Margin="200,400,0,0" Grid.Row="1"  Text="{Binding ErrorMessageViewModel.ErrorMessage}" Visibility="{Binding ErrorMessageViewModel.HasError, Converter={StaticResource InverseBooleanToVisibillityConverter}}" VerticalAlignment="Top" Width="300"/>
+        <hc:TextBox x:Name="usrname"   Grid.Column="1" HorizontalAlignment="Left" Background="Ivory"  BorderThickness="2" BorderBrush="Black" Opacity="0.8" Height="40" Margin="216,126,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding UserFormViewModel.Username, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="300"/>
+        <hc:TextBox x:Name="password" Grid.Column="1" HorizontalAlignment="Left" Background="Ivory"  BorderThickness="2" BorderBrush="Black" Opacity="0.8" Height="40" Margin="216,226,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding UserFormViewModel.Password, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="300"/>
+        <hc:ComboBox x:Name="cmb" Grid.Column="1" HorizontalAlignment="Left" Background="Ivory"  BorderThickness="2" ItemsSource="{Binding UserFormViewModel.Permission}" SelectedItem="{Binding SelectedPermission}" BorderBrush="Black" Opacity="0.8" Height="40" Margin="216,326,0,0" Grid.Row="1"  Text="--Permission--" VerticalAlignment="Top" Width="300"/>
+        <TextBlock Grid.Column="1" TextAlignment="Center"
+ HorizontalAlignment="Left" Foreground="Red"    Opacity="0.8" FontSize="18" Height="40" Margin="218,400,0,0" Grid.Row="1"  Text="{Binding ErrorMessageViewModel.ErrorMessage}" Visibility="{Binding ErrorMessageViewModel.HasError, Converter={StaticResource InverseBooleanToVisibillityConverter}}" VerticalAlignment="Top" Width="300"/>
         <Button Grid.Column="1" Height="75" Width="150"  Foreground="BlanchedAlmond"  Panel.ZIndex="11" Grid.Row="1" Command="{Binding AddUser}" Content="Add" VerticalAlignment="Bottom" Margin="295,0,295,76"/>
-        <Button Grid.Column="2" Height="75" Width="150"  Foreground="BlanchedAlmond"  Panel.ZIndex="11" Grid.Row="1" Content="Update" VerticalAlignment="Bottom" Margin="646,0,290,76"/>
+        <Button Grid.Column="2" Height="75" Width="150"  Foreground="BlanchedAlmond" Click="Button_Click"  Panel.ZIndex="11" Grid.Row="1" Content="Update" VerticalAlignment="Bottom" Margin="646,0,290,76"/>
 
     </Grid>
 </UserControl>

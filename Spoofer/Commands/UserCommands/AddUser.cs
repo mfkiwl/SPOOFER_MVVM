@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Spoofer.Commands.UserCommands
 {
-    class AddUser : BaseCommand
+    public class AddUser : BaseCommand
     {
         private readonly IRepository<Models.User> _repository;
         private readonly UserViewModel _userViewModel;
@@ -17,13 +17,20 @@ namespace Spoofer.Commands.UserCommands
         {
             _repository = repository;
             _userViewModel = userViewModel;
+            _userViewModel.PropertyChanged += _userViewModel_PropertyChanged;
         }
-        //public override bool CanExecute(object parameter)
-        //{
-        //    return !String.IsNullOrEmpty(_userViewModel.SelectedPermission) ||
-        //        !String.IsNullOrEmpty(_userViewModel.UserFormViewModel.Username) ||
-        //        !String.IsNullOrEmpty(_userViewModel.UserFormViewModel.Password);
-        //}
+
+        private void _userViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            OnCanExecuteChange();
+        }
+
+        public override bool CanExecute(object parameter)
+        {
+            return !String.IsNullOrEmpty(_userViewModel.SelectedPermission) &&
+                !String.IsNullOrEmpty(_userViewModel.UserFormViewModel.Username) &&
+                !String.IsNullOrEmpty(_userViewModel.UserFormViewModel.Password);
+        }
         public override void Execute(object parameter)
         {
             var user = new Models.User()

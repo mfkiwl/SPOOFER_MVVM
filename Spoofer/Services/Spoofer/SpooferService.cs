@@ -234,7 +234,8 @@ namespace Spoofer.Services.Spoofer
             var anotherList = new List<string>();
             foreach (var item in list)
             {
-                var file = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory).Where(p => p.Contains(item)).SingleOrDefault();
+                var file = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory)
+                                    .SingleOrDefault(p => p.Contains(item));
                 anotherList.Add(file);
             }
 

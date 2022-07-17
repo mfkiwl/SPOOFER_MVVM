@@ -7,7 +7,7 @@
         xmlns:viewmodels="clr-namespace:Spoofer.ViewModels" xmlns:views1="clr-namespace:Spoofer.Views" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         WindowStartupLocation="CenterOwner"
         mc:Ignorable="d"
-        Title="Spoofer" Height="1920" Width="1080"
+        Title="Spoofer" Height="1080" Width="1920"
         Background="Transparent"
         SizeToContent="WidthAndHeight"
         >

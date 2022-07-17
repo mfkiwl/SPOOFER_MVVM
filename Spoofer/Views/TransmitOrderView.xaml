@@ -72,7 +72,7 @@
             <Button Height="104" Background="Transparent" BorderThickness="0" Command="{Binding Navigate}" Margin="0,154,807,822" Grid.ColumnSpan="2" />
             <iconPacks:PackIconMaterial Kind="FormatListBulleted" Width="97" Foreground="#404040" Background="Transparent" Height="38" Margin="-7,60,0,0"/>
             <Button Height="102" Margin="0,28,806,950" BorderThickness="0"  Background="Transparent" Grid.ColumnSpan="2"/>
-            <Button Margin="0,670,807,304" BorderThickness="0" Command="{Binding NavigateToManagement}"  Background="Transparent" Grid.ColumnSpan="2" Visibility="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled, Converter={StaticResource InverseBooleanToVisibillityConverter}}">
+            <Button Margin="0,890,807,84" BorderThickness="0" Command="{Binding NavigateToManagement}"  Background="Transparent" Grid.ColumnSpan="2" Visibility="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled, Converter={StaticResource InverseBooleanToVisibillityConverter}}">
                 <iconPacks:PackIconMaterial Kind="Account" Width="93" Foreground="#404040" Background="Transparent" Height="52" Grid.ColumnSpan="2"/>
 
             </Button>

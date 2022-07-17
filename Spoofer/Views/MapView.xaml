@@ -217,17 +217,17 @@
 
             </Grid>
         </Grid>
-        <Border x:Name="_border" Opacity="0.6 "  BorderBrush="{Binding IsFileCreated, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="540,214,288,808" Width="190" Height="58">
+        <Border x:Name="_border" Opacity="0.8"   BorderBrush="{Binding IsFileCreated, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="540,214,288,808" Width="190" Height="58">
 
             <TextBlock x:Name="_textBlock"  HorizontalAlignment="Center" Foreground="{Binding IsFileCreated, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="{Binding IsFileCreated, Converter={StaticResource BoolToStatusStringConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
 
         </Border>
-        <Border  Opacity="0.8"  BorderBrush="OrangeRed" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="276,214,562,808" Height="58">
+        <Border    BorderBrush="OrangeRed" BorderThickness="3" Grid.Column="1" Grid.Row="0" Visibility="{Binding IsTransmitting, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Margin="276,214,562,808" Height="58">
 
             <TextBlock HorizontalAlignment="Center" Foreground="OrangeRed" Grid.Column="1"  Padding="12" FontWeight="SemiBold"  Grid.Row="0" FontSize="20" TextWrapping="Wrap" Text="TX On..." VerticalAlignment="Top"/>
 
         </Border>
-        <Border x:Name="ping" Opacity="0.6" ToolTip="{Binding IsPinging, Converter={StaticResource BoolToConnectionStatusConverter}}" BorderBrush="{Binding IsPinging, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="3" Grid.Column="1" Grid.Row="0"  Margin="459,214,481,808">
+        <Border x:Name="ping" Opacity="0.8"  ToolTip="{Binding IsPinging, Converter={StaticResource BoolToConnectionStatusConverter}}" BorderBrush="{Binding IsPinging, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsFinishLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="3" Grid.Column="1" Grid.Row="0"  Margin="459,214,481,808">
             <iconPacks:PackIconMaterial Kind="Radio" Foreground="{Binding IsPinging, Converter={StaticResource BoolToFileStatusConverter}, UpdateSourceTrigger=PropertyChanged}" Height="33" Margin="15,9,0,0" Width="35" RenderTransformOrigin="1.088,0.971" />
         </Border>
         <Image x:Name="Spinner" wpfanimated:ImageBehavior.AnimatedSource="/Assets/loader.gif" 
@@ -241,7 +241,7 @@
                        Margin="367,790,365,201" 
                        Width="286"
                        Foreground="Red" 
-                       Opacity="0.6"
+                       Opacity="0.7"
                        FontSize="20"
                        FontWeight="SemiBold" Grid.Column="1"/>
         <Button x:Name="Cancel" Click="Cancel_Click" Grid.Column="1" HorizontalAlignment="Left" Visibility="{Binding HasValue, Converter={StaticResource InverseBooleanToVisibillityConverter}}" BorderThickness="0" Background="Transparent" Margin="558,166,0,0" VerticalAlignment="Top" Width="22" Height="24"/>

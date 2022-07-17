@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Spoofer.ViewModels.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,17 @@ namespace Spoofer.Views
         public UserView()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (datagrid.SelectedItem != null)
+            {
+                var chosenItem = (UserDTOViewModel)datagrid.SelectedItem;
+                usrname.Text = chosenItem.Username;
+                password.Text = chosenItem.Password;
+                cmb.Text = chosenItem.Permission;
+            }
         }
     }
 }

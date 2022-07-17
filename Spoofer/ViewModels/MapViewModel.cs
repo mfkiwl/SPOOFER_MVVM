@@ -27,8 +27,6 @@ namespace Spoofer.ViewModels
             StopTransmit = new Stop(_spoofer, this);
             Navigate = new Navigate(_service, this);
             ErrorMessageViewModel = new MessageViewModel();
-
-
         }
         private bool _isPinging;
 
