@@ -13,11 +13,15 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using Spoofer.Models;
+using Spoofer.Commands.UserCommands;
+using System.Windows;
+using System.ComponentModel;
 
 namespace Spoofer.Services.User
 {
     public class ServiceLogin : ILogin
     {
+        private BackgroundWorker loginWorker;
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly NavigationService _navigation;
         private readonly IRepository<Models.User> _userRepo;
@@ -31,6 +35,7 @@ namespace Spoofer.Services.User
             _coordinatesRepo = coordinateRepo;
             _spoofer = spoofer;
         }
+
         /// <summary>
         /// Login the user, download the updated ephemeris file, and Update all the saved spoofing files 
         /// </summary>
@@ -58,8 +63,10 @@ namespace Spoofer.Services.User
                 model.IsLoading = false;
                 log.Error("Error");
             }
+
             else
             {
+
 
                 var year = DateTime.Now.Year.ToString();
                 var dayOfYear = DateTime.Now.DayOfYear - 1;
@@ -91,17 +98,16 @@ namespace Spoofer.Services.User
                     proccess.StartInfo.RedirectStandardInput = true;
                     proccess.StartInfo.UseShellExecute = false;
                     proccess.StartInfo.CreateNoWindow = false;
-                    proccess.StartInfo.RedirectStandardOutput = false;
                     proccess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
                     proccess.StartInfo.Arguments = $@"x {fileName}";
                     log.Debug(proccess.StartInfo.Arguments);
                     proccess.Start();
                 }
                 Thread.Sleep(300);
-                log.Info($@"Arguments: {proccess.StartInfo.Arguments} ");
+                log.Info($@"Arguments: {proccess.StartInfo.Arguments}");
                 log.Debug("Extracted Successfully");
                 var newFile = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).GetFiles().Where(p => p.Name.Contains($".{year.Substring(2)}n")).OrderBy(o => o.LastWriteTime).FirstOrDefault();
-                if ( _coordinatesRepo.GetAll() != null)
+                if (_coordinatesRepo.GetAll() != null)
                 {
                     foreach (var coordinate in _coordinatesRepo.GetAll())
                     {
@@ -120,11 +126,13 @@ namespace Spoofer.Services.User
                             flags[9] = "-d";
                             flags[10] = "65";
                             var argc = flags.Length;
-                            
                             _spoofer.GenerateIQFile(flags);
                         }
                     }
                 }
+
+
+
                 var user = _userRepo.GetAll().SingleOrDefault(p => p.UserName == model.UserName && p.Password == model.Password);
                 var authUser = user;
                 authUser.IsAuthenticated = true;
@@ -132,6 +140,7 @@ namespace Spoofer.Services.User
                 _userRepo.Save();
                 log.Debug("All Files Is Up To Date");
                 _navigation.Navigate();
+
             }
         }
 

@@ -57,7 +57,7 @@
 
             <StackPanel VerticalAlignment="Center" Height="300" Margin="0,40,0,129" Grid.ColumnSpan="2">
                 <Image Source="/Assets/Phantom.png" Margin="823,0,829,0" />
-                <TextBlock Text="Phantom Spoofer"
+                <TextBlock Text="Phantom Jupiter"
                            FontWeight="SemiBold"
                            FontFamily="Cambria"
                            FontSize="70"
@@ -74,7 +74,7 @@
                              FontWeight="Light"
                              FontSize="27"
                              HorizontalAlignment="Center"
-                             Foreground="#FF1C7CAF"
+                             Foreground="BlanchedAlmond"
                              Background="Transparent"
                              BorderThickness="0"
                              Width="319"
@@ -104,7 +104,7 @@
                              FontSize="27"
                              Padding="32"
                              HorizontalAlignment="Center"
-                             Foreground="#FF1C7CAF"
+                             Foreground="BlanchedAlmond"
                              Background="Transparent"
                              BorderThickness="0"
                              Width="319"

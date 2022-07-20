@@ -23,7 +23,7 @@ namespace Spoofer.ViewModels
         private readonly ISpooferService _spoofer;
         private readonly IMarkerService _service;
         private readonly IMarkerService _serviceToManagement;
-        public TransmitInOrderViewModel(IMarkerService service, IMarkerService serviceToManagement,  ISpooferService spoofer, IRepository<Models.User> repository)
+        public TransmitInOrderViewModel(IMarkerService service, IMarkerService serviceToManagement, ISpooferService spoofer, IRepository<Models.User> repository)
         {
             _service = service;
             _spoofer = spoofer;

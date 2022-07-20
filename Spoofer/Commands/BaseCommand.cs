@@ -54,7 +54,7 @@ namespace Spoofer.Commands.UserCommands
         public static bool PingHost(string ipAddress)
         {
             var pinger = new Ping();
-            var replay = pinger.Send(ipAddress, 10);
+            var replay = pinger.Send(ipAddress, 100);
             bool pingable = replay.Status == IPStatus.Success;
             return pingable;
         }

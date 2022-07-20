@@ -21,7 +21,6 @@ namespace Spoofer.Stores
         {
             CurrentViewModelChanged?.Invoke();
         }
-
         public event Action CurrentViewModelChanged;
     }
 }

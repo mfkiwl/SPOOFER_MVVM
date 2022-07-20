@@ -123,7 +123,7 @@
 
             <TextBox x:Name="lat"
                      Background="Transparent"
-                     Foreground="#FF1C7CAF"
+                     Foreground="BlanchedAlmond"
                      BorderThickness="0"
                      TextAlignment="Center"
                      Opacity="0.7"
@@ -142,7 +142,7 @@
             <iconPacks:PackIconMaterial Kind="Star" Foreground="#FF1C7CAF" Margin="640,38,0,0" Grid.Row="4"/>
             <TextBox x:Name="lon"
                      Background="Transparent"
-                     Foreground="#FF1C7CAF"
+                     Foreground="BlanchedAlmond"
                      BorderThickness="0"
                      Opacity="0.7"
                      TextAlignment="Center"
@@ -161,7 +161,7 @@
             <iconPacks:PackIconMaterial Kind="Star" Foreground="#FF1C7CAF" Margin="640,38,0,0" Grid.Row="2"/>
             <TextBox x:Name="alt"
                      Background="Transparent"
-                     Foreground="#FF1C7CAF"
+                     Foreground="BlanchedAlmond"
                      Opacity="0.7"
                      BorderThickness="0"
                      TextAlignment="Center"
