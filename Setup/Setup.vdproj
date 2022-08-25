@@ -969,6 +969,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1FC02987F6E33B9D463D257470B35ECF"
+        "OwnerKey" = "8:_CE679D4D5B1F4DE0B49BCC2B514EB431"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_213BC26697B26C18026218D04C9D8348"
         "OwnerKey" = "8:_CE679D4D5B1F4DE0B49BCC2B514EB431"
         "MsmSig" = "8:_UNDEFINED"
@@ -5397,6 +5403,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_A97BC85E22C2A73EFD6099C3576EBBCC"
+        "OwnerKey" = "8:_CE679D4D5B1F4DE0B49BCC2B514EB431"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_AA824370CCB3B886766313C06CC155C7"
         "OwnerKey" = "8:_CE679D4D5B1F4DE0B49BCC2B514EB431"
         "MsmSig" = "8:_UNDEFINED"
@@ -6485,6 +6497,12 @@
         {
         "MsmKey" = "8:_BF5ACB6628661B6F9C00BCE3EDBBEE28"
         "OwnerKey" = "8:_C816AC77029749F2131B038FDBAE8980"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BF5ACB6628661B6F9C00BCE3EDBBEE28"
+        "OwnerKey" = "8:_1FC02987F6E33B9D463D257470B35ECF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -8459,6 +8477,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_A15560764F34507632D664130EEC30FB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A97BC85E22C2A73EFD6099C3576EBBCC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -11337,6 +11361,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1FC02987F6E33B9D463D257470B35ECF"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Plugin.Geolocator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_1FC02987F6E33B9D463D257470B35ECF"
+                    {
+                    "Name" = "8:Plugin.Geolocator.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Plugin.Geolocator.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_E8C6B248FBC448C399616A6DBFB123C7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_213BC26697B26C18026218D04C9D8348"
@@ -17541,6 +17596,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A97BC85E22C2A73EFD6099C3576EBBCC"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:WPFWaterMarkTextBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_A97BC85E22C2A73EFD6099C3576EBBCC"
+                    {
+                    "Name" = "8:WPFWaterMarkTextBox.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:WPFWaterMarkTextBox.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_E8C6B248FBC448C399616A6DBFB123C7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AA824370CCB3B886766313C06CC155C7"
             {
             "AssemblyRegister" = "3:1"
@@ -18358,7 +18444,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Spoofer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Spoofer, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_BA18679118064414B640DA8BCCDA75E8"
@@ -18697,7 +18783,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Spoofer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Spoofer, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_C28B4EB0DF9148F6A30547C547242822"
@@ -21691,7 +21777,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Spoofer"
         "ProductCode" = "8:{66BD79C7-A13B-4165-8235-FEE351529EA4}"
-        "PackageCode" = "8:{41E0185F-E98B-485E-850B-2ED76F67E805}"
+        "PackageCode" = "8:{A71E1FAA-EB68-40DA-85EC-F869ED0E418E}"
         "UpgradeCode" = "8:{AC0D2E1A-BBB5-43E4-9BF4-A4CC440B5CA1}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

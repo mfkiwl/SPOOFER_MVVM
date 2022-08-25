@@ -34,6 +34,26 @@ namespace Spoofer.Services.User
             _navigation = navigation;
             _coordinatesRepo = coordinateRepo;
             _spoofer = spoofer;
+            loginWorker = new BackgroundWorker();
+            loginWorker.DoWork += LoginWorker_DoWork;
+            loginWorker.ProgressChanged += LoginWorker_ProgressChanged;
+            loginWorker.RunWorkerCompleted += LoginWorker_RunWorkerCompleted;
+            loginWorker.WorkerReportsProgress = true;
+        }
+
+        private void LoginWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void LoginWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void LoginWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -63,11 +83,8 @@ namespace Spoofer.Services.User
                 model.IsLoading = false;
                 log.Error("Error");
             }
-
             else
             {
-
-
                 var year = DateTime.Now.Year.ToString();
                 var dayOfYear = DateTime.Now.DayOfYear - 1;
                 string remoteUri = $"https://data.unavco.org/archive/gnss/rinex/nav/{year}/{dayOfYear}/";
@@ -143,7 +160,8 @@ namespace Spoofer.Services.User
 
             }
         }
-
     }
+
 }
+
 

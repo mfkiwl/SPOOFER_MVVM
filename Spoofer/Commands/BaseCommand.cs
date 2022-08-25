@@ -38,7 +38,6 @@ namespace Spoofer.Commands.UserCommands
                 var mapIcon = new MapIcon()
                 {
                     Location = geoPoint,
-                    //Image = RandomAccessStreamReference.CreateFromUri(new Uri("C:/Users/max/source/repos/Spoofer/Spoofer/Assets/icon.png")),
                     ZIndex = 0,
                     IsEnabled = true,
                     Title = location.Name
