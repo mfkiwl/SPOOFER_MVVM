@@ -31,7 +31,6 @@ namespace Spoofer.Commands.SpoofingCommands
             {
                 viewModel.ErrorMessageViewModel.ErrorMessage = ex.Message;
                 log.Error(ex.Message);
-                
             }
             catch (Exception ex)
             {

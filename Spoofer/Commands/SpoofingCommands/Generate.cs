@@ -109,7 +109,7 @@ namespace Spoofer.Commands.Spoofing
                 flags[7] = "-o";
                 flags[8] = $"{String.Concat(_mapViewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
                 flags[9] = "-d";
-                flags[10] = "65";
+                flags[10] = "350";
                 return flags;
             }
         }

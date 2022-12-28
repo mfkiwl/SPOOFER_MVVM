@@ -221,7 +221,7 @@ namespace Spoofer.Services.Spoofer
             proccess.StartInfo.CreateNoWindow = true;
             proccess.StartInfo.RedirectStandardOutput = false;
             proccess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
-            proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 0 --repeat --ref external";
+            proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 40 --repeat";
             proccess.Start();
             if (proccess.HasExited)
             {

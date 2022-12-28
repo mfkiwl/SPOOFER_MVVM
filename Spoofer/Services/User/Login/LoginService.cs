@@ -86,7 +86,7 @@ namespace Spoofer.Services.User
             else
             {
                 var year = DateTime.Now.Year.ToString();
-                var dayOfYear = DateTime.Now.DayOfYear - 1;
+                var dayOfYear = DateTime.Now.DayOfYear;
                 string remoteUri = $"https://data.unavco.org/archive/gnss/rinex/nav/{year}/{dayOfYear}/";
                 string fileName = $@"ab11{dayOfYear}0.{year.Substring(2)}n.Z", myStringWebResource = null;
                 var ephFiles = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).GetFiles().Where(p => p.Name.Contains($".{year.Substring(2)}n")).OrderBy(o => o.LastWriteTime);
@@ -104,12 +104,14 @@ namespace Spoofer.Services.User
                     log.Debug("Not updated file deleted Seccesfully");
                     myStringWebResource = remoteUri + fileName;
                     log.Debug(myStringWebResource);
-                    WebClient client = new WebClient();
-                    client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential("oriri123", "Oriri123");
-                    log.Debug(client);
-                    client.Headers.Add(HttpRequestHeader.Cookie, "v~de73b5db86e3962ef8c0c585ceda1a8234ccabe8~VP~1~v11.rlc~1653382430264");
-                    client.DownloadFile(myStringWebResource, fileName);
+                    using (WebClient client = new WebClient())
+                    {
+                        client.UseDefaultCredentials = false;
+                        client.Credentials = new NetworkCredential("oriri123", "Oriri123");
+                        log.Debug(client);
+                        client.Headers.Add(HttpRequestHeader.Cookie, "v~de73b5db86e3962ef8c0c585ceda1a8234ccabe8~VP~1~v11.rlc~1653382430264");
+                        client.DownloadFile(myStringWebResource, fileName);
+                    }
                     log.Debug(AppDomain.CurrentDomain.BaseDirectory);
                     proccess.StartInfo.FileName = "7z.exe";
                     proccess.StartInfo.RedirectStandardInput = true;
