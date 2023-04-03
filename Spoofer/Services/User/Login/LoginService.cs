@@ -16,6 +16,8 @@ using Spoofer.Models;
 using Spoofer.Commands.UserCommands;
 using System.Windows;
 using System.ComponentModel;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Spoofer.Services.User
 {
@@ -60,7 +62,7 @@ namespace Spoofer.Services.User
         /// Login the user, download the updated ephemeris file, and Update all the saved spoofing files 
         /// </summary>
         /// <param name="model"></param>
-        public void OnLogin(LoginViewModel model)
+        public async void OnLogin(LoginViewModel model)
         {
             model.ErrorMessageViewModel.ErrorMessage = "";
             model.IsLoading = true;
@@ -86,9 +88,18 @@ namespace Spoofer.Services.User
             else
             {
                 var year = DateTime.Now.Year.ToString();
-                var dayOfYear = DateTime.Now.DayOfYear;
-                string remoteUri = $"https://data.unavco.org/archive/gnss/rinex/nav/{year}/{dayOfYear}/";
-                string fileName = $@"ab11{dayOfYear}0.{year.Substring(2)}n.Z", myStringWebResource = null;
+                var dayOfYear = DateTime.Now.DayOfYear - 1;
+                string dayOfYearString = dayOfYear.ToString();
+                if (dayOfYear < 10)
+                {
+                    dayOfYearString = $"0{dayOfYear}";
+                }
+                else if (dayOfYear < 100)
+                {
+                    dayOfYearString = $"0{dayOfYear}";
+                }
+                string remoteUri = $"https://data.unavco.org/archive/gnss/rinex/nav/{year}/{dayOfYearString}/";
+                string fileName = $@"ab14{dayOfYearString}0.{year.Substring(2)}n.Z", myStringWebResource = null;
                 var ephFiles = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).GetFiles().Where(p => p.Name.Contains($".{year.Substring(2)}n")).OrderBy(o => o.LastWriteTime);
                 log.Debug(ephFiles);
                 var file = ephFiles.FirstOrDefault();
@@ -104,15 +115,15 @@ namespace Spoofer.Services.User
                     log.Debug("Not updated file deleted Seccesfully");
                     myStringWebResource = remoteUri + fileName;
                     log.Debug(myStringWebResource);
-                    using (WebClient client = new WebClient())
+                    using (HttpClient client = new HttpClient())
                     {
-                        client.UseDefaultCredentials = false;
-                        client.Credentials = new NetworkCredential("oriri123", "Oriri123");
-                        log.Debug(client);
-                        client.Headers.Add(HttpRequestHeader.Cookie, "v~de73b5db86e3962ef8c0c585ceda1a8234ccabe8~VP~1~v11.rlc~1653382430264");
-                        client.DownloadFile(myStringWebResource, fileName);
+
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Im80WDNMM1p0QkN6MmZ5RktMVW9mWiJ9.eyJpc3MiOiJodHRwczovL2xvZ2luLmVhcnRoc2NvcGUub3JnLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTEwMTI4ODEwNjc1NTIyMDMzMTg2IiwiYXVkIjpbImh0dHBzOi8vYWNjb3VudC5lYXJ0aHNjb3BlLm9yZyIsImh0dHBzOi8vZWFydGhzY29wZS1wcm9kLnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2ODA1MDA5OTQsImV4cCI6MTY4MDUyOTc5NCwiYXpwIjoiak14UWJiS1BFc3pXWDBhOTNBR2xCWlo4cm45MTdvY3giLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOltdfQ.Q9oOG0E3OrTWVF2BdRci4chcj4SuP20rzI-6sya_UbhAzNI6Dr17jwmH9ajpPmn_QfZpq7hlSOlHrAbFPTENjaxLIS0wRiCqnkwnj-9nA9zneVPTs5a0G-CrPtyYGZ0gWUHj8gIxtwKHf_I2D-bFTWfoo-2wp9D1Yfj5L-7Gs9Jg6JIYdQJUqNcJzS1D3F8ldF0rXceianNKBruFqHMBx6nBnJMzdo7Ebv86_AdPEGRLicLYdC9aKqcRIb-2O7kIEfR9VUv8Jn1APzZX4nC-qe5fcjgAi2pQTd3vL4QEGanwTHndq5GUyRjB4YAryrd9FRQjYNnEYx0pqN1rgZ_CTQ");
+                        HttpResponseMessage response = await client.GetAsync(myStringWebResource);
+                        response.EnsureSuccessStatusCode();
+                        byte[] fileBytes = await response.Content.ReadAsByteArrayAsync();
+                        File.WriteAllBytes(fileName, fileBytes);
                     }
-                    log.Debug(AppDomain.CurrentDomain.BaseDirectory);
                     proccess.StartInfo.FileName = "7z.exe";
                     proccess.StartInfo.RedirectStandardInput = true;
                     proccess.StartInfo.UseShellExecute = false;
