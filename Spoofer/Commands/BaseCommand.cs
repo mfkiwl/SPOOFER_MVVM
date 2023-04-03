@@ -7,6 +7,8 @@ using System.Net.NetworkInformation;
 using System.Windows.Input;
 using Windows.UI.Xaml.Controls.Maps;
 using MapControl = Microsoft.Toolkit.Wpf.UI.Controls.MapControl;
+using GeoPoint = Windows.Devices.Geolocation.Geopoint;
+using BasicGeoPosition = Windows.Devices.Geolocation.BasicGeoposition;
 
 namespace Spoofer.Commands.UserCommands
 {
@@ -23,18 +25,18 @@ namespace Spoofer.Commands.UserCommands
         {
             CanExecuteChanged?.Invoke(this, new EventArgs());
         }
-        public virtual void onMapUpdated(MapControl mapControl, IMarkerService service)
+        public virtual void OnMapUpdated(MapControl mapControl, IMarkerService service)
         {
             mapControl.MapElements.Clear();
             foreach (var location in service.GetAll())
             {
-                Windows.Devices.Geolocation.BasicGeoposition PinPosition = new Windows.Devices.Geolocation.BasicGeoposition
+                BasicGeoPosition PinPosition = new BasicGeoPosition
                 {
                     Latitude = (double)location.Latitude,
                     Longitude = (double)location.Longitude,
                     Altitude = (double)location.Height
                 };
-                var geoPoint = new Windows.Devices.Geolocation.Geopoint(PinPosition);
+                var geoPoint = new GeoPoint(PinPosition);
                 var mapIcon = new MapIcon()
                 {
                     Location = geoPoint,
@@ -47,7 +49,7 @@ namespace Spoofer.Commands.UserCommands
         }
         public static bool isFileExist(MapViewModel mapViewModel)
         {
-            var path = $@"{AppDomain.CurrentDomain.BaseDirectory}\{String.Concat(mapViewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
+            var path = $@"{AppDomain.CurrentDomain.BaseDirectory}/{String.Concat(mapViewModel.Label.Where(c => !Char.IsWhiteSpace(c)))}.bin";
             return File.Exists(path);
         }
         public static bool PingHost(string ipAddress)

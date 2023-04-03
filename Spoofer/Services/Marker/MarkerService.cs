@@ -20,7 +20,7 @@ namespace Spoofer.Services.Marker
         private readonly IRepository<Coordinates> _coordinateRepo;
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly NavigationService _navigation;
-        private string root = AppDomain.CurrentDomain.BaseDirectory;
+        private readonly string root = AppDomain.CurrentDomain.BaseDirectory;
 
 
         public MarkerService(IRepository<Coordinates> coordinateRepo, NavigationService navigation)

@@ -126,7 +126,7 @@
                 </StackPanel>
 
             </StackPanel>
-            <iconPacks:PackIconMaterial Kind="Login" Height="52" Width="40" Margin="22,258,0,0" Foreground="#77c66e" Opacity="0.75" Grid.Column="1" Grid.Row="1"/>
+            <iconPacks:PackIconMaterial Kind="Login" Height="52" Width="40" Margin="22,258,0,0" Foreground="#006400" Opacity="0.75" Grid.Column="1" Grid.Row="1"/>
             <Image x:Name="Spinner" wpfanimated:ImageBehavior.AnimatedSource="/Assets/loader.gif" 
                wpfanimated:ImageBehavior.RepeatBehavior="1"
                Height="110" Grid.ColumnSpan="2" Margin="480,363,480,138" Visibility="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibillityConverter}}" Grid.Row="1" />

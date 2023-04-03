@@ -1,5 +1,4 @@
 ﻿using log4net;
-using Plugin.Geolocator;
 using Spoofer.Commands.UserCommands;
 using Spoofer.Services.Marker;
 using Spoofer.Services.Navigation;
@@ -44,7 +43,10 @@ namespace Spoofer.Views
             lat.Text = position.X.ToString();
             lon.Text = position.Y.ToString();
         }
-
+        private (bool vakue, string value) MyMethod()
+        {
+            return (true, "True");
+        }
         private async void MapControl_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -116,7 +118,7 @@ namespace Spoofer.Views
 
         private async void MapControl_MapElementClick(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.MapElementClickEventArgs e)
         {
-
+            
             var vm = (MapViewModel)DataContext;
             if (vm.IsFinishLoading && !vm.IsTransmitting)
             {
@@ -132,7 +134,6 @@ namespace Spoofer.Views
                         isIconSigned = true;
                         lat.Text = signedElement.Location.Position.Latitude.ToString();
                         lon.Text = signedElement.Location.Position.Longitude.ToString();
-                        //alt.Text = signedElement.Location.Position.Altitude.ToString();
                         alt.Text = signedElement.Title.Trim();
                         double user = signedElement.Location.Position.Latitude;
                         var realMarker = _markerService.GetAll().SingleOrDefault(p => p.Name.Trim() == signedElement.Title.Trim() &&

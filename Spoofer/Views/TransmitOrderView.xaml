@@ -40,8 +40,8 @@
         <Border CornerRadius="10" Grid.ColumnSpan="2" Opacity="0.98"  Grid.RowSpan="4" Visibility="Visible" Margin="-3,-42,3,0">
             <Border.Background>
                 <LinearGradientBrush>
-                    <GradientStop Color="#232b2b"  Offset="0.0"/>
-                    <GradientStop Color="#232b2b"   Offset="1"/>
+                    <GradientStop Color="LightGray" Offset="0.0"/>
+                    <GradientStop Color="White"  Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
         </Border>

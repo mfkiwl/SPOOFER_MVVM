@@ -24,7 +24,10 @@ namespace Spoofer.Services.Spoofer
         private readonly Process proccess;
         private int counter = 0;
         private readonly IMarkerService _marker;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="marker"></param>
         public SpooferService( IMarkerService marker)
         {
             proccess = new Process();
@@ -80,9 +83,13 @@ namespace Spoofer.Services.Spoofer
                         EXMethods.SpoofingMethods8.main(argc, argv);
                         break;
                 }
+                double number = 7;
+                var num = EXMethods.SpoofingMethods.normVect(ref number);
+                log.Debug(num);
                 counter++;
             }
         }
+       
         /// <summary>
         /// Updating All The Saved Files for the current datetime when initializing
         /// </summary>
@@ -221,10 +228,11 @@ namespace Spoofer.Services.Spoofer
             proccess.StartInfo.CreateNoWindow = true;
             proccess.StartInfo.RedirectStandardOutput = false;
             proccess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
-            proccess.StartInfo.Arguments = $@"--file {String.Concat(viewModel.Where(c => !Char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 40 --repeat";
+            proccess.StartInfo.Arguments = $@"--file {string.Concat(viewModel.Where(c => !char.IsWhiteSpace(c)))}.bin --type short --rate 2500000 --freq 1575420000 --gain 40 --repeat";
             proccess.Start();
             if (proccess.HasExited)
             {
+
                 throw new SDRException();
             }
             Thread.Sleep(5000);

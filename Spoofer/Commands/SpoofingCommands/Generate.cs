@@ -16,7 +16,6 @@ namespace Spoofer.Commands.Spoofing
 {
     public class Generate : BaseCommand
     {
-
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private int Counter = 0;
         private readonly IMarkerService _marker;

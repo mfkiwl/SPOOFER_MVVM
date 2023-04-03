@@ -39,7 +39,7 @@ namespace Spoofer.Commands.MarkersCommand
                 _mapViewModel.ErrorMessageViewModel.Refresh();
                 _service.RemoveMarker(_mapViewModel, false);
                 var map = parameter as MapControl;
-                onMapUpdated(map, _service);
+                OnMapUpdated(map, _service);
                 log.Info($"{_mapViewModel.Label} Removed Succesfully");
             }
             catch (CoordinateNotExistException ex)

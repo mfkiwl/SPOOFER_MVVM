@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Spoofer.Data;
 using Spoofer.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Spoofer.Services.User.Repository
 {
@@ -46,7 +43,7 @@ namespace Spoofer.Services.User.Repository
         {
             foreach (var item in entity)
             {
-                var currentEntity = _table.Find(((IEntityWithId)item).Id);
+                var currentEntity = _table.Find(item.Id);
                 _context.Entry(currentEntity).CurrentValues.SetValues(item);
             }
         }

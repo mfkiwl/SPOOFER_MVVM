@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style TargetType="{x:Type Button}">
-        <Setter Property="Foreground" Value="#77c66e"/>
+        <Setter Property="Foreground" Value="#006400"/>
         <Setter Property="FontFamily" Value="Helvetica"/>
         <Setter Property="Opacity" Value="1"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
@@ -12,8 +12,8 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" CornerRadius="20"
                             BorderThickness="2"
-                            BorderBrush="#77c66e"
-                            Opacity="0.75"
+                            BorderBrush="#006400"
+                            Opacity="1"
                             Padding="0,0,10,0">
                         <ContentPresenter HorizontalAlignment="Center"  VerticalAlignment="Center"/>
                     </Border>

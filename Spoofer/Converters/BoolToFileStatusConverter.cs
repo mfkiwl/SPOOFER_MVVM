@@ -12,7 +12,7 @@ namespace Spoofer.Converters
         {
             if ((bool)value)
             {
-                return (SolidColorBrush)new BrushConverter().ConvertFrom("#ACD1AF");
+                return (SolidColorBrush)new BrushConverter().ConvertFrom("#006400");
             }
             return (SolidColorBrush)new BrushConverter().ConvertFrom("#F47174"); 
         }

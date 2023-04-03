@@ -42,7 +42,7 @@ namespace Spoofer.Commands.MarkersCommand
                 _mapViewModel.ErrorMessageViewModel.Refresh();
                 _service.AddOrUpdateMarker(_mapViewModel, true);
                 var map = parameter as MapControl;
-                onMapUpdated(map, _service);
+                OnMapUpdated(map, _service);
                 log.Info($"New Marker {_mapViewModel.Label} Was Added");
             }
             catch (InvalidCoordinateException ex)

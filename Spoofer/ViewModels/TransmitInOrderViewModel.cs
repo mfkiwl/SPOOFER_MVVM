@@ -6,12 +6,10 @@ using Spoofer.Services.Marker;
 using Spoofer.Services.Spoofer;
 using Spoofer.Services.User;
 using Spoofer.Services.User.Repository;
-using Spoofer.Stores;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -65,7 +63,10 @@ namespace Spoofer.ViewModels
         public int Duration
         {
             get { return duration; }
-            set { duration = value; OnPropertyChanged(nameof(Duration)); }
+            set 
+            { 
+                duration = value; 
+                OnPropertyChanged(nameof(Duration)); }
         }
 
         private bool _isTransmitting;
@@ -127,21 +128,17 @@ namespace Spoofer.ViewModels
 
         public void DragOver(IDropInfo dropInfo)
         {
-
             if (RoleAdministration.IsInRole("Admin", "SuperUser"))
             {
+                
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
                 dropInfo.Effects = DragDropEffects.All;
             }
-
-
         }
         public void DragLeave(IDropInfo dropInfo)
         {
             return;
         }
-
-
         public void Drop(IDropInfo dropInfo)
         {
             if (RoleAdministration.IsInRole("Admin", "SuperUser"))
